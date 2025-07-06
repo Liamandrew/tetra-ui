@@ -4,10 +4,10 @@
   "scripts": {
     "build": "turbo run build",
     "check:format": "npx ultracite format",
+    "check:lint": "npx ultracite lint",
     "check:types": "turbo run check:types",
     "clean": "git clean -xdf node_modules",
-    "dev": "turbo run dev",
-    "lint": "npx ultracite lint"
+    "dev": "turbo run dev"
   },
   "devDependencies": {
     "@biomejs/biome": "2.0.6",
