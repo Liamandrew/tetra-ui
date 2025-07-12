@@ -12,7 +12,7 @@
   "dependencies": {
     "next": "15.3.5",
     "react": "19.0.0",
-    "react-dom": "^19.1.0",
+    "react-dom": "^19.0.0",
     "fumadocs-ui": "15.6.1",
     "fumadocs-core": "15.6.1",
     "fumadocs-mdx": "11.6.10"
@@ -20,7 +20,7 @@
   "devDependencies": {
     "@types/node": "24.0.7",
     "@types/react": "~19.0.10",
-    "@types/react-dom": "^19.1.6",
+    "@types/react-dom": "~19.0.4",
     "typescript": "~5.8.3",
     "@types/mdx": "^2.0.13",
     "@tailwindcss/postcss": "^4.1.11",

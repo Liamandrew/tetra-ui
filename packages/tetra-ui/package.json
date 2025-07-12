@@ -1,0 +1,31 @@
+{
+  "name": "@tetra-ui/native",
+  "version": "0.0.0",
+  "type": "module",
+  "private": true,
+  "exports": {
+    "./components": "./src/components/index.ts",
+    "./utils": "./src/utils/index.ts",
+    "./globals.css": "./src/styles/globals.css",
+    "./tailwind.config": "./src/config/tailwind.config.ts",
+    "./metro-config": "./src/config/metro-config.cjs"
+  },
+  "scripts": {
+    "check:types": "tsc --noEmit"
+  },
+  "dependencies": {
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "nativewind": "4.1.23",
+    "react": "19.0.0",
+    "react-native": "0.79.5",
+    "react-native-reanimated": "~3.17.4",
+    "tailwind-merge": "^3.3.1",
+    "tw-animate-css": "^1.3.5"
+  },
+  "devDependencies": {
+    "@tetra-ui/typescript-config": "workspace:*",
+    "tailwindcss": "^3.4.17",
+    "typescript": "~5.8.3"
+  }
+}
