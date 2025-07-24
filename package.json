@@ -10,11 +10,11 @@
     "dev": "turbo run dev"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.1.1",
+    "@biomejs/biome": "2.1.2",
     "husky": "^9.1.7",
-    "turbo": "^2.5.4",
+    "turbo": "^2.5.5",
     "typescript": "~5.8.3",
-    "ultracite": "5.0.32"
+    "ultracite": "5.0.48"
   },
   "packageManager": "pnpm@10.12.4",
   "engines": {
