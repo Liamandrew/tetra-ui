@@ -1,5 +1,5 @@
+import { Heading } from "@tetra-ui/native/components/heading";
 import { Stack } from "@tetra-ui/native/components/stack";
-import { Text } from "react-native";
 
 type SectionProps = {
   title: string;
@@ -9,7 +9,7 @@ type SectionProps = {
 export const Section = ({ title, children }: SectionProps) => {
   return (
     <Stack gap="sm">
-      <Text className="font-bold text-2xl text-foreground">{title}</Text>
+      <Heading level="4">{title}</Heading>
       {children}
     </Stack>
   );
