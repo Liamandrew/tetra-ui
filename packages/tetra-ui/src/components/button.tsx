@@ -110,7 +110,7 @@ export const buttonVariants = cva(
         secondary:
           "bg-secondary text-secondary-foreground shadow-xs active:bg-secondary/50",
         ghost: "bg-background active:bg-accent/90 dark:active:bg-accent/50",
-        link: "h-auto w-auto p-0 active:bg-accent/90 dark:active:bg-accent/50",
+        link: "h-auto w-auto p-0 active:opacity-50",
       },
     },
     defaultVariants: {

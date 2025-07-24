@@ -73,7 +73,12 @@ export default function ButtonScreen() {
       <Section title="Link">
         {buttonExamples.map(({ label, ...props }) => (
           <View className="h-12" key={label}>
-            <Button key={label} {...props} variant="link">
+            <Button
+              key={label}
+              {...props}
+              className="self-center"
+              variant="link"
+            >
               {label}
             </Button>
           </View>
