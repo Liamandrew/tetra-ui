@@ -1,6 +1,12 @@
 import { cn } from "@tetra-ui/native/lib/utils";
 import { cva, type VariantProps } from "class-variance-authority";
-import { Children, createContext, useContext, useMemo } from "react";
+import {
+  Children,
+  cloneElement,
+  createContext,
+  useContext,
+  useMemo,
+} from "react";
 import { ActivityIndicator, Pressable, Text } from "react-native";
 
 // Types
@@ -8,6 +14,11 @@ type InternalButtonProps = VariantProps<typeof buttonVariants> & {
   busy?: boolean;
   disabled?: boolean;
   children: React.ReactNode;
+};
+
+type ButtonChildProps = {
+  children: React.ReactNode;
+  className?: string;
 };
 
 export type ButtonProps = React.ComponentProps<typeof Pressable> &
@@ -47,8 +58,13 @@ export const Button = ({
       >
         {Children.map(children, (child) => {
           if (typeof child === "string") {
+            if (size === "icon") {
+              // Icon buttons shouldn't render text
+              return null;
+            }
             return <ButtonText>{child}</ButtonText>;
           }
+
           return child;
         })}
         {busy ? <ButtonSpinner /> : null}
@@ -57,24 +73,48 @@ export const Button = ({
   );
 };
 
-const ButtonText = (props: React.PropsWithChildren) => {
+export const ButtonText = (props: ButtonChildProps) => {
   const ctx = useButtonContext();
 
   return (
     <Text
       {...props}
-      className={cn(buttonForegroundVariants(ctx), ctx.busy && "opacity-0")}
+      className={cn(
+        buttonTextVariants(ctx),
+        ctx.busy && "opacity-0",
+        props.className
+      )}
     />
   );
+};
+
+export const ButtonIcon = (props: ButtonChildProps) => {
+  const ctx = useButtonContext();
+
+  const child = Children.only(props.children);
+
+  if (!child) {
+    if (__DEV__) {
+      throw new Error("ButtonIcon expects a single React element as children");
+    }
+    return null;
+  }
+
+  return cloneElement(child as React.ReactElement<ButtonChildProps>, {
+    ...props,
+    className: cn(
+      buttonIconVariants(ctx),
+      ctx.busy && "opacity-0",
+      props.className
+    ),
+  });
 };
 
 const ButtonSpinner = () => {
   const ctx = useButtonContext();
 
   return (
-    <ActivityIndicator
-      className={cn(buttonForegroundVariants(ctx), "absolute")}
-    />
+    <ActivityIndicator className={cn(buttonTextVariants(ctx), "absolute")} />
   );
 };
 
@@ -94,7 +134,7 @@ const useButtonContext = () => {
 
 // Styles
 export const buttonVariants = cva(
-  "flex w-full shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-md font-medium text-sm transition-all",
+  "flex w-full shrink-0 flex-row items-center justify-center gap-2.5 whitespace-nowrap rounded-md font-medium text-sm transition-all",
   {
     variants: {
       size: {
@@ -122,27 +162,47 @@ export const buttonVariants = cva(
   }
 );
 
-export const buttonForegroundVariants = cva(
-  "whitespace-nowrap font-bold text-sm",
-  {
-    variants: {
-      variant: {
-        default: "text-primary-foreground",
-        destructive: "text-white",
-        outline: "text-foreground dark:text-accent-foreground",
-        secondary: "text-secondary-foreground",
-        ghost: "text-accent-foreground",
-        link: "text-primary",
-      },
-      size: {
-        default: "text-xl",
-        sm: "text-sm",
-        icon: "",
-      },
+export const buttonTextVariants = cva("whitespace-nowrap font-bold text-sm", {
+  variants: {
+    variant: {
+      default: "text-primary-foreground",
+      destructive: "text-white",
+      outline: "text-foreground dark:text-accent-foreground",
+      secondary: "text-secondary-foreground",
+      ghost: "text-accent-foreground",
+      link: "text-primary",
     },
-    defaultVariants: {
-      variant: "default",
-      size: "default",
+    size: {
+      default: "text-xl",
+      sm: "text-sm",
+      icon: "",
     },
-  }
-);
+  },
+  defaultVariants: {
+    variant: "default",
+    size: "default",
+  },
+});
+
+export const buttonIconVariants = cva("", {
+  variants: {
+    variant: {
+      default: "{}-[stroke]:color-primary-foreground",
+      destructive: "{}-[stroke]:color-white",
+      outline:
+        "{}-[stroke]:color-foreground dark:{}-[stroke]:color-accent-foreground",
+      secondary: "{}-[stroke]:color-secondary-foreground",
+      ghost: "{}-[stroke]:color-accent-foreground",
+      link: "{}-[stroke]:color-primary",
+    },
+    size: {
+      default: "size-8",
+      sm: "size-6",
+      icon: "size-7",
+    },
+  },
+  defaultVariants: {
+    variant: "default",
+    size: "default",
+  },
+});

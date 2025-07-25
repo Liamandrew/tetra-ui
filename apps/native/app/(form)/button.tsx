@@ -1,28 +1,46 @@
-import { Button, type ButtonProps } from "@tetra-ui/native/components/button";
+import {
+  Button,
+  ButtonIcon,
+  type ButtonProps,
+} from "@tetra-ui/native/components/button";
 import { Heading } from "@tetra-ui/native/components/heading";
+import { ChevronLeft, ChevronRight } from "@tetra-ui/native/components/icons";
 import { ScrollView, View } from "react-native";
 import { Section } from "@/components/section";
 
-const buttonExamples: Partial<ButtonProps & { label: string }>[] = [
+const buttonExamples: ButtonProps[] = [
   {
-    label: "Size Small",
+    id: "icon",
+    children: (
+      <ButtonIcon>
+        <ChevronRight />
+      </ButtonIcon>
+    ),
+    size: "icon",
+  },
+  {
+    id: "size-sm",
+    children: "Size Small",
     size: "sm",
   },
   {
-    label: "Size Default",
+    id: "size-default",
+    children: "Size Default",
     size: "default",
   },
   {
-    label: "Size Default Busy",
+    id: "size-default-busy",
+    children: "Size Default Busy",
     size: "default",
     busy: true,
   },
   {
-    label: "Size Default Disabled",
+    id: "size-default-disabled",
+    children: "Size Default Disabled",
     size: "default",
     disabled: true,
   },
-];
+] as const;
 
 export default function ButtonScreen() {
   return (
@@ -34,58 +52,82 @@ export default function ButtonScreen() {
       <Heading level="1">Button</Heading>
 
       <Section title="Default">
-        {buttonExamples.map(({ label, ...props }) => (
-          <Button key={label} {...props} variant="default">
-            {label}
-          </Button>
+        {buttonExamples.map(({ id, ...props }) => (
+          <Button key={id} {...props} variant="default" />
         ))}
       </Section>
 
       <Section title="Secondary">
-        {buttonExamples.map(({ label, ...props }) => (
-          <Button key={label} {...props} variant="secondary">
-            {label}
-          </Button>
+        {buttonExamples.map(({ id, ...props }) => (
+          <Button key={id} {...props} variant="secondary" />
         ))}
       </Section>
 
       <Section title="Destructive">
-        {buttonExamples.map(({ label, ...props }) => (
-          <Button key={label} {...props} variant="destructive">
-            {label}
-          </Button>
+        {buttonExamples.map(({ id, ...props }) => (
+          <Button key={id} {...props} variant="destructive" />
         ))}
       </Section>
 
       <Section title="Outline">
-        {buttonExamples.map(({ label, ...props }) => (
-          <Button key={label} {...props} variant="outline">
-            {label}
-          </Button>
+        {buttonExamples.map(({ id, ...props }) => (
+          <Button key={id} {...props} variant="outline" />
         ))}
       </Section>
 
       <Section title="Ghost">
-        {buttonExamples.map(({ label, ...props }) => (
-          <Button key={label} {...props} variant="ghost">
-            {label}
-          </Button>
+        {buttonExamples.map(({ id, ...props }) => (
+          <Button key={id} {...props} variant="ghost" />
         ))}
       </Section>
 
       <Section title="Link">
-        {buttonExamples.map(({ label, ...props }) => (
-          <View className="h-12" key={label}>
+        {buttonExamples.map(({ id, ...props }) => (
+          <View className="h-12" key={id}>
             <Button
-              key={label}
+              key={id}
               {...props}
               className="self-center"
               variant="link"
-            >
-              {label}
-            </Button>
+            />
           </View>
         ))}
+      </Section>
+
+      <Section title="With Icons">
+        <Button>
+          <ButtonIcon>
+            <ChevronLeft />
+          </ButtonIcon>
+          Back
+        </Button>
+
+        <Button>
+          Next
+          <ButtonIcon>
+            <ChevronRight />
+          </ButtonIcon>
+        </Button>
+
+        <Button>
+          <ButtonIcon>
+            <ChevronLeft />
+          </ButtonIcon>
+          Multiple Icons
+          <ButtonIcon>
+            <ChevronRight />
+          </ButtonIcon>
+        </Button>
+
+        <Button size="sm">
+          <ButtonIcon>
+            <ChevronLeft />
+          </ButtonIcon>
+          Multiple Icons
+          <ButtonIcon>
+            <ChevronRight />
+          </ButtonIcon>
+        </Button>
       </Section>
     </ScrollView>
   );
