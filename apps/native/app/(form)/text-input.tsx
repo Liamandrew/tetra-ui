@@ -16,15 +16,19 @@ export default function TextInputScreen() {
       <ScreenHeading>TextInput</ScreenHeading>
 
       <Section title="TextInput">
-        <TextInput placeholder="Enter your email" />
+        <TextInput placeholder="Enter your username" />
       </Section>
 
       <Section title="TextInput Disabled">
-        <TextInput disabled placeholder="Enter your email" value="Disabled" />
+        <TextInput
+          disabled
+          placeholder="Enter your username"
+          value="Disabled"
+        />
       </Section>
 
       <Section title="TextInput Invalid">
-        <TextInput invalid placeholder="Enter your email" value="Disabled" />
+        <TextInput invalid placeholder="Enter your username" value="Disabled" />
       </Section>
 
       <ScreenHeading>TextField</ScreenHeading>

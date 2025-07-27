@@ -55,7 +55,7 @@ export const InputPressable = ({
     <Pressable
       accessibilityState={{ disabled }}
       className={cn(
-        "flex min-h-14 w-full grow flex-row items-center gap-1 rounded-md border border-input bg-transparent px-3 py-2 shadow-xs transition-color disabled:opacity-50",
+        "flex min-h-14 w-full grow flex-row items-center gap-1 rounded-md border border-input bg-transparent px-3 py-2 shadow-xs transition-color active:bg-accent/90 disabled:opacity-50 dark:active:bg-accent/50",
         invalid && "border-destructive",
         focused && "border-ring",
         className
