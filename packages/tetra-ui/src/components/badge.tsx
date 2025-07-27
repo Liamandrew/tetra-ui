@@ -82,7 +82,7 @@ const BadgeContext = createContext<InternalBadgeContextType | null>(null);
 const useBadgeContext = () => {
   const context = useContext(BadgeContext);
   if (!context) {
-    throw new Error("useBadgeContext must be used within a BadgeProvider");
+    throw new Error("useBadgeContext must be used within a Badge component");
   }
   return context;
 };
@@ -114,6 +114,9 @@ const badgeTextVariants = cva("whitespace-nowrap font-semibold text-sm", {
       outline: "text-foreground",
     },
   },
+  defaultVariants: {
+    variant: "default",
+  },
 });
 
 const badgeIconVariants = cva("size-4", {
@@ -124,5 +127,8 @@ const badgeIconVariants = cva("size-4", {
       destructive: "{}-[stroke]:color-white",
       outline: "{}-[stroke]:color-foreground",
     },
+  },
+  defaultVariants: {
+    variant: "default",
   },
 });

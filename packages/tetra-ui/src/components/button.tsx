@@ -125,7 +125,7 @@ const ButtonContext = createContext<InternalButtonContextType | null>(null);
 const useButtonContext = () => {
   const context = useContext(ButtonContext);
   if (!context) {
-    throw new Error("useButtonContext must be used within a ButtonProvider");
+    throw new Error("useButtonContext must be used within a Button component");
   }
   return context;
 };
