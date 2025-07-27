@@ -11,6 +11,8 @@ export type TextInputProps = InputProps & {
   onBlur?: () => void;
   disabled?: boolean;
   invalid?: boolean;
+  leftElement?: React.ReactNode;
+  rightElement?: React.ReactNode;
 };
 
 // Components
@@ -19,6 +21,8 @@ export const TextInput = ({
   onBlur,
   disabled,
   invalid,
+  leftElement,
+  rightElement,
   ...props
 }: TextInputProps) => {
   const { isFocused, internalRef, handleFocus, handleBlur, handlePress } =
@@ -31,6 +35,7 @@ export const TextInput = ({
       invalid={invalid}
       onPress={handlePress}
     >
+      {leftElement}
       <Input
         {...props}
         disabled={disabled}
@@ -38,6 +43,7 @@ export const TextInput = ({
         onFocus={handleFocus}
         ref={internalRef}
       />
+      {rightElement}
     </InputPressable>
   );
 };
