@@ -1,14 +1,13 @@
 import { Heading } from "@tetra-ui/native/components/heading";
-import { ScrollView } from "react-native";
+import { ScreenHeading } from "@/components/screen-heading";
+import { ScreenScrollView } from "@/components/screen-scrollview";
 import { Section } from "@/components/section";
 
 export default function Home() {
   return (
-    <ScrollView
-      className="bg-background p-4"
-      contentContainerClassName="flex gap-4"
-      contentInsetAdjustmentBehavior="automatic"
-    >
+    <ScreenScrollView>
+      <ScreenHeading>Typography</ScreenHeading>
+
       <Section title="Heading">
         <Heading level="1">Heading 1</Heading>
         <Heading level="2">Heading 2</Heading>
@@ -17,6 +16,6 @@ export default function Home() {
         <Heading level="5">Heading 5</Heading>
         <Heading level="6">Heading 6</Heading>
       </Section>
-    </ScrollView>
+    </ScreenScrollView>
   );
 }

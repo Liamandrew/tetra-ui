@@ -10,10 +10,9 @@ import {
 import { ActivityIndicator, Pressable, Text } from "react-native";
 
 // Types
-type InternalButtonProps = VariantProps<typeof buttonVariants> & {
+type InternalButtonContextType = VariantProps<typeof buttonVariants> & {
   busy?: boolean;
   disabled?: boolean;
-  children: React.ReactNode;
 };
 
 type ButtonChildProps = {
@@ -22,7 +21,9 @@ type ButtonChildProps = {
 };
 
 export type ButtonProps = React.ComponentProps<typeof Pressable> &
-  InternalButtonProps;
+  InternalButtonContextType & {
+    children: React.ReactNode;
+  };
 
 // Components
 export const Button = ({
@@ -119,10 +120,7 @@ const ButtonSpinner = () => {
 };
 
 // Context
-const ButtonContext = createContext<Omit<
-  InternalButtonProps,
-  "children"
-> | null>(null);
+const ButtonContext = createContext<InternalButtonContextType | null>(null);
 
 const useButtonContext = () => {
   const context = useContext(ButtonContext);
@@ -196,7 +194,7 @@ export const buttonIconVariants = cva("", {
       link: "{}-[stroke]:color-primary",
     },
     size: {
-      default: "size-8",
+      default: "size-7",
       sm: "size-6",
       icon: "size-7",
     },

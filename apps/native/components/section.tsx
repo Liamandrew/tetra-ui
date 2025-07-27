@@ -8,7 +8,7 @@ type SectionProps = {
 
 export const Section = ({ title, children }: SectionProps) => {
   return (
-    <Stack gap="sm">
+    <Stack className="bg-background p-4" gap="sm">
       <Heading level="4">{title}</Heading>
       {children}
     </Stack>

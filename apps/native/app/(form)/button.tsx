@@ -3,9 +3,10 @@ import {
   ButtonIcon,
   type ButtonProps,
 } from "@tetra-ui/native/components/button";
-import { Heading } from "@tetra-ui/native/components/heading";
 import { ChevronLeft, ChevronRight } from "@tetra-ui/native/components/icons";
-import { ScrollView, View } from "react-native";
+import { View } from "react-native";
+import { ScreenHeading } from "@/components/screen-heading";
+import { ScreenScrollView } from "@/components/screen-scrollview";
 import { Section } from "@/components/section";
 
 const buttonExamples: ButtonProps[] = [
@@ -44,12 +45,8 @@ const buttonExamples: ButtonProps[] = [
 
 export default function ButtonScreen() {
   return (
-    <ScrollView
-      className="bg-background p-4"
-      contentContainerClassName="flex gap-4"
-      contentInsetAdjustmentBehavior="automatic"
-    >
-      <Heading level="1">Button</Heading>
+    <ScreenScrollView>
+      <ScreenHeading>Button</ScreenHeading>
 
       <Section title="Default">
         {buttonExamples.map(({ id, ...props }) => (
@@ -129,6 +126,6 @@ export default function ButtonScreen() {
           </ButtonIcon>
         </Button>
       </Section>
-    </ScrollView>
+    </ScreenScrollView>
   );
 }

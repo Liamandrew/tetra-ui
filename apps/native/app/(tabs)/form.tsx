@@ -1,14 +1,10 @@
-import { ScrollView } from "react-native";
 import ComponentLink from "@/components/component-link";
+import { ScreenScrollView } from "@/components/screen-scrollview";
 
 export default function Form() {
   return (
-    <ScrollView
-      className="p-4"
-      contentContainerClassName="flex gap-4"
-      contentInsetAdjustmentBehavior="automatic"
-    >
+    <ScreenScrollView>
       <ComponentLink href="/button">Button</ComponentLink>
-    </ScrollView>
+    </ScreenScrollView>
   );
 }
