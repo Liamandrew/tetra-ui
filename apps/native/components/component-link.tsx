@@ -1,5 +1,5 @@
-import { Button } from "@tetra-ui/native/components/button";
-import { type Href, useRouter } from "expo-router";
+import { Button } from '@tetra-ui/native/components/button';
+import { type Href, useRouter } from 'expo-router';
 
 type ComponentLinkProps = {
   href: Href;

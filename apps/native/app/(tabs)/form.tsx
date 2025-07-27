@@ -1,12 +1,12 @@
-import { ActionInput } from "@tetra-ui/native/components/action-input";
-import { Button } from "@tetra-ui/native/components/button";
-import { Checkbox } from "@tetra-ui/native/components/checkbox";
-import { PasswordInput } from "@tetra-ui/native/components/password-input";
-import { TextInput } from "@tetra-ui/native/components/text-input";
-import { TextareaInput } from "@tetra-ui/native/components/textarea-input";
-import ComponentLink from "@/components/component-link";
-import { ScreenScrollView } from "@/components/screen-scrollview";
-import { Section } from "@/components/section";
+import { ActionInput } from '@tetra-ui/native/components/action-input';
+import { Button } from '@tetra-ui/native/components/button';
+import { Checkbox } from '@tetra-ui/native/components/checkbox';
+import { PasswordInput } from '@tetra-ui/native/components/password-input';
+import { TextInput } from '@tetra-ui/native/components/text-input';
+import { TextareaInput } from '@tetra-ui/native/components/textarea-input';
+import ComponentLink from '@/components/component-link';
+import { ScreenScrollView } from '@/components/screen-scrollview';
+import { Section } from '@/components/section';
 
 export default function Form() {
   return (

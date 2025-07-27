@@ -3,7 +3,7 @@ import {
   InputPressable,
   type InputProps,
   useInputFocusState,
-} from "./input";
+} from './input';
 
 // Types
 export type TextInputProps = InputProps & {

@@ -1,15 +1,15 @@
-import { Checkbox, CheckboxInput } from "@tetra-ui/native/components/checkbox";
+import { Checkbox, CheckboxInput } from '@tetra-ui/native/components/checkbox';
 import {
   Field,
   FieldControl,
   FieldDescription,
   FieldErrorMessage,
   FieldLabel,
-} from "@tetra-ui/native/components/field";
-import { useState } from "react";
-import { ScreenHeading } from "@/components/screen-heading";
-import { ScreenScrollView } from "@/components/screen-scrollview";
-import { Section } from "@/components/section";
+} from '@tetra-ui/native/components/field';
+import { useState } from 'react';
+import { ScreenHeading } from '@/components/screen-heading';
+import { ScreenScrollView } from '@/components/screen-scrollview';
+import { Section } from '@/components/section';
 
 export default function CheckboxScreen() {
   const [checked, setChecked] = useState(false);

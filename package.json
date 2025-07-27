@@ -14,7 +14,7 @@
     "husky": "^9.1.7",
     "turbo": "^2.5.5",
     "typescript": "~5.8.3",
-    "ultracite": "5.0.48"
+    "ultracite": "5.1.1"
   },
   "packageManager": "pnpm@10.12.4",
   "engines": {

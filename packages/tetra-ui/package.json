@@ -22,7 +22,7 @@
     "react-native-reanimated": "~3.17.4",
     "react-native-svg": "15.11.2",
     "tailwind-merge": "^3.3.1",
-    "tw-animate-css": "^1.3.5"
+    "tw-animate-css": "^1.3.6"
   },
   "devDependencies": {
     "@tetra-ui/typescript-config": "workspace:*",

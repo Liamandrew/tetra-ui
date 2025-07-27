@@ -1,11 +1,11 @@
-import { Button } from "@tetra-ui/native/components/button";
-import { useColorScheme } from "nativewind";
+import { Button } from '@tetra-ui/native/components/button';
+import { useColorScheme } from 'nativewind';
 
 export function ThemeToggle() {
   const { colorScheme, setColorScheme } = useColorScheme();
   return (
     <Button
-      onPress={() => setColorScheme(colorScheme === "light" ? "dark" : "light")}
+      onPress={() => setColorScheme(colorScheme === 'light' ? 'dark' : 'light')}
       variant="link"
     >
       {colorScheme}

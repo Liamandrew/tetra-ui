@@ -4,10 +4,10 @@ import {
   createContext,
   useContext,
   useMemo,
-} from "react";
-import { Text, type TextProps, View } from "react-native";
-import { cn } from "../lib/utils";
-import { Label, type LabelProps } from "./label";
+} from 'react';
+import { Text, type TextProps, View } from 'react-native';
+import { cn } from '../lib/utils';
+import { Label, type LabelProps } from './label';
 
 // Types
 type FieldStateProps = {
@@ -54,8 +54,8 @@ export const FieldLabel = ({ className, ...props }: LabelProps) => {
       {...props}
       className={cn(
         {
-          "text-muted-foreground": disabled,
-          "text-destructive": invalid,
+          'text-muted-foreground': disabled,
+          'text-destructive': invalid,
         },
         className
       )}
@@ -70,7 +70,7 @@ export const FieldControl = ({ children }: FieldControlProps) => {
   if (!child) {
     if (__DEV__) {
       throw new Error(
-        "FieldControl expects a single React element as children"
+        'FieldControl expects a single React element as children'
       );
     }
 
@@ -87,7 +87,7 @@ export const FieldDescription = ({ className, ...props }: TextProps) => {
   return (
     <Text
       {...props}
-      className={cn("text-muted-foreground text-sm", className)}
+      className={cn('text-muted-foreground text-sm', className)}
     />
   );
 };
@@ -95,13 +95,13 @@ export const FieldDescription = ({ className, ...props }: TextProps) => {
 export const FieldErrorMessage = ({
   className,
   ...props
-}: Omit<TextProps, "children">) => {
+}: Omit<TextProps, 'children'>) => {
   const { errorMessage } = useFieldContext();
   return (
     <Text
       {...props}
       accessibilityRole="alert"
-      className={cn("font-medium text-destructive text-sm", className)}
+      className={cn('font-medium text-destructive text-sm', className)}
     >
       {errorMessage}
     </Text>
@@ -114,7 +114,7 @@ const FieldContext = createContext<InternalFieldContextType | null>(null);
 const useFieldContext = () => {
   const context = useContext(FieldContext);
   if (!context) {
-    throw new Error("useFieldContext must be used within a Field component");
+    throw new Error('useFieldContext must be used within a Field component');
   }
   return context;
 };

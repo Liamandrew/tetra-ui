@@ -4,11 +4,11 @@ import {
   FieldDescription,
   FieldErrorMessage,
   FieldLabel,
-} from "@tetra-ui/native/components/field";
-import { TextareaInput } from "@tetra-ui/native/components/textarea-input";
-import { ScreenHeading } from "@/components/screen-heading";
-import { ScreenScrollView } from "@/components/screen-scrollview";
-import { Section } from "@/components/section";
+} from '@tetra-ui/native/components/field';
+import { TextareaInput } from '@tetra-ui/native/components/textarea-input';
+import { ScreenHeading } from '@/components/screen-heading';
+import { ScreenScrollView } from '@/components/screen-scrollview';
+import { Section } from '@/components/section';
 
 export default function TextareaInputScreen() {
   return (

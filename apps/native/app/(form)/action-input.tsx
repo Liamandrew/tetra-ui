@@ -1,14 +1,14 @@
-import { ActionInput } from "@tetra-ui/native/components/action-input";
+import { ActionInput } from '@tetra-ui/native/components/action-input';
 import {
   Field,
   FieldControl,
   FieldDescription,
   FieldErrorMessage,
   FieldLabel,
-} from "@tetra-ui/native/components/field";
-import { ScreenHeading } from "@/components/screen-heading";
-import { ScreenScrollView } from "@/components/screen-scrollview";
-import { Section } from "@/components/section";
+} from '@tetra-ui/native/components/field';
+import { ScreenHeading } from '@/components/screen-heading';
+import { ScreenScrollView } from '@/components/screen-scrollview';
+import { Section } from '@/components/section';
 
 export default function ActionInputScreen() {
   return (

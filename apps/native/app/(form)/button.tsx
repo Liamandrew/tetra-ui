@@ -2,43 +2,43 @@ import {
   Button,
   ButtonIcon,
   type ButtonProps,
-} from "@tetra-ui/native/components/button";
-import { ChevronLeft, ChevronRight } from "@tetra-ui/native/components/icons";
-import { View } from "react-native";
-import { ScreenHeading } from "@/components/screen-heading";
-import { ScreenScrollView } from "@/components/screen-scrollview";
-import { Section } from "@/components/section";
+} from '@tetra-ui/native/components/button';
+import { ChevronLeft, ChevronRight } from '@tetra-ui/native/components/icons';
+import { View } from 'react-native';
+import { ScreenHeading } from '@/components/screen-heading';
+import { ScreenScrollView } from '@/components/screen-scrollview';
+import { Section } from '@/components/section';
 
 const buttonExamples: ButtonProps[] = [
   {
-    id: "icon",
+    id: 'icon',
     children: (
       <ButtonIcon>
         <ChevronRight />
       </ButtonIcon>
     ),
-    size: "icon",
+    size: 'icon',
   },
   {
-    id: "size-sm",
-    children: "Size Small",
-    size: "sm",
+    id: 'size-sm',
+    children: 'Size Small',
+    size: 'sm',
   },
   {
-    id: "size-default",
-    children: "Size Default",
-    size: "default",
+    id: 'size-default',
+    children: 'Size Default',
+    size: 'default',
   },
   {
-    id: "size-default-busy",
-    children: "Size Default Busy",
-    size: "default",
+    id: 'size-default-busy',
+    children: 'Size Default Busy',
+    size: 'default',
     busy: true,
   },
   {
-    id: "size-default-disabled",
-    children: "Size Default Disabled",
-    size: "default",
+    id: 'size-default-disabled',
+    children: 'Size Default Disabled',
+    size: 'default',
     disabled: true,
   },
 ] as const;

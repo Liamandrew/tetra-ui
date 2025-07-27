@@ -1,7 +1,7 @@
-import { Badge } from "@tetra-ui/native/components/badge";
-import ComponentLink from "@/components/component-link";
-import { ScreenScrollView } from "@/components/screen-scrollview";
-import { Section } from "@/components/section";
+import { Badge } from '@tetra-ui/native/components/badge';
+import ComponentLink from '@/components/component-link';
+import { ScreenScrollView } from '@/components/screen-scrollview';
+import { Section } from '@/components/section';
 
 export default function DataDisplay() {
   return (

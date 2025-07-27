@@ -3,19 +3,19 @@ import {
   BadgeIcon,
   type BadgeProps,
   BadgeText,
-} from "@tetra-ui/native/components/badge";
-import { BadgeCheck } from "@tetra-ui/native/components/icons";
-import { ScreenHeading } from "@/components/screen-heading";
-import { ScreenScrollView } from "@/components/screen-scrollview";
-import { Section } from "@/components/section";
+} from '@tetra-ui/native/components/badge';
+import { BadgeCheck } from '@tetra-ui/native/components/icons';
+import { ScreenHeading } from '@/components/screen-heading';
+import { ScreenScrollView } from '@/components/screen-scrollview';
+import { Section } from '@/components/section';
 
 const badgeExamples: BadgeProps[] = [
   {
-    id: "base",
-    children: "Badge",
+    id: 'base',
+    children: 'Badge',
   },
   {
-    id: "with-icon",
+    id: 'with-icon',
     children: (
       <>
         <BadgeIcon>

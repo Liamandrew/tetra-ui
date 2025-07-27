@@ -1,7 +1,7 @@
-import { Heading } from "@tetra-ui/native/components/heading";
-import { Label } from "@tetra-ui/native/components/label";
-import { ScreenScrollView } from "@/components/screen-scrollview";
-import { Section } from "@/components/section";
+import { Heading } from '@tetra-ui/native/components/heading';
+import { Label } from '@tetra-ui/native/components/label';
+import { ScreenScrollView } from '@/components/screen-scrollview';
+import { Section } from '@/components/section';
 
 export default function Home() {
   return (
