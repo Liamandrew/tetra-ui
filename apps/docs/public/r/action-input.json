@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "action-input",
+  "type": "registry:ui",
+  "title": "Action Input",
+  "description": "",
+  "registryDependencies": [
+    "action-input"
+  ],
+  "files": [
+    {
+      "path": "../../packages/tetra-ui/src/components/action-input.tsx",
+      "content": "import { Text, View } from 'react-native';\nimport { ChevronRight } from './icons';\nimport { InputPressable, type InputPressableProps } from './input';\n\n// Types\nexport type ActionInputProps = Omit<InputPressableProps, 'focused'> & {\n  leftElement?: React.ReactNode;\n  value?: string;\n  placeholder: string;\n};\n\n// Components\nexport const ActionInput = ({\n  onFocus,\n  onBlur,\n  leftElement,\n  value,\n  placeholder,\n  ...props\n}: ActionInputProps) => {\n  return (\n    <InputPressable {...props}>\n      {leftElement}\n\n      <View className=\"grow\">\n        {value ? (\n          <Text className=\"text-foreground text-md\">{value}</Text>\n        ) : (\n          <Text className=\"text-md text-muted-foreground\">{placeholder}</Text>\n        )}\n      </View>\n\n      <ChevronRight className=\"{}-[stroke]:color-muted-foreground size-7\" />\n    </InputPressable>\n  );\n};\n",
+      "type": "registry:ui"
+    }
+  ]
+}

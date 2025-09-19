@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "text-input",
+  "type": "registry:ui",
+  "title": "TextInput",
+  "description": "",
+  "registryDependencies": [
+    "text-input"
+  ],
+  "files": [
+    {
+      "path": "../../packages/tetra-ui/src/components/text-input.tsx",
+      "content": "import {\n  Input,\n  InputPressable,\n  type InputProps,\n  useInputFocusState,\n} from './input';\n\n// Types\nexport type TextInputProps = InputProps & {\n  onFocus?: () => void;\n  onBlur?: () => void;\n  disabled?: boolean;\n  invalid?: boolean;\n  leftElement?: React.ReactNode;\n  rightElement?: React.ReactNode;\n};\n\n// Components\nexport const TextInput = ({\n  onFocus,\n  onBlur,\n  disabled,\n  invalid,\n  leftElement,\n  rightElement,\n  ...props\n}: TextInputProps) => {\n  const { isFocused, internalRef, handleFocus, handleBlur, handlePress } =\n    useInputFocusState({ onFocus, onBlur });\n\n  return (\n    <InputPressable\n      disabled={disabled}\n      focused={isFocused}\n      invalid={invalid}\n      onPress={handlePress}\n    >\n      {leftElement}\n      <Input\n        {...props}\n        disabled={disabled}\n        onBlur={handleBlur}\n        onFocus={handleFocus}\n        ref={internalRef}\n      />\n      {rightElement}\n    </InputPressable>\n  );\n};\n",
+      "type": "registry:ui"
+    }
+  ]
+}

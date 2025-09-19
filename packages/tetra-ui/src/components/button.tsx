@@ -1,4 +1,3 @@
-import { cn } from '@tetra-ui/native/lib/utils';
 import { cva, type VariantProps } from 'class-variance-authority';
 import {
   Children,
@@ -8,6 +7,7 @@ import {
   useMemo,
 } from 'react';
 import { ActivityIndicator, Pressable, Text } from 'react-native';
+import { cn } from '@/lib/utils';
 
 // Types
 type InternalButtonContextType = VariantProps<typeof buttonVariants> & {

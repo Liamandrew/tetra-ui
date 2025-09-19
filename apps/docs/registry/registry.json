@@ -1,0 +1,165 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "acme",
+  "homepage": "https://tetra-ui.com",
+  "items": [
+    {
+      "name": "action-input",
+      "type": "registry:ui",
+      "title": "Action Input",
+      "description": "",
+      "registryDependencies": ["action-input"],
+      "files": [
+        {
+          "path": "../../packages/tetra-ui/src/components/action-input.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "badge",
+      "type": "registry:ui",
+      "title": "Badge",
+      "description": "",
+      "registryDependencies": ["badge"],
+      "files": [
+        {
+          "path": "../../packages/tetra-ui/src/components/badge.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "button",
+      "type": "registry:ui",
+      "title": "Button",
+      "description": "A component to display a button and allows a user to trigger an action",
+      "registryDependencies": ["button"],
+      "files": [
+        {
+          "path": "../../packages/tetra-ui/src/components/button.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "checkbox",
+      "type": "registry:ui",
+      "title": "Checkbox",
+      "description": "",
+      "registryDependencies": ["checkbox"],
+      "files": [
+        {
+          "path": "../../packages/tetra-ui/src/components/checkbox.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "form",
+      "type": "registry:ui",
+      "title": "Form",
+      "description": "",
+      "registryDependencies": ["form"],
+      "dependencies": ["lodash", "react-hook-form"],
+      "devDependencies": ["@types/lodash"],
+      "files": [
+        {
+          "path": "../../packages/tetra-ui/src/components/form.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "heading",
+      "type": "registry:ui",
+      "title": "Heading",
+      "description": "",
+      "registryDependencies": ["heading"],
+      "files": [
+        {
+          "path": "../../packages/tetra-ui/src/components/heading.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "input",
+      "type": "registry:ui",
+      "title": "Input",
+      "description": "",
+      "registryDependencies": ["input"],
+      "files": [
+        {
+          "path": "../../packages/tetra-ui/src/components/input.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "label",
+      "type": "registry:ui",
+      "title": "Label",
+      "description": "",
+      "registryDependencies": ["label"],
+      "files": [
+        {
+          "path": "../../packages/tetra-ui/src/components/label.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "password-input",
+      "type": "registry:ui",
+      "title": "Password Input",
+      "description": "",
+      "registryDependencies": ["password-input"],
+      "files": [
+        {
+          "path": "../../packages/tetra-ui/src/components/password-input.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "stack",
+      "type": "registry:ui",
+      "title": "Stack",
+      "description": "",
+      "registryDependencies": ["stack"],
+      "files": [
+        {
+          "path": "../../packages/tetra-ui/src/components/stack.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "text-input",
+      "type": "registry:ui",
+      "title": "TextInput",
+      "description": "",
+      "registryDependencies": ["text-input"],
+      "files": [
+        {
+          "path": "../../packages/tetra-ui/src/components/text-input.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "textarea-input",
+      "type": "registry:ui",
+      "title": "Textarea Input",
+      "description": "",
+      "registryDependencies": ["textarea-input"],
+      "files": [
+        {
+          "path": "../../packages/tetra-ui/src/components/textarea-input.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    }
+  ]
+}

@@ -1,4 +1,5 @@
 import type { BaseLayoutProps } from 'fumadocs-ui/layouts/shared';
+import { Logo } from '@/components/logo';
 
 /**
  * Shared layout configurations
@@ -11,11 +12,8 @@ export const baseOptions: BaseLayoutProps = {
   nav: {
     title: (
       <>
-        <svg height="24" width="24" xmlns="http://www.w3.org/2000/svg">
-          <title>Tetra UI Logo</title>
-          <circle cx={12} cy={12} fill="currentColor" r={12} />
-        </svg>
-        Tetra UI
+        <Logo />
+        <span className="font-bold leading-tight tracking-tight">tetra ui</span>
       </>
     ),
   },

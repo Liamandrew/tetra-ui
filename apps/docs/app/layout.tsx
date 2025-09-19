@@ -1,15 +1,13 @@
+import '@repo/shadcn-ui/globals.css';
 import '@/app/global.css';
 import { RootProvider } from 'fumadocs-ui/provider';
-import { Inter } from 'next/font/google';
-import type { ReactNode } from 'react';
+import { Geist } from 'next/font/google';
 
-const inter = Inter({
-  subsets: ['latin'],
-});
+const geist = Geist();
 
-export default function Layout({ children }: { children: ReactNode }) {
+export default function Layout({ children }: React.PropsWithChildren) {
   return (
-    <html className={inter.className} lang="en" suppressHydrationWarning>
+    <html className={geist.className} lang="en" suppressHydrationWarning>
       <body className="flex min-h-screen flex-col">
         <RootProvider>{children}</RootProvider>
       </body>

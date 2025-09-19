@@ -1,0 +1,13 @@
+{
+  "title": "Documentation",
+  "root": true,
+  "pages": [
+    "---Getting Started---",
+    "(getting-started)/index",
+    "(getting-started)/installation",
+    "(getting-started)/monorepo",
+    "(getting-started)/changelog",
+    "---Components---",
+    "...components"
+  ]
+}

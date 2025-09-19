@@ -4,12 +4,21 @@ import {
   frontmatterSchema,
   metaSchema,
 } from 'fumadocs-mdx/config';
+import { z } from 'zod';
 
 // You can customise Zod schemas for frontmatter and `meta.json` here
 // see https://fumadocs.vercel.app/docs/mdx/collections#define-docs
 export const docs = defineDocs({
+  dir: 'content/docs',
   docs: {
-    schema: frontmatterSchema,
+    // @ts-expect-error - TODO: fix this
+    schema: frontmatterSchema.extend({
+      links: z
+        .object({
+          sourceCode: z.string().optional(),
+        })
+        .optional(),
+    }),
   },
   meta: {
     schema: metaSchema,

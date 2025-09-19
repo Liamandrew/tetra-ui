@@ -1,11 +1,11 @@
 {
-  "extends": "@tetra-ui/typescript-config/react-library.json",
+  "extends": "@repo/typescript-config/react-library.json",
   "compilerOptions": {
     "outDir": "dist",
     "rootDir": ".",
     "baseUrl": ".",
     "paths": {
-      "@tetra-ui/native/*": ["./src/*"]
+      "@/*": ["./src/*"]
     }
   },
   "include": ["."],
