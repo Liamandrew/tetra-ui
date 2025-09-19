@@ -1,12 +1,12 @@
-import { useState } from 'react';
-import { Button, ButtonIcon } from './button';
-import { Eye, EyeOff } from './icons';
-import { TextInput, type TextInputProps } from './text-input';
+import { useState } from "react";
+import { Button, ButtonIcon } from "./button";
+import { Eye, EyeOff } from "./icons";
+import { TextInput, type TextInputProps } from "./text-input";
 
 // Types
 export type PasswordInputProps = Omit<
   TextInputProps,
-  'rightElement' | 'secureTextEntry'
+  "rightElement" | "secureTextEntry"
 >;
 
 // Components

@@ -1,9 +1,9 @@
-import { highlight } from 'fumadocs-core/highlight';
+import { highlight } from "fumadocs-core/highlight";
 import {
   CodeBlock as BaseCodeBlock,
   Pre as BasePre,
-} from 'fumadocs-ui/components/codeblock';
-import type { HTMLAttributes } from 'react';
+} from "fumadocs-ui/components/codeblock";
+import type { HTMLAttributes } from "react";
 
 export async function CodeBlock({
   code,

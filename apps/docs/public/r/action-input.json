@@ -4,9 +4,7 @@
   "type": "registry:ui",
   "title": "Action Input",
   "description": "",
-  "registryDependencies": [
-    "action-input"
-  ],
+  "registryDependencies": ["action-input"],
   "files": [
     {
       "path": "../../packages/tetra-ui/src/components/action-input.tsx",

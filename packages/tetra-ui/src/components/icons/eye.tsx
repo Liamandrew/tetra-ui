@@ -1,5 +1,5 @@
-import { Circle, Path } from 'react-native-svg';
-import { StyledSvg } from './styled-icon';
+import { Circle, Path } from "react-native-svg";
+import { StyledSvg } from "./styled-icon";
 
 export const Eye = (props: React.ComponentProps<typeof StyledSvg>) => {
   return (

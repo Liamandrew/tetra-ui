@@ -1,14 +1,14 @@
-'use client';
+"use client";
 
-import { Button } from '@repo/shadcn-ui/components/button';
+import { Button } from "@repo/shadcn-ui/components/button";
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from '@repo/shadcn-ui/components/collapsible';
-import { Separator } from '@repo/shadcn-ui/components/separator';
-import { cn } from '@repo/shadcn-ui/lib/utils';
-import { useState } from 'react';
+} from "@repo/shadcn-ui/components/collapsible";
+import { Separator } from "@repo/shadcn-ui/components/separator";
+import { cn } from "@repo/shadcn-ui/lib/utils";
+import { useState } from "react";
 
 export function CodeCollapsibleWrapper({
   className,
@@ -19,7 +19,7 @@ export function CodeCollapsibleWrapper({
 
   return (
     <Collapsible
-      className={cn('group/collapsible md:-mx-1 relative', className)}
+      className={cn("group/collapsible md:-mx-1 relative", className)}
       onOpenChange={setIsOpened}
       open={isOpened}
       {...props}
@@ -31,7 +31,7 @@ export function CodeCollapsibleWrapper({
             size="sm"
             variant="ghost"
           >
-            {isOpened ? 'Collapse' : 'Expand'}
+            {isOpened ? "Collapse" : "Expand"}
           </Button>
           <Separator className="!h-4 mx-1.5" orientation="vertical" />
         </div>
@@ -43,7 +43,7 @@ export function CodeCollapsibleWrapper({
         {children}
       </CollapsibleContent>
       <CollapsibleTrigger className="-bottom-2 absolute inset-x-0 flex h-20 items-center justify-center rounded-b-lg bg-gradient-to-b from-fd-secondary/70 to-fd-secondary text-muted-foreground text-sm group-data-[state=open]/collapsible:hidden">
-        {isOpened ? 'Collapse' : 'Expand'}
+        {isOpened ? "Collapse" : "Expand"}
       </CollapsibleTrigger>
     </Collapsible>
   );

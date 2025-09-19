@@ -1,5 +1,5 @@
-import { Heading } from '@repo/tetra-ui/components/heading';
-import { Stack } from '@repo/tetra-ui/components/stack';
+import { Heading } from "@repo/tetra-ui/components/heading";
+import { Stack } from "@repo/tetra-ui/components/stack";
 
 type SectionProps = {
   title: string;

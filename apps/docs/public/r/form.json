@@ -4,16 +4,9 @@
   "type": "registry:ui",
   "title": "Form",
   "description": "",
-  "dependencies": [
-    "lodash",
-    "react-hook-form"
-  ],
-  "devDependencies": [
-    "@types/lodash"
-  ],
-  "registryDependencies": [
-    "form"
-  ],
+  "dependencies": ["lodash", "react-hook-form"],
+  "devDependencies": ["@types/lodash"],
+  "registryDependencies": ["form"],
   "files": [
     {
       "path": "../../packages/tetra-ui/src/components/form.tsx",

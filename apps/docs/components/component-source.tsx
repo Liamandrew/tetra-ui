@@ -1,7 +1,7 @@
-import { cn } from '@repo/shadcn-ui/lib/utils';
-import { CodeBlock } from '@/components/code-block';
-import { CodeCollapsibleWrapper } from '@/components/code-collapsible-wrapper';
-import { getRegistryItem } from '@/lib/registry';
+import { cn } from "@repo/shadcn-ui/lib/utils";
+import { CodeBlock } from "@/components/code-block";
+import { CodeCollapsibleWrapper } from "@/components/code-collapsible-wrapper";
+import { getRegistryItem } from "@/lib/registry";
 
 interface ComponentSourceProps extends React.HTMLAttributes<HTMLDivElement> {
   name: string;
@@ -20,7 +20,7 @@ export function ComponentSource({
   const registryItem = getRegistryItem(name);
 
   const code = registryItem?.files?.[0]?.content;
-  const lang = language ?? title?.split('.').pop() ?? 'tsx';
+  const lang = language ?? title?.split(".").pop() ?? "tsx";
 
   if (!code) {
     return null;
@@ -28,7 +28,7 @@ export function ComponentSource({
 
   if (!collapsible) {
     return (
-      <div className={cn('relative', className)}>
+      <div className={cn("relative", className)}>
         <CodeBlock code={code} lang={lang} title={title} />
       </div>
     );

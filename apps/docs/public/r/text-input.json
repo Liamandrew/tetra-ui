@@ -4,9 +4,7 @@
   "type": "registry:ui",
   "title": "TextInput",
   "description": "",
-  "registryDependencies": [
-    "text-input"
-  ],
+  "registryDependencies": ["text-input"],
   "files": [
     {
       "path": "../../packages/tetra-ui/src/components/text-input.tsx",

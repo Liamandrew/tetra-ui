@@ -1,12 +1,12 @@
-import { ThemeToggle } from '@/components/theme-toggle';
-import '@repo/tetra-ui/globals.css';
-import { ThemeProvider } from '@repo/tetra-ui/components/theme';
-import { Stack } from 'expo-router';
-import { configureReanimatedLogger } from 'react-native-reanimated';
+import { ThemeToggle } from "@/components/theme-toggle";
+import "@repo/tetra-ui/globals.css";
+import { ThemeProvider } from "@repo/tetra-ui/components/theme";
+import { Stack } from "expo-router";
+import { configureReanimatedLogger } from "react-native-reanimated";
 
 export const unstable_settings = {
   // Ensure that reloading on `/modal` keeps a back button present.
-  initialRouteName: '(tabs)',
+  initialRouteName: "(tabs)",
 };
 
 export default function RootLayout() {
@@ -15,7 +15,7 @@ export default function RootLayout() {
       <Stack
         screenOptions={{
           headerRight: () => <ThemeToggle />,
-          headerTitle: '',
+          headerTitle: "",
         }}
       >
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />

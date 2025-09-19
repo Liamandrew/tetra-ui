@@ -4,9 +4,7 @@
   "type": "registry:ui",
   "title": "Input",
   "description": "",
-  "registryDependencies": [
-    "input"
-  ],
+  "registryDependencies": ["input"],
   "files": [
     {
       "path": "../../packages/tetra-ui/src/components/input.tsx",

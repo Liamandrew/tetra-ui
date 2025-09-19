@@ -1,7 +1,7 @@
-import { Heading } from '@repo/tetra-ui/components/heading';
-import { Label } from '@repo/tetra-ui/components/label';
-import { ScreenScrollView } from '@/components/screen-scrollview';
-import { Section } from '@/components/section';
+import { Heading } from "@repo/tetra-ui/components/heading";
+import { Label } from "@repo/tetra-ui/components/label";
+import { ScreenScrollView } from "@/components/screen-scrollview";
+import { Section } from "@/components/section";
 
 export default function Home() {
   return (

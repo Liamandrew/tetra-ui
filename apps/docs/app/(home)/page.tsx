@@ -1,5 +1,5 @@
-import { buttonVariants } from '@repo/shadcn-ui/components/button';
-import Link from 'next/link';
+import { buttonVariants } from "@repo/shadcn-ui/components/button";
+import Link from "next/link";
 
 export default function HomePage() {
   return (
@@ -18,7 +18,7 @@ export default function HomePage() {
           Get Started
         </Link>
         <Link
-          className={buttonVariants({ variant: 'ghost' })}
+          className={buttonVariants({ variant: "ghost" })}
           href="/docs/components"
         >
           Browse Components

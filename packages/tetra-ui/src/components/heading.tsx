@@ -1,6 +1,6 @@
-import { cva, type VariantProps } from 'class-variance-authority';
-import { Text } from 'react-native';
-import { cn } from '../lib/utils';
+import { cva, type VariantProps } from "class-variance-authority";
+import { Text } from "react-native";
+import { cn } from "../lib/utils";
 
 // Types
 export type HeadingProps = React.ComponentProps<typeof Text> &
@@ -21,18 +21,18 @@ export const Heading = ({
 };
 
 // Styles
-const headingVariants = cva('font-bold text-foreground tracking-tight', {
+const headingVariants = cva("font-bold text-foreground tracking-tight", {
   variants: {
     level: {
-      '1': 'text-5xl',
-      '2': 'text-4xl',
-      '3': 'text-3xl',
-      '4': 'text-2xl',
-      '5': 'text-xl',
-      '6': 'text-lg',
+      "1": "text-5xl",
+      "2": "text-4xl",
+      "3": "text-3xl",
+      "4": "text-2xl",
+      "5": "text-xl",
+      "6": "text-lg",
     },
   },
   defaultVariants: {
-    level: '1',
+    level: "1",
   },
 });

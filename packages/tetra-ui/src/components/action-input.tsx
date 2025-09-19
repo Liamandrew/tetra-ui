@@ -1,9 +1,9 @@
-import { Text, View } from 'react-native';
-import { ChevronRight } from './icons';
-import { InputPressable, type InputPressableProps } from './input';
+import { Text, View } from "react-native";
+import { ChevronRight } from "./icons";
+import { InputPressable, type InputPressableProps } from "./input";
 
 // Types
-export type ActionInputProps = Omit<InputPressableProps, 'focused'> & {
+export type ActionInputProps = Omit<InputPressableProps, "focused"> & {
   leftElement?: React.ReactNode;
   value?: string;
   placeholder: string;

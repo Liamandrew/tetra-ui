@@ -4,11 +4,11 @@ import {
   FieldDescription,
   FieldErrorMessage,
   FieldLabel,
-} from '@repo/tetra-ui/components/form';
-import { TextInput } from '@repo/tetra-ui/components/text-input';
-import { ScreenHeading } from '@/components/screen-heading';
-import { ScreenScrollView } from '@/components/screen-scrollview';
-import { Section } from '@/components/section';
+} from "@repo/tetra-ui/components/form";
+import { TextInput } from "@repo/tetra-ui/components/text-input";
+import { ScreenHeading } from "@/components/screen-heading";
+import { ScreenScrollView } from "@/components/screen-scrollview";
+import { Section } from "@/components/section";
 
 export default function TextInputScreen() {
   return (

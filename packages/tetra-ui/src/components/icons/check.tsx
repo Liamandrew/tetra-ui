@@ -1,5 +1,5 @@
-import { Path } from 'react-native-svg';
-import { StyledSvg } from './styled-icon';
+import { Path } from "react-native-svg";
+import { StyledSvg } from "./styled-icon";
 
 export const Check = (props: React.ComponentProps<typeof StyledSvg>) => {
   return (

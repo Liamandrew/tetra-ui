@@ -4,9 +4,7 @@
   "type": "registry:ui",
   "title": "Textarea Input",
   "description": "",
-  "registryDependencies": [
-    "textarea-input"
-  ],
+  "registryDependencies": ["textarea-input"],
   "files": [
     {
       "path": "../../packages/tetra-ui/src/components/textarea-input.tsx",

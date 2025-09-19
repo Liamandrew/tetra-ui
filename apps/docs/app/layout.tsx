@@ -1,7 +1,7 @@
-import '@repo/shadcn-ui/globals.css';
-import '@/app/global.css';
-import { RootProvider } from 'fumadocs-ui/provider';
-import { Geist } from 'next/font/google';
+import "@repo/shadcn-ui/globals.css";
+import "@/app/global.css";
+import { RootProvider } from "fumadocs-ui/provider";
+import { Geist } from "next/font/google";
 
 const geist = Geist();
 

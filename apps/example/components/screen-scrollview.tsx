@@ -1,4 +1,4 @@
-import { ScrollView } from 'react-native';
+import { ScrollView } from "react-native";
 
 export const ScreenScrollView = (
   props: React.ComponentProps<typeof ScrollView>

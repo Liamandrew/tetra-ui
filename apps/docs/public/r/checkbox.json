@@ -4,9 +4,7 @@
   "type": "registry:ui",
   "title": "Checkbox",
   "description": "",
-  "registryDependencies": [
-    "checkbox"
-  ],
+  "registryDependencies": ["checkbox"],
   "files": [
     {
       "path": "../../packages/tetra-ui/src/components/checkbox.tsx",

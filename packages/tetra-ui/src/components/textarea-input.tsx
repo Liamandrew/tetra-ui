@@ -1,10 +1,10 @@
-import { cn } from '../lib/utils';
+import { cn } from "../lib/utils";
 import {
   Input,
   InputPressable,
   type InputProps,
   useInputFocusState,
-} from './input';
+} from "./input";
 
 // Types
 export type TextareaInputProps = InputProps & {
@@ -35,12 +35,12 @@ export const TextareaInput = ({
     >
       <Input
         {...props}
-        className={cn('min-h-24', className)}
+        className={cn("min-h-24", className)}
         disabled={disabled}
         multiline
         onBlur={handleBlur}
         onFocus={handleFocus}
-        pointerEvents={isFocused || disabled ? undefined : 'none'}
+        pointerEvents={isFocused || disabled ? undefined : "none"}
         ref={internalRef}
         scrollEnabled={false}
         textAlignVertical="top"

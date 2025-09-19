@@ -1,12 +1,12 @@
-import { Text, View } from 'react-native';
-import { cn } from '../lib/utils';
-import { Check } from './icons';
-import { InputPressable } from './input';
+import { Text, View } from "react-native";
+import { cn } from "../lib/utils";
+import { Check } from "./icons";
+import { InputPressable } from "./input";
 
 // Types
 export type CheckboxProps = Omit<
   React.ComponentProps<typeof View>,
-  'children'
+  "children"
 > & {
   checked?: boolean;
   invalid?: boolean;
@@ -14,7 +14,7 @@ export type CheckboxProps = Omit<
 
 export type CheckboxInputProps = Omit<
   React.ComponentProps<typeof InputPressable>,
-  'children'
+  "children"
 > & {
   checked?: boolean;
   invalid?: boolean;
@@ -32,9 +32,9 @@ export const Checkbox = ({
     <View
       {...props}
       className={cn(
-        'size-6 shrink-0 items-center justify-center rounded-[4px] border border-input bg-transparent shadow-xs dark:bg-input/30',
-        checked && 'border-primary bg-primary dark:bg-primary',
-        invalid && 'border-destructive',
+        "size-6 shrink-0 items-center justify-center rounded-[4px] border border-input bg-transparent shadow-xs dark:bg-input/30",
+        checked && "border-primary bg-primary dark:bg-primary",
+        invalid && "border-destructive",
         className
       )}
     >

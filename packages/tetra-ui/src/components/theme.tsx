@@ -2,9 +2,9 @@ import {
   DarkTheme,
   DefaultTheme,
   ThemeProvider as NavigationThemeProvider,
-} from '@react-navigation/native';
-import { useColorScheme } from 'nativewind';
-import { useMemo } from 'react';
+} from "@react-navigation/native";
+import { useColorScheme } from "nativewind";
+import { useMemo } from "react";
 
 type ThemeProviderProps = {
   children: React.ReactNode;
@@ -20,6 +20,6 @@ const useNavigationTheme = () => {
   const { colorScheme } = useColorScheme();
 
   return useMemo(() => {
-    return colorScheme === 'dark' ? DarkTheme : DefaultTheme;
+    return colorScheme === "dark" ? DarkTheme : DefaultTheme;
   }, [colorScheme]);
 };

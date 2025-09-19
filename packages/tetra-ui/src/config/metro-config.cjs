@@ -1,10 +1,10 @@
-'use strict';
+"use strict";
 
 const withTetraUI = (config) => {
-  const { withNativeWind } = require('nativewind/metro');
+  const { withNativeWind } = require("nativewind/metro");
 
   return withNativeWind(config, {
-    input: '../../packages/tetra-ui/src/styles/globals.css',
+    input: "../../packages/tetra-ui/src/styles/globals.css",
   });
 };
 

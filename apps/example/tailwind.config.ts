@@ -1,1 +1,1 @@
-export { default } from '@repo/tetra-ui/tailwind.config';
+export { default } from "@repo/tetra-ui/tailwind.config";

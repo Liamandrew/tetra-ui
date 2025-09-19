@@ -4,9 +4,7 @@
   "type": "registry:ui",
   "title": "Stack",
   "description": "",
-  "registryDependencies": [
-    "stack"
-  ],
+  "registryDependencies": ["stack"],
   "files": [
     {
       "path": "../../packages/tetra-ui/src/components/stack.tsx",
