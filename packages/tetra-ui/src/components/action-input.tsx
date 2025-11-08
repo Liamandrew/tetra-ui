@@ -24,13 +24,13 @@ export const ActionInput = ({
 
       <View className="grow">
         {value ? (
-          <Text className="text-foreground text-md">{value}</Text>
+          <Text className="text-base text-foreground">{value}</Text>
         ) : (
-          <Text className="text-md text-muted-foreground">{placeholder}</Text>
+          <Text className="text-base text-muted-foreground">{placeholder}</Text>
         )}
       </View>
 
-      <ChevronRight className="{}-[stroke]:color-muted-foreground size-7" />
+      <ChevronRight className="size-6 bg-muted-foreground" />
     </InputPressable>
   );
 };

@@ -132,12 +132,12 @@ const useButtonContext = () => {
 
 // Styles
 export const buttonVariants = cva(
-  "flex w-full shrink-0 flex-row items-center justify-center gap-2.5 whitespace-nowrap rounded-md font-medium text-sm transition-all",
+  "flex w-full shrink-0 flex-row items-center justify-center gap-1 whitespace-nowrap rounded-md font-medium text-sm transition-all",
   {
     variants: {
       size: {
-        default: "h-14 px-4",
-        sm: "h-10 gap-1.5 px-3",
+        default: "h-12 px-4",
+        sm: "h-8 px-3",
         icon: "size-9",
       },
       variant: {
@@ -171,7 +171,7 @@ export const buttonTextVariants = cva("whitespace-nowrap font-bold text-sm", {
       link: "text-primary",
     },
     size: {
-      default: "text-xl",
+      default: "text-lg",
       sm: "text-sm",
       icon: "",
     },
@@ -185,17 +185,16 @@ export const buttonTextVariants = cva("whitespace-nowrap font-bold text-sm", {
 export const buttonIconVariants = cva("", {
   variants: {
     variant: {
-      default: "{}-[stroke]:color-primary-foreground",
-      destructive: "{}-[stroke]:color-white",
-      outline:
-        "{}-[stroke]:color-foreground dark:{}-[stroke]:color-accent-foreground",
-      secondary: "{}-[stroke]:color-secondary-foreground",
-      ghost: "{}-[stroke]:color-accent-foreground",
-      link: "{}-[stroke]:color-primary",
+      default: "bg-primary-foreground",
+      destructive: "bg-white",
+      outline: "bg-foreground dark:bg-accent-foreground",
+      secondary: "bg-secondary-foreground",
+      ghost: "bg-accent-foreground",
+      link: "bg-primary",
     },
     size: {
-      default: "size-7",
-      sm: "size-6",
+      default: "size-6",
+      sm: "size-5",
       icon: "size-7",
     },
   },

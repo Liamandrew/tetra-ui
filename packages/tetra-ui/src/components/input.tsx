@@ -1,9 +1,9 @@
 import { forwardRef, useCallback, useRef, useState } from "react";
 import {
-  type NativeSyntheticEvent,
+  type BlurEvent,
+  type FocusEvent,
   Pressable,
   TextInput as RNTextInput,
-  type TextInputFocusEventData,
 } from "react-native";
 import { cn } from "../lib/utils";
 
@@ -22,8 +22,8 @@ export type InputPressableProps = React.ComponentProps<typeof Pressable> & {
 };
 
 type UseInputFocusStateProps = {
-  onFocus?: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void;
-  onBlur?: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void;
+  onFocus?: (e: FocusEvent) => void;
+  onBlur?: (e: BlurEvent) => void;
 };
 
 // Components
@@ -32,7 +32,7 @@ export const Input = forwardRef<RNTextInput, InputProps>(
     return (
       <RNTextInput
         className={cn(
-          "grow text-foreground text-md placeholder:text-muted-foreground",
+          "grow text-base text-foreground leading-tight placeholder:text-muted-foreground",
           className
         )}
         editable={!disabled}
@@ -55,7 +55,7 @@ export const InputPressable = ({
     <Pressable
       accessibilityState={{ disabled }}
       className={cn(
-        "flex min-h-14 w-full grow flex-row items-center gap-2 rounded-md border border-input bg-transparent px-3 py-2 shadow-xs transition-color active:bg-accent/90 disabled:opacity-50 dark:active:bg-accent/50",
+        "flex min-h-12 w-full grow flex-row items-center gap-2 rounded-md border border-input bg-transparent px-3 py-2 shadow-xs transition-color active:bg-accent/90 disabled:opacity-50 dark:active:bg-accent/50",
         invalid && "border-destructive",
         focused && "border-ring",
         className
@@ -78,7 +78,7 @@ export const useInputFocusState = ({
   const internalRef = useRef<RNTextInput>(null);
 
   const handleFocus = useCallback(
-    (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
+    (e: FocusEvent) => {
       onFocus?.(e);
 
       setIsFocused(true);
@@ -87,7 +87,7 @@ export const useInputFocusState = ({
   );
 
   const handleBlur = useCallback(
-    (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
+    (e: BlurEvent) => {
       onBlur?.(e);
 
       setIsFocused(false);

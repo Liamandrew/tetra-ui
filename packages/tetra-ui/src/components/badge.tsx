@@ -122,10 +122,10 @@ const badgeTextVariants = cva("whitespace-nowrap font-semibold text-sm", {
 const badgeIconVariants = cva("size-4", {
   variants: {
     variant: {
-      default: "{}-[stroke]:color-primary-foreground",
-      secondary: "{}-[stroke]:color-secondary-foreground",
-      destructive: "{}-[stroke]:color-white",
-      outline: "{}-[stroke]:color-foreground",
+      default: "bg-primary-foreground",
+      secondary: "bg-secondary-foreground",
+      destructive: "bg-white",
+      outline: "bg-foreground",
     },
   },
   defaultVariants: {

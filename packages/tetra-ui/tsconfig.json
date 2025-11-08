@@ -8,6 +8,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["."],
+  "include": [".", "uniwind-types.d.ts"],
   "exclude": ["node_modules", "dist"]
 }

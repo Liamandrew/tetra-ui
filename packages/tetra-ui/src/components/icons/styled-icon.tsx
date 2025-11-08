@@ -1,11 +1,17 @@
-import { cssInterop } from "nativewind";
 import Svg from "react-native-svg";
+import { withUniwind } from "uniwind";
 
-cssInterop(Svg, {
-  className: {
-    target: "style",
-    nativeStyleToProp: { width: true, height: true, stroke: true },
+export const StyledSvg = withUniwind(Svg, {
+  stroke: {
+    fromClassName: "className",
+    styleProperty: "backgroundColor",
+  },
+  width: {
+    fromClassName: "className",
+    styleProperty: "width",
+  },
+  height: {
+    fromClassName: "className",
+    styleProperty: "height",
   },
 });
-
-export const StyledSvg = Svg;

@@ -38,9 +38,7 @@ export const Checkbox = ({
         className
       )}
     >
-      {checked && (
-        <Check className="{}-[stroke]:color-primary-foreground size-5" />
-      )}
+      {checked && <Check className="size-5 bg-primary-foreground" />}
     </View>
   );
 };
@@ -55,7 +53,7 @@ export const CheckboxInput = ({
   return (
     <InputPressable {...props} className={cn(className)} invalid={invalid}>
       <Checkbox checked={checked} invalid={invalid} />
-      <Text className="text-md">{children}</Text>
+      <Text className="text-base">{children}</Text>
     </InputPressable>
   );
 };

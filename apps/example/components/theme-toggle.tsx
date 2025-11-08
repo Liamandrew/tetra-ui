@@ -1,14 +1,15 @@
 import { Button } from "@repo/tetra-ui/components/button";
-import { useColorScheme } from "nativewind";
+import { Uniwind, useUniwind } from "uniwind";
 
 export function ThemeToggle() {
-  const { colorScheme, setColorScheme } = useColorScheme();
+  const { theme } = useUniwind();
+
   return (
     <Button
-      onPress={() => setColorScheme(colorScheme === "light" ? "dark" : "light")}
+      onPress={() => Uniwind.setTheme(theme === "light" ? "dark" : "light")}
       variant="link"
     >
-      {colorScheme}
+      {theme}
     </Button>
   );
 }
