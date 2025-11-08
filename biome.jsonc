@@ -1,11 +1,14 @@
 {
-  "$schema": "https://biomejs.dev/schemas/2.2.4/schema.json",
-  "extends": ["ultracite"],
+  "$schema": "https://biomejs.dev/schemas/2.3.4/schema.json",
+  "extends": ["ultracite/core", "ultracite/react", "ultracite/next"],
   "javascript": {
     "globals": ["__DEV__"]
   },
   "linter": {
     "rules": {
+      "nursery": {
+        "useConsistentArrowReturn": "off"
+      },
       "performance": {
         "noBarrelFile": "off",
         "noNamespaceImport": "off"

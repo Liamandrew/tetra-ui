@@ -1,4 +1,4 @@
-import { forwardRef, useCallback, useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import {
   type BlurEvent,
   type FocusEvent,
@@ -27,21 +27,18 @@ type UseInputFocusStateProps = {
 };
 
 // Components
-export const Input = forwardRef<RNTextInput, InputProps>(
-  ({ className, disabled, ...props }, ref) => {
-    return (
-      <RNTextInput
-        className={cn(
-          "grow text-base text-foreground leading-tight placeholder:text-muted-foreground",
-          className
-        )}
-        editable={!disabled}
-        ref={ref}
-        {...props}
-      />
-    );
-  }
-);
+export const Input = ({ className, disabled, ...props }: InputProps) => {
+  return (
+    <RNTextInput
+      className={cn(
+        "grow text-base text-foreground leading-tight placeholder:text-muted-foreground",
+        className
+      )}
+      editable={!disabled}
+      {...props}
+    />
+  );
+};
 
 export const InputPressable = ({
   children,
