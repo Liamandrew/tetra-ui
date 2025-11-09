@@ -4,6 +4,9 @@
   "javascript": {
     "globals": ["__DEV__"]
   },
+  "files": {
+    "includes": ["!apps/docs/public/r/**/*.json"]
+  },
   "linter": {
     "rules": {
       "nursery": {

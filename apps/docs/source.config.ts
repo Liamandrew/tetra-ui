@@ -11,7 +11,6 @@ import { z } from "zod";
 export const docs = defineDocs({
   dir: "content/docs",
   docs: {
-    // @ts-expect-error - TODO: fix this
     schema: frontmatterSchema.extend({
       links: z
         .object({

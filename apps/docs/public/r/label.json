@@ -4,11 +4,13 @@
   "type": "registry:ui",
   "title": "Label",
   "description": "",
-  "registryDependencies": ["label"],
+  "registryDependencies": [
+    "label"
+  ],
   "files": [
     {
       "path": "../../packages/tetra-ui/src/components/label.tsx",
-      "content": "import { Text } from 'react-native';\nimport { cn } from '../lib/utils';\n\n// Types\nexport type LabelProps = React.ComponentProps<typeof Text>;\n\n// Components\nexport const Label = ({ children, className, ...props }: LabelProps) => {\n  return (\n    <Text className={cn('font-semibold text-foreground', className)} {...props}>\n      {children}\n    </Text>\n  );\n};\n",
+      "content": "import { Text } from \"react-native\";\nimport { cn } from \"../lib/utils\";\n\n// Types\nexport type LabelProps = React.ComponentProps<typeof Text>;\n\n// Components\nexport const Label = ({ children, className, ...props }: LabelProps) => {\n  return (\n    <Text className={cn(\"font-semibold text-foreground\", className)} {...props}>\n      {children}\n    </Text>\n  );\n};\n",
       "type": "registry:ui"
     }
   ]

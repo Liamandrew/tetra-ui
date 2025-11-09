@@ -4,11 +4,13 @@
   "type": "registry:ui",
   "title": "Heading",
   "description": "",
-  "registryDependencies": ["heading"],
+  "registryDependencies": [
+    "heading"
+  ],
   "files": [
     {
       "path": "../../packages/tetra-ui/src/components/heading.tsx",
-      "content": "import { cva, type VariantProps } from 'class-variance-authority';\nimport { Text } from 'react-native';\nimport { cn } from '../lib/utils';\n\n// Types\nexport type HeadingProps = React.ComponentProps<typeof Text> &\n  VariantProps<typeof headingVariants>;\n\n// Components\nexport const Heading = ({\n  children,\n  className,\n  level,\n  ...props\n}: HeadingProps) => {\n  return (\n    <Text className={cn(headingVariants({ className, level }))} {...props}>\n      {children}\n    </Text>\n  );\n};\n\n// Styles\nconst headingVariants = cva('font-bold text-foreground tracking-tight', {\n  variants: {\n    level: {\n      '1': 'text-5xl',\n      '2': 'text-4xl',\n      '3': 'text-3xl',\n      '4': 'text-2xl',\n      '5': 'text-xl',\n      '6': 'text-lg',\n    },\n  },\n  defaultVariants: {\n    level: '1',\n  },\n});\n",
+      "content": "import { cva, type VariantProps } from \"class-variance-authority\";\nimport { Text } from \"react-native\";\nimport { cn } from \"../lib/utils\";\n\n// Types\nexport type HeadingProps = React.ComponentProps<typeof Text> &\n  VariantProps<typeof headingVariants>;\n\n// Components\nexport const Heading = ({\n  children,\n  className,\n  level,\n  ...props\n}: HeadingProps) => {\n  return (\n    <Text className={cn(headingVariants({ className, level }))} {...props}>\n      {children}\n    </Text>\n  );\n};\n\n// Styles\nconst headingVariants = cva(\"font-bold text-foreground tracking-tight\", {\n  variants: {\n    level: {\n      \"1\": \"text-4xl\",\n      \"2\": \"text-3xl\",\n      \"3\": \"text-2xl\",\n      \"4\": \"text-xl\",\n      \"5\": \"text-lg\",\n      \"6\": \"text-base\",\n    },\n  },\n  defaultVariants: {\n    level: \"1\",\n  },\n});\n",
       "type": "registry:ui"
     }
   ]

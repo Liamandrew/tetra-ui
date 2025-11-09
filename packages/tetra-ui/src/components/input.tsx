@@ -9,7 +9,7 @@ import { cn } from "../lib/utils";
 
 // Types
 export type InputProps = Omit<
-  React.ComponentProps<typeof RNTextInput>,
+  React.ComponentPropsWithRef<typeof RNTextInput>,
   "editable"
 > & {
   disabled?: boolean;
