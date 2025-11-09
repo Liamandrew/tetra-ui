@@ -21,7 +21,7 @@ const getMemoizedRegistry = () => {
   return registryComponents;
 };
 
-const registry = getMemoizedRegistry();
+export const registry = getMemoizedRegistry();
 
 export const getRegistryItem = (name: string) => {
   return registry[name];

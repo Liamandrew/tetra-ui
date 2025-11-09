@@ -1,0 +1,46 @@
+---
+title: Form
+description: Components and utilities that help you compose forms.
+---
+
+## Installation
+
+<Steps>
+
+<Step>Install the following dependencies:</Step>
+
+```package-install
+npm install lodash react-hook-form
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource name="form" title="components/ui/form.tsx" />
+
+</Steps>
+
+## Usage
+
+```tsx
+import { 
+  Field,
+  FieldControl,
+  FieldDescription,
+  FieldErrorMessage,
+  FieldLabel,
+} from '@/components/ui/form';
+import { TextInput } from '@/components/ui/text-input';
+```
+
+```tsx
+<Field>
+  <FieldLabel>Username</FieldLabel>
+  <FieldControl>
+    <TextInput placeholder="Enter your username" />
+  </FieldControl>
+  <FieldDescription>This is your public display name.</FieldDescription>
+  <FieldErrorMessage />
+</Field>
+```
+
+

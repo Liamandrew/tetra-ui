@@ -13,6 +13,7 @@ export async function CodeBlock({
   code: string;
   lang: string;
 }) {
+  console.log({ code, lang });
   const rendered = await highlight(code, {
     lang,
     components: {

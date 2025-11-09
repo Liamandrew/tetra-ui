@@ -33,16 +33,16 @@ export function CodeCollapsibleWrapper({
           >
             {isOpened ? "Collapse" : "Expand"}
           </Button>
-          <Separator className="!h-4 mx-1.5" orientation="vertical" />
+          <Separator className="mx-1.5 h-4" orientation="vertical" />
         </div>
       </CollapsibleTrigger>
       <CollapsibleContent
-        className="[&>figure]:md:!mx-0 relative mt-6 overflow-hidden data-[state=closed]:max-h-64 [&>figure>div]:max-h-none data-[state=closed]:[&>figure>div]:overflow-hidden [&>figure]:mt-0"
+        className="relative mt-6 overflow-hidden data-[state=closed]:max-h-64 [&>figure>div]:max-h-none data-[state=closed]:[&>figure>div]:overflow-hidden [&>figure]:mt-0 [&>figure]:md:mx-0!"
         forceMount
       >
         {children}
       </CollapsibleContent>
-      <CollapsibleTrigger className="-bottom-2 absolute inset-x-0 flex h-20 items-center justify-center rounded-b-lg bg-gradient-to-b from-fd-secondary/70 to-fd-secondary text-muted-foreground text-sm group-data-[state=open]/collapsible:hidden">
+      <CollapsibleTrigger className="-bottom-2 absolute inset-x-0 flex h-20 items-center justify-center rounded-b-lg bg-linear-to-b from-fd-card/70 to-fd-card text-muted-foreground text-sm group-data-[state=open]/collapsible:hidden">
         {isOpened ? "Collapse" : "Expand"}
       </CollapsibleTrigger>
     </Collapsible>

@@ -5,7 +5,7 @@
     "globals": ["__DEV__"]
   },
   "files": {
-    "includes": ["!apps/docs/public/r/**/*.json"]
+    "includes": ["!apps/docs/public/r/**/*.json", "!**/uniwind-types.d.ts"]
   },
   "linter": {
     "rules": {
