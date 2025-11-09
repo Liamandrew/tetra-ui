@@ -26,7 +26,7 @@ export const PasswordInput = ({
       disabled={disabled}
       rightElement={
         <Button
-          className="size-6"
+          className="size-7"
           disabled={disabled}
           onPress={() => setIsSecureEntry((p) => !p)}
           size="icon"

@@ -5,6 +5,7 @@ import {
   Pressable,
   TextInput as RNTextInput,
 } from "react-native";
+import { useCSSVariable } from "uniwind";
 import { cn } from "../lib/utils";
 
 // Types
@@ -28,13 +29,14 @@ type UseInputFocusStateProps = {
 
 // Components
 export const Input = ({ className, disabled, ...props }: InputProps) => {
+  const placeholderTextColor = useCSSVariable(
+    "--color-muted-foreground"
+  ) as string;
   return (
     <RNTextInput
-      className={cn(
-        "grow text-base text-foreground leading-tight placeholder:text-muted-foreground",
-        className
-      )}
+      className={cn("grow text-base text-foreground leading-tight", className)}
       editable={!disabled}
+      placeholderTextColor={placeholderTextColor}
       {...props}
     />
   );
