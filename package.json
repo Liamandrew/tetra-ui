@@ -10,9 +10,9 @@
     "dev": "turbo run dev"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.3.4",
+    "@biomejs/biome": "2.3.5",
     "husky": "^9.1.7",
-    "turbo": "^2.6.0",
+    "turbo": "^2.6.1",
     "typescript": "~5.8.3",
     "ultracite": "6.3.2"
   },
