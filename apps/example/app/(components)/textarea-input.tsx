@@ -28,11 +28,7 @@ export default function TextareaInputScreen() {
       </Section>
 
       <Section title="TextareaInput Invalid">
-        <TextareaInput
-          invalid
-          placeholder="Enter your email"
-          value="Disabled"
-        />
+        <TextareaInput invalid placeholder="Enter your email" />
       </Section>
 
       <ScreenHeading>TextareaField</ScreenHeading>

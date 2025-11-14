@@ -32,13 +32,13 @@ export const Checkbox = ({
     <View
       {...props}
       className={cn(
-        "size-6 shrink-0 items-center justify-center rounded-[4px] border border-input bg-transparent shadow-xs dark:bg-input/30",
+        "size-6 shrink-0 items-center justify-center rounded-lg border border-input bg-transparent shadow-xs dark:bg-input/30",
         checked && "border-primary bg-primary dark:bg-primary",
         invalid && "border-destructive",
         className
       )}
     >
-      {checked && <Check className="size-5 bg-primary-foreground" />}
+      {checked && <Check className="size-4 bg-primary-foreground" />}
     </View>
   );
 };
@@ -53,7 +53,7 @@ export const CheckboxInput = ({
   return (
     <InputPressable {...props} className={cn(className)} invalid={invalid}>
       <Checkbox checked={checked} invalid={invalid} />
-      <Text className="text-base">{children}</Text>
+      <Text className="text-base text-foreground">{children}</Text>
     </InputPressable>
   );
 };

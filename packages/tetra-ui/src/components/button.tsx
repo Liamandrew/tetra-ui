@@ -132,7 +132,7 @@ const useButtonContext = () => {
 
 // Styles
 export const buttonVariants = cva(
-  "flex w-full shrink-0 flex-row items-center justify-center gap-1 whitespace-nowrap rounded-md font-medium text-sm transition-all",
+  "flex w-full shrink-0 flex-row items-center justify-center gap-1 whitespace-nowrap rounded-lg font-medium text-sm transition-all",
   {
     variants: {
       size: {

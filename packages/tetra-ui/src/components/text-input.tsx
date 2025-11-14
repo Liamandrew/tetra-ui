@@ -1,7 +1,9 @@
 import {
   Input,
+  type InputAddonChildren,
   InputPressable,
   type InputProps,
+  useInputAddons,
   useInputFocusState,
 } from "./input";
 
@@ -11,8 +13,7 @@ export type TextInputProps = InputProps & {
   onBlur?: () => void;
   disabled?: boolean;
   invalid?: boolean;
-  leftElement?: React.ReactNode;
-  rightElement?: React.ReactNode;
+  children?: InputAddonChildren;
 };
 
 // Components
@@ -21,21 +22,25 @@ export const TextInput = ({
   onBlur,
   disabled,
   invalid,
-  leftElement,
-  rightElement,
+  children,
   ...props
 }: TextInputProps) => {
   const { isFocused, internalRef, handleFocus, handleBlur, handlePress } =
     useInputFocusState({ onFocus, onBlur });
 
+  const { startAddons, endAddons, pressableClassName } =
+    useInputAddons(children);
+
   return (
     <InputPressable
+      className={pressableClassName}
       disabled={disabled}
       focused={isFocused}
       invalid={invalid}
       onPress={handlePress}
     >
-      {leftElement}
+      {startAddons}
+
       <Input
         {...props}
         disabled={disabled}
@@ -43,7 +48,8 @@ export const TextInput = ({
         onFocus={handleFocus}
         ref={internalRef}
       />
-      {rightElement}
+
+      {endAddons}
     </InputPressable>
   );
 };

@@ -5,7 +5,10 @@ import {
   FieldErrorMessage,
   FieldLabel,
 } from "@repo/tetra-ui/components/form";
+import { BadgeCheck, Search } from "@repo/tetra-ui/components/icons";
+import { InputAddon, InputAddonIcon } from "@repo/tetra-ui/components/input";
 import { TextInput } from "@repo/tetra-ui/components/text-input";
+import { Text } from "react-native";
 import { ScreenHeading } from "@/components/screen-heading";
 import { ScreenScrollView } from "@/components/screen-scrollview";
 import { Section } from "@/components/section";
@@ -17,6 +20,25 @@ export default function TextInputScreen() {
 
       <Section title="TextInput">
         <TextInput placeholder="Enter your username" />
+
+        <TextInput placeholder="Enter your username">
+          <InputAddon>
+            <InputAddonIcon>
+              <BadgeCheck />
+            </InputAddonIcon>
+          </InputAddon>
+        </TextInput>
+
+        <TextInput placeholder="Search...">
+          <InputAddon align="inline-start">
+            <InputAddonIcon>
+              <Search />
+            </InputAddonIcon>
+          </InputAddon>
+          <InputAddon align="inline-end">
+            <Text className="text-base text-muted-foreground">12 results</Text>
+          </InputAddon>
+        </TextInput>
       </Section>
 
       <Section title="TextInput Disabled">
@@ -25,10 +47,23 @@ export default function TextInputScreen() {
           placeholder="Enter your username"
           value="Disabled"
         />
+        <TextInput disabled placeholder="Enter your username">
+          <InputAddon>
+            <InputAddonIcon>
+              <BadgeCheck />
+            </InputAddonIcon>
+          </InputAddon>
+        </TextInput>
       </Section>
 
       <Section title="TextInput Invalid">
-        <TextInput invalid placeholder="Enter your username" value="Disabled" />
+        <TextInput invalid placeholder="Enter your username">
+          <InputAddon>
+            <InputAddonIcon>
+              <BadgeCheck />
+            </InputAddonIcon>
+          </InputAddon>
+        </TextInput>
       </Section>
 
       <ScreenHeading>TextField</ScreenHeading>
@@ -37,7 +72,13 @@ export default function TextInputScreen() {
         <Field>
           <FieldLabel>Username</FieldLabel>
           <FieldControl>
-            <TextInput placeholder="Enter your username" />
+            <TextInput placeholder="Enter your username">
+              <InputAddon>
+                <InputAddonIcon>
+                  <BadgeCheck />
+                </InputAddonIcon>
+              </InputAddon>
+            </TextInput>
           </FieldControl>
           <FieldDescription>This is your public display name.</FieldDescription>
           <FieldErrorMessage />
@@ -48,7 +89,13 @@ export default function TextInputScreen() {
         <Field disabled>
           <FieldLabel>Username</FieldLabel>
           <FieldControl>
-            <TextInput placeholder="Enter your username" />
+            <TextInput placeholder="Enter your username">
+              <InputAddon>
+                <InputAddonIcon>
+                  <BadgeCheck />
+                </InputAddonIcon>
+              </InputAddon>
+            </TextInput>
           </FieldControl>
           <FieldDescription>This is your public display name.</FieldDescription>
           <FieldErrorMessage />
@@ -59,7 +106,13 @@ export default function TextInputScreen() {
         <Field errorMessage="This is an error message" invalid>
           <FieldLabel>Username</FieldLabel>
           <FieldControl>
-            <TextInput placeholder="Enter your username" />
+            <TextInput placeholder="Enter your username">
+              <InputAddon>
+                <InputAddonIcon>
+                  <BadgeCheck />
+                </InputAddonIcon>
+              </InputAddon>
+            </TextInput>
           </FieldControl>
           <FieldDescription>This is your public display name.</FieldDescription>
           <FieldErrorMessage />

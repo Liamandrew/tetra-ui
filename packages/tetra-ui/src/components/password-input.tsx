@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Button, ButtonIcon } from "./button";
 import { Eye, EyeOff } from "./icons";
+import { InputAddon } from "./input";
 import { TextInput, type TextInputProps } from "./text-input";
 
 // Types
@@ -21,10 +22,8 @@ export const PasswordInput = ({
   const Icon = isSecureEntry ? EyeOff : Eye;
 
   return (
-    <TextInput
-      {...props}
-      disabled={disabled}
-      rightElement={
+    <TextInput {...props} disabled={disabled} secureTextEntry={isSecureEntry}>
+      <InputAddon align="inline-end">
         <Button
           className="size-7"
           disabled={disabled}
@@ -36,8 +35,7 @@ export const PasswordInput = ({
             <Icon />
           </ButtonIcon>
         </Button>
-      }
-      secureTextEntry={isSecureEntry}
-    />
+      </InputAddon>
+    </TextInput>
   );
 };

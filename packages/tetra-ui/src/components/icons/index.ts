@@ -4,3 +4,6 @@ export * from "./chevron-left";
 export * from "./chevron-right";
 export * from "./eye";
 export * from "./eye-off";
+export * from "./moon";
+export * from "./search";
+export * from "./sun";
