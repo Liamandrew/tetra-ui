@@ -3,9 +3,9 @@ import Link from "next/link";
 
 export default function HomePage() {
   return (
-    <main className="flex flex-1 flex-col items-center justify-center gap-4 text-center">
+    <main className="container mx-auto flex flex-1 flex-col items-center justify-center gap-4 text-center">
       <div className="flex flex-col items-center justify-center gap-2.5">
-        <h1 className="font-bold text-4xl leading-tight tracking-tight">
+        <h1 className="text-balance font-bold text-4xl leading-tight tracking-tight">
           Delightful Components for React Native
         </h1>
         <p className="max-w-4xl text-balance text-muted-foreground">
