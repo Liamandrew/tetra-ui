@@ -4,9 +4,7 @@
   "type": "registry:ui",
   "title": "Button",
   "description": "A component to display a button and allows a user to trigger an action",
-  "registryDependencies": [
-    "button"
-  ],
+  "registryDependencies": [],
   "files": [
     {
       "path": "../../packages/tetra-ui/src/components/button.tsx",

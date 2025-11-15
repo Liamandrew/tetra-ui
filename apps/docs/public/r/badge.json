@@ -4,9 +4,7 @@
   "type": "registry:ui",
   "title": "Badge",
   "description": "",
-  "registryDependencies": [
-    "badge"
-  ],
+  "registryDependencies": [],
   "files": [
     {
       "path": "../../packages/tetra-ui/src/components/badge.tsx",

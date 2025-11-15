@@ -5,7 +5,7 @@
   "title": "Action Input",
   "description": "",
   "registryDependencies": [
-    "action-input"
+    "icons"
   ],
   "files": [
     {

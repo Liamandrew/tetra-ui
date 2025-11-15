@@ -1,0 +1,77 @@
+---
+title: Icons
+description: Displays icons.
+---
+
+tetra-ui doesn't provide a full icon set, so you have the flexibility to use your favourite SVG icon library.
+
+The approach we recommend is to create a styled SVG component with the help of the [withUniwind](https://docs.uniwind.dev/api/with-uniwind) function that you can use throughout your application.
+
+## Installation
+
+<Steps>
+
+<Step>Install the following dependencies:</Step>
+
+```package-install
+npm install react-native-svg
+```
+
+<Step>Create a styled SVG component</Step>
+
+```tsx
+import Svg from "react-native-svg";
+import { withUniwind } from "uniwind";
+
+export const StyledSvg = withUniwind(Svg, {
+  stroke: {
+    fromClassName: "className",
+    styleProperty: "backgroundColor",
+  },
+  width: {
+    fromClassName: "className",
+    styleProperty: "width",
+  },
+  height: {
+    fromClassName: "className",
+    styleProperty: "height",
+  },
+});
+```
+
+<Step>Convert your favourite SVG icon library to a React Native SVG component</Step>
+
+```tsx
+import { Circle, Path } from "react-native-svg";
+import { StyledSvg } from "./styled-icon";
+
+export const Search = (props: React.ComponentProps<typeof StyledSvg>) => {
+  return (
+    <StyledSvg
+      {...props}
+      fill="none"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="2"
+      viewBox="0 0 24 24"
+    >
+      <Path d="m21 21-4.34-4.34" />
+      <Circle cx="11" cy="11" r="8" />
+    </StyledSvg>
+  );
+};
+```
+
+</Steps>
+
+## Usage
+
+```tsx
+import { Search } from "@repo/tetra-ui/components/icons";
+```
+
+```tsx
+<BadgeCheck />
+```
+
+

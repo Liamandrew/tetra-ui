@@ -4,9 +4,7 @@
   "type": "registry:ui",
   "title": "Label",
   "description": "",
-  "registryDependencies": [
-    "label"
-  ],
+  "registryDependencies": [],
   "files": [
     {
       "path": "../../packages/tetra-ui/src/components/label.tsx",

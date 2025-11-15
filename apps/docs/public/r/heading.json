@@ -4,9 +4,7 @@
   "type": "registry:ui",
   "title": "Heading",
   "description": "",
-  "registryDependencies": [
-    "heading"
-  ],
+  "registryDependencies": [],
   "files": [
     {
       "path": "../../packages/tetra-ui/src/components/heading.tsx",

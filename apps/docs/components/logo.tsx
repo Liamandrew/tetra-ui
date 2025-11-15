@@ -7,7 +7,7 @@ export const Logo = () => {
       width="24"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <title>Tetra UI Logo</title>
+      <title>tetra-ui Logo</title>
       <path d="M17.8182 13.9394H21.697V17.8182H17.8182V13.9394Z" />
       <path d="M13.9394 10.0606H17.8182V13.9394H13.9394V10.0606Z" />
       <path d="M10.0606 6.18182H13.9394V10.0606H10.0606V6.18182Z" />

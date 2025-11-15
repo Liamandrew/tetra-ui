@@ -1,6 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry.json",
-  "name": "acme",
+  "name": "tetra-ui",
   "homepage": "https://tetra-ui.com",
   "items": [
     {
@@ -8,7 +8,7 @@
       "type": "registry:ui",
       "title": "Action Input",
       "description": "",
-      "registryDependencies": ["action-input"],
+      "registryDependencies": ["icons"],
       "files": [
         {
           "path": "../../packages/tetra-ui/src/components/action-input.tsx",
@@ -21,7 +21,7 @@
       "type": "registry:ui",
       "title": "Badge",
       "description": "",
-      "registryDependencies": ["badge"],
+      "registryDependencies": [],
       "files": [
         {
           "path": "../../packages/tetra-ui/src/components/badge.tsx",
@@ -34,7 +34,7 @@
       "type": "registry:ui",
       "title": "Button",
       "description": "A component to display a button and allows a user to trigger an action",
-      "registryDependencies": ["button"],
+      "registryDependencies": [],
       "files": [
         {
           "path": "../../packages/tetra-ui/src/components/button.tsx",
@@ -47,7 +47,7 @@
       "type": "registry:ui",
       "title": "Checkbox",
       "description": "",
-      "registryDependencies": ["checkbox"],
+      "registryDependencies": ["icons"],
       "files": [
         {
           "path": "../../packages/tetra-ui/src/components/checkbox.tsx",
@@ -60,7 +60,7 @@
       "type": "registry:ui",
       "title": "Form",
       "description": "",
-      "registryDependencies": ["form"],
+      "registryDependencies": [],
       "dependencies": ["lodash", "react-hook-form"],
       "devDependencies": ["@types/lodash"],
       "files": [
@@ -75,10 +75,64 @@
       "type": "registry:ui",
       "title": "Heading",
       "description": "",
-      "registryDependencies": ["heading"],
+      "registryDependencies": [],
       "files": [
         {
           "path": "../../packages/tetra-ui/src/components/heading.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "icons",
+      "type": "registry:ui",
+      "title": "Icons",
+      "description": "",
+      "dependencies": ["react-native-svg"],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "../../packages/tetra-ui/src/components/icons/index.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "../../packages/tetra-ui/src/components/icons/styled-icon.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "../../packages/tetra-ui/src/components/icons/badge-check.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "../../packages/tetra-ui/src/components/icons/check.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "../../packages/tetra-ui/src/components/icons/chevron-left.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "../../packages/tetra-ui/src/components/icons/chevron-right.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "../../packages/tetra-ui/src/components/icons/eye.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "../../packages/tetra-ui/src/components/icons/eye-off.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "../../packages/tetra-ui/src/components/icons/moon.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "../../packages/tetra-ui/src/components/icons/search.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "../../packages/tetra-ui/src/components/icons/sun.tsx",
           "type": "registry:ui"
         }
       ]
@@ -88,7 +142,7 @@
       "type": "registry:ui",
       "title": "Input",
       "description": "",
-      "registryDependencies": ["input"],
+      "registryDependencies": ["icons"],
       "files": [
         {
           "path": "../../packages/tetra-ui/src/components/input.tsx",
@@ -101,7 +155,7 @@
       "type": "registry:ui",
       "title": "Label",
       "description": "",
-      "registryDependencies": ["label"],
+      "registryDependencies": [],
       "files": [
         {
           "path": "../../packages/tetra-ui/src/components/label.tsx",
@@ -114,7 +168,7 @@
       "type": "registry:ui",
       "title": "Password Input",
       "description": "",
-      "registryDependencies": ["password-input"],
+      "registryDependencies": ["button", "icons"],
       "files": [
         {
           "path": "../../packages/tetra-ui/src/components/password-input.tsx",
