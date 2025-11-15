@@ -11,7 +11,9 @@
   "devDependencies": [
     "@types/lodash"
   ],
-  "registryDependencies": [],
+  "registryDependencies": [
+    "@tetra-ui/label"
+  ],
   "files": [
     {
       "path": "../../packages/tetra-ui/src/components/form.tsx",

@@ -8,7 +8,7 @@
       "type": "registry:ui",
       "title": "Action Input",
       "description": "",
-      "registryDependencies": ["icons"],
+      "registryDependencies": ["@tetra-ui/icons", "@tetra-ui/input"],
       "files": [
         {
           "path": "../../packages/tetra-ui/src/components/action-input.tsx",
@@ -47,7 +47,7 @@
       "type": "registry:ui",
       "title": "Checkbox",
       "description": "",
-      "registryDependencies": ["icons"],
+      "registryDependencies": ["@tetra-ui/icons", "@tetra-ui/input"],
       "files": [
         {
           "path": "../../packages/tetra-ui/src/components/checkbox.tsx",
@@ -60,7 +60,7 @@
       "type": "registry:ui",
       "title": "Form",
       "description": "",
-      "registryDependencies": [],
+      "registryDependencies": ["@tetra-ui/label"],
       "dependencies": ["lodash", "react-hook-form"],
       "devDependencies": ["@types/lodash"],
       "files": [
@@ -93,47 +93,47 @@
       "files": [
         {
           "path": "../../packages/tetra-ui/src/components/icons/index.ts",
-          "type": "registry:ui"
+          "type": "registry:component"
         },
         {
           "path": "../../packages/tetra-ui/src/components/icons/styled-icon.tsx",
-          "type": "registry:ui"
+          "type": "registry:component"
         },
         {
           "path": "../../packages/tetra-ui/src/components/icons/badge-check.tsx",
-          "type": "registry:ui"
+          "type": "registry:component"
         },
         {
           "path": "../../packages/tetra-ui/src/components/icons/check.tsx",
-          "type": "registry:ui"
+          "type": "registry:component"
         },
         {
           "path": "../../packages/tetra-ui/src/components/icons/chevron-left.tsx",
-          "type": "registry:ui"
+          "type": "registry:component"
         },
         {
           "path": "../../packages/tetra-ui/src/components/icons/chevron-right.tsx",
-          "type": "registry:ui"
+          "type": "registry:component"
         },
         {
           "path": "../../packages/tetra-ui/src/components/icons/eye.tsx",
-          "type": "registry:ui"
+          "type": "registry:component"
         },
         {
           "path": "../../packages/tetra-ui/src/components/icons/eye-off.tsx",
-          "type": "registry:ui"
+          "type": "registry:component"
         },
         {
           "path": "../../packages/tetra-ui/src/components/icons/moon.tsx",
-          "type": "registry:ui"
+          "type": "registry:component"
         },
         {
           "path": "../../packages/tetra-ui/src/components/icons/search.tsx",
-          "type": "registry:ui"
+          "type": "registry:component"
         },
         {
           "path": "../../packages/tetra-ui/src/components/icons/sun.tsx",
-          "type": "registry:ui"
+          "type": "registry:component"
         }
       ]
     },
@@ -142,7 +142,7 @@
       "type": "registry:ui",
       "title": "Input",
       "description": "",
-      "registryDependencies": ["icons"],
+      "registryDependencies": [],
       "files": [
         {
           "path": "../../packages/tetra-ui/src/components/input.tsx",
@@ -168,7 +168,12 @@
       "type": "registry:ui",
       "title": "Password Input",
       "description": "",
-      "registryDependencies": ["button", "icons"],
+      "registryDependencies": [
+        "@tetra-ui/button",
+        "@tetra-ui/icons",
+        "@tetra-ui/input",
+        "@tetra-ui/text-input"
+      ],
       "files": [
         {
           "path": "../../packages/tetra-ui/src/components/password-input.tsx",
@@ -181,7 +186,7 @@
       "type": "registry:ui",
       "title": "Stack",
       "description": "",
-      "registryDependencies": ["stack"],
+      "registryDependencies": [],
       "files": [
         {
           "path": "../../packages/tetra-ui/src/components/stack.tsx",
@@ -194,7 +199,7 @@
       "type": "registry:ui",
       "title": "TextInput",
       "description": "",
-      "registryDependencies": ["text-input"],
+      "registryDependencies": ["@tetra-ui/input"],
       "files": [
         {
           "path": "../../packages/tetra-ui/src/components/text-input.tsx",

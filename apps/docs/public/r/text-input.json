@@ -5,7 +5,7 @@
   "title": "TextInput",
   "description": "",
   "registryDependencies": [
-    "text-input"
+    "@tetra-ui/input"
   ],
   "files": [
     {

@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "example",
-    "slug": "example",
+    "name": "tetra-ui",
+    "slug": "tetra-ui",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "example",
+    "scheme": "tetra-ui",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "splash": {

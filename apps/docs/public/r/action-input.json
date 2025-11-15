@@ -5,7 +5,8 @@
   "title": "Action Input",
   "description": "",
   "registryDependencies": [
-    "icons"
+    "@tetra-ui/icons",
+    "@tetra-ui/input"
   ],
   "files": [
     {

@@ -16,6 +16,19 @@ The components in this library are styled with Uniwind - a performance focused T
 npm install class-variance-authority clsx tailwind-merge tw-animate-css
 ```
 
+### Configure Typescript path aliases
+
+```json title="tsconfig.json"
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./*"]
+    }
+  }
+}
+```
+
 ### Configure styles
 
 Add the following to your `globals.css` file that you created when installing Uniwind:
@@ -125,5 +138,42 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 ```
+
+### Create a `components.json` file
+
+```json title="components.json"
+{
+  "$schema": "https://ui.shadcn.com/schema.json",
+  "style": "new-york",
+  "rsc": false,
+  "tsx": true,
+  "tailwind": {
+    "config": "",
+    "css": "src/global.css",
+    "baseColor": "neutral",
+    "cssVariables": true,
+    "prefix": ""
+  },
+  "iconLibrary": "lucide",
+  "aliases": {
+    "components": "@/components",
+    "utils": "@/lib/utils",
+    "ui": "@/components",
+    "lib": "@/lib",
+    "hooks": "@/hooks"
+  },
+  "registries": {
+    "@tetra-ui": "https://tetra-ui.com/r/{name}.json"
+  }
+}
+```
+
+The key detail is to register the `tetra-ui` with the following entry:
+
+```
+"@tetra-ui": "https://tetra-ui.com/r/{name}.json"
+```
+
+Learn more about the `components.json` file and how to configure it [here](https://ui.shadcn.com/docs/components-json).
 
 Now you can start adding components to your app!
