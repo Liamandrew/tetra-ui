@@ -17,6 +17,7 @@ export const baseOptions: BaseLayoutProps = {
       </>
     ),
   },
+  githubUrl: "https://github.com/Liamandrew/tetra-ui",
   // see https://fumadocs.dev/docs/ui/navigation/links
   links: [],
 };

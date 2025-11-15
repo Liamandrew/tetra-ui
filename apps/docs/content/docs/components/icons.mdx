@@ -19,7 +19,7 @@ npm install react-native-svg
 
 <Step>Create a styled SVG component</Step>
 
-```tsx
+```tsx title="components/icons/styled-icon.tsx"
 import Svg from "react-native-svg";
 import { withUniwind } from "uniwind";
 
@@ -41,7 +41,7 @@ export const StyledSvg = withUniwind(Svg, {
 
 <Step>Convert your favourite SVG icon library to a React Native SVG component</Step>
 
-```tsx
+```tsx title="components/ui/icons/search.tsx"
 import { Circle, Path } from "react-native-svg";
 import { StyledSvg } from "./styled-icon";
 
