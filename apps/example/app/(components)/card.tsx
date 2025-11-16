@@ -61,7 +61,9 @@ export default function CardScreen() {
               <CardTitle>Basic</CardTitle>
             </CardHeader>
             <CardContent className="flex-1">
-              <Text>All the features you need to get started</Text>
+              <Text className="text-muted-foreground">
+                All the features you need to get started
+              </Text>
             </CardContent>
             <CardFooter>
               <Button className="self-end" size="sm" variant="link">
@@ -74,7 +76,9 @@ export default function CardScreen() {
               <CardTitle>Pro</CardTitle>
             </CardHeader>
             <CardContent>
-              <Text>All the features of Basic, plus more advanced tools</Text>
+              <Text className="text-muted-foreground">
+                All the features of Basic, plus more advanced tools
+              </Text>
             </CardContent>
             <CardFooter>
               <Button className="self-end" size="sm" variant="link">

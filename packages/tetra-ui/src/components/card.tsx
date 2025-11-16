@@ -37,7 +37,10 @@ export const CardTitle = ({
 }: React.ComponentProps<typeof View>) => {
   return (
     <Text
-      className={cn("font-semibold text-xl leading-none", className)}
+      className={cn(
+        "font-semibold text-foreground text-xl leading-none",
+        className
+      )}
       data-slot="card-title"
       {...props}
     />

@@ -1,72 +1,3 @@
----
-title: Form
-description: Components and utilities that help you compose forms.
----
-
-## Installation
-
-<Tabs defaultValue="cli">
-
-<TabsList>
-  <TabsTrigger value="cli">CLI</TabsTrigger>
-  <TabsTrigger value="manual">Manual</TabsTrigger>
-</TabsList>
-
-<TabsContent value="cli">
-
-```package-install
-npx shadcn@latest add @tetra-ui/form
-```
-
-</TabsContent>
-
-<TabsContent value="manual">
-
-<Steps>
-
-<Step>Install the following dependencies:</Step>
-
-```package-install
-npm install lodash react-hook-form
-```
-
-<Step>Copy and paste the following code into your project.</Step>
-
-<ComponentSource name="form" title="components/ui/form.tsx" />
-
-</Steps>
-
-</TabsContent>
-
-</Tabs>
-
-## Usage
-
-```tsx
-import { 
-  Field,
-  FieldControl,
-  FieldDescription,
-  FieldErrorMessage,
-  FieldLabel,
-} from "@/components/ui/form";
-import { TextInput } from "@/components/ui/text-input";
-```
-
-```tsx
-<Field>
-  <FieldLabel>Username</FieldLabel>
-  <FieldControl>
-    <TextInput placeholder="Enter your username" />
-  </FieldControl>
-  <FieldDescription>This is your public display name.</FieldDescription>
-  <FieldErrorMessage />
-</Field>
-```
-
-### React Hook Form
-
-```tsx
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@repo/tetra-ui/components/button";
 import {
@@ -80,16 +11,28 @@ import { PasswordInput } from "@repo/tetra-ui/components/password-input";
 import { TextInput } from "@repo/tetra-ui/components/text-input";
 import { Controller, useForm } from "react-hook-form";
 import { z } from "zod";
-```
+import { ScreenHeading } from "@/components/screen-heading";
+import { ScreenScrollView } from "@/components/screen-scrollview";
+import { Section } from "@/components/section";
 
-```tsx
+export default function FormScreen() {
+  return (
+    <ScreenScrollView>
+      <ScreenHeading>Form</ScreenHeading>
+
+      <Section title="Login">
+        <HookForm />
+      </Section>
+    </ScreenScrollView>
+  );
+}
 
 const formSchema = z.object({
-  username: z.string(),
-  password: z.string(),
+  username: z.string().min(1, "Username is required"),
+  password: z.string().min(1, "Password is required"),
 });
 
-const Form = () => {
+const HookForm = () => {
   const form = useForm({
     resolver: zodResolver(formSchema),
   });
@@ -138,5 +81,3 @@ const Form = () => {
     </>
   );
 };
-
-```

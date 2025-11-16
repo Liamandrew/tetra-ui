@@ -40,6 +40,10 @@ export default function Form() {
         <Checkbox checked />
         <ComponentLink href="/checkbox">View More</ComponentLink>
       </Section>
+
+      <Section title="Form">
+        <ComponentLink href="/(components)/form">View More</ComponentLink>
+      </Section>
     </ScreenScrollView>
   );
 }
