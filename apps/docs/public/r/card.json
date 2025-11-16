@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "card",
+  "type": "registry:ui",
+  "title": "Card",
+  "description": "",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "../../packages/tetra-ui/src/components/card.tsx",
+      "content": "import { Text, View } from \"react-native\";\n\nimport { cn } from \"@/lib/utils\";\n\nexport const Card = ({\n  className,\n  ...props\n}: React.ComponentProps<typeof View>) => {\n  return (\n    <View\n      className={cn(\n        \"flex flex-col gap-6 rounded-2xl bg-card py-5 text-card-foreground\",\n        className\n      )}\n      data-slot=\"card\"\n      {...props}\n    />\n  );\n};\n\nexport const CardHeader = ({\n  className,\n  ...props\n}: React.ComponentProps<typeof View>) => {\n  return (\n    <View\n      className={cn(\"flex items-start gap-1 px-4\", className)}\n      data-slot=\"card-header\"\n      {...props}\n    />\n  );\n};\n\nexport const CardTitle = ({\n  className,\n  ...props\n}: React.ComponentProps<typeof View>) => {\n  return (\n    <Text\n      className={cn(\"font-semibold text-xl leading-none\", className)}\n      data-slot=\"card-title\"\n      {...props}\n    />\n  );\n};\n\nexport const CardDescription = ({\n  className,\n  ...props\n}: React.ComponentProps<typeof View>) => {\n  return (\n    <Text\n      className={cn(\"text-muted-foreground text-sm\", className)}\n      data-slot=\"card-description\"\n      {...props}\n    />\n  );\n};\n\nexport const CardContent = ({\n  className,\n  ...props\n}: React.ComponentProps<typeof View>) => {\n  return (\n    <View\n      className={cn(\"px-4\", className)}\n      data-slot=\"card-content\"\n      {...props}\n    />\n  );\n};\n\nexport const CardFooter = ({\n  className,\n  ...props\n}: React.ComponentProps<typeof View>) => {\n  return (\n    <View\n      className={cn(\"flex items-center px-4\", className)}\n      data-slot=\"card-footer\"\n      {...props}\n    />\n  );\n};\n",
+      "type": "registry:ui"
+    }
+  ]
+}

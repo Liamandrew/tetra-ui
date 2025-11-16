@@ -43,6 +43,19 @@
       ]
     },
     {
+      "name": "card",
+      "type": "registry:ui",
+      "title": "Card",
+      "description": "",
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "../../packages/tetra-ui/src/components/card.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "checkbox",
       "type": "registry:ui",
       "title": "Checkbox",
