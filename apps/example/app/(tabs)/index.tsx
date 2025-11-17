@@ -1,5 +1,7 @@
 import { Heading } from "@repo/tetra-ui/components/heading";
 import { Label } from "@repo/tetra-ui/components/label";
+import { Separator } from "@repo/tetra-ui/components/separator";
+import ComponentLink from "@/components/component-link";
 import { ScreenScrollView } from "@/components/screen-scrollview";
 import { Section } from "@/components/section";
 
@@ -17,6 +19,11 @@ export default function Home() {
 
       <Section title="Label">
         <Label>Label</Label>
+      </Section>
+
+      <Section title="Separator">
+        <Separator />
+        <ComponentLink href="/separator">View More</ComponentLink>
       </Section>
     </ScreenScrollView>
   );

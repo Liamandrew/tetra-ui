@@ -2,6 +2,7 @@ import { Text, View } from "react-native";
 
 import { cn } from "@/lib/utils";
 
+// Components
 export const Card = ({
   className,
   ...props

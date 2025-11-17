@@ -195,6 +195,19 @@
       ]
     },
     {
+      "name": "separator",
+      "type": "registry:ui",
+      "title": "Separator",
+      "description": "",
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "../../packages/tetra-ui/src/components/separator.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "stack",
       "type": "registry:ui",
       "title": "Stack",

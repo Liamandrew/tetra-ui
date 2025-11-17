@@ -89,3 +89,12 @@
     @apply bg-background text-foreground;
   }
 }
+
+@layer utilities {
+  .h-hairline {
+    height: hairlineWidth();
+  }
+  .w-hairline {
+    width: hairlineWidth();
+  }
+}

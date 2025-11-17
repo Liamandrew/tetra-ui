@@ -124,6 +124,16 @@ Add the following to your `globals.css` file that you created when installing Un
     @apply bg-background text-foreground;
   }
 }
+
+@layer utilities {
+  .h-hairline {
+    height: hairlineWidth();
+  }
+  .w-hairline {
+    width: hairlineWidth();
+  }
+}
+
 ```
 
 </CodeCollapsibleWrapper>
