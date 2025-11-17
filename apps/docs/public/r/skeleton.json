@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "skeleton",
+  "type": "registry:ui",
+  "title": "Skeleton",
+  "description": "",
+  "dependencies": [
+    "react-native-reanimated"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "../../packages/tetra-ui/src/components/skeleton.tsx",
+      "content": "import { useEffect } from \"react\";\nimport Animated, {\n  useAnimatedStyle,\n  useSharedValue,\n  withRepeat,\n  withTiming,\n} from \"react-native-reanimated\";\nimport { cn } from \"@/lib/utils\";\n\n// Types\ntype SkeletonProps = React.ComponentProps<typeof Animated.View> & {\n  duration?: number;\n  minOpacity?: number;\n  maxOpacity?: number;\n};\n\n// Components\nexport const Skeleton = ({\n  className,\n  duration = 1000,\n  minOpacity = 0.4,\n  maxOpacity = 1,\n  ...props\n}: SkeletonProps) => {\n  const opacity = useSharedValue(minOpacity);\n\n  useEffect(() => {\n    opacity.value = withRepeat(withTiming(maxOpacity, { duration }), -1, true);\n  }, [duration, maxOpacity, opacity]);\n\n  const animatedStyle = useAnimatedStyle(() => {\n    return {\n      opacity: opacity.value,\n    };\n  });\n\n  return (\n    <Animated.View\n      className={cn(\"w-full rounded-md bg-accent\", className)}\n      data-slot=\"skeleton\"\n      style={animatedStyle}\n      {...props}\n    />\n  );\n};\n",
+      "type": "registry:ui"
+    }
+  ]
+}
