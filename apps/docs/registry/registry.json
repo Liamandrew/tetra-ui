@@ -60,6 +60,7 @@
       "type": "registry:ui",
       "title": "Checkbox",
       "description": "",
+      "dependencies": ["react-native-reanimated"],
       "registryDependencies": ["@tetra-ui/icons", "@tetra-ui/input"],
       "files": [
         {
@@ -155,6 +156,7 @@
       "type": "registry:ui",
       "title": "Input",
       "description": "",
+      "dependencies": ["react-native-reanimated"],
       "registryDependencies": [],
       "files": [
         {

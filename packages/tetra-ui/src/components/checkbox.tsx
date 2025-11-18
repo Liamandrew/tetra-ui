@@ -1,7 +1,18 @@
-import { Text, View } from "react-native";
+import { useEffect } from "react";
+import { Text, type View } from "react-native";
+import Animated, {
+  interpolateColor,
+  useAnimatedStyle,
+  useSharedValue,
+  withTiming,
+} from "react-native-reanimated";
+import { useCSSVariable } from "uniwind";
 import { cn } from "../lib/utils";
 import { Check } from "./icons";
 import { InputPressable } from "./input";
+
+// Constants
+const ANIMATION_DURATION = 180;
 
 // Types
 export type CheckboxProps = Omit<
@@ -28,18 +39,41 @@ export const Checkbox = ({
   invalid,
   ...props
 }: CheckboxProps) => {
+  const primaryColor = useCSSVariable("--color-primary") as string;
+
+  const backgroundProgress = useSharedValue(checked ? 1 : 0);
+
+  useEffect(() => {
+    backgroundProgress.value = withTiming(checked ? 1 : 0, {
+      duration: ANIMATION_DURATION,
+    });
+  }, [checked, backgroundProgress]);
+
+  const animatedStyle = useAnimatedStyle(() => {
+    const backgroundColor = interpolateColor(
+      backgroundProgress.value,
+      [0, 1],
+      ["transparent", primaryColor]
+    );
+
+    return {
+      backgroundColor,
+    };
+  });
+
   return (
-    <View
+    <Animated.View
       {...props}
       className={cn(
-        "size-6 shrink-0 items-center justify-center rounded-lg border border-input bg-transparent shadow-xs dark:bg-input/30",
-        checked && "border-primary bg-primary dark:bg-primary",
+        "size-6 shrink-0 items-center justify-center rounded-lg border border-input shadow-xs dark:bg-input/30",
+        checked && "border-primary",
         invalid && "border-destructive",
         className
       )}
+      style={animatedStyle}
     >
       {checked && <Check className="size-4 bg-primary-foreground" />}
-    </View>
+    </Animated.View>
   );
 };
 

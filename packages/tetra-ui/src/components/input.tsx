@@ -4,6 +4,7 @@ import {
   cloneElement,
   isValidElement,
   useCallback,
+  useEffect,
   useRef,
   useState,
 } from "react";
@@ -14,8 +15,18 @@ import {
   TextInput as RNTextInput,
   View,
 } from "react-native";
+import Animated, {
+  interpolateColor,
+  useAnimatedStyle,
+  useSharedValue,
+  withTiming,
+} from "react-native-reanimated";
 import { useCSSVariable } from "uniwind";
 import { cn } from "../lib/utils";
+
+// Constants
+const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
+const ANIMATION_DURATION = 180;
 
 // Types
 export type InputProps = Omit<
@@ -72,20 +83,58 @@ export const InputPressable = ({
   onPress,
   className,
 }: InputPressableProps) => {
+  const inputColor = useCSSVariable("--color-input") as string;
+  const ringColor = useCSSVariable("--color-ring") as string;
+  const destructiveColor = useCSSVariable("--color-destructive") as string;
+
+  const outlineWidth = useSharedValue(1);
+  const outlineColorProgress = useSharedValue(0);
+
+  useEffect(() => {
+    if (invalid) {
+      outlineWidth.value = withTiming(2, { duration: ANIMATION_DURATION });
+      outlineColorProgress.value = withTiming(2, {
+        duration: ANIMATION_DURATION,
+      });
+    } else if (focused) {
+      outlineWidth.value = withTiming(2, { duration: ANIMATION_DURATION });
+      outlineColorProgress.value = withTiming(1, {
+        duration: ANIMATION_DURATION,
+      });
+    } else {
+      outlineWidth.value = withTiming(1, { duration: ANIMATION_DURATION });
+      outlineColorProgress.value = withTiming(0, {
+        duration: ANIMATION_DURATION,
+      });
+    }
+  }, [focused, invalid, outlineWidth, outlineColorProgress]);
+
+  const animatedStyle = useAnimatedStyle(() => {
+    const outlineColor = interpolateColor(
+      outlineColorProgress.value,
+      [0, 1, 2],
+      [inputColor, ringColor, destructiveColor]
+    );
+
+    return {
+      outlineWidth: outlineWidth.value,
+      outlineColor,
+    };
+  });
+
   return (
-    <Pressable
+    <AnimatedPressable
       accessibilityState={{ disabled }}
       className={cn(
-        "flex min-h-12 w-full grow flex-row items-center gap-2 rounded-lg bg-transparent px-3 py-2 outline outline-input transition-color active:bg-accent/90 disabled:opacity-50 dark:active:bg-accent/50",
-        invalid && "outline-2 outline-destructive",
-        focused && "outline-2 outline-ring",
+        "flex min-h-12 w-full grow flex-row items-center gap-2 rounded-lg bg-transparent px-3 py-2 active:bg-accent/90 disabled:opacity-50 dark:active:bg-accent/50",
         className
       )}
       disabled={disabled}
       onPress={onPress}
+      style={animatedStyle}
     >
       {children}
-    </Pressable>
+    </AnimatedPressable>
   );
 };
 
