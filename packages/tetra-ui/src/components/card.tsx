@@ -35,7 +35,7 @@ export const CardHeader = ({
 export const CardTitle = ({
   className,
   ...props
-}: React.ComponentProps<typeof View>) => {
+}: React.ComponentProps<typeof Text>) => {
   return (
     <Text
       className={cn(
@@ -51,7 +51,7 @@ export const CardTitle = ({
 export const CardDescription = ({
   className,
   ...props
-}: React.ComponentProps<typeof View>) => {
+}: React.ComponentProps<typeof Text>) => {
   return (
     <Text
       className={cn("text-muted-foreground text-sm", className)}
