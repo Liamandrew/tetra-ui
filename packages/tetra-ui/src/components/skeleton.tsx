@@ -7,26 +7,25 @@ import Animated, {
 } from "react-native-reanimated";
 import { cn } from "@/lib/utils";
 
+// Constants
+const ANIMATION_DURATION = 1000;
+const MIN_OPACITY = 0.4;
+const MAX_OPACITY = 1;
+
 // Types
-type SkeletonProps = React.ComponentProps<typeof Animated.View> & {
-  duration?: number;
-  minOpacity?: number;
-  maxOpacity?: number;
-};
+type SkeletonProps = React.ComponentProps<typeof Animated.View>;
 
 // Components
-export const Skeleton = ({
-  className,
-  duration = 1000,
-  minOpacity = 0.4,
-  maxOpacity = 1,
-  ...props
-}: SkeletonProps) => {
-  const opacity = useSharedValue(minOpacity);
+export const Skeleton = ({ className, ...props }: SkeletonProps) => {
+  const opacity = useSharedValue(MIN_OPACITY);
 
   useEffect(() => {
-    opacity.value = withRepeat(withTiming(maxOpacity, { duration }), -1, true);
-  }, [duration, maxOpacity, opacity]);
+    opacity.value = withRepeat(
+      withTiming(MAX_OPACITY, { duration: ANIMATION_DURATION }),
+      -1,
+      true
+    );
+  }, [opacity]);
 
   const animatedStyle = useAnimatedStyle(() => {
     return {
