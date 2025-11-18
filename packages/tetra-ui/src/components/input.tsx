@@ -26,7 +26,7 @@ import { cn } from "../lib/utils";
 
 // Constants
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
-const ANIMATION_DURATION = 180;
+const ANIMATION_DURATION = 120;
 
 // Types
 export type InputProps = Omit<
