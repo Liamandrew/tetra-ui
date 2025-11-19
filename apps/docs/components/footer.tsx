@@ -1,4 +1,5 @@
 import { buttonVariants } from "@repo/shadcn-ui/components/button";
+import { siteConfig } from "@/lib/config";
 
 export const Footer = () => {
   return (
@@ -10,7 +11,7 @@ export const Footer = () => {
             variant: "link",
             className: "w-0 p-0",
           })}
-          href="https://x.com/_liamandr"
+          href={siteConfig.links.twitter}
         >
           Liam
         </a>{" "}

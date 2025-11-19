@@ -1,5 +1,6 @@
 import type { BaseLayoutProps } from "fumadocs-ui/layouts/shared";
 import { Logo } from "@/components/logo";
+import { siteConfig } from "@/lib/config";
 
 /**
  * Shared layout configurations
@@ -17,7 +18,7 @@ export const baseOptions: BaseLayoutProps = {
       </>
     ),
   },
-  githubUrl: "https://github.com/Liamandrew/tetra-ui",
+  githubUrl: siteConfig.links.github,
   // see https://fumadocs.dev/docs/ui/navigation/links
   links: [],
 };
