@@ -7,3 +7,4 @@ export * from "./eye-off";
 export * from "./moon";
 export * from "./search";
 export * from "./sun";
+export * from "./x";

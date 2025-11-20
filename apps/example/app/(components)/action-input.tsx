@@ -1,11 +1,4 @@
 import { ActionInput } from "@repo/tetra-ui/components/action-input";
-import {
-  Field,
-  FieldControl,
-  FieldDescription,
-  FieldErrorMessage,
-  FieldLabel,
-} from "@repo/tetra-ui/components/form";
 import { BadgeCheck } from "@repo/tetra-ui/components/icons";
 import { InputAddon, InputAddonIcon } from "@repo/tetra-ui/components/input";
 import { Text } from "react-native";
@@ -18,8 +11,9 @@ export default function ActionInputScreen() {
     <ScreenScrollView>
       <ScreenHeading>ActionInput</ScreenHeading>
 
-      <Section title="ActionInput">
+      <Section title="Examples">
         <ActionInput placeholder="Enter your address" />
+
         <ActionInput placeholder="Enter your address">
           <InputAddon>
             <InputAddonIcon>
@@ -27,89 +21,40 @@ export default function ActionInputScreen() {
             </InputAddonIcon>
           </InputAddon>
         </ActionInput>
-        <ActionInput placeholder="Enter your address">
+
+        <ActionInput placeholder="Enter your address" value="123 Main St">
           <InputAddon>
             <InputAddonIcon>
               <BadgeCheck />
             </InputAddonIcon>
           </InputAddon>
+        </ActionInput>
+
+        <ActionInput placeholder="View details">
           <InputAddon align="inline-end">
-            <Text className="text-base text-muted-foreground">Press</Text>
+            <Text className="text-base text-muted-foreground">More...</Text>
           </InputAddon>
         </ActionInput>
-      </Section>
 
-      <Section title="ActionInput Disabled">
-        <ActionInput disabled placeholder="Enter your address" value="Disabled">
+        <ActionInput
+          disabled
+          placeholder="Enter your address"
+          value="This is disabled"
+        >
           <InputAddon>
             <InputAddonIcon>
               <BadgeCheck />
             </InputAddonIcon>
           </InputAddon>
         </ActionInput>
-      </Section>
 
-      <Section title="ActionInput Invalid">
-        <ActionInput invalid placeholder="Enter your address">
+        <ActionInput invalid placeholder="This is invalid">
           <InputAddon>
             <InputAddonIcon>
               <BadgeCheck />
             </InputAddonIcon>
           </InputAddon>
         </ActionInput>
-      </Section>
-
-      <ScreenHeading>ActionField</ScreenHeading>
-
-      <Section title="Default">
-        <Field>
-          <FieldLabel>Address</FieldLabel>
-          <FieldControl>
-            <ActionInput placeholder="Enter your address">
-              <InputAddon>
-                <InputAddonIcon>
-                  <BadgeCheck />
-                </InputAddonIcon>
-              </InputAddon>
-            </ActionInput>
-          </FieldControl>
-          <FieldDescription>This is your residential address.</FieldDescription>
-          <FieldErrorMessage />
-        </Field>
-      </Section>
-
-      <Section title="Disabled">
-        <Field disabled>
-          <FieldLabel>Address</FieldLabel>
-          <FieldControl>
-            <ActionInput placeholder="Enter your address">
-              <InputAddon>
-                <InputAddonIcon>
-                  <BadgeCheck />
-                </InputAddonIcon>
-              </InputAddon>
-            </ActionInput>
-          </FieldControl>
-          <FieldDescription>This is your residential address.</FieldDescription>
-          <FieldErrorMessage />
-        </Field>
-      </Section>
-
-      <Section title="Error">
-        <Field errorMessage="This is an error message" invalid>
-          <FieldLabel>Address</FieldLabel>
-          <FieldControl>
-            <ActionInput placeholder="Enter your address">
-              <InputAddon>
-                <InputAddonIcon>
-                  <BadgeCheck />
-                </InputAddonIcon>
-              </InputAddon>
-            </ActionInput>
-          </FieldControl>
-          <FieldDescription>This is your residential address.</FieldDescription>
-          <FieldErrorMessage />
-        </Field>
       </Section>
     </ScreenScrollView>
   );

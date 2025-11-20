@@ -2,9 +2,12 @@ import { cva, type VariantProps } from "class-variance-authority";
 import {
   Children,
   cloneElement,
+  createContext,
   isValidElement,
   useCallback,
+  useContext,
   useEffect,
+  useMemo,
   useRef,
   useState,
 } from "react";
@@ -23,12 +26,18 @@ import Animated, {
 } from "react-native-reanimated";
 import { useCSSVariable } from "uniwind";
 import { cn } from "../lib/utils";
+import { Button, ButtonIcon, type ButtonProps, ButtonText } from "./button";
 
 // Constants
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 const ANIMATION_DURATION = 120;
 
 // Types
+type InternalInputAddonButtonContextType = VariantProps<
+  typeof inputAddonButtonVariants
+> &
+  Pick<ButtonProps, "variant">;
+
 export type InputProps = Omit<
   React.ComponentPropsWithRef<typeof RNTextInput>,
   "editable"
@@ -54,6 +63,9 @@ type InputAddonIconProps = {
   children: React.ReactNode;
   className?: string;
 };
+
+type InputAddonButtonProps = Omit<React.ComponentProps<typeof Button>, "size"> &
+  VariantProps<typeof inputAddonButtonVariants>;
 
 type UseInputFocusStateProps = {
   onFocus?: (e: FocusEvent) => void;
@@ -164,6 +176,54 @@ export const InputAddonIcon = (
   });
 };
 
+export const InputAddonButton = ({
+  className,
+  variant = "ghost",
+  size = "sm",
+  disabled,
+  busy,
+  ...props
+}: InputAddonButtonProps) => {
+  const ctx = useMemo(() => ({ size, variant }), [size, variant]);
+  return (
+    <InputAddonButtonContext.Provider value={ctx}>
+      <Button
+        {...props}
+        busy={busy}
+        className={cn(inputAddonButtonVariants({ size }), className)}
+        disabled={disabled}
+        size={size}
+        variant={variant}
+      />
+    </InputAddonButtonContext.Provider>
+  );
+};
+
+export const InputAddonButtonText = (
+  props: React.ComponentProps<typeof ButtonText>
+) => {
+  const ctx = useInputAddonButtonContext();
+  return (
+    <ButtonText
+      {...props}
+      className={cn(inputAddonButtonTextVariants(ctx), props.className)}
+    />
+  );
+};
+
+export const InputAddonButtonIcon = (
+  props: React.ComponentProps<typeof ButtonIcon>
+) => {
+  const ctx = useInputAddonButtonContext();
+
+  return (
+    <ButtonIcon
+      {...props}
+      className={cn(inputAddonButtonIconVariants(ctx), props.className)}
+    />
+  );
+};
+
 // Hooks
 export const useInputFocusState = ({
   onFocus,
@@ -232,6 +292,20 @@ export const useInputAddons = (
   };
 };
 
+// Context
+const InputAddonButtonContext =
+  createContext<InternalInputAddonButtonContextType | null>(null);
+
+const useInputAddonButtonContext = () => {
+  const context = useContext(InputAddonButtonContext);
+  if (!context) {
+    throw new Error(
+      "useInputAddonButtonContext must be used within a Button component"
+    );
+  }
+  return context;
+};
+
 // Styles
 const inputAddonVariants = cva("flex items-center justify-center", {
   variants: {
@@ -242,5 +316,50 @@ const inputAddonVariants = cva("flex items-center justify-center", {
   },
   defaultVariants: {
     align: "inline-start",
+  },
+});
+
+const inputAddonButtonVariants = cva("w-fit gap-1 shadow-none", {
+  variants: {
+    size: { sm: "h-8 px-2", icon: "size-7" },
+  },
+  defaultVariants: {
+    size: "sm",
+  },
+});
+
+const inputAddonButtonTextVariants = cva("text-sm", {
+  variants: {
+    variant: {
+      default: "text-primary-foreground",
+      destructive: "text-white",
+      outline: "text-muted-foreground",
+      secondary: "text-secondary-foreground",
+      ghost: "text-muted-foreground",
+      link: "text-muted-foreground",
+    },
+  },
+  defaultVariants: {
+    variant: "default",
+  },
+});
+
+const inputAddonButtonIconVariants = cva("", {
+  variants: {
+    variant: {
+      default: "bg-primary-foreground",
+      destructive: "bg-white",
+      outline: "bg-muted-foreground",
+      secondary: "bg-secondary-foreground",
+      ghost: "bg-muted-foreground",
+      link: "bg-muted-foreground",
+    },
+    size: {
+      sm: "size-4",
+      icon: "size-5",
+    },
+  },
+  defaultVariants: {
+    size: "sm",
   },
 });

@@ -1,14 +1,21 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import { ActionInput } from "@repo/tetra-ui/components/action-input";
 import { Button } from "@repo/tetra-ui/components/button";
+import { CheckboxInput } from "@repo/tetra-ui/components/checkbox";
 import {
   Field,
   FieldControl,
+  FieldDescription,
   FieldErrorMessage,
   FieldLabel,
   validateField,
 } from "@repo/tetra-ui/components/form";
+import { BadgeCheck } from "@repo/tetra-ui/components/icons";
+import { InputAddon, InputAddonIcon } from "@repo/tetra-ui/components/input";
 import { PasswordInput } from "@repo/tetra-ui/components/password-input";
 import { TextInput } from "@repo/tetra-ui/components/text-input";
+import { TextareaInput } from "@repo/tetra-ui/components/textarea-input";
+import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { z } from "zod";
 import { ScreenHeading } from "@/components/screen-heading";
@@ -16,11 +23,86 @@ import { ScreenScrollView } from "@/components/screen-scrollview";
 import { Section } from "@/components/section";
 
 export default function FormScreen() {
+  const [checked, setChecked] = useState(false);
   return (
     <ScreenScrollView>
       <ScreenHeading>Form</ScreenHeading>
 
-      <Section title="Login">
+      <Section title="ActionInput">
+        <Field>
+          <FieldLabel>Address</FieldLabel>
+          <FieldControl>
+            <ActionInput placeholder="Enter your address">
+              <InputAddon>
+                <InputAddonIcon>
+                  <BadgeCheck />
+                </InputAddonIcon>
+              </InputAddon>
+            </ActionInput>
+          </FieldControl>
+          <FieldDescription>This is your residential address.</FieldDescription>
+          <FieldErrorMessage />
+        </Field>
+      </Section>
+
+      <Section title="CheckboxInput">
+        <Field>
+          <FieldLabel>Username</FieldLabel>
+          <FieldControl>
+            <CheckboxInput
+              checked={checked}
+              onPress={() => setChecked(!checked)}
+            >
+              Do you agree to the terms and conditions?
+            </CheckboxInput>
+          </FieldControl>
+          <FieldDescription>
+            You must agree to the terms and conditions.
+          </FieldDescription>
+          <FieldErrorMessage />
+        </Field>
+      </Section>
+
+      <Section title="PasswordInput">
+        <Field>
+          <FieldLabel>Password</FieldLabel>
+          <FieldControl>
+            <PasswordInput placeholder="Enter your password" />
+          </FieldControl>
+          <FieldDescription>This should be secret.</FieldDescription>
+          <FieldErrorMessage />
+        </Field>
+      </Section>
+
+      <Section title="TextInput">
+        <Field disabled>
+          <FieldLabel>Username</FieldLabel>
+          <FieldControl>
+            <TextInput placeholder="Enter your username">
+              <InputAddon>
+                <InputAddonIcon>
+                  <BadgeCheck />
+                </InputAddonIcon>
+              </InputAddon>
+            </TextInput>
+          </FieldControl>
+          <FieldDescription>This is your public display name.</FieldDescription>
+          <FieldErrorMessage />
+        </Field>
+      </Section>
+
+      <Section title="TextareaInput">
+        <Field>
+          <FieldLabel>Description</FieldLabel>
+          <FieldControl>
+            <TextareaInput placeholder="Enter your description" />
+          </FieldControl>
+          <FieldDescription>This is your description.</FieldDescription>
+          <FieldErrorMessage />
+        </Field>
+      </Section>
+
+      <Section title="Login Form">
         <HookForm />
       </Section>
     </ScreenScrollView>

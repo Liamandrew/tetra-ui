@@ -11,7 +11,7 @@
   "files": [
     {
       "path": "../../packages/tetra-ui/src/components/icons/index.ts",
-      "content": "export * from \"./badge-check\";\nexport * from \"./check\";\nexport * from \"./chevron-left\";\nexport * from \"./chevron-right\";\nexport * from \"./eye\";\nexport * from \"./eye-off\";\nexport * from \"./moon\";\nexport * from \"./search\";\nexport * from \"./sun\";\n",
+      "content": "export * from \"./badge-check\";\nexport * from \"./check\";\nexport * from \"./chevron-left\";\nexport * from \"./chevron-right\";\nexport * from \"./eye\";\nexport * from \"./eye-off\";\nexport * from \"./moon\";\nexport * from \"./search\";\nexport * from \"./sun\";\nexport * from \"./x\";\n",
       "type": "registry:component"
     },
     {
@@ -62,6 +62,11 @@
     {
       "path": "../../packages/tetra-ui/src/components/icons/sun.tsx",
       "content": "import { Circle, Path } from \"react-native-svg\";\nimport { StyledSvg } from \"./styled-icon\";\n\nexport const Sun = (props: React.ComponentProps<typeof StyledSvg>) => {\n  return (\n    <StyledSvg\n      {...props}\n      fill=\"none\"\n      strokeLinecap=\"round\"\n      strokeLinejoin=\"round\"\n      strokeWidth=\"2\"\n      viewBox=\"0 0 24 24\"\n    >\n      <Circle cx=\"12\" cy=\"12\" r=\"4\" />\n      <Path d=\"M12 2v2\" />\n      <Path d=\"M12 20v2\" />\n      <Path d=\"m4.93 4.93 1.41 1.41\" />\n      <Path d=\"m17.66 17.66 1.41 1.41\" />\n      <Path d=\"M2 12h2\" />\n      <Path d=\"M20 12h2\" />\n      <Path d=\"m6.34 17.66-1.41 1.41\" />\n      <Path d=\"m19.07 4.93-1.41 1.41\" />\n    </StyledSvg>\n  );\n};\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "../../packages/tetra-ui/src/components/icons/x.tsx",
+      "content": "import { Path } from \"react-native-svg\";\nimport { StyledSvg } from \"./styled-icon\";\n\nexport const X = (props: React.ComponentProps<typeof StyledSvg>) => {\n  return (\n    <StyledSvg\n      {...props}\n      fill=\"none\"\n      strokeLinecap=\"round\"\n      strokeLinejoin=\"round\"\n      strokeWidth=\"2\"\n      viewBox=\"0 0 24 24\"\n    >\n      <Path d=\"M18 6 6 18\" />\n      <Path d=\"m6 6 12 12\" />\n    </StyledSvg>\n  );\n};\n",
       "type": "registry:component"
     }
   ]

@@ -5,7 +5,7 @@ export const ScreenScrollView = (
 ) => {
   return (
     <ScrollView
-      className="bg-background-muted py-4"
+      className="bg-background-muted pb-4"
       contentContainerClassName="flex gap-4"
       contentInsetAdjustmentBehavior="automatic"
       {...props}

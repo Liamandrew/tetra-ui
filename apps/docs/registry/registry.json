@@ -148,6 +148,10 @@
         {
           "path": "../../packages/tetra-ui/src/components/icons/sun.tsx",
           "type": "registry:component"
+        },
+        {
+          "path": "../../packages/tetra-ui/src/components/icons/x.tsx",
+          "type": "registry:component"
         }
       ]
     },
@@ -157,7 +161,7 @@
       "title": "Input",
       "description": "",
       "dependencies": ["react-native-reanimated"],
-      "registryDependencies": [],
+      "registryDependencies": ["@tetra-ui/button"],
       "files": [
         {
           "path": "../../packages/tetra-ui/src/components/input.tsx",
@@ -184,7 +188,6 @@
       "title": "Password Input",
       "description": "",
       "registryDependencies": [
-        "@tetra-ui/button",
         "@tetra-ui/icons",
         "@tetra-ui/input",
         "@tetra-ui/text-input"
