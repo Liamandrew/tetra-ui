@@ -7,12 +7,14 @@ import {
   InputAddonIcon,
 } from "@repo/tetra-ui/components/input";
 import { TextInput } from "@repo/tetra-ui/components/text-input";
+import { useState } from "react";
 import { Text } from "react-native";
 import { ScreenHeading } from "@/components/screen-heading";
 import { ScreenScrollView } from "@/components/screen-scrollview";
 import { Section } from "@/components/section";
 
 export default function TextInputScreen() {
+  const [searchValue, setSearchValue] = useState("");
   return (
     <ScreenScrollView>
       <ScreenHeading>TextInput</ScreenHeading>
@@ -28,9 +30,13 @@ export default function TextInputScreen() {
           </InputAddon>
         </TextInput>
 
-        <TextInput placeholder="Search...">
+        <TextInput
+          onChangeText={setSearchValue}
+          placeholder="Search..."
+          value={searchValue}
+        >
           <InputAddon align="inline-end">
-            <InputAddonButton>
+            <InputAddonButton onPress={() => setSearchValue("")}>
               <InputAddonButtonText>Clear</InputAddonButtonText>
               <InputAddonButtonIcon>
                 <X />

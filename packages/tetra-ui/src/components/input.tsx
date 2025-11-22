@@ -29,8 +29,8 @@ import { cn } from "../lib/utils";
 import { Button, ButtonIcon, type ButtonProps, ButtonText } from "./button";
 
 // Constants
-const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 const ANIMATION_DURATION = 120;
+const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
 // Types
 type InternalInputAddonButtonContextType = VariantProps<
@@ -70,6 +70,20 @@ type InputAddonButtonProps = Omit<React.ComponentProps<typeof Button>, "size"> &
 type UseInputFocusStateProps = {
   onFocus?: (e: FocusEvent) => void;
   onBlur?: (e: BlurEvent) => void;
+};
+
+// Context
+const InputAddonButtonContext =
+  createContext<InternalInputAddonButtonContextType | null>(null);
+
+const useInputAddonButtonContext = () => {
+  const context = useContext(InputAddonButtonContext);
+  if (!context) {
+    throw new Error(
+      "useInputAddonButtonContext must be used within a Button component"
+    );
+  }
+  return context;
 };
 
 // Components
@@ -290,20 +304,6 @@ export const useInputAddons = (
       endAddons.length && "pr-0"
     ),
   };
-};
-
-// Context
-const InputAddonButtonContext =
-  createContext<InternalInputAddonButtonContextType | null>(null);
-
-const useInputAddonButtonContext = () => {
-  const context = useContext(InputAddonButtonContext);
-  if (!context) {
-    throw new Error(
-      "useInputAddonButtonContext must be used within a Button component"
-    );
-  }
-  return context;
 };
 
 // Styles

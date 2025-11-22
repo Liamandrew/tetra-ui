@@ -25,6 +25,17 @@ export type ButtonProps = React.ComponentProps<typeof Pressable> &
     children: React.ReactNode;
   };
 
+// Context
+const ButtonContext = createContext<InternalButtonContextType | null>(null);
+
+const useButtonContext = () => {
+  const context = useContext(ButtonContext);
+  if (!context) {
+    throw new Error("useButtonContext must be used within a Button component");
+  }
+  return context;
+};
+
 // Components
 export const Button = ({
   className,
@@ -117,17 +128,6 @@ const ButtonSpinner = () => {
   return (
     <ActivityIndicator className={cn(buttonTextVariants(ctx), "absolute")} />
   );
-};
-
-// Context
-const ButtonContext = createContext<InternalButtonContextType | null>(null);
-
-const useButtonContext = () => {
-  const context = useContext(ButtonContext);
-  if (!context) {
-    throw new Error("useButtonContext must be used within a Button component");
-  }
-  return context;
 };
 
 // Styles

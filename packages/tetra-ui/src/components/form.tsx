@@ -29,6 +29,17 @@ type FieldControlProps = {
   children: React.ReactElement<FieldStateProps>;
 };
 
+// Context
+const FieldContext = createContext<InternalFieldContextType | null>(null);
+
+const useFieldContext = () => {
+  const context = useContext(FieldContext);
+  if (!context) {
+    throw new Error("useFieldContext must be used within a Field component");
+  }
+  return context;
+};
+
 // Components
 export const Field = ({
   errorMessage,
@@ -36,13 +47,13 @@ export const Field = ({
   disabled,
   children,
 }: FieldProps) => {
-  const value = useMemo(
+  const ctx = useMemo(
     () => ({ errorMessage, disabled, invalid }),
     [errorMessage, disabled, invalid]
   );
 
   return (
-    <FieldContext.Provider value={value}>
+    <FieldContext.Provider value={ctx}>
       <View className="flex flex-col gap-2">{children}</View>
     </FieldContext.Provider>
   );
@@ -108,17 +119,6 @@ export const FieldErrorMessage = ({
       {errorMessage}
     </Text>
   );
-};
-
-// Context
-const FieldContext = createContext<InternalFieldContextType | null>(null);
-
-const useFieldContext = () => {
-  const context = useContext(FieldContext);
-  if (!context) {
-    throw new Error("useFieldContext must be used within a Field component");
-  }
-  return context;
 };
 
 // Utils

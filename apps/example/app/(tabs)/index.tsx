@@ -1,6 +1,18 @@
+import { Button, ButtonText } from "@repo/tetra-ui/components/button";
 import { Heading } from "@repo/tetra-ui/components/heading";
 import { Label } from "@repo/tetra-ui/components/label";
+import {
+  NativeSheet,
+  NativeSheetBody,
+  NativeSheetClose,
+  NativeSheetContent,
+  NativeSheetFooter,
+  NativeSheetHeader,
+  NativeSheetTitle,
+  NativeSheetTrigger,
+} from "@repo/tetra-ui/components/native-sheet";
 import { Separator } from "@repo/tetra-ui/components/separator";
+import { Text } from "react-native";
 import ComponentLink from "@/components/component-link";
 import { ScreenScrollView } from "@/components/screen-scrollview";
 import { Section } from "@/components/section";
@@ -25,6 +37,38 @@ export default function Home() {
         <Separator />
         <ComponentLink href="/separator">View More</ComponentLink>
       </Section>
+
+      <Section title="Native Sheet">
+        <NativeSheetExample />
+        <ComponentLink href="/native-sheet">View More</ComponentLink>
+      </Section>
     </ScreenScrollView>
   );
 }
+
+const NativeSheetExample = () => {
+  return (
+    <NativeSheet>
+      <NativeSheetTrigger asChild>
+        <Button>
+          <ButtonText>Open</ButtonText>
+        </Button>
+      </NativeSheetTrigger>
+      <NativeSheetContent>
+        <NativeSheetHeader>
+          <NativeSheetTitle>Native Sheet Title</NativeSheetTitle>
+        </NativeSheetHeader>
+        <NativeSheetBody>
+          <Text className="text-foreground">Native Sheet Body</Text>
+        </NativeSheetBody>
+        <NativeSheetFooter>
+          <NativeSheetClose>
+            <Button>
+              <ButtonText>Close</ButtonText>
+            </Button>
+          </NativeSheetClose>
+        </NativeSheetFooter>
+      </NativeSheetContent>
+    </NativeSheet>
+  );
+};

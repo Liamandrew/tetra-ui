@@ -183,6 +183,24 @@
       ]
     },
     {
+      "name": "native-sheet",
+      "type": "registry:ui",
+      "title": "Native Sheet",
+      "description": "",
+      "dependencies": [
+        "react-native-reanimated",
+        "react-native-safe-area-context",
+        "react-native-worklets"
+      ],
+      "registryDependencies": ["@tetra-ui/button", "@tetra-ui/icons"],
+      "files": [
+        {
+          "path": "../../packages/tetra-ui/src/components/native-sheet.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "password-input",
       "type": "registry:ui",
       "title": "Password Input",

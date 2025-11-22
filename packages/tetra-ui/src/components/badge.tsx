@@ -22,6 +22,17 @@ export type BadgeProps = React.ComponentProps<typeof View> &
     children: React.ReactNode;
   };
 
+// Context
+const BadgeContext = createContext<InternalBadgeContextType | null>(null);
+
+const useBadgeContext = () => {
+  const context = useContext(BadgeContext);
+  if (!context) {
+    throw new Error("useBadgeContext must be used within a Badge component");
+  }
+  return context;
+};
+
 // Components
 export const Badge = ({
   children,
@@ -74,17 +85,6 @@ export const BadgeIcon = (props: BadgeChildProps) => {
     ...props,
     className: cn(badgeIconVariants(ctx), props.className),
   });
-};
-
-// Context
-const BadgeContext = createContext<InternalBadgeContextType | null>(null);
-
-const useBadgeContext = () => {
-  const context = useContext(BadgeContext);
-  if (!context) {
-    throw new Error("useBadgeContext must be used within a Badge component");
-  }
-  return context;
 };
 
 // Styles
