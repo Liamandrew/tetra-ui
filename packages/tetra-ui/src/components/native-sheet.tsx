@@ -76,9 +76,10 @@ export const NativeSheet = ({
   onOpenChange,
   children,
 }: NativeSheetProps) => {
-  const [internalOpen, setInternalOpen] = useState(!!openProp);
+  const [internalOpen, setInternalOpen] = useState(openProp ?? false);
 
-  const open = openProp !== undefined ? openProp : internalOpen;
+  const isControlled = openProp !== undefined;
+  const open = isControlled ? openProp : internalOpen;
 
   const handleOpenChange = useCallback(
     (nextOpen: boolean) => {

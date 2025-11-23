@@ -2,6 +2,7 @@ import { ActionInput } from "@repo/tetra-ui/components/action-input";
 import { Button } from "@repo/tetra-ui/components/button";
 import { Checkbox } from "@repo/tetra-ui/components/checkbox";
 import { PasswordInput } from "@repo/tetra-ui/components/password-input";
+import { Switch } from "@repo/tetra-ui/components/switch";
 import { TextInput } from "@repo/tetra-ui/components/text-input";
 import { TextareaInput } from "@repo/tetra-ui/components/textarea-input";
 import ComponentLink from "@/components/component-link";
@@ -39,6 +40,11 @@ export default function Form() {
       <Section title="Checkbox">
         <Checkbox checked />
         <ComponentLink href="/checkbox">View More</ComponentLink>
+      </Section>
+
+      <Section title="Switch">
+        <Switch />
+        <ComponentLink href="/switch">View More</ComponentLink>
       </Section>
 
       <Section title="Form">

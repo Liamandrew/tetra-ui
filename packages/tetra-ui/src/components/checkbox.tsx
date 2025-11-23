@@ -41,17 +41,17 @@ export const Checkbox = ({
 }: CheckboxProps) => {
   const primaryColor = useCSSVariable("--color-primary") as string;
 
-  const backgroundProgress = useSharedValue(checked ? 1 : 0);
+  const checkedSharedValue = useSharedValue(checked ? 1 : 0);
 
   useEffect(() => {
-    backgroundProgress.value = withTiming(checked ? 1 : 0, {
+    checkedSharedValue.value = withTiming(checked ? 1 : 0, {
       duration: ANIMATION_DURATION,
     });
-  }, [checked, backgroundProgress]);
+  }, [checked, checkedSharedValue]);
 
   const animatedStyle = useAnimatedStyle(() => {
     const backgroundColor = interpolateColor(
-      backgroundProgress.value,
+      checkedSharedValue.value,
       [0, 1],
       ["transparent", primaryColor]
     );
@@ -64,6 +64,7 @@ export const Checkbox = ({
   return (
     <Animated.View
       {...props}
+      accessibilityState={{ checked }}
       className={cn(
         "size-6 shrink-0 items-center justify-center rounded-lg border border-input shadow-xs dark:bg-input/30",
         checked && "border-primary",
