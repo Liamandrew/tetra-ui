@@ -1,0 +1,50 @@
+---
+title: Text
+description: A lightweight wrapper around the React Native Text component to provide default styles.
+---
+
+In Uniwind and React Native, there is no way to add [base styles](https://tailwindcss.com/docs/adding-custom-styles#adding-base-styles) to all components. Therefore, we use component composition to provide a Text component that applies any necessary default styles.
+
+## Installation
+
+<Tabs defaultValue="cli">
+
+<TabsList>
+  <TabsTrigger value="cli">CLI</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+
+<TabsContent value="cli">
+
+```package-install
+npx shadcn@latest add @tetra-ui/text
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps>
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource name="text" title="components/ui/text.tsx" />
+
+</Steps>
+
+</TabsContent>
+
+</Tabs>
+
+
+## Usage
+
+```tsx
+import { Text } from "@/components/ui/badge";
+```
+
+```tsx
+<Text>tetra-ui is awesome</Text>
+```
+
+

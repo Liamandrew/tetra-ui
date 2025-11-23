@@ -19,8 +19,8 @@ import {
 } from "@repo/tetra-ui/components/native-sheet";
 import { Separator } from "@repo/tetra-ui/components/separator";
 import { Stack } from "@repo/tetra-ui/components/stack";
+import { Text } from "@repo/tetra-ui/components/text";
 import { useState } from "react";
-import { Text } from "react-native";
 import { ScreenHeading } from "@/components/screen-heading";
 import { ScreenScrollView } from "@/components/screen-scrollview";
 import { Section } from "@/components/section";
@@ -106,7 +106,7 @@ function ConfirmationSheetExample() {
           <NativeSheetTitle>Confirm Deletion</NativeSheetTitle>
         </NativeSheetHeader>
         <NativeSheetBody>
-          <Text className="text-foreground">
+          <Text>
             Are you sure you want to delete this item? This action cannot be
             undone.
           </Text>

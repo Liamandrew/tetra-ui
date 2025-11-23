@@ -14,8 +14,8 @@ import {
 } from "@repo/tetra-ui/components/form";
 import { PasswordInput } from "@repo/tetra-ui/components/password-input";
 import { Stack } from "@repo/tetra-ui/components/stack";
+import { Text } from "@repo/tetra-ui/components/text";
 import { TextInput } from "@repo/tetra-ui/components/text-input";
-import { Text } from "react-native";
 import { ScreenHeading } from "@/components/screen-heading";
 import { ScreenScrollView } from "@/components/screen-scrollview";
 import { Section } from "@/components/section";

@@ -258,6 +258,19 @@
       ]
     },
     {
+      "name": "text",
+      "type": "registry:ui",
+      "title": "Text",
+      "description": "",
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "../../packages/tetra-ui/src/components/text.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "text-input",
       "type": "registry:ui",
       "title": "TextInput",

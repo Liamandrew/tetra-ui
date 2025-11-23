@@ -1,7 +1,7 @@
 import { ActionInput } from "@repo/tetra-ui/components/action-input";
 import { BadgeCheck } from "@repo/tetra-ui/components/icons";
 import { InputAddon, InputAddonIcon } from "@repo/tetra-ui/components/input";
-import { Text } from "react-native";
+import { Text } from "@repo/tetra-ui/components/text";
 import { ScreenHeading } from "@/components/screen-heading";
 import { ScreenScrollView } from "@/components/screen-scrollview";
 import { Section } from "@/components/section";

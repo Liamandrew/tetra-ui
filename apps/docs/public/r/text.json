@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "text",
+  "type": "registry:ui",
+  "title": "Text",
+  "description": "",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "../../packages/tetra-ui/src/components/text.tsx",
+      "content": "import { Text as RNText } from \"react-native\";\nimport { cn } from \"../lib/utils\";\n\n// Components\nexport const Text = ({\n  children,\n  className,\n  ...props\n}: React.ComponentProps<typeof RNText>) => {\n  return (\n    <RNText className={cn(\"text-foreground\", className)} {...props}>\n      {children}\n    </RNText>\n  );\n};\n",
+      "type": "registry:ui"
+    }
+  ]
+}

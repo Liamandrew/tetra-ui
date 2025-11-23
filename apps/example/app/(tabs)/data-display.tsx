@@ -7,7 +7,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@repo/tetra-ui/components/card";
-import { Text } from "react-native";
+import { Text } from "@repo/tetra-ui/components/text";
 import ComponentLink from "@/components/component-link";
 import { ScreenScrollView } from "@/components/screen-scrollview";
 import { Section } from "@/components/section";
