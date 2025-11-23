@@ -8,7 +8,7 @@ import Animated, {
   withSpring,
   withTiming,
 } from "react-native-reanimated";
-import { useCSSVariable } from "uniwind";
+import { Uniwind, useCSSVariable } from "uniwind";
 import { cn } from "@/lib/utils";
 
 // Constants
@@ -32,7 +32,7 @@ const Thumb = ({
   return (
     <Animated.View
       {...props}
-      className={cn("size-5 rounded-full bg-white", className)}
+      className={cn("size-5 rounded-full shadow-md", className)}
     />
   );
 };
@@ -45,8 +45,15 @@ export const Switch = ({
   value,
   ...props
 }: SwitchProps) => {
+  const foregroundColor = useCSSVariable("--color-foreground") as string;
+  const backgroundColor = useCSSVariable("--color-background") as string;
   const inputColor = useCSSVariable("--color-input") as string;
   const primaryColor = useCSSVariable("--color-primary") as string;
+  const primaryForegroundColor = useCSSVariable(
+    "--color-primary-foreground"
+  ) as string;
+
+  const isDark = Uniwind.currentTheme === "dark";
 
   const [internalChecked, setInternalChecked] = useState(checkedProp ?? false);
 
@@ -75,7 +82,7 @@ export const Switch = ({
     const color = interpolateColor(
       checkedSharedValue.value,
       [0, 1],
-      [inputColor, primaryColor]
+      [inputColor, isDark ? foregroundColor : primaryColor]
     );
     const colorValue = withTiming(color, { duration: ANIMATION_DURATION });
 
@@ -86,6 +93,15 @@ export const Switch = ({
   });
 
   const thumbAnimatedStyle = useAnimatedStyle(() => {
+    const color = interpolateColor(
+      checkedSharedValue.value,
+      [0, 1],
+      [
+        isDark ? foregroundColor : backgroundColor,
+        isDark ? primaryForegroundColor : backgroundColor,
+      ]
+    );
+    const colorValue = withTiming(color, { duration: ANIMATION_DURATION });
     const moveValue = interpolate(
       Number(checkedSharedValue.value),
       [0, 1],
@@ -99,6 +115,7 @@ export const Switch = ({
 
     return {
       transform: [{ translateX: translateValue }],
+      backgroundColor: colorValue,
     };
   });
 
