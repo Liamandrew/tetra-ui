@@ -12,7 +12,7 @@ import { useCSSVariable } from "uniwind";
 import { cn } from "@/lib/utils";
 
 // Constants
-const ANIMATION_DURATION = 180;
+const ANIMATION_DURATION = 120;
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
 // Types
