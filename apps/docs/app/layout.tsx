@@ -9,6 +9,7 @@ import { siteConfig } from "@/lib/config";
 const geist = Geist();
 
 export const metadata: Metadata = {
+  metadataBase: new URL(siteConfig.url),
   title: {
     default: siteConfig.name,
     template: `%s | ${siteConfig.name}`,
