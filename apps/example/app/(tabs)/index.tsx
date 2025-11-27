@@ -8,6 +8,8 @@ import {
   NativeSheetContent,
   NativeSheetFooter,
   NativeSheetHeader,
+  NativeSheetModal,
+  NativeSheetOverlay,
   NativeSheetTitle,
   NativeSheetTrigger,
 } from "@repo/tetra-ui/components/native-sheet";
@@ -54,21 +56,24 @@ const NativeSheetExample = () => {
           <ButtonText>Open</ButtonText>
         </Button>
       </NativeSheetTrigger>
-      <NativeSheetContent>
-        <NativeSheetHeader>
-          <NativeSheetTitle>Native Sheet Title</NativeSheetTitle>
-        </NativeSheetHeader>
-        <NativeSheetBody>
-          <Text className="text-foreground">Native Sheet Body</Text>
-        </NativeSheetBody>
-        <NativeSheetFooter>
-          <NativeSheetClose>
-            <Button>
-              <ButtonText>Close</ButtonText>
-            </Button>
-          </NativeSheetClose>
-        </NativeSheetFooter>
-      </NativeSheetContent>
+      <NativeSheetModal>
+        <NativeSheetOverlay />
+        <NativeSheetContent>
+          <NativeSheetHeader>
+            <NativeSheetTitle>Native Sheet Title</NativeSheetTitle>
+          </NativeSheetHeader>
+          <NativeSheetBody>
+            <Text className="text-foreground">Native Sheet Body</Text>
+          </NativeSheetBody>
+          <NativeSheetFooter>
+            <NativeSheetClose>
+              <Button>
+                <ButtonText>Close</ButtonText>
+              </Button>
+            </NativeSheetClose>
+          </NativeSheetFooter>
+        </NativeSheetContent>
+      </NativeSheetModal>
     </NativeSheet>
   );
 };

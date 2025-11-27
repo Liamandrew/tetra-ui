@@ -10,6 +10,7 @@ import {
 } from "react";
 import {
   type LayoutChangeEvent,
+  type LayoutRectangle,
   Modal,
   Pressable,
   type PressableProps,
@@ -40,20 +41,28 @@ const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 type NativeSheetContextProps = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-};
-
-type NativeSheetOverlayProps = {
-  closeOnOverlayPress?: boolean;
-  sharedValue: SharedValue<number>;
+  visible: boolean;
+  setVisible: (visible: boolean) => void;
+  visibilityProgress: SharedValue<number>;
+  contentLayout?: LayoutRectangle;
+  setContentLayout: (layout?: LayoutRectangle) => void;
 };
 
 type NativeSheetProps = Partial<NativeSheetContextProps> & {
   children: React.ReactNode;
 };
 
-type NativeSheetContentProps = React.ComponentProps<typeof View> & {
-  closeOnOverlayPress?: boolean;
+type NativeSheetModalProps = Omit<
+  React.ComponentProps<typeof Modal>,
+  "onRequestClose" | "transparent" | "visible"
+>;
+
+type NativeSheetOverlayProps = {
+  closeOnPress?: boolean;
+  className?: string;
 };
+
+type NativeSheetContentProps = React.ComponentProps<typeof View>;
 
 type NativeSheetTriggerProps = PressableProps & {
   asChild?: boolean;
@@ -77,9 +86,14 @@ export const NativeSheet = ({
   children,
 }: NativeSheetProps) => {
   const [internalOpen, setInternalOpen] = useState(openProp ?? false);
+  const [contentLayout, setContentLayout] = useState<LayoutRectangle>();
 
   const isControlled = openProp !== undefined;
   const open = isControlled ? openProp : internalOpen;
+
+  const [visible, setVisible] = useState(open);
+
+  const visibilityProgress = useSharedValue(open ? 1 : 0);
 
   const handleOpenChange = useCallback(
     (nextOpen: boolean) => {
@@ -89,9 +103,40 @@ export const NativeSheet = ({
     [onOpenChange]
   );
 
+  useEffect(() => {
+    if (open) {
+      setVisible(true);
+
+      // When opening, set visibility to 0 first (off-screen position)
+      // The animation will start after layout is measured in onLayout
+      visibilityProgress.value = visibilityProgress.value = withTiming(1, {
+        duration: ANIMATION_DURATION,
+      });
+    } else {
+      // When closing, animate immediately (we already have the height)
+      visibilityProgress.value = withTiming(
+        0,
+        {
+          duration: ANIMATION_DURATION,
+        },
+        () => {
+          scheduleOnRN(setVisible, false);
+        }
+      );
+    }
+  }, [open, visibilityProgress]);
+
   const ctx = useMemo(
-    () => ({ open, onOpenChange: handleOpenChange }),
-    [open, handleOpenChange]
+    () => ({
+      open,
+      onOpenChange: handleOpenChange,
+      visibilityProgress,
+      visible,
+      setVisible,
+      contentLayout,
+      setContentLayout,
+    }),
+    [open, contentLayout, visibilityProgress, visible, handleOpenChange]
   );
 
   return (
@@ -101,17 +146,34 @@ export const NativeSheet = ({
   );
 };
 
-const NativeSheetOverlay = ({
-  sharedValue,
-  closeOnOverlayPress = true,
+export const NativeSheetModal = ({
+  supportedOrientations = ["portrait", "landscape"],
+  ...props
+}: NativeSheetModalProps & { children: React.ReactNode }) => {
+  const { onOpenChange, visible } = useNativeSheet();
+
+  return (
+    <Modal
+      {...props}
+      onRequestClose={() => onOpenChange(false)}
+      supportedOrientations={supportedOrientations}
+      transparent
+      visible={visible}
+    />
+  );
+};
+
+export const NativeSheetOverlay = ({
+  closeOnPress = true,
+  className,
 }: NativeSheetOverlayProps) => {
-  const { onOpenChange } = useNativeSheet();
+  const { onOpenChange, visibilityProgress } = useNativeSheet();
 
   const isDark = Uniwind.currentTheme === "dark";
 
   const animatedStyle = useAnimatedStyle(() => {
     const opacity = interpolate(
-      sharedValue.value,
+      visibilityProgress.value,
       [0, 1],
       [0, isDark ? 0.95 : 0.5],
       Extrapolation.CLAMP
@@ -124,8 +186,8 @@ const NativeSheetOverlay = ({
 
   return (
     <AnimatedPressable
-      className="bg-black"
-      disabled={!closeOnOverlayPress}
+      className={cn("bg-black", className)}
+      disabled={!closeOnPress}
       onPress={() => onOpenChange(false)}
       style={[StyleSheet.absoluteFill, animatedStyle]}
     />
@@ -134,59 +196,31 @@ const NativeSheetOverlay = ({
 
 export const NativeSheetContent = ({
   children,
-  closeOnOverlayPress = true,
   ...props
 }: NativeSheetContentProps) => {
-  const { open, onOpenChange } = useNativeSheet();
-
-  const [isVisible, setIsVisible] = useState(open);
+  const { visibilityProgress, contentLayout, setContentLayout } =
+    useNativeSheet();
 
   const { bottom } = useSafeAreaInsets();
 
-  const visibility = useSharedValue(open ? 1 : 0);
-  const sheetHeight = useSharedValue(0);
-
-  useEffect(() => {
-    if (open) {
-      setIsVisible(true);
-      // When opening, set visibility to 0 first (off-screen position)
-      // The animation will start after layout is measured in onSheetLayout
-      visibility.value = 0;
-    } else {
-      // When closing, animate immediately (we already have the height)
-      visibility.value = withTiming(
-        0,
-        {
-          duration: ANIMATION_DURATION,
-        },
-        () => {
-          scheduleOnRN(setIsVisible, false);
-        }
-      );
-    }
-  }, [open, visibility]);
-
-  const onSheetLayout = useCallback(
+  const onLayout = useCallback(
     (event: LayoutChangeEvent) => {
-      const height = event.nativeEvent.layout.height;
-      if (height > 0) {
-        sheetHeight.value = height;
-        // Start animation after we have a valid height measurement
-        if (open) {
-          visibility.value = withTiming(1, {
-            duration: ANIMATION_DURATION,
-          });
-        }
-      }
+      setContentLayout(event.nativeEvent.layout);
     },
-    [open, sheetHeight, visibility]
+    [setContentLayout]
   );
 
   const animatedStyle = useAnimatedStyle(() => {
+    if (!contentLayout) {
+      return {
+        transform: [{ translateY: 0 }],
+      };
+    }
+
     const translateY = interpolate(
-      visibility.value,
+      visibilityProgress.value,
       [0, 1],
-      [sheetHeight.value, 0]
+      [contentLayout.height, 0]
     );
 
     return {
@@ -194,33 +228,18 @@ export const NativeSheetContent = ({
     };
   });
 
-  if (!isVisible) {
-    return null;
-  }
-
   return (
-    <Modal
-      onRequestClose={() => onOpenChange(false)}
-      supportedOrientations={["portrait", "landscape"]}
-      transparent
-      visible={isVisible}
+    <Animated.View
+      {...props}
+      className={cn(
+        "absolute inset-0 top-auto ios:rounded-t-xl bg-background",
+        props.className
+      )}
+      onLayout={onLayout}
+      style={[{ paddingBottom: bottom }, animatedStyle, props.style]}
     >
-      <NativeSheetOverlay
-        closeOnOverlayPress={closeOnOverlayPress}
-        sharedValue={visibility}
-      />
-      <Animated.View
-        {...props}
-        className={cn(
-          "absolute inset-0 top-auto ios:rounded-t-xl bg-background",
-          props.className
-        )}
-        onLayout={onSheetLayout}
-        style={[{ paddingBottom: bottom }, animatedStyle, props.style]}
-      >
-        {children}
-      </Animated.View>
-    </Modal>
+      {children}
+    </Animated.View>
   );
 };
 

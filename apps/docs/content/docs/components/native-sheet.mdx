@@ -54,6 +54,8 @@ import {
   NativeSheetContent,
   NativeSheetFooter,
   NativeSheetHeader,
+  NativeSheetModal,
+  NativeSheetOverlay,
   NativeSheetTitle,
   NativeSheetTrigger,
 } from "@/components/ui/native-sheet";
@@ -66,22 +68,32 @@ import {
       <ButtonText>Open</ButtonText>
     </Button>
   </NativeSheetTrigger>
-  <NativeSheetContent>
-    <NativeSheetHeader>
-      <NativeSheetTitle>Native Sheet Title</NativeSheetTitle>
-    </NativeSheetHeader>
-    <NativeSheetBody>
-      <Text className="text-foreground">Native Sheet Body</Text>
-    </NativeSheetBody>
-    <NativeSheetFooter>
-      <NativeSheetClose>
-        <Button>
-          <ButtonText>Close</ButtonText>
-        </Button>
-      </NativeSheetClose>
-    </NativeSheetFooter>
-  </NativeSheetContent>
+  <NativeSheetModal>
+    <NativeSheetOverlay />
+    <NativeSheetContent>
+      <NativeSheetHeader>
+        <NativeSheetTitle>Native Sheet Title</NativeSheetTitle>
+      </NativeSheetHeader>
+      <NativeSheetBody>
+        <Text className="text-foreground">Native Sheet Body</Text>
+      </NativeSheetBody>
+      <NativeSheetFooter>
+        <NativeSheetClose>
+          <Button>
+            <ButtonText>Close</ButtonText>
+          </Button>
+        </NativeSheetClose>
+      </NativeSheetFooter>
+    </NativeSheetContent>
+  </NativeSheetModal>
 </NativeSheet>
 ```
 
+## Changelog
 
+2025-11-28 Composition Changes
+
+Native Sheet has an improved composition pattern and now exports the following additional components:
+
+- `NativeSheetModal`
+- `NativeSheetOverlay`
