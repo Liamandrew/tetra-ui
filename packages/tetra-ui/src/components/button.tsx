@@ -141,14 +141,13 @@ export const buttonVariants = cva(
         icon: "size-9",
       },
       variant: {
-        default:
-          "bg-primary text-primary-foreground shadow-xs active:bg-primary/80",
+        default: "bg-primary text-primary-foreground active:bg-primary/80",
         destructive:
-          "bg-destructive text-white shadow-xs active:bg-destructive/80 dark:bg-destructive/60",
+          "bg-destructive text-white active:bg-destructive/80 dark:bg-destructive/60",
         outline:
-          "border border-border bg-background shadow-xs active:bg-accent/90 dark:border-input dark:bg-input/30 dark:active:bg-input/50",
+          "border border-border bg-background active:bg-accent/90 dark:border-input dark:bg-input/30 dark:active:bg-input/50",
         secondary:
-          "bg-secondary text-secondary-foreground shadow-xs active:bg-secondary/50",
+          "bg-secondary text-secondary-foreground active:bg-secondary/50",
         ghost: "bg-background active:bg-accent/90 dark:active:bg-accent/50",
         link: "h-auto w-auto p-0 active:opacity-50",
       },
