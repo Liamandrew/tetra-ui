@@ -5,15 +5,17 @@ import {
 } from "@react-navigation/native";
 import { useMemo } from "react";
 import { useUniwind } from "uniwind";
+import { PortalHost } from "./portal";
 
-type ThemeProviderProps = {
-  children: React.ReactNode;
-};
-
-export const ThemeProvider = (props: ThemeProviderProps) => {
+export const ThemeProvider = ({ children }: React.PropsWithChildren) => {
   const navigationTheme = useNavigationTheme();
 
-  return <NavigationThemeProvider value={navigationTheme} {...props} />;
+  return (
+    <NavigationThemeProvider value={navigationTheme}>
+      {children}
+      <PortalHost />
+    </NavigationThemeProvider>
+  );
 };
 
 const useNavigationTheme = () => {

@@ -1,18 +1,32 @@
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useSyncExternalStore } from "react";
+import { Platform } from "react-native";
+import { FullWindowOverlay } from "react-native-screens";
 
 // Constants
 const DEFAULT_PORTAL_HOST = "TETRA_UI_DEFAULT_HOST_NAME";
 
 // Types
+type PortalHostProps = {
+  name?: string;
+};
+
+type PortalProps = {
+  name: string;
+  hostName?: string;
+  children: React.ReactNode;
+};
+
 type PortalMap = Map<string, React.ReactNode>;
+
 type PortalHostMap = Map<string, PortalMap>;
 
+type PortalListener = () => void;
+
 // Components
-export const PortalHost = ({
-  name = DEFAULT_PORTAL_HOST,
-}: {
-  name?: string;
-}) => {
+export const PortalOverlay =
+  Platform.OS === "ios" ? FullWindowOverlay : Fragment;
+
+export const PortalHost = ({ name = DEFAULT_PORTAL_HOST }: PortalHostProps) => {
   const map = usePortalMap();
   const portal = map.get(name) ?? new Map<string, React.ReactNode>();
 
@@ -27,11 +41,7 @@ export const Portal = ({
   name,
   hostName = DEFAULT_PORTAL_HOST,
   children,
-}: {
-  name: string;
-  hostName?: string;
-  children: React.ReactNode;
-}) => {
+}: PortalProps) => {
   useEffect(() => {
     updatePortal(hostName, name, children);
   }, [hostName, name, children]);
@@ -47,19 +57,15 @@ export const Portal = ({
 
 // Hooks
 const usePortalMap = () => {
-  const [, forceUpdate] = useState({});
-
-  useEffect(() => {
-    const listener = () => {
-      forceUpdate({});
-    };
-    listeners.add(listener);
-    return () => {
-      listeners.delete(listener);
-    };
-  }, []);
-
-  return portalMap;
+  return useSyncExternalStore(
+    (onStoreChange) => {
+      listeners.add(onStoreChange);
+      return () => {
+        listeners.delete(onStoreChange);
+      };
+    },
+    () => portalMap
+  );
 };
 
 // Utils
@@ -68,8 +74,7 @@ let portalMap: PortalHostMap = new Map<string, PortalMap>().set(
   new Map<string, React.ReactNode>()
 );
 
-type Listener = () => void;
-const listeners = new Set<Listener>();
+const listeners = new Set<PortalListener>();
 
 const notifyListeners = () => {
   for (const listener of listeners) {

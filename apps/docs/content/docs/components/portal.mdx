@@ -1,0 +1,54 @@
+---
+title: Portal
+description: Renders children into a different part of the app.
+---
+
+## Installation
+
+<Tabs defaultValue="cli">
+
+<TabsList>
+  <TabsTrigger value="cli">CLI</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+
+<TabsContent value="cli">
+
+```package-install
+npx shadcn@latest add @tetra-ui/portal
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps>
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource name="portal" title="components/ui/portal.tsx" />
+
+</Steps>
+
+</TabsContent>
+
+</Tabs>
+
+## Usage
+
+```tsx
+import { PortalHost } from "@/components/ui/portal";
+```
+
+```tsx
+export default function RootLayout() {
+  return (
+    <>
+      <Stack />
+      <PortalHost />
+    </>
+  );
+}
+```
+
+

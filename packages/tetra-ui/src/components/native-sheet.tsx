@@ -155,6 +155,10 @@ export const NativeSheetModal = ({
 }: NativeSheetModalProps & { children: React.ReactNode }) => {
   const { onOpenChange, visible } = useNativeSheet();
 
+  if (!visible) {
+    return null;
+  }
+
   return (
     <Modal
       {...props}
@@ -178,7 +182,7 @@ export const NativeSheetOverlay = ({
     const opacity = interpolate(
       visibilityProgress.value,
       [0, 1],
-      [0, isDark ? 0.95 : 0.5],
+      [0, isDark ? 0.75 : 0.5],
       Extrapolation.CLAMP
     );
 

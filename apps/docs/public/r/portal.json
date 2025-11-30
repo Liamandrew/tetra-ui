@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "portal",
+  "type": "registry:ui",
+  "title": "Portal",
+  "description": "",
+  "dependencies": [
+    "react-native-screens"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "../../packages/tetra-ui/src/components/portal.tsx",
+      "content": "import { Fragment, useEffect, useSyncExternalStore } from \"react\";\nimport { Platform } from \"react-native\";\nimport { FullWindowOverlay } from \"react-native-screens\";\n\n// Constants\nconst DEFAULT_PORTAL_HOST = \"TETRA_UI_DEFAULT_HOST_NAME\";\n\n// Types\ntype PortalHostProps = {\n  name?: string;\n};\n\ntype PortalProps = {\n  name: string;\n  hostName?: string;\n  children: React.ReactNode;\n};\n\ntype PortalMap = Map<string, React.ReactNode>;\n\ntype PortalHostMap = Map<string, PortalMap>;\n\ntype PortalListener = () => void;\n\n// Components\nexport const PortalOverlay =\n  Platform.OS === \"ios\" ? FullWindowOverlay : Fragment;\n\nexport const PortalHost = ({ name = DEFAULT_PORTAL_HOST }: PortalHostProps) => {\n  const map = usePortalMap();\n  const portal = map.get(name) ?? new Map<string, React.ReactNode>();\n\n  if (portal.size === 0) {\n    return null;\n  }\n\n  return <>{Array.from(portal.values())}</>;\n};\n\nexport const Portal = ({\n  name,\n  hostName = DEFAULT_PORTAL_HOST,\n  children,\n}: PortalProps) => {\n  useEffect(() => {\n    updatePortal(hostName, name, children);\n  }, [hostName, name, children]);\n\n  useEffect(() => {\n    return () => {\n      removePortal(hostName, name);\n    };\n  }, [hostName, name]);\n\n  return null;\n};\n\n// Hooks\nconst usePortalMap = () => {\n  return useSyncExternalStore(\n    (onStoreChange) => {\n      listeners.add(onStoreChange);\n      return () => {\n        listeners.delete(onStoreChange);\n      };\n    },\n    () => portalMap\n  );\n};\n\n// Utils\nlet portalMap: PortalHostMap = new Map<string, PortalMap>().set(\n  DEFAULT_PORTAL_HOST,\n  new Map<string, React.ReactNode>()\n);\n\nconst listeners = new Set<PortalListener>();\n\nconst notifyListeners = () => {\n  for (const listener of listeners) {\n    listener();\n  }\n};\n\nconst updatePortal = (\n  hostName: string,\n  name: string,\n  content: React.ReactNode\n) => {\n  const next = new Map(portalMap);\n  const portal = next.get(hostName) ?? new Map<string, React.ReactNode>();\n  const updatedPortal = new Map(portal);\n  updatedPortal.set(name, content);\n  next.set(hostName, updatedPortal);\n  portalMap = next;\n  notifyListeners();\n};\n\nconst removePortal = (hostName: string, name: string) => {\n  const next = new Map(portalMap);\n  const portal = next.get(hostName);\n  if (portal) {\n    const updatedPortal = new Map(portal);\n    updatedPortal.delete(name);\n    if (updatedPortal.size === 0) {\n      next.delete(hostName);\n    } else {\n      next.set(hostName, updatedPortal);\n    }\n    portalMap = next;\n    notifyListeners();\n  }\n};\n",
+      "type": "registry:ui"
+    }
+  ]
+}

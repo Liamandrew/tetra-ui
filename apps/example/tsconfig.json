@@ -4,6 +4,7 @@
     "strict": true,
     "paths": {
       "@/*": ["./*"],
+      "@/hooks/*": ["../../packages/tetra-ui/src/hooks/*"],
       "@/lib/utils": ["../../packages/tetra-ui/src/lib/utils"],
       "@repo/tetra-ui/*": ["../../packages/tetra-ui/src/*"]
     }

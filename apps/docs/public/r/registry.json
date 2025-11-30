@@ -222,6 +222,42 @@
       ]
     },
     {
+      "name": "popover",
+      "type": "registry:ui",
+      "title": "Popover",
+      "description": "",
+      "dependencies": [
+        "react-native-reanimated",
+        "react-native-safe-area-context",
+        "react-native-screens"
+      ],
+      "registryDependencies": ["@tetra-ui/portal", "@tetra-ui/slot"],
+      "files": [
+        {
+          "path": "../../packages/tetra-ui/src/components/popover.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "../../packages/tetra-ui/src/hooks/use-relative-position.ts",
+          "type": "registry:hook"
+        }
+      ]
+    },
+    {
+      "name": "portal",
+      "type": "registry:ui",
+      "title": "Portal",
+      "description": "",
+      "dependencies": ["react-native-screens"],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "../../packages/tetra-ui/src/components/portal.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "separator",
       "type": "registry:ui",
       "title": "Separator",

@@ -13,6 +13,13 @@ import {
   NativeSheetTitle,
   NativeSheetTrigger,
 } from "@repo/tetra-ui/components/native-sheet";
+import {
+  Popover,
+  PopoverContent,
+  PopoverOverlay,
+  PopoverPortal,
+  PopoverTrigger,
+} from "@repo/tetra-ui/components/popover";
 import { Separator } from "@repo/tetra-ui/components/separator";
 import { Text } from "react-native";
 import ComponentLink from "@/components/component-link";
@@ -43,6 +50,11 @@ export default function Home() {
       <Section title="Native Sheet">
         <NativeSheetExample />
         <ComponentLink href="/native-sheet">View More</ComponentLink>
+      </Section>
+
+      <Section title="Popover">
+        <PopoverExample />
+        <ComponentLink href="/popover">View More</ComponentLink>
       </Section>
     </ScreenScrollView>
   );
@@ -75,5 +87,23 @@ const NativeSheetExample = () => {
         </NativeSheetContent>
       </NativeSheetModal>
     </NativeSheet>
+  );
+};
+
+const PopoverExample = () => {
+  return (
+    <Popover>
+      <PopoverTrigger asChild>
+        <Button>
+          <ButtonText>Open</ButtonText>
+        </Button>
+      </PopoverTrigger>
+      <PopoverPortal>
+        <PopoverOverlay />
+        <PopoverContent>
+          <Text>Popover Content</Text>
+        </PopoverContent>
+      </PopoverPortal>
+    </Popover>
   );
 };
