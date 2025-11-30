@@ -1,0 +1,57 @@
+---
+title: Slot
+description: A utility component that allows merging props onto an optional child component.
+---
+
+This component is mainly used internally to help manage composition patterns throughout the library by supporting the `asChild` prop.
+
+## Installation
+
+<Tabs defaultValue="cli">
+
+<TabsList>
+  <TabsTrigger value="cli">CLI</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+
+<TabsContent value="cli">
+
+```package-install
+npx shadcn@latest add @tetra-ui/slot
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps>
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource name="slot" title="components/ui/slot.tsx" />
+
+</Steps>
+
+</TabsContent>
+
+</Tabs>
+
+## Usage
+
+```tsx
+import * as Slot from "@/components/ui/slot";
+```
+
+```tsx
+export const Button = ({ asChild, children, ...props }: ButtonProps) => {
+  const Comp = asChild ? Slot.Pressable : Pressable;
+
+  return (
+    <Comp {...props}>
+      {children}
+    </Comp>
+  );
+};
+```
+
+

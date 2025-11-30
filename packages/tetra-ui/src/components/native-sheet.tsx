@@ -1,6 +1,4 @@
 import {
-  Children,
-  cloneElement,
   createContext,
   useCallback,
   useContext,
@@ -30,8 +28,9 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { scheduleOnRN } from "react-native-worklets";
 import { Uniwind } from "uniwind";
 import { cn } from "@/lib/utils";
-import { Button, ButtonIcon, type ButtonProps } from "./button";
+import { Button, ButtonIcon } from "./button";
 import { X } from "./icons";
+import * as Slot from "./slot";
 
 // Constants
 const ANIMATION_DURATION = 200;
@@ -65,6 +64,10 @@ type NativeSheetOverlayProps = {
 type NativeSheetContentProps = React.ComponentProps<typeof View>;
 
 type NativeSheetTriggerProps = PressableProps & {
+  asChild?: boolean;
+};
+
+type NativeSheetCloseProps = PressableProps & {
   asChild?: boolean;
 };
 
@@ -261,7 +264,7 @@ export const NativeSheetHeader = ({
       {...props}
     >
       {children}
-      <NativeSheetClose>
+      <NativeSheetClose asChild>
         <Button className="ml-auto" size="icon" variant="link">
           <ButtonIcon>
             <X />
@@ -300,59 +303,23 @@ export const NativeSheetFooter = ({
 };
 
 export const NativeSheetClose = ({
-  children,
+  asChild,
   ...props
-}: React.PropsWithChildren) => {
+}: NativeSheetCloseProps) => {
   const { onOpenChange } = useNativeSheet();
 
-  const child = Children.only(children);
+  const Comp = asChild ? Slot.Pressable : Pressable;
 
-  if (!child) {
-    if (__DEV__) {
-      throw new Error(
-        "NativeSheetClose expects a single React element as children"
-      );
-    }
-    return null;
-  }
-
-  return cloneElement(child as React.ReactElement<ButtonProps>, {
-    ...props,
-    onPress: () => onOpenChange(false),
-  });
+  return <Comp {...props} onPress={() => onOpenChange(false)} />;
 };
 
 export const NativeSheetTrigger = ({
-  children,
   asChild,
   ...props
 }: NativeSheetTriggerProps) => {
   const { onOpenChange } = useNativeSheet();
 
-  if (asChild) {
-    const child = Children.only(children);
+  const Comp = asChild ? Slot.Pressable : Pressable;
 
-    if (!child) {
-      if (__DEV__) {
-        throw new Error(
-          "NativeSheetTrigger expects a single React element as children"
-        );
-      }
-      return null;
-    }
-
-    return cloneElement(child as React.ReactElement<PressableProps>, {
-      ...props,
-      onPress: (e) => {
-        props.onPress?.(e);
-        onOpenChange(true);
-      },
-    });
-  }
-
-  return (
-    <Pressable {...props} onPress={() => onOpenChange(true)}>
-      {children}
-    </Pressable>
-  );
+  return <Comp {...props} onPress={() => onOpenChange(true)} />;
 };

@@ -1,6 +1,4 @@
 import {
-  Children,
-  cloneElement,
   createContext,
   useCallback,
   useContext,
@@ -8,6 +6,7 @@ import {
   useState,
 } from "react";
 import { Pressable, type PressableProps } from "react-native";
+import * as Slot from "./slot";
 
 // Types
 type PopoverContextProps = {
@@ -63,39 +62,12 @@ export const Popover = ({
   );
 };
 
-export const PopoverTrigger = ({
-  children,
-  asChild,
-  ...props
-}: PopoverTriggerProps) => {
+export const PopoverTrigger = ({ asChild, ...props }: PopoverTriggerProps) => {
   const { onOpenChange } = usePopover();
 
-  if (asChild) {
-    const child = Children.only(children);
+  const Comp = asChild ? Slot.Pressable : Pressable;
 
-    if (!child) {
-      if (__DEV__) {
-        throw new Error(
-          "PopoverTrigger expects a single React element as children"
-        );
-      }
-      return null;
-    }
-
-    return cloneElement(child as React.ReactElement<PressableProps>, {
-      ...props,
-      onPress: (e) => {
-        props.onPress?.(e);
-        onOpenChange(true);
-      },
-    });
-  }
-
-  return (
-    <Pressable {...props} onPress={() => onOpenChange(true)}>
-      {children}
-    </Pressable>
-  );
+  return <Comp {...props} onPress={() => onOpenChange(true)} />;
 };
 
 export const PopoverContent = () => {

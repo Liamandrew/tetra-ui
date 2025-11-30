@@ -192,7 +192,11 @@
         "react-native-safe-area-context",
         "react-native-worklets"
       ],
-      "registryDependencies": ["@tetra-ui/button", "@tetra-ui/icons"],
+      "registryDependencies": [
+        "@tetra-ui/button",
+        "@tetra-ui/icons",
+        "@tetra-ui/slot"
+      ],
       "files": [
         {
           "path": "../../packages/tetra-ui/src/components/native-sheet.tsx",
@@ -240,6 +244,19 @@
       "files": [
         {
           "path": "../../packages/tetra-ui/src/components/skeleton.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "slot",
+      "type": "registry:ui",
+      "title": "Slot",
+      "description": "",
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "../../packages/tetra-ui/src/components/slot.tsx",
           "type": "registry:ui"
         }
       ]
