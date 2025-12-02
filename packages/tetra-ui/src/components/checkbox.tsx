@@ -73,7 +73,7 @@ export const Checkbox = ({
       )}
       style={animatedStyle}
     >
-      {checked && <Check className="size-4 bg-primary-foreground" />}
+      {checked && <Check className="size-4 stroke-primary-foreground" />}
     </Animated.View>
   );
 };

@@ -9,7 +9,7 @@ const HANDLER_REGEX = /^on[A-Z]/;
 type AnyProps = Record<string, unknown>;
 
 // Components
-export const View = ({
+const View = ({
   ref,
   children,
   ...viewProps
@@ -34,7 +34,7 @@ export const View = ({
   });
 };
 
-export const Pressable = ({
+const Pressable = ({
   ref,
   children,
   ...pressableProps
@@ -110,3 +110,8 @@ function mergeProps(slotProps: AnyProps, childProps: AnyProps) {
 
   return { ...slotProps, ...overrideProps };
 }
+
+export const Slot = {
+  View,
+  Pressable,
+};

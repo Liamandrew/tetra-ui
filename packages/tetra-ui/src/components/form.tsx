@@ -110,6 +110,11 @@ export const FieldErrorMessage = ({
   ...props
 }: Omit<TextProps, "children">) => {
   const { errorMessage } = useFieldContext();
+
+  if (!errorMessage) {
+    return null;
+  }
+
   return (
     <Text
       {...props}

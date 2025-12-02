@@ -31,7 +31,7 @@ import { Uniwind } from "uniwind";
 import { useRelativePosition } from "@/hooks/use-relative-position";
 import { cn, mergeRefs } from "@/lib/utils";
 import { Portal } from "./portal";
-import * as Slot from "./slot";
+import { Slot } from "./slot";
 
 // Constants
 const ANIMATION_DURATION = 200;

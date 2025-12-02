@@ -138,7 +138,10 @@ export const buttonVariants = cva(
       size: {
         default: "h-12 px-4",
         sm: "h-8 px-3",
-        icon: "size-9",
+        lg: "h-14 px-6",
+        "icon-sm": "size-8",
+        icon: "size-12",
+        "icon-lg": "size-14",
       },
       variant: {
         default: "bg-primary text-primary-foreground active:bg-primary/80",
@@ -172,7 +175,10 @@ export const buttonTextVariants = cva("whitespace-nowrap font-bold text-sm", {
     size: {
       default: "text-lg",
       sm: "text-sm",
+      lg: "text-xl",
+      "icon-sm": "",
       icon: "",
+      "icon-lg": "",
     },
   },
   defaultVariants: {
@@ -184,17 +190,20 @@ export const buttonTextVariants = cva("whitespace-nowrap font-bold text-sm", {
 export const buttonIconVariants = cva("", {
   variants: {
     variant: {
-      default: "bg-primary-foreground",
-      destructive: "bg-white",
-      outline: "bg-foreground dark:bg-accent-foreground",
-      secondary: "bg-secondary-foreground",
-      ghost: "bg-accent-foreground",
-      link: "bg-primary",
+      default: "stroke-primary-foreground",
+      destructive: "stroke-white",
+      outline: "stroke-foreground dark:stroke-accent-foreground",
+      secondary: "stroke-secondary-foreground",
+      ghost: "stroke-accent-foreground",
+      link: "stroke-primary",
     },
     size: {
       default: "size-6",
+      lg: "size-7",
       sm: "size-5",
+      "icon-sm": "size-6",
       icon: "size-7",
+      "icon-lg": "size-8",
     },
   },
   defaultVariants: {

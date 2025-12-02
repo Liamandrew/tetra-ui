@@ -122,11 +122,19 @@
           "type": "registry:component"
         },
         {
+          "path": "../../packages/tetra-ui/src/components/icons/chevron-down.tsx",
+          "type": "registry:component"
+        },
+        {
           "path": "../../packages/tetra-ui/src/components/icons/chevron-left.tsx",
           "type": "registry:component"
         },
         {
           "path": "../../packages/tetra-ui/src/components/icons/chevron-right.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "../../packages/tetra-ui/src/components/icons/ellipsis-vertical.tsx",
           "type": "registry:component"
         },
         {

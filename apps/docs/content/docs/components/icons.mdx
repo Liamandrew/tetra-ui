@@ -41,17 +41,8 @@ import Svg from "react-native-svg";
 import { withUniwind } from "uniwind";
 
 export const StyledSvg = withUniwind(Svg, {
-  stroke: {
+  style: {
     fromClassName: "className",
-    styleProperty: "backgroundColor",
-  },
-  width: {
-    fromClassName: "className",
-    styleProperty: "width",
-  },
-  height: {
-    fromClassName: "className",
-    styleProperty: "height",
   },
 });
 ```
@@ -95,4 +86,8 @@ import { BadgeCheck } from "@/components/ui/icons";
 <BadgeCheck />
 ```
 
+## Changelog
 
+### 2025-12-03 Updated Styling
+
+Updated the configuration for `withUniwind` so that stroke classes are used.

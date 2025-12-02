@@ -16,16 +16,12 @@ import { PasswordInput } from "@repo/tetra-ui/components/password-input";
 import { Stack } from "@repo/tetra-ui/components/stack";
 import { Text } from "@repo/tetra-ui/components/text";
 import { TextInput } from "@repo/tetra-ui/components/text-input";
-import { ScreenHeading } from "@/components/screen-heading";
-import { ScreenScrollView } from "@/components/screen-scrollview";
-import { Section } from "@/components/section";
+import { ScreenHero, ScreenScrollView } from "@/components/screen";
 
 export default function CardScreen() {
   return (
     <ScreenScrollView>
-      <ScreenHeading>Card</ScreenHeading>
-
-      <Section className="bg-muted" title="Login Card">
+      <ScreenHero className="items-stretch">
         <Card>
           <CardHeader>
             <CardTitle>Welcome back</CardTitle>
@@ -52,9 +48,9 @@ export default function CardScreen() {
             <Button variant="ghost">Sign Up</Button>
           </CardFooter>
         </Card>
-      </Section>
+      </ScreenHero>
 
-      <Section title="Subscription Cards">
+      <ScreenHero className="bg-background">
         <Stack direction="row" gap="sm">
           <Card className="flex-1 bg-muted">
             <CardHeader>
@@ -87,7 +83,7 @@ export default function CardScreen() {
             </CardFooter>
           </Card>
         </Stack>
-      </Section>
+      </ScreenHero>
     </ScreenScrollView>
   );
 }

@@ -6,7 +6,7 @@ import { configureReanimatedLogger } from "react-native-reanimated";
 
 export const unstable_settings = {
   // Ensure that reloading on `/modal` keeps a back button present.
-  initialRouteName: "(tabs)",
+  initialRouteName: "index",
 };
 
 export default function RootLayout() {
@@ -18,7 +18,7 @@ export default function RootLayout() {
           headerTitle: "",
         }}
       >
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen name="index" />
       </Stack>
     </ThemeProvider>
   );

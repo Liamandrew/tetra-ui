@@ -11,12 +11,12 @@
   "files": [
     {
       "path": "../../packages/tetra-ui/src/components/icons/index.ts",
-      "content": "export * from \"./badge-check\";\nexport * from \"./check\";\nexport * from \"./chevron-left\";\nexport * from \"./chevron-right\";\nexport * from \"./eye\";\nexport * from \"./eye-off\";\nexport * from \"./moon\";\nexport * from \"./search\";\nexport * from \"./sun\";\nexport * from \"./x\";\n",
+      "content": "export * from \"./badge-check\";\nexport * from \"./check\";\nexport * from \"./chevron-down\";\nexport * from \"./chevron-left\";\nexport * from \"./chevron-right\";\nexport * from \"./ellipsis-vertical\";\nexport * from \"./eye\";\nexport * from \"./eye-off\";\nexport * from \"./moon\";\nexport * from \"./search\";\nexport * from \"./sun\";\nexport * from \"./x\";\n",
       "type": "registry:component"
     },
     {
       "path": "../../packages/tetra-ui/src/components/icons/styled-icon.tsx",
-      "content": "import Svg from \"react-native-svg\";\nimport { withUniwind } from \"uniwind\";\n\nexport const StyledSvg = withUniwind(Svg, {\n  stroke: {\n    fromClassName: \"className\",\n    styleProperty: \"backgroundColor\",\n  },\n  width: {\n    fromClassName: \"className\",\n    styleProperty: \"width\",\n  },\n  height: {\n    fromClassName: \"className\",\n    styleProperty: \"height\",\n  },\n});\n",
+      "content": "import Svg from \"react-native-svg\";\nimport { withUniwind } from \"uniwind\";\n\nexport const StyledSvg = withUniwind(Svg, {\n  style: {\n    fromClassName: \"className\",\n  },\n});\n",
       "type": "registry:component"
     },
     {
@@ -30,6 +30,11 @@
       "type": "registry:component"
     },
     {
+      "path": "../../packages/tetra-ui/src/components/icons/chevron-down.tsx",
+      "content": "import { Path } from \"react-native-svg\";\nimport { StyledSvg } from \"./styled-icon\";\n\nexport const ChevronDown = (props: React.ComponentProps<typeof StyledSvg>) => {\n  return (\n    <StyledSvg\n      {...props}\n      fill=\"none\"\n      strokeLinecap=\"round\"\n      strokeLinejoin=\"round\"\n      strokeWidth=\"2\"\n      viewBox=\"0 0 24 24\"\n    >\n      <Path d=\"m6 9 6 6 6-6\" />\n    </StyledSvg>\n  );\n};\n",
+      "type": "registry:component"
+    },
+    {
       "path": "../../packages/tetra-ui/src/components/icons/chevron-left.tsx",
       "content": "import { Path } from \"react-native-svg\";\nimport { StyledSvg } from \"./styled-icon\";\n\nexport const ChevronLeft = (props: React.ComponentProps<typeof StyledSvg>) => {\n  return (\n    <StyledSvg\n      {...props}\n      fill=\"none\"\n      strokeLinecap=\"round\"\n      strokeLinejoin=\"round\"\n      strokeWidth=\"2\"\n      viewBox=\"0 0 24 24\"\n    >\n      <Path d=\"m15 18-6-6 6-6\" />\n    </StyledSvg>\n  );\n};\n",
       "type": "registry:component"
@@ -37,6 +42,11 @@
     {
       "path": "../../packages/tetra-ui/src/components/icons/chevron-right.tsx",
       "content": "import { Path } from \"react-native-svg\";\nimport { StyledSvg } from \"./styled-icon\";\n\nexport const ChevronRight = (props: React.ComponentProps<typeof StyledSvg>) => {\n  return (\n    <StyledSvg\n      {...props}\n      fill=\"none\"\n      strokeLinecap=\"round\"\n      strokeLinejoin=\"round\"\n      strokeWidth=\"2\"\n      viewBox=\"0 0 24 24\"\n    >\n      <Path d=\"m9 18 6-6-6-6\" />\n    </StyledSvg>\n  );\n};\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "../../packages/tetra-ui/src/components/icons/ellipsis-vertical.tsx",
+      "content": "import { Circle } from \"react-native-svg\";\nimport { StyledSvg } from \"./styled-icon\";\n\nexport const EllipsisVertical = (\n  props: React.ComponentProps<typeof StyledSvg>\n) => {\n  return (\n    <StyledSvg\n      {...props}\n      fill=\"none\"\n      strokeLinecap=\"round\"\n      strokeLinejoin=\"round\"\n      strokeWidth=\"2\"\n      viewBox=\"0 0 24 24\"\n    >\n      <Circle cx=\"12\" cy=\"12\" r=\"1\" />\n      <Circle cx=\"12\" cy=\"5\" r=\"1\" />\n      <Circle cx=\"12\" cy=\"19\" r=\"1\" />\n    </StyledSvg>\n  );\n};\n",
       "type": "registry:component"
     },
     {

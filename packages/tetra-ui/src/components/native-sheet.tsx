@@ -30,7 +30,7 @@ import { Uniwind } from "uniwind";
 import { cn } from "@/lib/utils";
 import { Button, ButtonIcon } from "./button";
 import { X } from "./icons";
-import * as Slot from "./slot";
+import { Slot } from "./slot";
 
 // Constants
 const ANIMATION_DURATION = 200;

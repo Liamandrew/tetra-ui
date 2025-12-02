@@ -1,3 +1,4 @@
+import { cn } from "@/lib/utils";
 import {
   Input,
   type InputAddonChildren,
@@ -43,6 +44,7 @@ export const TextInput = ({
 
       <Input
         {...props}
+        className={cn("shrink", props.className)}
         disabled={disabled}
         onBlur={handleBlur}
         onFocus={handleFocus}

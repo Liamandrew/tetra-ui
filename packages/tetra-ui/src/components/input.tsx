@@ -56,7 +56,7 @@ export type InputAddonProps = React.ComponentProps<typeof View> &
     children: React.ReactNode;
   };
 
-type InputAddonChild = React.ReactElement<InputAddonProps>;
+type InputAddonChild = React.ReactElement<InputAddonProps> | null | false;
 export type InputAddonChildren = InputAddonChild | InputAddonChild[];
 
 type InputAddonIconProps = {
@@ -152,7 +152,7 @@ export const InputPressable = ({
     <AnimatedPressable
       accessibilityState={{ disabled }}
       className={cn(
-        "flex min-h-12 w-full grow flex-row items-center gap-2 rounded-lg bg-transparent px-3 py-2 active:bg-accent/90 disabled:opacity-50 dark:active:bg-accent/50",
+        "flex min-h-12 w-full flex-row items-center gap-2 rounded-lg bg-background px-3 py-2 active:bg-accent/90 disabled:opacity-50 dark:active:bg-accent/50",
         className
       )}
       disabled={disabled}
@@ -186,7 +186,7 @@ export const InputAddonIcon = (
 
   return cloneElement(child as React.ReactElement<InputAddonIconProps>, {
     ...props,
-    className: cn("size-6 bg-muted-foreground", props.className),
+    className: cn("size-6 stroke-muted-foreground", props.className),
   });
 };
 
@@ -285,13 +285,16 @@ export const useInputAddons = (
   Children.forEach(children, (child) => {
     if (isValidElement(child) && child.type === InputAddon) {
       const typedChild = child as InputAddonChild;
-      if (
-        typeof typedChild.props.align === "undefined" ||
-        typedChild.props.align === "inline-start"
-      ) {
-        startAddons.push(typedChild);
-      } else {
-        endAddons.push(typedChild);
+
+      if (typedChild) {
+        if (
+          typeof typedChild.props.align === "undefined" ||
+          typedChild.props.align === "inline-start"
+        ) {
+          startAddons.push(typedChild);
+        } else {
+          endAddons.push(typedChild);
+        }
       }
     }
   });
@@ -347,12 +350,12 @@ const inputAddonButtonTextVariants = cva("text-sm", {
 const inputAddonButtonIconVariants = cva("", {
   variants: {
     variant: {
-      default: "bg-primary-foreground",
-      destructive: "bg-white",
-      outline: "bg-muted-foreground",
-      secondary: "bg-secondary-foreground",
-      ghost: "bg-muted-foreground",
-      link: "bg-muted-foreground",
+      default: "stroke-primary-foreground",
+      destructive: "stroke-white",
+      outline: "stroke-muted-foreground",
+      secondary: "stroke-secondary-foreground",
+      ghost: "stroke-muted-foreground",
+      link: "stroke-muted-foreground",
     },
     size: {
       sm: "size-4",

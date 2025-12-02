@@ -23,30 +23,22 @@ import { Separator } from "@repo/tetra-ui/components/separator";
 import { Stack } from "@repo/tetra-ui/components/stack";
 import { Text } from "@repo/tetra-ui/components/text";
 import { useState } from "react";
-import { ScreenHeading } from "@/components/screen-heading";
-import { ScreenScrollView } from "@/components/screen-scrollview";
-import { Section } from "@/components/section";
+import { ScreenHero, ScreenScrollView } from "@/components/screen";
 
 export default function NativeSheetScreen() {
   return (
     <ScreenScrollView>
-      <ScreenHeading>NativeSheet</ScreenHeading>
+      <ScreenHero className="items-stretch">
+        <Stack gap="md">
+          <SettingsSheetExample />
 
-      <Section title="Settings Sheet">
-        <SettingsSheetExample />
-      </Section>
+          <ConfirmationSheetExample />
 
-      <Section title="Confirmation Sheet">
-        <ConfirmationSheetExample />
-      </Section>
+          <ContentDisplaySheetExample />
 
-      <Section title="Content Display Sheet">
-        <ContentDisplaySheetExample />
-      </Section>
-
-      <Section title="Custom Overlay Sheet">
-        <CustomOverlaySheetExample />
-      </Section>
+          <CustomOverlaySheetExample />
+        </Stack>
+      </ScreenHero>
     </ScreenScrollView>
   );
 }
@@ -208,7 +200,7 @@ function CustomOverlaySheetExample() {
   return (
     <NativeSheet onOpenChange={setOpen} open={open}>
       <NativeSheetTrigger asChild>
-        <Button>Custom Overlay</Button>
+        <Button variant="ghost">Custom Overlay</Button>
       </NativeSheetTrigger>
       <NativeSheetModal>
         <NativeSheetOverlay className="bg-red-500" closeOnPress={false} />
