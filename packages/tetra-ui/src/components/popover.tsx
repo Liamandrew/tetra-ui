@@ -26,11 +26,10 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { FullWindowOverlay } from "react-native-screens";
 import { Uniwind } from "uniwind";
 import { useRelativePosition } from "@/hooks/use-relative-position";
 import { cn, mergeRefs } from "@/lib/utils";
-import { Portal } from "./portal";
+import { Portal, PortalOverlay } from "./portal";
 import { Slot } from "./slot";
 
 // Constants
@@ -157,10 +156,10 @@ export const PopoverTrigger = ({
     (e: GestureResponderEvent) => {
       props.onPress?.(e);
 
-      ref.current?.measureInWindow((x, y, width, height) => {
+      ref.current?.measure((_x, _y, width, height, pageX, pageY) => {
         setTriggerPosition({
-          pageX: x,
-          pageY: y,
+          pageX,
+          pageY,
           width,
           height,
         });
@@ -206,7 +205,7 @@ export const PopoverPortal = ({
   return (
     <Portal name={name} {...portalProps}>
       <PopoverContext.Provider value={ctx}>
-        <FullWindowOverlay>{children}</FullWindowOverlay>
+        <PortalOverlay>{children}</PortalOverlay>
       </PopoverContext.Provider>
     </Portal>
   );

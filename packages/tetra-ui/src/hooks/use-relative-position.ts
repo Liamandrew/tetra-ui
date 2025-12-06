@@ -73,32 +73,20 @@ function getVerticalSidePosition({
   }
 
   if (side === "top") {
-    const clampedTop = Math.max(insetTop, positionTop);
     return {
       top: Math.min(
-        clampedTop,
+        Math.max(insetTop, positionTop),
         dimensions.height - insetBottom - contentLayout.height
       ),
     };
   }
 
-  const maxBottom = dimensions.height - insetBottom - contentLayout.height;
-
-  if (positionBottom > maxBottom) {
-    const topPosition =
-      triggerPosition.pageY - sideOffset - contentLayout.height;
-
-    if (topPosition >= insetTop) {
-      return { top: topPosition };
-    }
-
-    return {
-      top: Math.max(insetTop, Math.min(positionBottom, maxBottom)),
-    };
-  }
-
+  // For bottom placement, match reference implementation exactly
   return {
-    top: Math.max(insetTop, Math.min(positionBottom, maxBottom)),
+    top: Math.min(
+      dimensions.height - insetBottom - contentLayout.height,
+      positionBottom
+    ),
   };
 }
 

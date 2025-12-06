@@ -1,7 +1,8 @@
-import { useHeaderHeight } from "@react-navigation/elements";
+import { useHeaderHeight as useHeaderHeightElements } from "@react-navigation/elements";
 import { Button, ButtonIcon } from "@repo/tetra-ui/components/button";
 import { EllipsisVertical } from "@repo/tetra-ui/components/icons";
-import { ScrollView, useWindowDimensions, View } from "react-native";
+import { useRef } from "react";
+import { Platform, ScrollView, useWindowDimensions, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { cn } from "@/lib/utils";
 
@@ -29,7 +30,10 @@ export const ScreenHero = ({
 
   return (
     <View
-      className={cn("w-full items-center justify-center px-4", className)}
+      className={cn(
+        "relative w-full items-center justify-center px-4",
+        className
+      )}
       style={[{ height: heroHeight }, style]}
       {...props}
     >
@@ -55,6 +59,15 @@ export const ScreenActionsButton = (
     </Button>
   );
 };
+
+// https://github.com/react-navigation/react-navigation/issues/12692#issuecomment-3506540022
+const useHeaderHeight = (): number => {
+  const headerHeight = useHeaderHeightElements();
+  const fixedHeight = useRef(headerHeight);
+
+  return Platform.OS === "android" ? fixedHeight.current : headerHeight;
+};
+export default useHeaderHeight;
 
 const useHeroHeight = () => {
   const headerHeight = useHeaderHeight();

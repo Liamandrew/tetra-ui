@@ -236,8 +236,7 @@
       "description": "",
       "dependencies": [
         "react-native-reanimated",
-        "react-native-safe-area-context",
-        "react-native-screens"
+        "react-native-safe-area-context"
       ],
       "registryDependencies": ["@tetra-ui/portal", "@tetra-ui/slot"],
       "files": [

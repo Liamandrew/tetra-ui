@@ -13,6 +13,7 @@
         "noUnknownFunction": "off"
       },
       "nursery": {
+        "noLeakedRender": "off",
         "useConsistentArrowReturn": "off"
       },
       "performance": {
@@ -21,6 +22,9 @@
       },
       "suspicious": {
         "noUnknownAtRules": "off"
+      },
+      "complexity": {
+        "noExcessiveNestedTest": "off"
       }
     }
   }
