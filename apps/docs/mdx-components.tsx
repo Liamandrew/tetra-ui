@@ -6,6 +6,7 @@ import type { MDXComponents } from "mdx/types";
 import { CodeBlock } from "@/components/code-block";
 import { CodeCollapsibleWrapper } from "@/components/code-collapsible-wrapper";
 import { CodeTabs } from "@/components/code-tabs";
+import { ComponentPreview } from "@/components/component-preview";
 import { ComponentSource } from "@/components/component-source";
 import { ComponentsList } from "@/components/components-list";
 
@@ -21,6 +22,7 @@ export function getMDXComponents(components?: MDXComponents): MDXComponents {
     ComponentsList,
     ComponentSource,
     CodeCollapsibleWrapper,
+    ComponentPreview,
     Step: ({ className, ...props }: React.ComponentProps<"h3">) => (
       <h3
         className={cn(

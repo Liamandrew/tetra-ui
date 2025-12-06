@@ -1,13 +1,10 @@
-import { Label } from "@repo/tetra-ui/components/label";
-import { Stack } from "@repo/tetra-ui/components/stack";
+import { LabelPreview } from "@/components/previews";
 import { ScreenHero } from "@/components/screen";
 
-export default function HeadingScreen() {
+export default function LabelScreen() {
   return (
     <ScreenHero>
-      <Stack gap="md">
-        <Label>Label</Label>
-      </Stack>
+      <LabelPreview />
     </ScreenHero>
   );
 }

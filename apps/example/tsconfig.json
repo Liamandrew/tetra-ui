@@ -6,7 +6,8 @@
       "@/*": ["./*"],
       "@/hooks/*": ["../../packages/tetra-ui/src/hooks/*"],
       "@/lib/utils": ["../../packages/tetra-ui/src/lib/utils"],
-      "@repo/tetra-ui/*": ["../../packages/tetra-ui/src/*"]
+      "@repo/tetra-ui/*": ["../../packages/tetra-ui/src/*"],
+      "@/components/ui/*": ["../../packages/tetra-ui/src/components/*"]
     }
   },
   "include": ["**/*.ts", "**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts"]

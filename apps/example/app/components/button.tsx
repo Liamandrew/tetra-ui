@@ -11,38 +11,12 @@ import {
   ComponentBehaviourSheet,
   ComponentBehaviourSwitch,
 } from "@/components/component-behaviour";
+import { ButtonPreview } from "@/components/previews";
 import {
   ScreenActionsButton,
   ScreenHero,
   ScreenScrollView,
 } from "@/components/screen";
-
-const variants = [
-  {
-    variant: "default",
-    label: "Default",
-  },
-  {
-    variant: "secondary",
-    label: "Secondary",
-  },
-  {
-    variant: "destructive",
-    label: "Destructive",
-  },
-  {
-    variant: "outline",
-    label: "Outline",
-  },
-  {
-    variant: "ghost",
-    label: "Ghost",
-  },
-  {
-    variant: "link",
-    label: "Link",
-  },
-] as const;
 
 const sizes = [
   {
@@ -67,19 +41,7 @@ export default function ButtonScreen() {
     <>
       <ScreenScrollView>
         <ScreenHero className="bg-background">
-          <Stack className="items-center" gap="md">
-            {variants.map(({ variant, label }) => (
-              <ButtonExample
-                busy={busy}
-                disabled={disabled}
-                key={variant}
-                size="default"
-                variant={variant}
-              >
-                {label}
-              </ButtonExample>
-            ))}
-          </Stack>
+          <ButtonPreview />
         </ScreenHero>
 
         <ScreenHero>

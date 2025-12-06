@@ -2,52 +2,20 @@ import { Button } from "@repo/tetra-ui/components/button";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
 } from "@repo/tetra-ui/components/card";
-import {
-  Field,
-  FieldControl,
-  FieldLabel,
-} from "@repo/tetra-ui/components/form";
-import { PasswordInput } from "@repo/tetra-ui/components/password-input";
 import { Stack } from "@repo/tetra-ui/components/stack";
 import { Text } from "@repo/tetra-ui/components/text";
-import { TextInput } from "@repo/tetra-ui/components/text-input";
+import { CardPreview } from "@/components/previews";
 import { ScreenHero, ScreenScrollView } from "@/components/screen";
 
 export default function CardScreen() {
   return (
     <ScreenScrollView>
       <ScreenHero className="items-stretch">
-        <Card>
-          <CardHeader>
-            <CardTitle>Welcome back</CardTitle>
-            <CardDescription>Login to your account to continue</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <Stack gap="md">
-              <Field>
-                <FieldLabel>Username</FieldLabel>
-                <FieldControl>
-                  <TextInput placeholder="Enter your username" />
-                </FieldControl>
-              </Field>
-              <Field>
-                <FieldLabel>Password</FieldLabel>
-                <FieldControl>
-                  <PasswordInput placeholder="Enter your password" />
-                </FieldControl>
-              </Field>
-            </Stack>
-          </CardContent>
-          <CardFooter className="gap-2">
-            <Button>Login</Button>
-            <Button variant="ghost">Sign Up</Button>
-          </CardFooter>
-        </Card>
+        <CardPreview />
       </ScreenHero>
 
       <ScreenHero className="bg-background">
