@@ -97,6 +97,12 @@ export const FieldControl = ({ children }: FieldControlProps) => {
 };
 
 export const FieldDescription = ({ className, ...props }: TextProps) => {
+  const { errorMessage } = useFieldContext();
+
+  if (errorMessage) {
+    return null;
+  }
+
   return (
     <Text
       {...props}
