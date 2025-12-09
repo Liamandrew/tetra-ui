@@ -21,8 +21,8 @@ importers:
         specifier: ~5.8.3
         version: 5.8.3
       ultracite:
-        specifier: 6.3.9
-        version: 6.3.9(typescript@5.8.3)
+        specifier: 6.3.10
+        version: 6.3.10(typescript@5.8.3)
 
   apps/docs:
     dependencies:
@@ -148,8 +148,8 @@ importers:
         specifier: 0.5.1
         version: 0.5.1(@babel/core@7.28.5)(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0)
       uniwind:
-        specifier: 1.1.0
-        version: 1.1.0(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0)(tailwindcss@4.1.17)
+        specifier: 1.2.1
+        version: 1.2.1(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0)(tailwindcss@4.1.17)
       zod:
         specifier: ^4.1.13
         version: 4.1.13
@@ -252,8 +252,8 @@ importers:
         specifier: ^1.4.0
         version: 1.4.0
       uniwind:
-        specifier: 1.1.0
-        version: 1.1.0(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0)(tailwindcss@4.1.17)
+        specifier: 1.2.1
+        version: 1.2.1(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0)(tailwindcss@4.1.17)
     devDependencies:
       '@repo/typescript-config':
         specifier: workspace:*
@@ -5894,8 +5894,8 @@ packages:
     resolution: {integrity: sha512-LbBDqdIC5s8iROCUjMbW1f5dJQTEFB1+KO9ogbvlb3nm9n4YHa5p4KTvFPWvh2Hs8gZMBuiB1/8+pdfe/tDPug==}
     hasBin: true
 
-  ultracite@6.3.9:
-    resolution: {integrity: sha512-bqj8Eh3VWYcjHXMR3+a9xqZXbgFY3PxwB+m9LTC+W1HHs5qtOtxH4QX51MiH513jfThpdM+cnWAk5KNltVh+Kg==}
+  ultracite@6.3.10:
+    resolution: {integrity: sha512-I41KoWl09PklvXTdN4JWgs+6Z6n5PERDJGj1hOQXYEMbmKXZLrulG2QAZNEMJ9pdGwtcGk/MevpllWYXM5Wq3A==}
     hasBin: true
 
   undici-types@7.8.0:
@@ -5957,8 +5957,8 @@ packages:
     resolution: {integrity: sha512-gptHNQghINnc/vTGIk0SOFGFNXw7JVrlRUtConJRlvaw6DuX0wO5Jeko9sWrMBhh+PsYAZ7oXAiOnf/UKogyiw==}
     engines: {node: '>= 10.0.0'}
 
-  uniwind@1.1.0:
-    resolution: {integrity: sha512-r/2/daKMiNssDZuVdgqhO2fR9f5d9+74eN8g71n0c0sdL0gwN4b4VtGGOMEDEB5t078vhNPJVA8EoYseROEwMA==}
+  uniwind@1.2.1:
+    resolution: {integrity: sha512-V1wiVPS31t29DhAjlz7A8iABJt6AU9fcs8dEImF0hg0KVF7kx5/2q9zE4tJ3LT5EMUiXABOpDlVgr+iE2nZYUA==}
     peerDependencies:
       react: '>=19.0.0'
       react-native: '>=0.81.0'
@@ -13347,7 +13347,7 @@ snapshots:
 
   ua-parser-js@1.0.41: {}
 
-  ultracite@6.3.9(typescript@5.8.3):
+  ultracite@6.3.10(typescript@5.8.3):
     dependencies:
       '@clack/prompts': 0.11.0
       '@trpc/server': 11.7.2(typescript@5.8.3)
@@ -13429,7 +13429,7 @@ snapshots:
 
   universalify@2.0.1: {}
 
-  uniwind@1.1.0(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0)(tailwindcss@4.1.17):
+  uniwind@1.2.1(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0)(tailwindcss@4.1.17):
     dependencies:
       '@tailwindcss/node': 4.1.17
       '@tailwindcss/oxide': 4.1.17

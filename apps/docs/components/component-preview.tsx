@@ -14,7 +14,7 @@ type ComponentPreviewProps = {
   type: "png" | "gif";
 };
 
-export async function ComponentPreview({ name, type }: ComponentPreviewProps) {
+export function ComponentPreview({ name, type }: ComponentPreviewProps) {
   const code = getPreviewComponentCode(name) ?? "";
 
   return (

@@ -14,7 +14,8 @@
       },
       "nursery": {
         "noLeakedRender": "off",
-        "useConsistentArrowReturn": "off"
+        "useConsistentArrowReturn": "off",
+        "useMaxParams": "off"
       },
       "performance": {
         "noBarrelFile": "off",
@@ -22,9 +23,6 @@
       },
       "suspicious": {
         "noUnknownAtRules": "off"
-      },
-      "complexity": {
-        "noExcessiveNestedTest": "off"
       }
     }
   }
