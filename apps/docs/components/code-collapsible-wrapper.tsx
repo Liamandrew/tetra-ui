@@ -19,7 +19,7 @@ export function CodeCollapsibleWrapper({
 
   return (
     <Collapsible
-      className={cn("group/collapsible md:-mx-1 relative", className)}
+      className={cn("group/collapsible relative md:-mx-1", className)}
       onOpenChange={setIsOpened}
       open={isOpened}
       {...props}
@@ -42,7 +42,7 @@ export function CodeCollapsibleWrapper({
       >
         {children}
       </CollapsibleContent>
-      <CollapsibleTrigger className="-bottom-2 absolute inset-x-0 flex h-20 items-center justify-center rounded-b-lg bg-linear-to-b from-fd-card/70 to-fd-card text-muted-foreground text-sm group-data-[state=open]/collapsible:hidden">
+      <CollapsibleTrigger className="absolute inset-x-0 -bottom-2 flex h-20 items-center justify-center rounded-b-lg bg-linear-to-b from-fd-card/70 to-fd-card text-muted-foreground text-sm group-data-[state=open]/collapsible:hidden">
         {isOpened ? "Collapse" : "Expand"}
       </CollapsibleTrigger>
     </Collapsible>
