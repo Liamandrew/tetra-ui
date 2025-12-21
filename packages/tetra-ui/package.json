@@ -29,7 +29,7 @@
   },
   "devDependencies": {
     "@repo/typescript-config": "workspace:*",
-    "@types/lodash": "^4.17.20",
+    "@types/lodash": "^4.17.21",
     "tailwindcss": "^4.1.18",
     "typescript": "~5.8.3"
   }
