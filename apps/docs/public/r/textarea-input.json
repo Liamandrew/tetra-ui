@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "textarea-input",
-  "type": "registry:ui",
   "title": "Textarea Input",
   "description": "",
   "registryDependencies": [
@@ -13,5 +12,6 @@
       "content": "import { cn } from \"../lib/utils\";\nimport {\n  Input,\n  InputPressable,\n  type InputProps,\n  useInputFocusState,\n} from \"./input\";\n\n// Types\nexport type TextareaInputProps = InputProps & {\n  onFocus?: () => void;\n  onBlur?: () => void;\n  disabled?: boolean;\n  invalid?: boolean;\n};\n\n// Components\nexport const TextareaInput = ({\n  onFocus,\n  onBlur,\n  disabled,\n  invalid,\n  className,\n  ...props\n}: TextareaInputProps) => {\n  const { isFocused, internalRef, handleFocus, handleBlur, handlePress } =\n    useInputFocusState({ onFocus, onBlur });\n\n  return (\n    <InputPressable\n      disabled={disabled}\n      focused={isFocused}\n      invalid={invalid}\n      onPress={handlePress}\n    >\n      <Input\n        {...props}\n        className={cn(\"min-h-24\", className)}\n        disabled={disabled}\n        multiline\n        onBlur={handleBlur}\n        onFocus={handleFocus}\n        pointerEvents={isFocused || disabled ? undefined : \"none\"}\n        ref={internalRef}\n        scrollEnabled={false}\n        textAlignVertical=\"top\"\n      />\n    </InputPressable>\n  );\n};\n",
       "type": "registry:ui"
     }
-  ]
+  ],
+  "type": "registry:ui"
 }

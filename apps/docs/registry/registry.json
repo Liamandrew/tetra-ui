@@ -265,6 +265,19 @@
       ]
     },
     {
+      "name": "search-input",
+      "type": "registry:ui",
+      "title": "Search Input",
+      "description": "",
+      "registryDependencies": ["@tetra-ui/icons", "@tetra-ui/input"],
+      "files": [
+        {
+          "path": "../../packages/tetra-ui/src/components/search-input.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "separator",
       "type": "registry:ui",
       "title": "Separator",

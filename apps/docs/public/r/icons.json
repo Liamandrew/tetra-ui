@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "icons",
-  "type": "registry:ui",
   "title": "Icons",
   "description": "",
   "dependencies": [
@@ -79,5 +78,6 @@
       "content": "import { Path } from \"react-native-svg\";\nimport { StyledSvg } from \"./styled-icon\";\n\nexport const X = (props: React.ComponentProps<typeof StyledSvg>) => {\n  return (\n    <StyledSvg\n      {...props}\n      fill=\"none\"\n      strokeLinecap=\"round\"\n      strokeLinejoin=\"round\"\n      strokeWidth=\"2\"\n      viewBox=\"0 0 24 24\"\n    >\n      <Path d=\"M18 6 6 18\" />\n      <Path d=\"m6 6 12 12\" />\n    </StyledSvg>\n  );\n};\n",
       "type": "registry:component"
     }
-  ]
+  ],
+  "type": "registry:ui"
 }

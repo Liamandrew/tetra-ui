@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "separator",
-  "type": "registry:ui",
   "title": "Separator",
   "description": "",
   "registryDependencies": [],
@@ -11,5 +10,6 @@
       "content": "import { cva, type VariantProps } from \"class-variance-authority\";\nimport { View } from \"react-native\";\n\n// Components\nexport const Separator = ({\n  className,\n  orientation,\n  thickness,\n  ...props\n}: React.ComponentProps<typeof View> &\n  VariantProps<typeof separatorVariants>) => {\n  return (\n    <View\n      className={separatorVariants({ className, orientation, thickness })}\n      data-slot=\"separator\"\n      {...props}\n    />\n  );\n};\n\n// Styles\nconst separatorVariants = cva(\"h-10 bg-border\", {\n  variants: {\n    thickness: {\n      thin: \"\",\n      thick: \"\",\n    },\n    orientation: {\n      horizontal: \"w-full\",\n      vertical: \"h-full\",\n    },\n  },\n  compoundVariants: [\n    {\n      orientation: \"horizontal\",\n      thickness: \"thin\",\n      class: \"h-hairline\",\n    },\n    {\n      orientation: \"horizontal\",\n      thickness: \"thick\",\n      class: \"h-1\",\n    },\n    {\n      orientation: \"vertical\",\n      thickness: \"thin\",\n      class: \"w-hairline\",\n    },\n    {\n      orientation: \"vertical\",\n      thickness: \"thick\",\n      class: \"w-1\",\n    },\n  ],\n  defaultVariants: {\n    orientation: \"horizontal\",\n    thickness: \"thin\",\n  },\n});\n",
       "type": "registry:ui"
     }
-  ]
+  ],
+  "type": "registry:ui"
 }

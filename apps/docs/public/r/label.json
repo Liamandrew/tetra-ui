@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "label",
-  "type": "registry:ui",
   "title": "Label",
   "description": "",
   "registryDependencies": [],
@@ -11,5 +10,6 @@
       "content": "import { Text } from \"react-native\";\nimport { cn } from \"../lib/utils\";\n\n// Types\nexport type LabelProps = React.ComponentProps<typeof Text>;\n\n// Components\nexport const Label = ({ children, className, ...props }: LabelProps) => {\n  return (\n    <Text className={cn(\"font-semibold text-foreground\", className)} {...props}>\n      {children}\n    </Text>\n  );\n};\n",
       "type": "registry:ui"
     }
-  ]
+  ],
+  "type": "registry:ui"
 }

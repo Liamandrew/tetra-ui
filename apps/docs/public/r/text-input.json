@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "text-input",
-  "type": "registry:ui",
   "title": "TextInput",
   "description": "",
   "registryDependencies": [
@@ -13,5 +12,6 @@
       "content": "import { cn } from \"@/lib/utils\";\nimport {\n  Input,\n  type InputAddonChildren,\n  InputPressable,\n  type InputProps,\n  useInputAddons,\n  useInputFocusState,\n} from \"./input\";\n\n// Types\nexport type TextInputProps = InputProps & {\n  onFocus?: () => void;\n  onBlur?: () => void;\n  disabled?: boolean;\n  invalid?: boolean;\n  children?: InputAddonChildren;\n};\n\n// Components\nexport const TextInput = ({\n  onFocus,\n  onBlur,\n  disabled,\n  invalid,\n  children,\n  ...props\n}: TextInputProps) => {\n  const { isFocused, internalRef, handleFocus, handleBlur, handlePress } =\n    useInputFocusState({ onFocus, onBlur });\n\n  const { startAddons, endAddons, pressableClassName } =\n    useInputAddons(children);\n\n  return (\n    <InputPressable\n      className={pressableClassName}\n      disabled={disabled}\n      focused={isFocused}\n      invalid={invalid}\n      onPress={handlePress}\n    >\n      {startAddons}\n\n      <Input\n        {...props}\n        className={cn(\"shrink\", props.className)}\n        disabled={disabled}\n        onBlur={handleBlur}\n        onFocus={handleFocus}\n        ref={internalRef}\n      />\n\n      {endAddons}\n    </InputPressable>\n  );\n};\n",
       "type": "registry:ui"
     }
-  ]
+  ],
+  "type": "registry:ui"
 }

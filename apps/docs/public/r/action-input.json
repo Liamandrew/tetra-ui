@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "action-input",
-  "type": "registry:ui",
   "title": "Action Input",
   "description": "",
   "registryDependencies": [
@@ -14,5 +13,6 @@
       "content": "import { Text, View } from \"react-native\";\nimport { cn } from \"@/lib/utils\";\nimport { ChevronRight } from \"./icons\";\nimport {\n  InputAddon,\n  type InputAddonChildren,\n  InputAddonIcon,\n  InputPressable,\n  type InputPressableProps,\n  useInputAddons,\n} from \"./input\";\n\n// Types\nexport type ActionInputProps = Omit<InputPressableProps, \"focused\"> & {\n  value?: string;\n  placeholder: string;\n  children?: InputAddonChildren;\n};\n\n// Components\nexport const ActionInput = ({\n  onFocus,\n  onBlur,\n  value,\n  placeholder,\n  children,\n  className,\n  ...props\n}: ActionInputProps) => {\n  const { startAddons, endAddons, pressableClassName } =\n    useInputAddons(children);\n\n  return (\n    <InputPressable\n      {...props}\n      className={cn(pressableClassName, \"pr-0\", className)}\n    >\n      {startAddons}\n\n      <View className=\"grow\">\n        {value ? (\n          <Text className=\"text-base text-foreground\">{value}</Text>\n        ) : (\n          <Text className=\"text-base text-muted-foreground\">{placeholder}</Text>\n        )}\n      </View>\n\n      {endAddons.length ? (\n        endAddons\n      ) : (\n        <InputAddon align=\"inline-end\">\n          <InputAddonIcon>\n            <ChevronRight />\n          </InputAddonIcon>\n        </InputAddon>\n      )}\n    </InputPressable>\n  );\n};\n",
       "type": "registry:ui"
     }
-  ]
+  ],
+  "type": "registry:ui"
 }
