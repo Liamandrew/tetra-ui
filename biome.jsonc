@@ -23,6 +23,13 @@
       },
       "suspicious": {
         "noUnknownAtRules": "off"
+      },
+      "style": {
+        "useConsistentTypeDefinitions": {
+          "options": {
+            "style": "type"
+          }
+        }
       }
     }
   }
