@@ -72,6 +72,7 @@ type SelectContextProps<T> = {
   onConfirm: (value?: T) => void;
   onCancel: () => void;
   disabled?: boolean;
+  invalid?: boolean;
   placeholder: string;
   popoverTriggerPosition?: LayoutPosition;
   setPopoverTriggerPosition: (position?: LayoutPosition) => void;
@@ -88,6 +89,7 @@ type SelectProps<T extends SelectValueType> = {
   value?: T;
   onValueChange?: (value: T) => void;
   disabled?: boolean;
+  invalid?: boolean;
   placeholder?: string;
   children: React.ReactNode;
 };
@@ -146,6 +148,7 @@ export const Select = <T extends SelectValueType>({
   value: valueProp,
   onValueChange: onValueChangeProp,
   disabled,
+  invalid,
   options,
   placeholder = "Select...",
   children,
@@ -206,6 +209,7 @@ export const Select = <T extends SelectValueType>({
       onOpenChange,
       disabled,
       value,
+      invalid,
       placeholder,
       options,
       selectedValue,
@@ -222,6 +226,7 @@ export const Select = <T extends SelectValueType>({
       value,
       options,
       selectedValue,
+      invalid,
       placeholder,
       onConfirm,
       onCancel,
@@ -286,7 +291,7 @@ export const SelectInput = ({
   children,
   ...props
 }: Partial<React.ComponentProps<typeof ActionInput>>) => {
-  const { open, placeholder, options, value } = useSelect();
+  const { open, placeholder, options, value, invalid, disabled } = useSelect();
 
   const openSharedValue = useSharedValue(open ? 1 : 0);
 
@@ -310,7 +315,9 @@ export const SelectInput = ({
   return (
     <ActionInput
       {...props}
+      disabled={disabled}
       focused={open}
+      invalid={invalid}
       placeholder={placeholder}
       value={valueLabel}
     >
