@@ -1,0 +1,108 @@
+---
+title: Select
+description: A component that allows users to select a value from a list of options.
+---
+
+<ComponentPreview name="select" type="gif" />
+
+## Installation
+
+<Tabs defaultValue="cli">
+
+<TabsList>
+  <TabsTrigger value="cli">CLI</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+
+<TabsContent value="cli">
+
+```package-install
+npx shadcn@latest add @tetra-ui/select
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps>
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource name="select" title="components/ui/select.tsx" />
+
+</Steps>
+
+</TabsContent>
+
+</Tabs>
+
+## Usage
+
+First ensure that you have the `PortalHost` component in your root layout.
+
+```tsx
+import { PortalHost } from "@/components/ui/portal";
+
+export default function RootLayout() {
+  return (
+    <>
+      <Stack />
+      <PortalHost />
+    </>
+  );
+}
+```
+
+```tsx
+import { Button } from "@/components/ui/button";
+import {
+  Select,
+  SelectContentSheet,
+  SelectContentSheetBody,
+  SelectContentSheetConfirm,
+  SelectContentSheetFooter,
+  SelectContentSheetHeader,
+  SelectContentSheetTitle,
+  SelectInput,
+  SelectItem,
+  SelectItemIndicator,
+  SelectItemLabel,
+  SelectTrigger,
+} from "@/components/ui/select";
+```
+
+```tsx
+
+const OPTIONS = [
+  { label: "Option 1", value: "1" },
+  { label: "Option 2", value: "2" },
+  { label: "Option 3", value: "3" },
+];
+
+<Select options={OPTIONS} placeholder="Select...">
+  <SelectTrigger asChild>
+    <SelectInput />
+  </SelectTrigger>
+  <SelectContentSheet>
+    <SelectContentSheetHeader>
+      <SelectContentSheetTitle>Select a value</SelectContentSheetTitle>
+    </SelectContentSheetHeader>
+    <SelectContentSheetBody>
+      {OPTIONS.map((option) => (
+        <SelectItem
+          key={option.value}
+          label={option.label}
+          value={option.value}
+        />
+      ))}
+    </SelectContentSheetBody>
+    <SelectContentSheetFooter>
+      <SelectContentSheetConfirm asChild>
+        <Button>Confirm</Button>
+      </SelectContentSheetConfirm>
+    </SelectContentSheetFooter>
+  </SelectContentSheet>
+</Select>
+```
+
+

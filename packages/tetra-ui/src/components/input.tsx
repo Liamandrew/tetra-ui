@@ -56,7 +56,10 @@ export type InputAddonProps = React.ComponentProps<typeof View> &
     children: React.ReactNode;
   };
 
-type InputAddonChild = React.ReactElement<InputAddonProps> | null | false;
+export type InputAddonChild =
+  | React.ReactElement<InputAddonProps>
+  | null
+  | false;
 export type InputAddonChildren = InputAddonChild | InputAddonChild[];
 
 type InputAddonIconProps = {
@@ -108,10 +111,13 @@ export const InputPressable = ({
   focused,
   onPress,
   className,
+  ...props
 }: InputPressableProps) => {
-  const inputColor = useCSSVariable("--color-input") as string;
-  const ringColor = useCSSVariable("--color-ring") as string;
-  const destructiveColor = useCSSVariable("--color-destructive") as string;
+  const [inputColor, ringColor, destructiveColor] = useCSSVariable([
+    "--color-input",
+    "--color-ring",
+    "--color-destructive",
+  ]) as [string, string, string];
 
   const outlineWidth = useSharedValue(1);
   const outlineColorProgress = useSharedValue(0);
@@ -150,6 +156,7 @@ export const InputPressable = ({
 
   return (
     <AnimatedPressable
+      {...props}
       accessibilityState={{ disabled }}
       className={cn(
         "flex min-h-12 w-full flex-row items-center gap-2 rounded-lg bg-background px-3 py-2 active:bg-accent/90 disabled:opacity-50 dark:active:bg-accent/50",

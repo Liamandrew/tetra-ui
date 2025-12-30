@@ -86,7 +86,7 @@ type PopoverCloseProps = React.ComponentPropsWithRef<typeof Pressable> & {
 // Context
 const PopoverContext = createContext<PopoverContextProps | null>(null);
 
-const usePopover = () => {
+export const usePopover = () => {
   const context = useContext(PopoverContext);
   if (!context) {
     throw new Error("usePopover must be used within a Popover");
@@ -97,7 +97,7 @@ const usePopover = () => {
 // Components
 export const Popover = ({
   open: openProp,
-  onOpenChange,
+  onOpenChange: onOpenChangeProp,
   children,
 }: PopoverProps) => {
   const [internalOpen, setInternalOpen] = useState(openProp ?? false);
@@ -109,12 +109,12 @@ export const Popover = ({
 
   const visibilityProgress = useSharedValue(open ? 1 : 0);
 
-  const handleOpenChange = useCallback(
+  const onOpenChange = useCallback(
     (nextOpen: boolean) => {
       setInternalOpen(nextOpen);
-      onOpenChange?.(nextOpen);
+      onOpenChangeProp?.(nextOpen);
     },
-    [onOpenChange]
+    [onOpenChangeProp]
   );
 
   useEffect(() => {
@@ -126,14 +126,14 @@ export const Popover = ({
   const ctx = useMemo(
     () => ({
       open,
-      onOpenChange: handleOpenChange,
+      onOpenChange,
       visibilityProgress,
       contentLayout,
       setContentLayout,
       triggerPosition,
       setTriggerPosition,
     }),
-    [open, triggerPosition, contentLayout, visibilityProgress, handleOpenChange]
+    [open, triggerPosition, contentLayout, visibilityProgress, onOpenChange]
   );
 
   return (
@@ -163,9 +163,9 @@ export const PopoverTrigger = ({
           width,
           height,
         });
-      });
 
-      onOpenChange(true);
+        onOpenChange(true);
+      });
     },
     [onOpenChange, props.onPress, setTriggerPosition]
   );

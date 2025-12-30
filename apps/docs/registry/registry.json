@@ -278,6 +278,28 @@
       ]
     },
     {
+      "name": "select",
+      "type": "registry:ui",
+      "title": "Select",
+      "description": "",
+      "dependencies": ["react-native-reanimated"],
+      "registryDependencies": [
+        "@tetra-ui/action-input",
+        "@tetra-ui/icons",
+        "@tetra-ui/input",
+        "@tetra-ui/native-sheet",
+        "@tetra-ui/popover",
+        "@tetra-ui/slot",
+        "@tetra-ui/text"
+      ],
+      "files": [
+        {
+          "path": "../../packages/tetra-ui/src/components/select.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "separator",
       "type": "registry:ui",
       "title": "Separator",

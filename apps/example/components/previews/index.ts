@@ -10,6 +10,7 @@ export * from "./native-sheet";
 export * from "./password-input";
 export * from "./popover";
 export * from "./search-input";
+export * from "./select";
 export * from "./separator";
 export * from "./skeleton";
 export * from "./switch";

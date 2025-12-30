@@ -11,7 +11,7 @@ import {
 } from "./input";
 
 // Types
-export type ActionInputProps = Omit<InputPressableProps, "focused"> & {
+export type ActionInputProps = InputPressableProps & {
   value?: string;
   placeholder: string;
   children?: InputAddonChildren;
@@ -19,8 +19,6 @@ export type ActionInputProps = Omit<InputPressableProps, "focused"> & {
 
 // Components
 export const ActionInput = ({
-  onFocus,
-  onBlur,
   value,
   placeholder,
   children,

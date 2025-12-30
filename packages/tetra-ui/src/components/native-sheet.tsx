@@ -85,7 +85,7 @@ const useNativeSheet = () => {
 // Components
 export const NativeSheet = ({
   open: openProp,
-  onOpenChange,
+  onOpenChange: onOpenChangeProp,
   children,
 }: NativeSheetProps) => {
   const [internalOpen, setInternalOpen] = useState(openProp ?? false);
@@ -98,12 +98,12 @@ export const NativeSheet = ({
 
   const visibilityProgress = useSharedValue(open ? 1 : 0);
 
-  const handleOpenChange = useCallback(
+  const onOpenChange = useCallback(
     (nextOpen: boolean) => {
       setInternalOpen(nextOpen);
-      onOpenChange?.(nextOpen);
+      onOpenChangeProp?.(nextOpen);
     },
-    [onOpenChange]
+    [onOpenChangeProp]
   );
 
   useEffect(() => {
@@ -132,14 +132,14 @@ export const NativeSheet = ({
   const ctx = useMemo(
     () => ({
       open,
-      onOpenChange: handleOpenChange,
+      onOpenChange,
       visibilityProgress,
       visible,
       setVisible,
       contentLayout,
       setContentLayout,
     }),
-    [open, contentLayout, visibilityProgress, visible, handleOpenChange]
+    [open, contentLayout, visibilityProgress, visible, onOpenChange]
   );
 
   return (

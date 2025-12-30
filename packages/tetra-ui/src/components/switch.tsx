@@ -45,13 +45,19 @@ export const Switch = ({
   value,
   ...props
 }: SwitchProps) => {
-  const foregroundColor = useCSSVariable("--color-foreground") as string;
-  const backgroundColor = useCSSVariable("--color-background") as string;
-  const inputColor = useCSSVariable("--color-input") as string;
-  const primaryColor = useCSSVariable("--color-primary") as string;
-  const primaryForegroundColor = useCSSVariable(
-    "--color-primary-foreground"
-  ) as string;
+  const [
+    foregroundColor,
+    backgroundColor,
+    inputColor,
+    primaryColor,
+    primaryForegroundColor,
+  ] = useCSSVariable([
+    "--color-foreground",
+    "--color-background",
+    "--color-input",
+    "--color-primary",
+    "--color-primary-foreground",
+  ]) as [string, string, string, string, string];
 
   const isDark = Uniwind.currentTheme === "dark";
 
