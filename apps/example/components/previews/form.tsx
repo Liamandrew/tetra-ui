@@ -10,9 +10,24 @@ import {
 import { BadgeCheck } from "@/components/ui/icons";
 import { InputAddon, InputAddonIcon } from "@/components/ui/input";
 import { PasswordInput } from "@/components/ui/password-input";
+import {
+  Select,
+  SelectContentPopover,
+  SelectInput,
+  SelectItem,
+  SelectTrigger,
+} from "@/components/ui/select";
 import { Stack } from "@/components/ui/stack";
 import { TextInput } from "@/components/ui/text-input";
 import { TextareaInput } from "@/components/ui/textarea-input";
+
+const OPTIONS = [
+  { flag: "🇺🇸", label: "🇺🇸 United States", value: "us" },
+  { flag: "🇨🇦", label: "🇨🇦 Canada", value: "ca" },
+  { flag: "🇬🇧", label: "🇬🇧 United Kingdom", value: "uk" },
+  { flag: "🇦🇺", label: "🇦🇺 Australia", value: "au" },
+  { flag: "🇳🇿", label: "🇳🇿 New Zealand", value: "nz" },
+];
 
 export function FormPreview() {
   return (
@@ -75,6 +90,29 @@ export function FormPreview() {
           <TextareaInput placeholder="Enter your description" />
         </FieldControl>
         <FieldDescription>This is your description.</FieldDescription>
+        <FieldErrorMessage />
+      </Field>
+
+      <Field>
+        <FieldLabel>Country</FieldLabel>
+        <FieldControl>
+          <Select options={OPTIONS} placeholder="Select...">
+            <SelectTrigger asChild>
+              <SelectInput />
+            </SelectTrigger>
+
+            <SelectContentPopover>
+              {OPTIONS.map((option) => (
+                <SelectItem
+                  key={option.value}
+                  label={option.label}
+                  value={option.value}
+                />
+              ))}
+            </SelectContentPopover>
+          </Select>
+        </FieldControl>
+        <FieldDescription>This is where you live.</FieldDescription>
         <FieldErrorMessage />
       </Field>
     </Stack>

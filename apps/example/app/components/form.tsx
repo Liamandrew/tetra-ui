@@ -28,6 +28,21 @@ import {
   ScreenHero,
   ScreenScrollView,
 } from "@/components/screen";
+import {
+  Select,
+  SelectContentPopover,
+  SelectInput,
+  SelectItem,
+  SelectTrigger,
+} from "@/components/ui/select";
+
+const OPTIONS = [
+  { flag: "🇺🇸", label: "🇺🇸 United States", value: "us" },
+  { flag: "🇨🇦", label: "🇨🇦 Canada", value: "ca" },
+  { flag: "🇬🇧", label: "🇬🇧 United Kingdom", value: "uk" },
+  { flag: "🇦🇺", label: "🇦🇺 Australia", value: "au" },
+  { flag: "🇳🇿", label: "🇳🇿 New Zealand", value: "nz" },
+];
 
 export default function FormScreen() {
   const [checked, setChecked] = useState(false);
@@ -124,6 +139,33 @@ export default function FormScreen() {
                 <TextareaInput placeholder="Enter your description" />
               </FieldControl>
               <FieldDescription>This is your description.</FieldDescription>
+              <FieldErrorMessage />
+            </Field>
+
+            <Field
+              disabled={showDisabled}
+              errorMessage={showInvalid ? "This is required" : undefined}
+              invalid={showInvalid}
+            >
+              <FieldLabel>Country</FieldLabel>
+              <FieldControl>
+                <Select options={OPTIONS} placeholder="Select...">
+                  <SelectTrigger asChild>
+                    <SelectInput />
+                  </SelectTrigger>
+
+                  <SelectContentPopover>
+                    {OPTIONS.map((option) => (
+                      <SelectItem
+                        key={option.value}
+                        label={option.label}
+                        value={option.value}
+                      />
+                    ))}
+                  </SelectContentPopover>
+                </Select>
+              </FieldControl>
+              <FieldDescription>This is where you live.</FieldDescription>
               <FieldErrorMessage />
             </Field>
           </Stack>
