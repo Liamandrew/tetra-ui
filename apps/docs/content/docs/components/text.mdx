@@ -47,4 +47,33 @@ import { Text } from "@/components/ui/badge";
 <Text>tetra-ui is awesome</Text>
 ```
 
+## Custom Fonts
 
+To add custom fonts, you can follow the uniwind guide [here](https://docs.uniwind.dev/faq#how-do-i-include-custom-fonts) to add the different font files to your project.
+
+Keep in mind that React Native does not support dynamic fonts, so you need to add the font files for each font weight that you plan to use.
+
+The easiest way to configure this is to add the following to your `globals.css` file:
+
+```css
+@layer theme {
+  :root {
+    /* ... */
+
+    --font-inter: "Inter-Regular";
+    --font-inter-medium: "Inter-Medium";
+    --font-inter-semibold: "Inter-SemiBold";
+    --font-inter-bold: "Inter-Bold";
+
+    /* ... */
+}
+
+@theme inline {
+  /* ... */
+
+  --font-normal: var(--font-inter);
+  --font-medium: var(--font-inter-medium);
+  --font-semibold: var(--font-inter-semibold);
+  --font-bold: var(--font-inter-bold);
+}
+```
