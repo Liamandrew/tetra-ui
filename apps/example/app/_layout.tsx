@@ -14,7 +14,7 @@ export default function RootLayout() {
     <ThemeProvider>
       <Stack
         screenOptions={{
-          headerRight: () => <ThemeToggle />,
+          headerRight: ThemeToggle,
           headerTitle: "",
         }}
       >

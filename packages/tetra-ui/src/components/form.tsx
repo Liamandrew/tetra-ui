@@ -1,4 +1,3 @@
-import { get } from "lodash";
 import {
   Children,
   cloneElement,
@@ -7,6 +6,7 @@ import {
   useMemo,
 } from "react";
 import type { FieldErrors, FieldPath } from "react-hook-form";
+import { get } from "react-hook-form";
 import { Text, type TextProps, View } from "react-native";
 import { cn } from "../lib/utils";
 import { Label, type LabelProps } from "./label";

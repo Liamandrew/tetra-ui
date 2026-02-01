@@ -3,20 +3,20 @@
   "private": true,
   "scripts": {
     "build": "turbo run build",
-    "check:format:fix": "npx ultracite fix",
-    "check:format": "npx ultracite check",
+    "check:lint": "npx ultracite check",
     "check:types": "turbo run check:types",
     "clean": "git clean -xdf node_modules",
-    "dev": "turbo run dev"
+    "dev": "turbo run dev",
+    "fix:lint": "npx ultracite fix"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.3.10",
+    "@biomejs/biome": "2.3.13",
     "husky": "^9.1.7",
-    "turbo": "^2.7.2",
-    "typescript": "~5.8.3",
-    "ultracite": "6.5.0"
+    "turbo": "^2.8.1",
+    "typescript": "~5.9.2",
+    "ultracite": "7.1.1"
   },
-  "packageManager": "pnpm@10.26.1",
+  "packageManager": "pnpm@10.27.0",
   "engines": {
     "node": ">=18"
   }
