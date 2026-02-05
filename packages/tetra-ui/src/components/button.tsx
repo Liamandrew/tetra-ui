@@ -126,13 +126,16 @@ const ButtonSpinner = () => {
   const ctx = useButtonContext();
 
   return (
-    <ActivityIndicator className={cn(buttonTextVariants(ctx), "absolute")} />
+    <ActivityIndicator
+      className="absolute"
+      colorClassName={buttonSpinnerVariants(ctx)}
+    />
   );
 };
 
 // Styles
 export const buttonVariants = cva(
-  "flex w-full shrink-0 flex-row items-center justify-center gap-1 whitespace-nowrap rounded-lg font-medium text-sm transition-all",
+  "flex w-full shrink-0 flex-row items-center justify-center gap-2 whitespace-nowrap rounded-lg font-medium text-sm transition-all",
   {
     variants: {
       size: {
@@ -162,30 +165,33 @@ export const buttonVariants = cva(
   }
 );
 
-export const buttonTextVariants = cva("whitespace-nowrap font-bold text-sm", {
-  variants: {
-    variant: {
-      default: "text-primary-foreground",
-      destructive: "text-white",
-      outline: "text-foreground dark:text-accent-foreground",
-      secondary: "text-secondary-foreground",
-      ghost: "text-accent-foreground",
-      link: "text-primary",
+export const buttonTextVariants = cva(
+  "whitespace-nowrap font-semibold text-sm",
+  {
+    variants: {
+      variant: {
+        default: "text-primary-foreground",
+        destructive: "text-white",
+        outline: "text-foreground dark:text-accent-foreground",
+        secondary: "text-secondary-foreground",
+        ghost: "text-accent-foreground",
+        link: "text-primary",
+      },
+      size: {
+        default: "text-lg",
+        sm: "text-sm",
+        lg: "text-xl",
+        "icon-sm": "",
+        icon: "",
+        "icon-lg": "",
+      },
     },
-    size: {
-      default: "text-lg",
-      sm: "text-sm",
-      lg: "text-xl",
-      "icon-sm": "",
-      icon: "",
-      "icon-lg": "",
+    defaultVariants: {
+      variant: "default",
+      size: "default",
     },
-  },
-  defaultVariants: {
-    variant: "default",
-    size: "default",
-  },
-});
+  }
+);
 
 export const buttonIconVariants = cva("", {
   variants: {
@@ -209,5 +215,21 @@ export const buttonIconVariants = cva("", {
   defaultVariants: {
     variant: "default",
     size: "default",
+  },
+});
+
+export const buttonSpinnerVariants = cva("", {
+  variants: {
+    variant: {
+      default: "accent-primary-foreground",
+      destructive: "accent-white",
+      outline: "accent-foreground dark:accent-accent-foreground",
+      secondary: "accent-secondary-foreground",
+      ghost: "accent-accent-foreground",
+      link: "accent-primary",
+    },
+  },
+  defaultVariants: {
+    variant: "default",
   },
 });
