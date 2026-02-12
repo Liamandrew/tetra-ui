@@ -8,7 +8,7 @@ import Animated, {
 } from "react-native-reanimated";
 import { useCSSVariable } from "uniwind";
 import { cn } from "../lib/utils";
-import { Check } from "./icons";
+import { CheckIcon } from "./icons";
 import { InputPressable } from "./input";
 
 // Constants
@@ -73,7 +73,7 @@ export const Checkbox = ({
       )}
       style={animatedStyle}
     >
-      {checked && <Check className="size-4 stroke-primary-foreground" />}
+      {checked && <CheckIcon className="size-4 text-primary-foreground" />}
     </Animated.View>
   );
 };

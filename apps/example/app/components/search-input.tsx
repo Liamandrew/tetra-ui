@@ -1,4 +1,4 @@
-import { X } from "@repo/tetra-ui/components/icons";
+import { XIcon } from "@repo/tetra-ui/components/icons";
 import {
   InputAddon,
   InputAddonButton,
@@ -32,7 +32,7 @@ export default function SearchInputScreen() {
               variant="link"
             >
               <InputAddonButtonIcon>
-                <X />
+                <XIcon />
               </InputAddonButtonIcon>
             </InputAddonButton>
           </InputAddon>

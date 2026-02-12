@@ -4,7 +4,7 @@ import {
   type ButtonProps,
   ButtonText,
 } from "@repo/tetra-ui/components/button";
-import { ChevronRight } from "@repo/tetra-ui/components/icons";
+import { ChevronRightIcon } from "@repo/tetra-ui/components/icons";
 import { Stack } from "@repo/tetra-ui/components/stack";
 import { useState } from "react";
 import {
@@ -64,7 +64,7 @@ export default function ButtonScreen() {
           <Button>
             <ButtonText>Continue</ButtonText>
             <ButtonIcon>
-              <ChevronRight />
+              <ChevronRightIcon />
             </ButtonIcon>
           </Button>
         </ScreenHero>
@@ -103,7 +103,7 @@ const ButtonExample = ({ children, size, ...props }: ButtonProps) => {
         {...props}
       >
         <ButtonIcon>
-          <ChevronRight />
+          <ChevronRightIcon />
         </ButtonIcon>
       </Button>
     </Stack>

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Eye, EyeOff } from "./icons";
+import { EyeIcon, EyeOffIcon } from "./icons";
 import { InputAddon, InputAddonButton, InputAddonButtonIcon } from "./input";
 import { TextInput, type TextInputProps } from "./text-input";
 
@@ -18,7 +18,7 @@ export const PasswordInput = ({
 }: PasswordInputProps) => {
   const [isSecureEntry, setIsSecureEntry] = useState(true);
 
-  const Icon = isSecureEntry ? EyeOff : Eye;
+  const Icon = isSecureEntry ? EyeOffIcon : EyeIcon;
 
   return (
     <TextInput {...props} disabled={disabled} secureTextEntry={isSecureEntry}>

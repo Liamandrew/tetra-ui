@@ -1,5 +1,5 @@
 import { ActionInput } from "@repo/tetra-ui/components/action-input";
-import { BadgeCheck } from "@repo/tetra-ui/components/icons";
+import { BadgeCheckIcon } from "@repo/tetra-ui/components/icons";
 import { InputAddon, InputAddonIcon } from "@repo/tetra-ui/components/input";
 import { Text } from "@repo/tetra-ui/components/text";
 import { useState } from "react";
@@ -27,7 +27,7 @@ export default function ActionInputScreen() {
       >
         <InputAddon>
           <InputAddonIcon>
-            <BadgeCheck />
+            <BadgeCheckIcon />
           </InputAddonIcon>
         </InputAddon>
 

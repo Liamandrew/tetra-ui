@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import { Search } from "./icons";
+import { SearchIcon } from "./icons";
 import {
   Input,
   InputAddon,
@@ -46,7 +46,7 @@ export const SearchInput = ({
     >
       <InputAddon align="inline-start">
         <InputAddonIcon>
-          <Search />
+          <SearchIcon />
         </InputAddonIcon>
       </InputAddon>
 

@@ -1,5 +1,5 @@
 import { Card, CardContent } from "@repo/tetra-ui/components/card";
-import { ChevronRight } from "@repo/tetra-ui/components/icons";
+import { ChevronRightIcon } from "@repo/tetra-ui/components/icons";
 import { Separator } from "@repo/tetra-ui/components/separator";
 import { Stack } from "@repo/tetra-ui/components/stack";
 import { Text } from "@repo/tetra-ui/components/text";
@@ -26,7 +26,7 @@ export default function Index() {
                       {component.title}
                     </Text>
 
-                    <ChevronRight className="size-5 stroke-muted-foreground" />
+                    <ChevronRightIcon className="size-5 text-muted-foreground" />
                   </Stack>
                 </Pressable>
               </Link>

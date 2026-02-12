@@ -1,5 +1,5 @@
 import { Badge, BadgeIcon, BadgeText } from "@/components/ui/badge";
-import { BadgeCheck } from "@/components/ui/icons";
+import { BadgeCheckIcon } from "@/components/ui/icons";
 import { Stack } from "@/components/ui/stack";
 
 export function BadgePreview() {
@@ -14,8 +14,8 @@ export function BadgePreview() {
 
       <Stack className="flex-wrap" direction="row" gap="md">
         <Badge className="bg-blue-500 dark:bg-blue-600" variant="default">
-          <BadgeIcon className="stroke-white">
-            <BadgeCheck />
+          <BadgeIcon className="text-white">
+            <BadgeCheckIcon />
           </BadgeIcon>
           <BadgeText className="text-white">Badge</BadgeText>
         </Badge>

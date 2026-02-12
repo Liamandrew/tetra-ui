@@ -3,7 +3,7 @@ title: Icons
 description: Displays icons.
 ---
 
-tetra-ui doesn't provide a full icon set, so you have the flexibility to use your favourite SVG icon library.
+By default, tetra-ui uses icons from [Lucide](https://lucide.dev/icons/), but you can use any SVG icon library you want.
 
 The approach we recommend is to create a styled SVG component with the help of the [withUniwind](https://docs.uniwind.dev/api/with-uniwind) function that you can use throughout your application.
 
@@ -31,42 +31,64 @@ npx shadcn@latest add @tetra-ui/icons
 <Step>Install the following dependencies:</Step>
 
 ```package-install
-npm install react-native-svg
+npm install react-native-svg lucide-react-native
 ```
 
 <Step>Create a styled SVG component</Step>
 
 ```tsx title="components/ui/icons/styled-icon.tsx"
+import type { LucideIcon } from "lucide-react-native";
 import Svg from "react-native-svg";
 import { withUniwind } from "uniwind";
+import { cn } from "@/lib/utils";
 
-export const StyledSvg = withUniwind(Svg, {
+const styledSvgOptionMapping = {
   style: {
     fromClassName: "className",
   },
-});
+  height: {
+    fromClassName: "className",
+    styleProperty: "height",
+  },
+  width: {
+    fromClassName: "className",
+    styleProperty: "width",
+  },
+} as const;
+
+export const StyledSvg = withUniwind(Svg, styledSvgOptionMapping);
+
+export const createStyledSvg = (Icon: LucideIcon): LucideIcon => {
+  const UniwindIcon = withUniwind(Icon, styledSvgOptionMapping);
+
+  const StyledSvg = ({
+    className,
+    ...props
+  }: React.ComponentProps<typeof UniwindIcon>) => {
+    return (
+      <UniwindIcon
+        className={cn("size-6 text-foreground", className)}
+        {...props}
+      />
+    );
+  };
+
+  return StyledSvg as LucideIcon;
+};
 ```
 
-<Step>Convert your favourite SVG icon library to a React Native SVG component</Step>
+<Step>Convert your favourite SVG icon library to a styled React Native SVG component</Step>
 
 ```tsx title="components/ui/icons/search.tsx"
-import { Circle, Path } from "react-native-svg";
-import { StyledSvg } from "./styled-icon";
+import {
+  Check,
+  ChevronDown,
+} from "lucide-react-native";
+import { createStyledSvg } from "./styled-icon";
 
-export const Search = (props: React.ComponentProps<typeof StyledSvg>) => {
-  return (
-    <StyledSvg
-      {...props}
-      fill="none"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      viewBox="0 0 24 24"
-    >
-      <Path d="m21 21-4.34-4.34" />
-      <Circle cx="11" cy="11" r="8" />
-    </StyledSvg>
-  );
-};
+export const CheckIcon = createStyledSvg(Check);
+export const ChevronDownIcon = createStyledSvg(ChevronDown);
+// ... and so on
 ```
 
 </Steps>
@@ -78,11 +100,11 @@ export const Search = (props: React.ComponentProps<typeof StyledSvg>) => {
 ## Usage
 
 ```tsx
-import { BadgeCheck } from "@/components/ui/icons";
+import { BadgeCheckIcon } from "@/components/ui/icons";
 ```
 
 ```tsx
-<BadgeCheck />
+<BadgeCheckIcon />
 ```
 
 ## Changelog
@@ -90,3 +112,7 @@ import { BadgeCheck } from "@/components/ui/icons";
 ### 2025-12-03 Updated Styling
 
 Updated the configuration for `withUniwind` so that stroke classes are used.
+
+### 2026-02-12 Added Lucide Icons
+
+Use Lucide icons as the default icon set.

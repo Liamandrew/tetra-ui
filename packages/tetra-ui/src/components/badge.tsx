@@ -69,10 +69,10 @@ export const BadgeText = (props: BadgeChildProps) => {
   );
 };
 
-export const BadgeIcon = (props: BadgeChildProps) => {
+export const BadgeIcon = ({ children, ...props }: BadgeChildProps) => {
   const ctx = useBadgeContext();
 
-  const child = Children.only(props.children);
+  const child = Children.only(children);
 
   if (!child) {
     if (__DEV__) {
@@ -122,10 +122,10 @@ const badgeTextVariants = cva("whitespace-nowrap font-semibold text-sm", {
 const badgeIconVariants = cva("size-4", {
   variants: {
     variant: {
-      default: "stroke-primary-foreground",
-      secondary: "stroke-secondary-foreground",
-      destructive: "stroke-white",
-      outline: "stroke-foreground",
+      default: "text-primary-foreground",
+      secondary: "text-secondary-foreground",
+      destructive: "text-white",
+      outline: "text-foreground",
     },
   },
   defaultVariants: {

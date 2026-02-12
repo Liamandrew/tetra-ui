@@ -177,10 +177,11 @@ export const InputAddon = ({ align, className, ...props }: InputAddonProps) => {
   );
 };
 
-export const InputAddonIcon = (
-  props: InputAddonIconProps
-): React.ReactElement | null => {
-  const child = Children.only(props.children);
+export const InputAddonIcon = ({
+  children,
+  ...props
+}: InputAddonIconProps): React.ReactElement | null => {
+  const child = Children.only(children);
 
   if (!child) {
     if (__DEV__) {
@@ -193,7 +194,7 @@ export const InputAddonIcon = (
 
   return cloneElement(child as React.ReactElement<InputAddonIconProps>, {
     ...props,
-    className: cn("size-6 stroke-muted-foreground", props.className),
+    className: cn("size-6 text-muted-foreground", props.className),
   });
 };
 
@@ -357,12 +358,12 @@ const inputAddonButtonTextVariants = cva("text-sm", {
 const inputAddonButtonIconVariants = cva("", {
   variants: {
     variant: {
-      default: "stroke-primary-foreground",
-      destructive: "stroke-white",
-      outline: "stroke-muted-foreground",
-      secondary: "stroke-secondary-foreground",
-      ghost: "stroke-muted-foreground",
-      link: "stroke-muted-foreground",
+      default: "text-primary-foreground",
+      destructive: "text-white",
+      outline: "text-muted-foreground",
+      secondary: "text-secondary-foreground",
+      ghost: "text-muted-foreground",
+      link: "text-muted-foreground",
     },
     size: {
       sm: "size-4",

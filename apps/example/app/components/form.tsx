@@ -10,7 +10,7 @@ import {
   FieldLabel,
   validateField,
 } from "@repo/tetra-ui/components/form";
-import { BadgeCheck } from "@repo/tetra-ui/components/icons";
+import { BadgeCheckIcon } from "@repo/tetra-ui/components/icons";
 import { InputAddon, InputAddonIcon } from "@repo/tetra-ui/components/input";
 import { PasswordInput } from "@repo/tetra-ui/components/password-input";
 import { Stack } from "@repo/tetra-ui/components/stack";
@@ -64,7 +64,7 @@ export default function FormScreen() {
                 <ActionInput placeholder="Enter your address">
                   <InputAddon>
                     <InputAddonIcon>
-                      <BadgeCheck />
+                      <BadgeCheckIcon />
                     </InputAddonIcon>
                   </InputAddon>
                 </ActionInput>
@@ -118,7 +118,7 @@ export default function FormScreen() {
                 <TextInput placeholder="Enter your username">
                   <InputAddon>
                     <InputAddonIcon>
-                      <BadgeCheck />
+                      <BadgeCheckIcon />
                     </InputAddonIcon>
                   </InputAddon>
                 </TextInput>

@@ -145,6 +145,7 @@ export const PopoverTrigger = ({
   asChild,
   onLayout: onLayoutProp,
   ref: refProp,
+  onPress: onPressProp,
   ...props
 }: PopoverTriggerProps) => {
   const { onOpenChange, setTriggerPosition } = usePopover();
@@ -154,7 +155,7 @@ export const PopoverTrigger = ({
 
   const handlePress = useCallback(
     (e: GestureResponderEvent) => {
-      props.onPress?.(e);
+      onPressProp?.(e);
 
       ref.current?.measure((_x, _y, width, height, pageX, pageY) => {
         setTriggerPosition({
@@ -167,7 +168,7 @@ export const PopoverTrigger = ({
         onOpenChange(true);
       });
     },
-    [onOpenChange, props.onPress, setTriggerPosition]
+    [onOpenChange, onPressProp, setTriggerPosition]
   );
 
   const Comp = asChild ? Slot.Pressable : Pressable;

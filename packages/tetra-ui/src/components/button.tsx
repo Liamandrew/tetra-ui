@@ -100,10 +100,10 @@ export const ButtonText = (props: ButtonChildProps) => {
   );
 };
 
-export const ButtonIcon = (props: ButtonChildProps) => {
+export const ButtonIcon = ({ children, ...props }: ButtonChildProps) => {
   const ctx = useButtonContext();
 
-  const child = Children.only(props.children);
+  const child = Children.only(children);
 
   if (!child) {
     if (__DEV__) {
@@ -196,12 +196,12 @@ export const buttonTextVariants = cva(
 export const buttonIconVariants = cva("", {
   variants: {
     variant: {
-      default: "stroke-primary-foreground",
-      destructive: "stroke-white",
-      outline: "stroke-foreground dark:stroke-accent-foreground",
-      secondary: "stroke-secondary-foreground",
-      ghost: "stroke-accent-foreground",
-      link: "stroke-primary",
+      default: "text-primary-foreground",
+      destructive: "text-white",
+      outline: "text-foreground dark:text-accent-foreground",
+      secondary: "text-secondary-foreground",
+      ghost: "text-accent-foreground",
+      link: "text-primary",
     },
     size: {
       default: "size-6",

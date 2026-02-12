@@ -1,6 +1,6 @@
 import { Text, View } from "react-native";
 import { cn } from "@/lib/utils";
-import { ChevronRight } from "./icons";
+import { ChevronRightIcon } from "./icons";
 import {
   InputAddon,
   type InputAddonChildren,
@@ -48,7 +48,7 @@ export const ActionInput = ({
       ) : (
         <InputAddon align="inline-end">
           <InputAddonIcon>
-            <ChevronRight />
+            <ChevronRightIcon />
           </InputAddonIcon>
         </InputAddon>
       )}

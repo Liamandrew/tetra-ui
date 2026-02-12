@@ -20,7 +20,7 @@ import Animated, {
 } from "react-native-reanimated";
 import { cn, mergeRefs } from "@/lib/utils";
 import { ActionInput } from "./action-input";
-import { Check, ChevronDown } from "./icons";
+import { CheckIcon, ChevronDownIcon } from "./icons";
 import { InputAddon, type InputAddonChild, InputAddonIcon } from "./input";
 import {
   NativeSheet,
@@ -44,7 +44,7 @@ import { Text } from "./text";
 
 // Constants
 const ANIMATION_DURATION = 200;
-const AnimatedChevronDown = Animated.createAnimatedComponent(ChevronDown);
+const AnimatedChevronDown = Animated.createAnimatedComponent(ChevronDownIcon);
 
 // Types
 type LayoutPosition = {
@@ -248,6 +248,7 @@ export const Select = <T extends SelectValueType>({
 export const SelectTrigger = ({
   asChild,
   ref: refProp,
+  onPress: onPressProp,
   ...props
 }: SelectTriggerProps) => {
   const { disabled, open, onOpenChange, setPopoverTriggerPosition } =
@@ -259,7 +260,7 @@ export const SelectTrigger = ({
 
   const handlePress = useCallback(
     (e: GestureResponderEvent) => {
-      props.onPress?.(e);
+      onPressProp?.(e);
 
       ref.current?.measure((_x, _y, width, height, pageX, pageY) => {
         setPopoverTriggerPosition({
@@ -272,7 +273,7 @@ export const SelectTrigger = ({
         onOpenChange(!open);
       });
     },
-    [onOpenChange, open, props.onPress, setPopoverTriggerPosition]
+    [onOpenChange, open, onPressProp, setPopoverTriggerPosition]
   );
 
   const Comp = asChild ? Slot.Pressable : Pressable;
@@ -339,7 +340,7 @@ export const SelectItemLabel = (props: React.ComponentProps<typeof Text>) => {
 export const SelectItemIndicator = ({
   className,
   ...props
-}: React.ComponentProps<typeof Check>) => {
+}: React.ComponentProps<typeof CheckIcon>) => {
   const { value: itemValue } = useSelectItem();
   const { selectedValue } = useSelect();
 
@@ -348,7 +349,7 @@ export const SelectItemIndicator = ({
   }
 
   return (
-    <Check className={cn("size-5 stroke-primary", className)} {...props} />
+    <CheckIcon className={cn("size-5 text-primary", className)} {...props} />
   );
 };
 

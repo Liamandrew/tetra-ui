@@ -112,54 +112,6 @@
         {
           "path": "../../packages/tetra-ui/src/components/icons/styled-icon.tsx",
           "type": "registry:component"
-        },
-        {
-          "path": "../../packages/tetra-ui/src/components/icons/badge-check.tsx",
-          "type": "registry:component"
-        },
-        {
-          "path": "../../packages/tetra-ui/src/components/icons/check.tsx",
-          "type": "registry:component"
-        },
-        {
-          "path": "../../packages/tetra-ui/src/components/icons/chevron-down.tsx",
-          "type": "registry:component"
-        },
-        {
-          "path": "../../packages/tetra-ui/src/components/icons/chevron-left.tsx",
-          "type": "registry:component"
-        },
-        {
-          "path": "../../packages/tetra-ui/src/components/icons/chevron-right.tsx",
-          "type": "registry:component"
-        },
-        {
-          "path": "../../packages/tetra-ui/src/components/icons/ellipsis-vertical.tsx",
-          "type": "registry:component"
-        },
-        {
-          "path": "../../packages/tetra-ui/src/components/icons/eye.tsx",
-          "type": "registry:component"
-        },
-        {
-          "path": "../../packages/tetra-ui/src/components/icons/eye-off.tsx",
-          "type": "registry:component"
-        },
-        {
-          "path": "../../packages/tetra-ui/src/components/icons/moon.tsx",
-          "type": "registry:component"
-        },
-        {
-          "path": "../../packages/tetra-ui/src/components/icons/search.tsx",
-          "type": "registry:component"
-        },
-        {
-          "path": "../../packages/tetra-ui/src/components/icons/sun.tsx",
-          "type": "registry:component"
-        },
-        {
-          "path": "../../packages/tetra-ui/src/components/icons/x.tsx",
-          "type": "registry:component"
         }
       ]
     },

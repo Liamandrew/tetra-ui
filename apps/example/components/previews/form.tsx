@@ -7,7 +7,7 @@ import {
   FieldErrorMessage,
   FieldLabel,
 } from "@/components/ui/form";
-import { BadgeCheck } from "@/components/ui/icons";
+import { BadgeCheckIcon } from "@/components/ui/icons";
 import { InputAddon, InputAddonIcon } from "@/components/ui/input";
 import { PasswordInput } from "@/components/ui/password-input";
 import {
@@ -38,7 +38,7 @@ export function FormPreview() {
           <ActionInput placeholder="Enter your address">
             <InputAddon>
               <InputAddonIcon>
-                <BadgeCheck />
+                <BadgeCheckIcon />
               </InputAddonIcon>
             </InputAddon>
           </ActionInput>
@@ -75,7 +75,7 @@ export function FormPreview() {
           <TextInput placeholder="Enter your username">
             <InputAddon>
               <InputAddonIcon>
-                <BadgeCheck />
+                <BadgeCheckIcon />
               </InputAddonIcon>
             </InputAddon>
           </TextInput>

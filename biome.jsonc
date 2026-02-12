@@ -14,6 +14,7 @@
   "linter": {
     "rules": {
       "correctness": {
+        "noGlobalDirnameFilename": "off",
         "noUnknownFunction": "off"
       },
       "nursery": {
@@ -29,7 +30,9 @@
         "noUnknownAtRules": "off"
       },
       "style": {
+        "noNestedTernary": "off",
         "useConsistentTypeDefinitions": {
+          "level": "error",
           "options": {
             "style": "type"
           }

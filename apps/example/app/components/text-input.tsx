@@ -1,4 +1,8 @@
-import { BadgeCheck, Search, X } from "@repo/tetra-ui/components/icons";
+import {
+  BadgeCheckIcon,
+  SearchIcon,
+  XIcon,
+} from "@repo/tetra-ui/components/icons";
 import {
   InputAddon,
   InputAddonButton,
@@ -41,7 +45,7 @@ export default function TextInputScreen() {
           >
             <InputAddon>
               <InputAddonIcon>
-                <BadgeCheck />
+                <BadgeCheckIcon />
               </InputAddonIcon>
             </InputAddon>
           </TextInput>
@@ -55,7 +59,7 @@ export default function TextInputScreen() {
           >
             <InputAddon align="inline-start">
               <InputAddonIcon>
-                <Search />
+                <SearchIcon />
               </InputAddonIcon>
             </InputAddon>
 
@@ -64,7 +68,7 @@ export default function TextInputScreen() {
                 <InputAddonButton onPress={() => setSearchValue("")}>
                   <InputAddonButtonText>Clear</InputAddonButtonText>
                   <InputAddonButtonIcon>
-                    <X />
+                    <XIcon />
                   </InputAddonButtonIcon>
                 </InputAddonButton>
               </InputAddon>

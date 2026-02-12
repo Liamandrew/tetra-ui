@@ -1,5 +1,5 @@
 import { ActionInput } from "@/components/ui/action-input";
-import { BadgeCheck } from "@/components/ui/icons";
+import { BadgeCheckIcon } from "@/components/ui/icons";
 import { InputAddon, InputAddonIcon } from "@/components/ui/input";
 
 export function ActionInputPreview() {
@@ -7,7 +7,7 @@ export function ActionInputPreview() {
     <ActionInput placeholder="Enter your address">
       <InputAddon>
         <InputAddonIcon>
-          <BadgeCheck />
+          <BadgeCheckIcon />
         </InputAddonIcon>
       </InputAddon>
     </ActionInput>

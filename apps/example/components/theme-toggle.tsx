@@ -1,11 +1,11 @@
 import { Button, ButtonIcon } from "@repo/tetra-ui/components/button";
-import { Moon, Sun } from "@repo/tetra-ui/components/icons";
+import { MoonIcon, SunIcon } from "@repo/tetra-ui/components/icons";
 import { Uniwind, useUniwind } from "uniwind";
 
 export function ThemeToggle() {
   const { theme } = useUniwind();
 
-  const Icon = theme === "light" ? Moon : Sun;
+  const Icon = theme === "light" ? MoonIcon : SunIcon;
 
   return (
     <Button

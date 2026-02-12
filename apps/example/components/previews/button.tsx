@@ -1,5 +1,5 @@
 import { Button, ButtonIcon } from "@/components/ui/button";
-import { ChevronRight } from "@/components/ui/icons";
+import { ChevronRightIcon } from "@/components/ui/icons";
 import { Stack } from "@/components/ui/stack";
 
 export function ButtonPreview() {
@@ -9,7 +9,7 @@ export function ButtonPreview() {
         <Button className="w-fit">Default</Button>
         <Button size="icon">
           <ButtonIcon>
-            <ChevronRight />
+            <ChevronRightIcon />
           </ButtonIcon>
         </Button>
       </Stack>
@@ -20,7 +20,7 @@ export function ButtonPreview() {
         </Button>
         <Button size="icon" variant="secondary">
           <ButtonIcon>
-            <ChevronRight />
+            <ChevronRightIcon />
           </ButtonIcon>
         </Button>
       </Stack>
@@ -31,7 +31,7 @@ export function ButtonPreview() {
         </Button>
         <Button size="icon" variant="destructive">
           <ButtonIcon>
-            <ChevronRight />
+            <ChevronRightIcon />
           </ButtonIcon>
         </Button>
       </Stack>
@@ -42,7 +42,7 @@ export function ButtonPreview() {
         </Button>
         <Button size="icon" variant="outline">
           <ButtonIcon>
-            <ChevronRight />
+            <ChevronRightIcon />
           </ButtonIcon>
         </Button>
       </Stack>
@@ -53,7 +53,7 @@ export function ButtonPreview() {
         </Button>
         <Button size="icon" variant="ghost">
           <ButtonIcon>
-            <ChevronRight />
+            <ChevronRightIcon />
           </ButtonIcon>
         </Button>
       </Stack>
@@ -64,7 +64,7 @@ export function ButtonPreview() {
         </Button>
         <Button size="icon" variant="link">
           <ButtonIcon>
-            <ChevronRight />
+            <ChevronRightIcon />
           </ButtonIcon>
         </Button>
       </Stack>
