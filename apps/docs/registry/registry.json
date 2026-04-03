@@ -83,6 +83,19 @@
       ]
     },
     {
+      "name": "empty",
+      "type": "registry:ui",
+      "title": "Empty",
+      "description": "",
+      "registryDependencies": ["@tetra-ui/text"],
+      "files": [
+        {
+          "path": "../../packages/tetra-ui/src/components/empty.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "form",
       "type": "registry:ui",
       "title": "Form",

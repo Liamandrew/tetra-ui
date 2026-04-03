@@ -49,6 +49,7 @@ const COMPONENTS: Array<{ title: string; href: Href }> = [
   { title: "Card", href: "/components/card" },
   { title: "Checkbox", href: "/components/checkbox" },
   { title: "Chip", href: "/components/chip" },
+  { title: "Empty", href: "/components/empty" },
   { title: "Form", href: "/components/form" },
   { title: "Heading", href: "/components/heading" },
   { title: "Label", href: "/components/label" },
