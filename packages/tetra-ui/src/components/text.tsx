@@ -8,7 +8,7 @@ export const Text = ({
   ...props
 }: React.ComponentProps<typeof RNText>) => {
   return (
-    <RNText className={cn("text-foreground", className)} {...props}>
+    <RNText className={cn("font-normal text-foreground", className)} {...props}>
       {children}
     </RNText>
   );

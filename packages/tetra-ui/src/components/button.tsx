@@ -135,25 +135,24 @@ const ButtonSpinner = () => {
 
 // Styles
 export const buttonVariants = cva(
-  "flex w-full shrink-0 flex-row items-center justify-center gap-2 whitespace-nowrap rounded-lg font-medium text-sm transition-all",
+  "flex w-full shrink-0 flex-row items-center justify-center gap-2 whitespace-nowrap rounded-lg font-medium text-sm",
   {
     variants: {
       size: {
         default: "h-12 px-4",
-        sm: "h-8 px-3",
+        sm: "h-8 gap-1 px-3",
         lg: "h-14 px-6",
         "icon-sm": "size-8",
         icon: "size-12",
         "icon-lg": "size-14",
       },
       variant: {
-        default: "bg-primary text-primary-foreground active:bg-primary/80",
+        default: "bg-primary active:bg-primary/80",
         destructive:
-          "bg-destructive text-white active:bg-destructive/80 dark:bg-destructive/60",
+          "bg-destructive active:bg-destructive/80 dark:bg-destructive/60",
         outline:
           "border border-border bg-background active:bg-accent/90 dark:border-input dark:bg-input/30 dark:active:bg-input/50",
-        secondary:
-          "bg-secondary text-secondary-foreground active:bg-secondary/50",
+        secondary: "bg-secondary active:bg-secondary/50",
         ghost: "bg-background active:bg-accent/90 dark:active:bg-accent/50",
         link: "h-auto w-auto p-0 active:opacity-50",
       },

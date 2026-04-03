@@ -4,10 +4,10 @@ import { CodeCollapsibleWrapper } from "@/components/code-collapsible-wrapper";
 import { getRegistryItem } from "@/lib/registry";
 
 interface ComponentSourceProps extends React.HTMLAttributes<HTMLDivElement> {
+  collapsible?: boolean;
+  language?: string;
   name: string;
   title: string;
-  language?: string;
-  collapsible?: boolean;
 }
 
 export function ComponentSource({

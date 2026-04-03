@@ -96,7 +96,10 @@ export const Input = ({ className, disabled, ...props }: InputProps) => {
   ) as string;
   return (
     <RNTextInput
-      className={cn("grow text-base text-foreground leading-tight", className)}
+      className={cn(
+        "grow font-normal text-base text-foreground leading-tight",
+        className
+      )}
       editable={!disabled}
       placeholderTextColor={placeholderTextColor}
       {...props}

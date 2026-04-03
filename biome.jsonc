@@ -18,9 +18,7 @@
         "noUnknownFunction": "off"
       },
       "nursery": {
-        "noLeakedRender": "off",
-        "useConsistentArrowReturn": "off",
-        "useMaxParams": "off"
+        "noLeakedRender": "off"
       },
       "performance": {
         "noBarrelFile": "off",
