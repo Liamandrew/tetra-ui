@@ -38,7 +38,7 @@ export const SearchInput = ({
     <InputPressable
       className={cn(
         pressableClassName,
-        "min-h-11 bg-input/80 py-1 pl-0 active:bg-input dark:active:bg-input"
+        "min-h-11 bg-input/40 py-1 pl-0 active:bg-input dark:active:bg-input"
       )}
       disabled={disabled}
       focused={isFocused}

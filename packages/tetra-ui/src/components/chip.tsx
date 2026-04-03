@@ -99,7 +99,7 @@ export const ChipIcon = ({ children, ...props }: ChipChildProps) => {
 
 // Styles
 const chipVariants = cva(
-  "flex w-fit shrink-0 flex-row items-center justify-center gap-1.5 self-start overflow-hidden whitespace-nowrap rounded-full px-2.5 py-2 font-medium text-xs",
+  "flex w-fit shrink-0 flex-row items-center justify-center gap-1.5 self-start overflow-hidden whitespace-nowrap rounded-full px-2.5 py-1.5 font-medium text-xs",
   {
     variants: {
       variant: {

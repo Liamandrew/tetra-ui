@@ -17,6 +17,7 @@ import {
   View,
 } from "react-native";
 import Animated, {
+  Easing,
   Extrapolation,
   interpolate,
   type SharedValue,
@@ -33,7 +34,8 @@ import { XIcon } from "./icons";
 import { Slot } from "./slot";
 
 // Constants
-const ANIMATION_DURATION = 200;
+const ANIMATION_DURATION = 280;
+const ANIMATION_EASING = Easing.out(Easing.cubic);
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
 // Types
@@ -108,12 +110,14 @@ export const NativeSheet = ({
 
   useEffect(() => {
     if (open) {
-      setVisible(true);
-
-      // When opening, set visibility to 0 first (off-screen position)
-      // The animation will start after layout is measured in onLayout
-      visibilityProgress.value = visibilityProgress.value = withTiming(1, {
-        duration: ANIMATION_DURATION,
+      requestAnimationFrame(() => {
+        setVisible(true);
+        // When opening, set visibility to 0 first (off-screen position)
+        // The animation will start after layout is measured in onLayout
+        visibilityProgress.value = visibilityProgress.value = withTiming(1, {
+          duration: ANIMATION_DURATION,
+          easing: ANIMATION_EASING,
+        });
       });
     } else {
       // When closing, animate immediately (we already have the height)
@@ -121,6 +125,7 @@ export const NativeSheet = ({
         0,
         {
           duration: ANIMATION_DURATION,
+          easing: ANIMATION_EASING,
         },
         () => {
           scheduleOnRN(setVisible, false);
@@ -235,18 +240,37 @@ export const NativeSheetContent = ({
     };
   });
 
+  const isReady = Boolean(contentLayout?.height);
+
   return (
-    <Animated.View
-      {...props}
-      className={cn(
-        "absolute inset-0 top-auto ios:rounded-t-xl bg-background",
-        props.className
+    <>
+      {isReady && (
+        <Animated.View
+          {...props}
+          className={cn(
+            "absolute inset-0 top-auto ios:rounded-t-xl bg-background",
+            props.className
+          )}
+          onLayout={onLayout}
+          style={[{ paddingBottom: bottom }, animatedStyle, props.style]}
+        >
+          {children}
+        </Animated.View>
       )}
-      onLayout={onLayout}
-      style={[{ paddingBottom: bottom }, animatedStyle, props.style]}
-    >
-      {children}
-    </Animated.View>
+
+      <Animated.View
+        {...props}
+        accessibilityElementsHidden={true}
+        accessible={false}
+        className={cn("absolute opacity-0", props.className)}
+        importantForAccessibility="no"
+        onLayout={onLayout}
+        pointerEvents="none"
+        style={[{ paddingBottom: bottom }, animatedStyle, props.style]}
+      >
+        {children}
+      </Animated.View>
+    </>
   );
 };
 
@@ -254,7 +278,7 @@ export const NativeSheetBody = ({
   className,
   ...props
 }: React.ComponentProps<typeof View>) => {
-  return <View className={cn("px-4", className)} {...props} />;
+  return <View className={cn("flex-1 px-4", className)} {...props} />;
 };
 
 export const NativeSheetHeader = ({
@@ -270,7 +294,7 @@ export const NativeSheetHeader = ({
       {children}
       <NativeSheetClose asChild>
         <Button className="ml-auto" size="icon" variant="link">
-          <ButtonIcon>
+          <ButtonIcon className="text-foreground">
             <XIcon />
           </ButtonIcon>
         </Button>
