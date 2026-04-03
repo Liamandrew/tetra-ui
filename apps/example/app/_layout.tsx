@@ -3,6 +3,8 @@ import "@repo/tetra-ui/globals.css";
 import { ThemeProvider } from "@repo/tetra-ui/components/theme";
 import { Stack } from "expo-router";
 import { configureReanimatedLogger } from "react-native-reanimated";
+import { SafeAreaListener } from "react-native-safe-area-context";
+import { Uniwind } from "uniwind";
 
 export const unstable_settings = {
   // Ensure that reloading on `/modal` keeps a back button present.
@@ -12,14 +14,20 @@ export const unstable_settings = {
 export default function RootLayout() {
   return (
     <ThemeProvider>
-      <Stack
-        screenOptions={{
-          headerRight: ThemeToggle,
-          headerTitle: "",
+      <SafeAreaListener
+        onChange={({ insets }) => {
+          Uniwind.updateInsets(insets);
         }}
       >
-        <Stack.Screen name="index" />
-      </Stack>
+        <Stack
+          screenOptions={{
+            headerRight: ThemeToggle,
+            headerTitle: "",
+          }}
+        >
+          <Stack.Screen name="index" />
+        </Stack>
+      </SafeAreaListener>
     </ThemeProvider>
   );
 }

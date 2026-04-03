@@ -13,6 +13,7 @@ import {
   type PressableProps,
 } from "react-native";
 import Animated, {
+  Easing,
   interpolate,
   useAnimatedStyle,
   useSharedValue,
@@ -43,7 +44,8 @@ import { Slot } from "./slot";
 import { Text } from "./text";
 
 // Constants
-const ANIMATION_DURATION = 200;
+const ANIMATION_DURATION = 280;
+const ANIMATION_EASING = Easing.out(Easing.cubic);
 const AnimatedChevronDown = Animated.createAnimatedComponent(ChevronDownIcon);
 
 // Types
@@ -105,6 +107,11 @@ type SelectContentProps<T> = {
     | React.ReactElement<SelectItemProps<T>>
     | React.ReactElement<SelectItemProps<T>>[];
 };
+
+type SelectContentPopoverProps<T> = React.ComponentProps<
+  typeof PopoverContent
+> &
+  SelectContentProps<T>;
 
 type SelectContentSheetConfirmProps = PressableProps & {
   asChild?: boolean;
@@ -299,6 +306,7 @@ export const SelectInput = ({
   useEffect(() => {
     openSharedValue.value = withTiming(open ? 1 : 0, {
       duration: ANIMATION_DURATION,
+      easing: ANIMATION_EASING,
     });
   }, [open, openSharedValue]);
 
@@ -334,7 +342,9 @@ export const SelectInput = ({
 };
 
 export const SelectItemLabel = (props: React.ComponentProps<typeof Text>) => {
-  return <Text className="font-medium text-base text-foreground" {...props} />;
+  return (
+    <Text className="flex-1 font-medium text-base text-foreground" {...props} />
+  );
 };
 
 export const SelectItemIndicator = ({
@@ -375,7 +385,7 @@ export const SelectItem = <T extends SelectValueType>({
     <SelectItemContext.Provider value={{ value }}>
       <Pressable
         className={cn(
-          "flex flex-row items-center justify-between rounded-lg px-2 py-2 active:bg-accent/90 dark:active:bg-accent/50",
+          "flex flex-row items-center rounded-lg px-2 py-2 active:bg-accent/90 dark:active:bg-accent/50",
           className
         )}
         onPress={onPress}
@@ -446,8 +456,9 @@ const SelectContentPopoverAnchor = () => {
 };
 
 export const SelectContentPopover = ({
-  children,
-}: SelectContentProps<SelectValueType>) => {
+  width = "trigger",
+  ...props
+}: SelectContentPopoverProps<SelectValueType>) => {
   const ctx = useSelect();
 
   return (
@@ -457,7 +468,7 @@ export const SelectContentPopover = ({
         <SelectPopoverContext.Provider value={true}>
           <SelectContext.Provider value={ctx}>
             <PopoverOverlay className="bg-transparent" />
-            <PopoverContent width="trigger">{children}</PopoverContent>
+            <PopoverContent {...props} width={width} />
           </SelectContext.Provider>
         </SelectPopoverContext.Provider>
       </PopoverPortal>

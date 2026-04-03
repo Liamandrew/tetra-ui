@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "empty",
+  "title": "Empty",
+  "description": "",
+  "registryDependencies": [
+    "@tetra-ui/text"
+  ],
+  "files": [
+    {
+      "path": "../../packages/tetra-ui/src/components/empty.tsx",
+      "content": "import { cva, type VariantProps } from \"class-variance-authority\";\nimport { Children, cloneElement } from \"react\";\nimport { View } from \"react-native\";\nimport { cn } from \"@/lib/utils\";\nimport { Text } from \"./text\";\n\n// Types\ntype EmptyMediaProps = React.ComponentProps<typeof View> &\n  VariantProps<typeof emptyMediaVariants>;\n\n// Components\nexport const Empty = ({\n  className,\n  ...props\n}: React.ComponentProps<typeof View>) => {\n  return (\n    <View\n      className={cn(\n        \"flex w-full min-w-0 flex-1 flex-col items-center justify-center gap-4 text-balance rounded-xl border-dashed p-6 text-center\",\n        className\n      )}\n      data-slot=\"empty\"\n      {...props}\n    />\n  );\n};\n\nexport const EmptyHeader = ({\n  className,\n  ...props\n}: React.ComponentProps<typeof View>) => {\n  return (\n    <View\n      className={cn(\"flex max-w-sm flex-col items-center gap-0.5\", className)}\n      data-slot=\"empty-header\"\n      {...props}\n    />\n  );\n};\n\nexport const EmptyMedia = ({\n  className,\n  variant = \"default\",\n  ...props\n}: EmptyMediaProps) => {\n  return (\n    <View\n      className={cn(emptyMediaVariants({ variant, className }))}\n      data-slot=\"empty-icon\"\n      data-variant={variant}\n      {...props}\n    />\n  );\n};\n\nexport const EmptyMediaIcon = ({\n  children,\n  ...props\n}: React.ComponentProps<typeof View>) => {\n  const child = Children.only(children);\n\n  if (!child) {\n    if (__DEV__) {\n      throw new Error(\n        \"EmptyMediaIcon expects a single React element as children\"\n      );\n    }\n    return null;\n  }\n\n  return cloneElement(\n    child as React.ReactElement<React.ComponentProps<typeof View>>,\n    {\n      ...props,\n      className: cn(\"size-4\", props.className),\n    }\n  );\n};\n\nexport const EmptyTitle = ({\n  className,\n  ...props\n}: React.ComponentProps<typeof Text>) => {\n  return (\n    <Text\n      className={cn(\"font-medium text-base tracking-tight\", className)}\n      data-slot=\"empty-title\"\n      {...props}\n    />\n  );\n};\n\nexport const EmptyDescription = ({\n  className,\n  ...props\n}: React.ComponentProps<typeof Text>) => {\n  return (\n    <Text\n      className={cn(\n        \"text-center text-muted-foreground text-sm/relaxed [&>a:hover]:text-primary [&>a]:underline [&>a]:underline-offset-4\",\n        className\n      )}\n      data-slot=\"empty-description\"\n      {...props}\n    />\n  );\n};\n\nexport const EmptyContent = ({\n  className,\n  ...props\n}: React.ComponentProps<typeof View>) => {\n  return (\n    <View\n      className={cn(\n        \"flex w-full min-w-0 max-w-sm flex-col items-center gap-2.5 text-balance text-sm\",\n        className\n      )}\n      data-slot=\"empty-content\"\n      {...props}\n    />\n  );\n};\n\n// Styles\nconst emptyMediaVariants = cva(\n  \"mb-2 flex shrink-0 items-center justify-center\",\n  {\n    variants: {\n      variant: {\n        default: \"bg-transparent\",\n        icon: \"flex shrink-0 items-center justify-center rounded-full bg-muted p-2.5\",\n      },\n    },\n    defaultVariants: {\n      variant: \"default\",\n    },\n  }\n);\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

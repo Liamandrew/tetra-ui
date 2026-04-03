@@ -18,6 +18,7 @@ import {
   type ViewStyle,
 } from "react-native";
 import Animated, {
+  Easing,
   Extrapolation,
   interpolate,
   type SharedValue,
@@ -33,7 +34,8 @@ import { Portal, PortalOverlay } from "./portal";
 import { Slot } from "./slot";
 
 // Constants
-const ANIMATION_DURATION = 200;
+const ANIMATION_DURATION = 280;
+const ANIMATION_EASING = Easing.out(Easing.cubic);
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
 // Types
@@ -120,6 +122,7 @@ export const Popover = ({
   useEffect(() => {
     visibilityProgress.value = withTiming(open ? 1 : 0, {
       duration: ANIMATION_DURATION,
+      easing: ANIMATION_EASING,
     });
   }, [open, visibilityProgress]);
 
@@ -331,10 +334,7 @@ export const PopoverContent = ({
   return (
     <Animated.View
       {...props}
-      className={cn(
-        "z-50 rounded-lg border border-border bg-background p-4 shadow-lg",
-        className
-      )}
+      className={cn("z-50 rounded-lg bg-background p-4 shadow-lg", className)}
       onLayout={onLayout}
       style={[positionStyle, widthStyle, animatedStyle, style]}
     >
