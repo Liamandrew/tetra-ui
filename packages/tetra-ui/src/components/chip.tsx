@@ -99,7 +99,7 @@ export const ChipIcon = ({ children, ...props }: ChipChildProps) => {
 
 // Styles
 const chipVariants = cva(
-  "flex w-fit shrink-0 flex-row items-center justify-center gap-1.5 self-start overflow-hidden whitespace-nowrap rounded-full px-2.5 py-1.5 font-medium text-xs",
+  "flex w-fit shrink-0 flex-row items-center justify-center gap-1 self-start overflow-hidden whitespace-nowrap rounded-full px-2.5 py-1.5 font-medium text-xs",
   {
     variants: {
       variant: {
@@ -108,7 +108,7 @@ const chipVariants = cva(
         destructive:
           "bg-destructive active:bg-destructive/80 dark:bg-destructive/60",
         outline:
-          "border border-border bg-background active:bg-accent/90 dark:border-input dark:bg-input/30 dark:active:bg-input/50",
+          "border border-border bg-card active:bg-accent/90 dark:border-input dark:bg-input/30 dark:active:bg-input/50",
       },
     },
     defaultVariants: {
@@ -117,19 +117,22 @@ const chipVariants = cva(
   }
 );
 
-const chipTextVariants = cva("whitespace-nowrap font-semibold text-sm", {
-  variants: {
-    variant: {
-      default: "text-primary-foreground",
-      secondary: "text-secondary-foreground",
-      destructive: "text-white",
-      outline: "text-foreground",
+const chipTextVariants = cva(
+  "whitespace-nowrap font-semibold text-sm leading-tight",
+  {
+    variants: {
+      variant: {
+        default: "text-primary-foreground",
+        secondary: "text-secondary-foreground",
+        destructive: "text-white",
+        outline: "text-foreground",
+      },
     },
-  },
-  defaultVariants: {
-    variant: "default",
-  },
-});
+    defaultVariants: {
+      variant: "default",
+    },
+  }
+);
 
 const chipIconVariants = cva("size-4", {
   variants: {
