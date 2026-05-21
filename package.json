@@ -10,11 +10,11 @@
     "fix:lint": "npx ultracite fix"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.4.10",
+    "@biomejs/biome": "2.4.15",
     "husky": "^9.1.7",
-    "turbo": "^2.9.3",
+    "turbo": "^2.9.14",
     "typescript": "~5.9.2",
-    "ultracite": "7.4.2"
+    "ultracite": "7.7.0"
   },
   "packageManager": "pnpm@10.27.0",
   "engines": {

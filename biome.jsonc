@@ -29,6 +29,7 @@
       },
       "style": {
         "noNestedTernary": "off",
+        "useConsistentArrowReturn": "off",
         "useConsistentTypeDefinitions": {
           "level": "error",
           "options": {
