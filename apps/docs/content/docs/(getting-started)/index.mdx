@@ -1,51 +1,65 @@
 ---
 title: Introduction
-description: A modern, accessible React Native component library built for mobile-first experiences
+description: Delightful, accessible React Native components you copy into your project and own completely—purpose-built for mobile.
 ---
 
-## What is tetra-ui?
+<DocsIntroActions />
 
-**tetra-ui** is a modern, accessible React Native component library that brings the same philosophy and approach as [shadcn/ui](https://ui.shadcn.com/) to the mobile development world. Built with a focus on customization, performance, and developer experience, tetra-ui provides a collection of carefully designed, open-source components that you can copy directly into your project and own completely.
+**tetra-ui** brings the [shadcn/ui](https://ui.shadcn.com/) philosophy to React Native: beautiful defaults, open code, and a CLI that drops components straight into your app. You are not installing a black-box package—you are building a component library that is yours to shape.
 
-tetra-ui is built for React 19 and relies on features only available in the [New Architecture](https://reactnative.dev/architecture/landing-page) of React Native.
+<Callout title="Requirements" type="info">
+  tetra-ui targets **React 19** and the React Native [**New Architecture**](https://reactnative.dev/architecture/landing-page). Older runtimes are not supported.
+</Callout>
 
-### Key Features
+## This is not a traditional component library
 
-- **🎨 Mobile-First Design**: Every component is crafted specifically for mobile experiences
-- **♿ Accessibility First**: Built with accessibility in mind from the ground up
-- **🎯 Copy & Own**: No npm dependencies - copy components directly into your project
-- **⚡ Performance Optimized**: Built with React Native best practices and optimized for mobile
-- **🎭 Fully Customizable**: Complete control over styling and behavior
-- **🌙 Dark Mode Ready**: Built-in theme support with seamless dark/light mode switching
-- **🚀 [Expo](https://docs.expo.dev/) Ready**: Supports Expo out of the box with no additional configuration required
-- **📱 [Uniwind](https://www.uniwind.dev/) Powered**: Leverages Uniwind for consistent, utility-first styling
-- **🔧 TypeScript Native**: Full TypeScript support with excellent developer experience
+Most libraries ask you to install from npm, import opaque APIs, and fight the styling system when something does not fit. tetra-ui works differently:
 
-## Why tetra-ui?
+1. **Add components with the CLI** — same workflow as shadcn/ui (`npx shadcn add @tetra-ui/button`).
+2. **Own the source** — files live in your repo; change behavior, tokens, or structure without wrappers.
+3. **Ship with confidence** — defaults are tuned for touch, accessibility, and mobile performance out of the box.
 
-### The shadcn/ui Philosophy for React Native
+If you have customized a web button by overriding CSS in a third-party library, you already know the problem. With tetra-ui, you edit the component file directly.
 
-Much like shadcn/ui revolutionized web development, tetra-ui brings the same principles to React Native:
+## Principles
 
-- **No Black Box**: You own the code completely - no hidden dependencies or magic
-- **Copy & Customize**: Copy components directly into your project and modify as needed
-- **Framework Agnostic**: Works with any React Native setup, not tied to specific frameworks
-- **Community Driven**: Open source and community-focused development
+### Open code
 
-## Universal vs Mobile-Only
+Every component is plain TypeScript in your project. No hidden implementations, no version lock-in on styling internals—just code you can read, diff, and hand to your team (or an LLM) like any other module.
 
-Many component libraries aim for "write once, run anywhere" - creating universal components that work on both web and mobile. While this approach has its merits, tetra-ui takes a different stance:
+### Mobile-native defaults
 
-**We believe in purpose-built tools over universal compromises.**
+Interactions, spacing, and feedback are designed for fingers and small screens—not cursors and wide viewports. Components respect platform conventions on iOS and Android instead of feeling like a web layout squeezed onto a phone.
 
-Universal libraries often make tradeoffs in:
-- **Design**: Components that look good on web but feel awkward on mobile
-- **Performance**: Optimizations that work for web but hurt mobile performance
-- **User Experience**: Interactions designed for mouse that don't translate to touch
-- **Platform Integration**: Missing out on platform-specific features and conventions
+### Composable building blocks
 
-tetra-ui is crafted specifically for mobile, ensuring:
-- **Native Feel**: Components that feel like they belong on mobile devices
-- **Touch Optimization**: Interactions designed for fingers, not cursors
-- **Platform Awareness**: Respects iOS and Android design patterns
-- **Performance**: Optimized for mobile hardware and constraints
+Shared patterns (`cn`, variants, slots) keep APIs predictable as you add more pieces. New components should feel familiar, not like learning another library inside your library.
+
+### Distribution you control
+
+A flat registry schema plus the shadcn CLI means you pull only what you need, when you need it. Your `components.json` points at the tetra-ui registry; updates are deliberate copies, not surprise semver bumps.
+
+## Built for mobile—not “universal”
+
+Many kits optimize for write-once, run-anywhere. That often means compromises in touch targets, motion, platform chrome, and performance on real devices.
+
+tetra-ui chooses **purpose-built mobile UI** over lowest-common-denominator abstractions:
+
+- **Native feel** — patterns that belong on a phone, not a responsive website
+- **Touch-first** — hit areas, gestures, and feedback meant for hands
+- **Performance** — React Native best practices without web-centric baggage
+- **Theming** — light/dark tokens via [Uniwind](https://www.uniwind.dev/) and CSS variables you already control
+
+<Callout type="idea" title="When tetra-ui fits">
+  Choose tetra-ui when you want shadcn-style ownership on React Native—especially with [Expo](https://docs.expo.dev/) and a Tailwind/Uniwind styling stack. If you need identical components on web and native from one package, a universal kit may be a better fit.
+</Callout>
+
+## What you get
+
+- **Accessibility** — Semantics and behavior considered from the start, not bolted on later
+- **Customization** — Full control over styles and logic in your own files
+- **Expo-ready** — Works with Expo without extra wiring
+- **TypeScript** — First-class types across components and helpers
+- **Dark mode** — Theme variants built into the token system
+
+Ready to try it? Follow the [installation guide](/docs/installation), add a component with the CLI, and open the [component gallery](/docs/components) to see what ships today.

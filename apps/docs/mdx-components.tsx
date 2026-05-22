@@ -9,6 +9,7 @@ import { CodeTabs } from "@/components/code-tabs";
 import { ComponentPreview } from "@/components/component-preview";
 import { ComponentSource } from "@/components/component-source";
 import { ComponentsList } from "@/components/components-list";
+import { DocsIntroActions } from "@/components/docs-intro-actions";
 
 // use this function to get MDX components, you will need it for rendering MDX
 export function getMDXComponents(components?: MDXComponents): MDXComponents {
@@ -20,6 +21,7 @@ export function getMDXComponents(components?: MDXComponents): MDXComponents {
     CodeBlock,
     CodeTabs,
     ComponentsList,
+    DocsIntroActions,
     ComponentSource,
     CodeCollapsibleWrapper,
     ComponentPreview,
