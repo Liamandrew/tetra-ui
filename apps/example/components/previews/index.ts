@@ -1,5 +1,6 @@
 export * from "./action-input";
 export * from "./badge";
+export * from "./bottom-sheet";
 export * from "./button";
 export * from "./card";
 export * from "./checkbox";

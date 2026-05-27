@@ -4,6 +4,7 @@ import {
   ThemeProvider as NavigationThemeProvider,
 } from "@react-navigation/native";
 import { useMemo } from "react";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { useUniwind } from "uniwind";
 import { PortalHost } from "./portal";
 
@@ -11,10 +12,12 @@ export const ThemeProvider = ({ children }: React.PropsWithChildren) => {
   const navigationTheme = useNavigationTheme();
 
   return (
-    <NavigationThemeProvider value={navigationTheme}>
-      {children}
-      <PortalHost />
-    </NavigationThemeProvider>
+    <GestureHandlerRootView className="flex-1">
+      <NavigationThemeProvider value={navigationTheme}>
+        {children}
+        <PortalHost />
+      </NavigationThemeProvider>
+    </GestureHandlerRootView>
   );
 };
 

@@ -169,6 +169,32 @@
       ]
     },
     {
+      "name": "bottom-sheet",
+      "type": "registry:ui",
+      "title": "Bottom Sheet",
+      "description": "Interactive bottom sheet with snap points, gestures, and keyboard support.",
+      "dependencies": [
+        "@gorhom/bottom-sheet",
+        "react-native-gesture-handler",
+        "react-native-reanimated",
+        "react-native-safe-area-context",
+        "react-native-screens",
+        "react-native-worklets"
+      ],
+      "registryDependencies": [
+        "@tetra-ui/button",
+        "@tetra-ui/icons",
+        "@tetra-ui/portal",
+        "@tetra-ui/slot"
+      ],
+      "files": [
+        {
+          "path": "../../packages/tetra-ui/src/components/bottom-sheet.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "native-sheet",
       "type": "registry:ui",
       "title": "Native Sheet",

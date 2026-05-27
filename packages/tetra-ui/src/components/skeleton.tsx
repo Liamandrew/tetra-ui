@@ -1,9 +1,4 @@
-import {
-  createContext,
-  useContext,
-  useEffect,
-  useMemo,
-} from "react";
+import { createContext, useContext, useEffect, useMemo } from "react";
 import Animated, {
   type SharedValue,
   useAnimatedStyle,
