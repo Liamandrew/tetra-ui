@@ -27,32 +27,7 @@ export function ComponentPreview({ name, type }: ComponentPreviewProps) {
         className="flex flex-row justify-center gap-12"
         value="preview"
       >
-        <PreviewImage
-          className="hidden lg:block"
-          name={name}
-          platform="ios"
-          type={type}
-        />
-        <PreviewImage
-          className="hidden lg:block"
-          name={name}
-          platform="android"
-          type={type}
-        />
-
-        <Tabs className="lg:hidden" defaultValue="ios">
-          <TabsContent value="ios">
-            <PreviewImage name={name} platform="ios" type={type} />
-          </TabsContent>
-          <TabsContent value="android">
-            <PreviewImage name={name} platform="android" type={type} />
-          </TabsContent>
-
-          <TabsList className="self-center">
-            <TabsTrigger value="ios">iOS</TabsTrigger>
-            <TabsTrigger value="android">Android</TabsTrigger>
-          </TabsList>
-        </Tabs>
+        <PreviewImage name={name} platform="ios" type={type} />
       </TabsContent>
       <TabsContent value="code">
         <CodeBlock code={code} lang="tsx" />

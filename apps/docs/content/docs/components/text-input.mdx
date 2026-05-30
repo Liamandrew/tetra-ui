@@ -48,12 +48,43 @@ import { TextInput } from "@/components/ui/text-input";
 
 ### With Addons
 
+Add leading or trailing content with `InputAddon`. Use `align="inline-end"` to place addons on the right:
+
 ```tsx
+import {
+  InputAddon,
+  InputAddonButton,
+  InputAddonButtonIcon,
+  InputAddonIcon,
+} from "@/components/ui/input";
+import { BadgeCheckIcon, XIcon } from "@/components/ui/icons";
+
 <TextInput placeholder="Enter your username">
   <InputAddon>
     <InputAddonIcon>
-      <BadgeCheck />
+      <BadgeCheckIcon />
     </InputAddonIcon>
   </InputAddon>
+  <InputAddon align="inline-end">
+    <InputAddonButton size="icon" variant="ghost">
+      <InputAddonButtonIcon>
+        <XIcon />
+      </InputAddonButtonIcon>
+    </InputAddonButton>
+  </InputAddon>
 </TextInput>
+```
+
+## Disabled
+
+```tsx
+<TextInput disabled placeholder="Disabled" />
+```
+
+## Invalid
+
+Pass `invalid` to show a destructive focus ring, typically when paired with form validation:
+
+```tsx
+<TextInput invalid placeholder="Enter your username" />
 ```

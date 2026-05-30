@@ -105,4 +105,53 @@ const OPTIONS = [
 </Select>
 ```
 
+## Controlled
+
+Pass `value` and `onValueChange` for controlled selection:
+
+```tsx
+const [value, setValue] = useState<string>();
+
+<Select
+  options={OPTIONS}
+  value={value}
+  onValueChange={setValue}
+  placeholder="Select..."
+>
+  {/* ... */}
+</Select>
+```
+
+## Invalid
+
+Pass `invalid` to show a destructive border on the trigger input:
+
+```tsx
+<Select options={OPTIONS} invalid placeholder="Select...">
+  {/* ... */}
+</Select>
+```
+
+## Popover content
+
+For shorter option lists, use `SelectContentPopover` instead of a sheet:
+
+```tsx
+<Select options={OPTIONS} placeholder="Select...">
+  <SelectTrigger asChild>
+    <SelectInput />
+  </SelectTrigger>
+  <SelectContentPopover>
+    {OPTIONS.map((option) => (
+      <SelectItem
+        key={option.value}
+        label={option.label}
+        value={option.value}
+      />
+    ))}
+  </SelectContentPopover>
+</Select>
+```
+
+When using popover content, `PortalHost` must be present in your root layout.
 

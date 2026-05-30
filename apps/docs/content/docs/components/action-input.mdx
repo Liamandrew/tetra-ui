@@ -41,10 +41,29 @@ npx shadcn@latest add @tetra-ui/action-input
 
 ```tsx
 import { ActionInput } from "@/components/ui/action-input";
+import { BadgeCheckIcon } from "@/components/ui/icons";
+import { InputAddon, InputAddonIcon } from "@/components/ui/input";
 ```
 
 ```tsx
-<ActionInput placeholder="Enter your address" />
+<ActionInput placeholder="Select an address" value={address} onPress={openPicker} />
 ```
 
+Action inputs are pressable fields that display a value or placeholder. They are ideal for navigation-style inputs such as address pickers, date selectors, or option lists.
+
+## With addon
+
+Add a leading icon or other addon content:
+
+```tsx
+<ActionInput placeholder="Enter your address" value={address} onPress={openPicker}>
+  <InputAddon>
+    <InputAddonIcon>
+      <BadgeCheckIcon />
+    </InputAddonIcon>
+  </InputAddon>
+</ActionInput>
+```
+
+A chevron icon is rendered automatically on the trailing edge when no end addon is provided.
 

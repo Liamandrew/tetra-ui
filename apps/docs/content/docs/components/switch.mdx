@@ -47,4 +47,19 @@ import { Switch } from "@/components/ui/switch";
 <Switch />
 ```
 
+## Controlled
+
+Pass `checked` and `onCheckedChange` for controlled state:
+
+```tsx
+const [enabled, setEnabled] = useState(false);
+
+<Switch checked={enabled} onCheckedChange={setEnabled} />
+```
+
+## Disabled
+
+```tsx
+<Switch disabled checked />
+```
 

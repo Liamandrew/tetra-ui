@@ -39,11 +39,55 @@ npx shadcn@latest add @tetra-ui/button
 ## Usage
 
 ```tsx
-import { Button } from "@/components/ui/button";
+import { Button, ButtonIcon, ButtonText } from "@/components/ui/button";
+import { ChevronRightIcon } from "@/components/ui/icons";
 ```
 
 ```tsx
-<Button variant="ghost">Button</Button>
+<Button>
+  <ButtonText>Button</ButtonText>
+</Button>
+```
+
+## Variants
+
+```tsx
+<Button variant="default">Default</Button>
+<Button variant="secondary">Secondary</Button>
+<Button variant="destructive">Destructive</Button>
+<Button variant="outline">Outline</Button>
+<Button variant="ghost">Ghost</Button>
+<Button variant="link">Link</Button>
+```
+
+## Sizes
+
+```tsx
+<Button size="sm">Small</Button>
+<Button size="default">Default</Button>
+<Button size="lg">Large</Button>
+```
+
+## Icon button
+
+Use `size="icon"`, `size="icon-sm"`, or `size="icon-lg"` with `ButtonIcon` for icon-only buttons:
+
+```tsx
+<Button size="icon" variant="outline">
+  <ButtonIcon>
+    <ChevronRightIcon />
+  </ButtonIcon>
+</Button>
+```
+
+## Loading state
+
+Set `busy` to show a spinner and disable interaction while an action is in progress:
+
+```tsx
+<Button busy>
+  <ButtonText>Saving…</ButtonText>
+</Button>
 ```
 
 ## Changelog

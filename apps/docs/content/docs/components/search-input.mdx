@@ -47,4 +47,30 @@ import { SearchInput } from "@/components/ui/search-input";
 <SearchInput placeholder="Search..." />
 ```
 
+A search icon is rendered automatically on the leading edge.
+
+## With addon
+
+Add trailing content such as a clear button:
+
+```tsx
+import { InputAddon, InputAddonButton, InputAddonButtonIcon } from "@/components/ui/input";
+import { XIcon } from "@/components/ui/icons";
+
+<SearchInput placeholder="Search..." value={query} onChangeText={setQuery}>
+  <InputAddon align="inline-end">
+    <InputAddonButton size="icon" variant="ghost" onPress={() => setQuery("")}>
+      <InputAddonButtonIcon>
+        <XIcon />
+      </InputAddonButtonIcon>
+    </InputAddonButton>
+  </InputAddon>
+</SearchInput>
+```
+
+## Disabled
+
+```tsx
+<SearchInput disabled placeholder="Search..." />
+```
 

@@ -51,4 +51,9 @@ export default function RootLayout() {
 }
 ```
 
+## When to use
+
+Add `PortalHost` once at the root of your app. Components that render into a portal — such as [Select](/docs/components/select) (popover mode), [Popover](/docs/components/popover), and [Bottom Sheet](/docs/components/bottom-sheet) — require it to display content above the rest of the UI.
+
+Place `PortalHost` as a sibling to your navigation stack, not inside individual screens.
 

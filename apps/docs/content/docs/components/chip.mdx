@@ -40,11 +40,41 @@ npx shadcn@latest add @tetra-ui/chip
 ## Usage
 
 ```tsx
-import { Chip } from "@/components/ui/chip";
+import { Chip, ChipIcon, ChipText } from "@/components/ui/chip";
+import { XIcon } from "@/components/ui/icons";
 ```
 
 ```tsx
 <Chip>Chip</Chip>
 ```
 
+## Variants
+
+```tsx
+<Chip variant="default">Default</Chip>
+<Chip variant="secondary">Secondary</Chip>
+<Chip variant="destructive">Destructive</Chip>
+<Chip variant="outline">Outline</Chip>
+```
+
+## With icon
+
+Chips are pressable by default. Add a trailing icon for dismissible or actionable chips:
+
+```tsx
+<Chip onPress={() => removeTag(id)}>
+  <ChipText>React Native</ChipText>
+  <ChipIcon>
+    <XIcon />
+  </ChipIcon>
+</Chip>
+```
+
+## Disabled
+
+Pass `disabled` to prevent interaction:
+
+```tsx
+<Chip disabled>Unavailable</Chip>
+```
 

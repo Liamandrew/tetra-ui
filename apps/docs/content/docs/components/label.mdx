@@ -46,4 +46,21 @@ import { Label } from "@/components/ui/label";
 <Label>Username</Label>
 ```
 
+## With form fields
+
+Use `FieldLabel` from the form module to get automatic disabled and invalid styling:
+
+```tsx
+import { Field, FieldControl, FieldLabel } from "@/components/ui/form";
+import { TextInput } from "@/components/ui/text-input";
+
+<Field>
+  <FieldLabel>Username</FieldLabel>
+  <FieldControl>
+    <TextInput placeholder="Enter your username" />
+  </FieldControl>
+</Field>
+```
+
+`FieldControl` passes `disabled` and `invalid` state from the parent `Field` down to the input automatically.
 

@@ -52,4 +52,15 @@ import { Input } from "@/components/ui/input";
 <Input placeholder="Enter your username" />
 ```
 
+## Building custom inputs
+
+The input module exports lower-level primitives for composing custom input components:
+
+- `Input` — styled `TextInput` with theme-aware placeholder color
+- `InputPressable` — animated wrapper that handles focus ring and invalid states
+- `InputAddon` — slot for leading or trailing content
+- `InputAddonIcon` — sizes and styles icon children
+- `InputAddonButton` — button styled for use inside an input addon
+
+See [Text Input](/docs/components/text-input), [Search Input](/docs/components/search-input), and [Action Input](/docs/components/action-input) for composed examples.
 

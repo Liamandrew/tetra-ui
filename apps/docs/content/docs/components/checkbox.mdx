@@ -47,4 +47,37 @@ import { Checkbox } from "@/components/ui/checkbox";
 <Checkbox checked />
 ```
 
+## Controlled
+
+Manage checked state externally and wire up a pressable wrapper to toggle:
+
+```tsx
+const [checked, setChecked] = useState(false);
+
+<Pressable onPress={() => setChecked((prev) => !prev)}>
+  <Checkbox checked={checked} />
+</Pressable>
+```
+
+## With label
+
+Use `CheckboxInput` to render a checkbox with an inline label:
+
+```tsx
+import { CheckboxInput } from "@/components/ui/checkbox";
+
+<Pressable onPress={() => setChecked((prev) => !prev)}>
+  <CheckboxInput checked={checked}>
+    Accept terms and conditions
+  </CheckboxInput>
+</Pressable>
+```
+
+## Invalid state
+
+Pass `invalid` to show a destructive border, typically when paired with form validation:
+
+```tsx
+<Checkbox checked={checked} invalid />
+```
 

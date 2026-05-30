@@ -42,7 +42,7 @@ npx shadcn@latest add @tetra-ui/accordion
 import {
   Accordion,
   AccordionContent,
-  AccordionIcon,
+  AccordionIndicator,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
@@ -59,7 +59,7 @@ import { Text } from "@/components/ui/text";
         <ShoppingCartIcon className="size-5 text-muted-foreground" />
         <Text className="flex-1 font-medium">Shipping information</Text>
       </Stack>
-      <AccordionIcon />
+      <AccordionIndicator />
     </AccordionTrigger>
     <AccordionContent>
       <Text className="text-muted-foreground">
@@ -70,7 +70,7 @@ import { Text } from "@/components/ui/text";
   <AccordionItem value="returns">
     <AccordionTrigger>
       <Text className="flex-1 font-medium">Return policy</Text>
-      <AccordionIcon />
+      <AccordionIndicator />
     </AccordionTrigger>
     <AccordionContent>
       <Text className="text-muted-foreground">
@@ -126,7 +126,7 @@ Use `asChild` on `AccordionTrigger` to compose with other pressable components:
 <AccordionTrigger asChild>
   <Button variant="ghost" className="w-full justify-between">
     <ButtonText>Custom trigger</ButtonText>
-    <AccordionIcon />
+    <AccordionIndicator />
   </Button>
 </AccordionTrigger>
 ```

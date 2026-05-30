@@ -42,13 +42,14 @@ npx shadcn@latest add @tetra-ui/empty
 ```tsx
 import {
   Empty,
+  EmptyContent,
   EmptyDescription,
   EmptyHeader,
   EmptyMedia,
   EmptyMediaIcon,
   EmptyTitle,
-} from "@repo/tetra-ui/components/empty";
-import { BookOpenIcon } from "@repo/tetra-ui/components/icons";
+} from "@/components/ui/empty";
+import { BookOpenIcon } from "@/components/ui/icons";
 ```
 
 ```tsx
@@ -68,4 +69,28 @@ import { BookOpenIcon } from "@repo/tetra-ui/components/icons";
 </Empty>
 ```
 
+## With action
+
+Use `EmptyContent` to add a call-to-action below the header:
+
+```tsx
+<Empty>
+  <EmptyHeader>
+    <EmptyMedia variant="icon">
+      <EmptyMediaIcon>
+        <BookOpenIcon />
+      </EmptyMediaIcon>
+    </EmptyMedia>
+    <EmptyTitle>No Projects Found</EmptyTitle>
+    <EmptyDescription>
+      You haven't created any projects yet.
+    </EmptyDescription>
+  </EmptyHeader>
+  <EmptyContent>
+    <Button className="w-fit" size="sm">
+      Create Project
+    </Button>
+  </EmptyContent>
+</Empty>
+```
 

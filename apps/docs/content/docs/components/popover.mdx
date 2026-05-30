@@ -80,4 +80,64 @@ import {
 </Popover>
 ```
 
+## Positioning
+
+Control placement with `side` and `align` on `PopoverContent`:
+
+```tsx
+<PopoverContent side="top" align="center">
+  <Text>Tooltip above the trigger</Text>
+</PopoverContent>
+```
+
+Supported values:
+
+- `side`: `"top"` | `"bottom"` | `"left"` | `"right"`
+- `align`: `"start"` | `"center"` | `"end"`
+
+Use `sideOffset` and `alignOffset` to fine-tune distance from the trigger. Set `width="trigger"` to match the trigger width, or pass a percentage or pixel value.
+
+## Without overlay
+
+Omit `PopoverOverlay` for lightweight tooltips that don't dim the background:
+
+```tsx
+<Popover>
+  <PopoverTrigger asChild>
+    <Button variant="outline">Open</Button>
+  </PopoverTrigger>
+  <PopoverPortal>
+    <PopoverContent>
+      <Text>No backdrop</Text>
+      <PopoverClose asChild>
+        <Button size="sm" variant="link">Close</Button>
+      </PopoverClose>
+    </PopoverContent>
+  </PopoverPortal>
+</Popover>
+```
+
+## Controlled
+
+Pass `open` and `onOpenChange` for controlled state:
+
+```tsx
+const [open, setOpen] = useState(false);
+
+<Popover open={open} onOpenChange={setOpen}>
+  {/* ... */}
+</Popover>
+```
+
+## Scrollable content
+
+Wrap long content in a `ScrollView` and constrain the popover height:
+
+```tsx
+<PopoverContent className="h-1/2 p-0" width="50%">
+  <ScrollView className="p-4">
+    {/* long content */}
+  </ScrollView>
+</PopoverContent>
+```
 

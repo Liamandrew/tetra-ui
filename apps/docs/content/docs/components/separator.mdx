@@ -47,4 +47,26 @@ import { Separator } from "@/components/ui/separator";
 <Separator />
 ```
 
+## Orientation
+
+Use `orientation="vertical"` for inline dividers between items in a row:
+
+```tsx
+<Stack direction="row" gap="md">
+  <Text>Blog</Text>
+  <Separator orientation="vertical" />
+  <Text>About</Text>
+  <Separator orientation="vertical" />
+  <Text>Contact</Text>
+</Stack>
+```
+
+## Thickness
+
+The default is a hairline separator. Use `thickness="thick"` for a more prominent divider:
+
+```tsx
+<Separator thickness="thick" />
+<Separator orientation="vertical" thickness="thick" />
+```
 
