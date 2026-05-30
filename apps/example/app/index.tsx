@@ -43,6 +43,7 @@ export default function Index() {
 }
 
 const COMPONENTS: Array<{ title: string; href: Href }> = [
+  { title: "Accordion", href: "/components/accordion" },
   { title: "Action Input", href: "/components/action-input" },
   { title: "Badge", href: "/components/badge" },
   { title: "Bottom Sheet", href: "/components/bottom-sheet" },

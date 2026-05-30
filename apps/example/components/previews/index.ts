@@ -1,3 +1,4 @@
+export * from "./accordion";
 export * from "./action-input";
 export * from "./badge";
 export * from "./bottom-sheet";

@@ -4,6 +4,20 @@
   "homepage": "https://tetra-ui.com",
   "items": [
     {
+      "name": "accordion",
+      "type": "registry:ui",
+      "title": "Accordion",
+      "description": "A vertically stacked set of interactive headings that reveal associated content sections.",
+      "dependencies": ["react-native-reanimated"],
+      "registryDependencies": ["@tetra-ui/icons", "@tetra-ui/slot"],
+      "files": [
+        {
+          "path": "../../packages/tetra-ui/src/components/accordion.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "action-input",
       "type": "registry:ui",
       "title": "Action Input",

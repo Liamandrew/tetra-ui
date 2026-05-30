@@ -1,0 +1,136 @@
+---
+title: Accordion
+description: A vertically stacked set of interactive headings that reveal associated content sections.
+---
+
+<ComponentPreview name="accordion" type="gif" />
+
+## Installation
+
+<Tabs defaultValue="cli">
+
+<TabsList>
+  <TabsTrigger value="cli">CLI</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+
+<TabsContent value="cli">
+
+```package-install
+npx shadcn@latest add @tetra-ui/accordion
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps>
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource name="accordion" title="components/ui/accordion.tsx" />
+
+</Steps>
+
+</TabsContent>
+
+</Tabs>
+
+## Usage
+
+```tsx
+import {
+  Accordion,
+  AccordionContent,
+  AccordionIcon,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import { ShoppingCartIcon } from "@/components/ui/icons";
+import { Stack } from "@/components/ui/stack";
+import { Text } from "@/components/ui/text";
+```
+
+```tsx
+<Accordion type="single" collapsible defaultValue="shipping">
+  <AccordionItem value="shipping">
+    <AccordionTrigger>
+      <Stack className="flex-1 items-center" direction="row" gap="sm">
+        <ShoppingCartIcon className="size-5 text-muted-foreground" />
+        <Text className="flex-1 font-medium">Shipping information</Text>
+      </Stack>
+      <AccordionIcon />
+    </AccordionTrigger>
+    <AccordionContent>
+      <Text className="text-muted-foreground">
+        Orders ship within 2–3 business days.
+      </Text>
+    </AccordionContent>
+  </AccordionItem>
+  <AccordionItem value="returns">
+    <AccordionTrigger>
+      <Text className="flex-1 font-medium">Return policy</Text>
+      <AccordionIcon />
+    </AccordionTrigger>
+    <AccordionContent>
+      <Text className="text-muted-foreground">
+        Returns are accepted within 30 days of delivery.
+      </Text>
+    </AccordionContent>
+  </AccordionItem>
+</Accordion>
+```
+
+## Single vs multiple
+
+Use `type="single"` (default) to allow one open section at a time, or `type="multiple"` to allow several sections open at once:
+
+```tsx
+<Accordion type="multiple" defaultValue={["notifications", "privacy"]}>
+  {/* ... */}
+</Accordion>
+```
+
+## Collapsible
+
+When `type` is `single`, set `collapsible` to allow closing the active item so none remain open:
+
+```tsx
+<Accordion type="single" collapsible>
+  {/* ... */}
+</Accordion>
+```
+
+## Controlled
+
+Pass `value` and `onValueChange` for controlled state:
+
+```tsx
+const [value, setValue] = useState<string | undefined>("shipping");
+
+<Accordion
+  type="single"
+  collapsible
+  value={value}
+  onValueChange={setValue}
+>
+  {/* ... */}
+</Accordion>
+```
+
+## Custom trigger
+
+Use `asChild` on `AccordionTrigger` to compose with other pressable components:
+
+```tsx
+<AccordionTrigger asChild>
+  <Button variant="ghost" className="w-full justify-between">
+    <ButtonText>Custom trigger</ButtonText>
+    <AccordionIcon />
+  </Button>
+</AccordionTrigger>
+```
+
+## Spacing
+
+Closed items that sit next to each other are visually grouped with no gap between them. When an item opens, it separates from its neighbors with vertical spacing so the expanded content reads as its own card.
