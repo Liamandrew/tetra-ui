@@ -303,9 +303,9 @@
       "dependencies": ["react-native-reanimated"],
       "registryDependencies": [
         "@tetra-ui/action-input",
+        "@tetra-ui/bottom-sheet",
         "@tetra-ui/icons",
         "@tetra-ui/input",
-        "@tetra-ui/native-sheet",
         "@tetra-ui/popover",
         "@tetra-ui/slot",
         "@tetra-ui/text"

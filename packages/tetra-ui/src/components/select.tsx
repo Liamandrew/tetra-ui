@@ -21,18 +21,18 @@ import Animated, {
 } from "react-native-reanimated";
 import { cn, mergeRefs } from "@/lib/utils";
 import { ActionInput } from "./action-input";
+import {
+  BottomSheet,
+  BottomSheetBody,
+  BottomSheetContent,
+  BottomSheetFooter,
+  BottomSheetHeader,
+  BottomSheetOverlay,
+  BottomSheetPortal,
+  BottomSheetTitle,
+} from "./bottom-sheet";
 import { CheckIcon, ChevronDownIcon } from "./icons";
 import { InputAddon, type InputAddonChild, InputAddonIcon } from "./input";
-import {
-  NativeSheet,
-  NativeSheetBody,
-  NativeSheetContent,
-  NativeSheetFooter,
-  NativeSheetHeader,
-  NativeSheetModal,
-  NativeSheetOverlay,
-  NativeSheetTitle,
-} from "./native-sheet";
 import {
   Popover,
   PopoverContent,
@@ -406,22 +406,24 @@ export const SelectItem = <T extends SelectValueType>({
 export const SelectContentSheet = ({
   children,
 }: SelectContentProps<SelectValueType>) => {
-  const { open, onCancel } = useSelect();
+  const ctx = useSelect();
 
   return (
-    <NativeSheet onOpenChange={onCancel} open={open}>
-      <NativeSheetModal>
-        <NativeSheetOverlay />
-        <NativeSheetContent>{children}</NativeSheetContent>
-      </NativeSheetModal>
-    </NativeSheet>
+    <BottomSheet onOpenChange={ctx.onCancel} open={ctx.open}>
+      <BottomSheetPortal>
+        <SelectContext.Provider value={ctx}>
+          <BottomSheetOverlay />
+          <BottomSheetContent>{children}</BottomSheetContent>
+        </SelectContext.Provider>
+      </BottomSheetPortal>
+    </BottomSheet>
   );
 };
 
-export const SelectContentSheetHeader = NativeSheetHeader;
-export const SelectContentSheetTitle = NativeSheetTitle;
-export const SelectContentSheetBody = NativeSheetBody;
-export const SelectContentSheetFooter = NativeSheetFooter;
+export const SelectContentSheetHeader = BottomSheetHeader;
+export const SelectContentSheetTitle = BottomSheetTitle;
+export const SelectContentSheetBody = BottomSheetBody;
+export const SelectContentSheetFooter = BottomSheetFooter;
 
 export const SelectContentSheetConfirm = ({
   asChild,
