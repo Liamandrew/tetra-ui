@@ -1,7 +1,7 @@
 import {
   Accordion,
   AccordionContent,
-  AccordionIcon,
+  AccordionIndicator,
   AccordionItem,
   AccordionTrigger,
 } from "@repo/tetra-ui/components/accordion";
@@ -100,7 +100,7 @@ export default function AccordionScreen() {
             <AccordionItem key={item.value} value={item.value}>
               <AccordionTrigger>
                 <AccordionTriggerContent Icon={item.Icon} title={item.title} />
-                <AccordionIcon />
+                <AccordionIndicator />
               </AccordionTrigger>
               <AccordionContent>
                 <Text className="text-muted-foreground">{item.content}</Text>
@@ -116,7 +116,7 @@ export default function AccordionScreen() {
             <AccordionItem key={item.value} value={item.value}>
               <AccordionTrigger>
                 <Text className="flex-1 font-medium">{item.title}</Text>
-                <AccordionIcon />
+                <AccordionIndicator />
               </AccordionTrigger>
               <AccordionContent>
                 <Text className="text-muted-foreground">{item.content}</Text>

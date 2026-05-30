@@ -2,7 +2,7 @@ import { View } from "react-native";
 import {
   Accordion,
   AccordionContent,
-  AccordionIcon,
+  AccordionIndicator,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
@@ -55,7 +55,7 @@ export function AccordionPreview() {
                 <item.Icon className="size-5 text-muted-foreground" />
                 <Text className="flex-1 font-medium">{item.title}</Text>
               </Stack>
-              <AccordionIcon />
+              <AccordionIndicator />
             </AccordionTrigger>
             <AccordionContent>
               <Text className="text-muted-foreground">{item.content}</Text>

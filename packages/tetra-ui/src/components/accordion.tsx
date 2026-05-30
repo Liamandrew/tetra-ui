@@ -96,7 +96,7 @@ const useAccordionItem = () => {
   const ctx = useContext(AccordionItemContext);
   if (!ctx) {
     throw new Error(
-      "AccordionItem, AccordionTrigger, AccordionContent, and AccordionIcon must be used within AccordionItem"
+      "AccordionItem, AccordionTrigger, AccordionContent, and AccordionIndicator must be used within AccordionItem"
     );
   }
   return ctx;
@@ -385,12 +385,15 @@ export const AccordionContent = ({
   );
 };
 
-export type AccordionIconProps = {
+export type AccordionIndicatorProps = {
   className?: string;
   children?: ReactNode;
 };
 
-export const AccordionIcon = ({ className, children }: AccordionIconProps) => {
+export const AccordionIndicator = ({
+  className,
+  children,
+}: AccordionIndicatorProps) => {
   const item = useAccordionItem();
   const rotation = useSharedValue(item.isOpen ? 180 : 0);
 
