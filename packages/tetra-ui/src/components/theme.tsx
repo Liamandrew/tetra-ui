@@ -2,7 +2,7 @@ import {
   DarkTheme,
   DefaultTheme,
   ThemeProvider as NavigationThemeProvider,
-} from "@react-navigation/native";
+} from "expo-router/react-navigation";
 import { useMemo } from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { useUniwind } from "uniwind";

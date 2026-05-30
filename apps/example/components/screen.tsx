@@ -1,6 +1,6 @@
-import { useHeaderHeight as useHeaderHeightElements } from "@react-navigation/elements";
 import { Button, ButtonIcon } from "@repo/tetra-ui/components/button";
 import { EllipsisVerticalIcon } from "@repo/tetra-ui/components/icons";
+import { useHeaderHeight as useHeaderHeightElements } from "expo-router/react-navigation";
 import { useRef } from "react";
 import { Platform, ScrollView, useWindowDimensions, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";

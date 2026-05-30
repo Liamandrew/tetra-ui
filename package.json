@@ -8,14 +8,15 @@
     "clean": "git clean -xdf node_modules",
     "dev": "turbo run dev",
     "dev:docs": "turbo run dev --filter=docs",
+    "dev:example": "turbo run dev --filter=example",
     "fix:lint": "npx ultracite fix"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.4.15",
+    "@biomejs/biome": "2.4.16",
     "husky": "^9.1.7",
-    "turbo": "^2.9.14",
-    "typescript": "~5.9.2",
-    "ultracite": "7.7.0"
+    "turbo": "^2.9.16",
+    "typescript": "~6.0.3",
+    "ultracite": "7.8.0"
   },
   "packageManager": "pnpm@10.27.0",
   "engines": {
