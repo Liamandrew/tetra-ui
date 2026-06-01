@@ -49,17 +49,22 @@ import { Switch } from "@/components/ui/switch";
 
 ## Controlled
 
-Pass `checked` and `onCheckedChange` for controlled state:
+Pass `value` and `onValueChange` for controlled state:
 
 ```tsx
 const [enabled, setEnabled] = useState(false);
 
-<Switch checked={enabled} onCheckedChange={setEnabled} />
+<Switch value={enabled} onValueChange={setEnabled} />
 ```
 
 ## Disabled
 
 ```tsx
-<Switch disabled checked />
+<Switch disabled value />
 ```
 
+## Changelog
+
+### 2026-06-01 Migrate to Expo UI
+
+Migrate to Expo UI `Switch` component.

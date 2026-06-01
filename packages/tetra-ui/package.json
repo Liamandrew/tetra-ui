@@ -13,6 +13,7 @@
     "check:types": "tsc --noEmit"
   },
   "dependencies": {
+    "@expo/ui": "56.0.15",
     "@gorhom/bottom-sheet": "^5.2.6",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",

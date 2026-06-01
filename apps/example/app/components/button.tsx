@@ -71,14 +71,11 @@ export default function ButtonScreen() {
       </ScreenScrollView>
 
       <ComponentBehaviourSheet trigger={<ScreenActionsButton />}>
-        <ComponentBehaviourSwitch
-          checked={disabled}
-          onCheckedChange={setDisabled}
-        >
+        <ComponentBehaviourSwitch onValueChange={setDisabled} value={disabled}>
           Set Disabled
         </ComponentBehaviourSwitch>
 
-        <ComponentBehaviourSwitch checked={busy} onCheckedChange={setBusy}>
+        <ComponentBehaviourSwitch onValueChange={setBusy} value={busy}>
           Set Busy
         </ComponentBehaviourSwitch>
       </ComponentBehaviourSheet>

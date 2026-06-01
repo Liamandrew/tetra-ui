@@ -13,20 +13,20 @@ import { Switch } from "@repo/tetra-ui/components/switch";
 import { Text } from "@repo/tetra-ui/components/text";
 
 type ComponentBehaviourSwitchProps = {
-  checked: boolean;
-  onCheckedChange: (checked: boolean) => void;
+  value: boolean;
+  onValueChange: (value: boolean) => void;
   children: string;
 };
 
 export const ComponentBehaviourSwitch = ({
-  checked,
-  onCheckedChange,
+  value,
+  onValueChange,
   children,
 }: ComponentBehaviourSwitchProps) => {
   return (
     <Stack className="justify-between" direction="row" gap="sm">
       <Text>{children}</Text>
-      <Switch checked={checked} onCheckedChange={onCheckedChange} />
+      <Switch onValueChange={onValueChange} value={value} />
     </Stack>
   );
 };

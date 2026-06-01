@@ -44,27 +44,27 @@ export default function ActionInputScreen() {
         trigger={<ScreenActionsButton />}
       >
         <ComponentBehaviourSwitch
-          checked={showValue}
-          onCheckedChange={setShowValue}
+          onValueChange={setShowValue}
+          value={showValue}
         >
           Show Value
         </ComponentBehaviourSwitch>
         <ComponentBehaviourSwitch
-          checked={showInvalid}
-          onCheckedChange={setShowInvalid}
+          onValueChange={setShowInvalid}
+          value={showInvalid}
         >
           Show Invalid
         </ComponentBehaviourSwitch>
         <ComponentBehaviourSwitch
-          checked={showDisabled}
-          onCheckedChange={setShowDisabled}
+          onValueChange={setShowDisabled}
+          value={showDisabled}
         >
           Show Disabled
         </ComponentBehaviourSwitch>
 
         <ComponentBehaviourSwitch
-          checked={showCustomAddon}
-          onCheckedChange={setShowCustomAddon}
+          onValueChange={setShowCustomAddon}
+          value={showCustomAddon}
         >
           Show Custom Addon
         </ComponentBehaviourSwitch>

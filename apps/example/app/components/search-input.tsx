@@ -41,8 +41,8 @@ export default function SearchInputScreen() {
 
       <ComponentBehaviourSheet trigger={<ScreenActionsButton />}>
         <ComponentBehaviourSwitch
-          checked={showDisabled}
-          onCheckedChange={setShowDisabled}
+          onValueChange={setShowDisabled}
+          value={showDisabled}
         >
           Show Disabled
         </ComponentBehaviourSwitch>

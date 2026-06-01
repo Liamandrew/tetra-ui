@@ -20,14 +20,14 @@ export default function TextareaInputScreen() {
 
       <ComponentBehaviourSheet trigger={<ScreenActionsButton />}>
         <ComponentBehaviourSwitch
-          checked={showInvalid}
-          onCheckedChange={setShowInvalid}
+          onValueChange={setShowInvalid}
+          value={showInvalid}
         >
           Show Invalid
         </ComponentBehaviourSwitch>
         <ComponentBehaviourSwitch
-          checked={showDisabled}
-          onCheckedChange={setShowDisabled}
+          onValueChange={setShowDisabled}
+          value={showDisabled}
         >
           Show Disabled
         </ComponentBehaviourSwitch>

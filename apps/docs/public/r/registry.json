@@ -375,7 +375,7 @@
       "type": "registry:ui",
       "title": "Switch",
       "description": "",
-      "dependencies": ["react-native-reanimated"],
+      "dependencies": ["@expo/ui"],
       "registryDependencies": [],
       "files": [
         {
