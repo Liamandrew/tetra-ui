@@ -10,7 +10,7 @@
   "files": [
     {
       "path": "../../packages/tetra-ui/src/components/switch.tsx",
-      "content": "import {\n  Host as HostPrimitive,\n  Switch as SwitchPrimitive,\n  type SwitchProps as SwitchPrimitiveProps,\n} from \"@expo/ui\";\n\n// Types\ntype SwitchProps = Omit<SwitchPrimitiveProps, \"modifiers\">;\n\n// Components\n\nexport const Switch = (props: SwitchProps) => {\n  return (\n    <HostPrimitive matchContents>\n      <SwitchPrimitive {...props} />\n    </HostPrimitive>\n  );\n};\n",
+      "content": "import {\n  Host as HostPrimitive,\n  Switch as SwitchPrimitive,\n  type SwitchProps as SwitchPrimitiveProps,\n} from \"@expo/ui\";\nimport { tint } from \"@expo/ui/swift-ui/modifiers\";\nimport { useCSSVariable } from \"uniwind\";\n\n// Types\ntype SwitchProps = Omit<SwitchPrimitiveProps, \"modifiers\">;\n\n// Components\nexport const Switch = (props: SwitchProps) => {\n  const primaryColor = useCSSVariable(\"--color-primary\") as string;\n  return (\n    <HostPrimitive matchContents>\n      <SwitchPrimitive {...props} modifiers={[tint(primaryColor)]} />\n    </HostPrimitive>\n  );\n};\n",
       "type": "registry:ui"
     }
   ],
