@@ -45,7 +45,7 @@ const OPTIONS = [
 ];
 
 export default function FormScreen() {
-  const [value, setvalue] = useState(false);
+  const [value, setValue] = useState(false);
   const [showInvalid, setShowInvalid] = useState(false);
   const [showDisabled, setShowDisabled] = useState(false);
 
@@ -82,7 +82,7 @@ export default function FormScreen() {
             >
               <FieldLabel>Username</FieldLabel>
               <FieldControl>
-                <CheckboxInput checked={value} onPress={() => setvalue(!value)}>
+                <CheckboxInput checked={value} onPress={() => setValue(!value)}>
                   Do you agree to the terms and conditions?
                 </CheckboxInput>
               </FieldControl>

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Switch } from "@/components/ui/switch";
 
 export function SwitchPreview() {
-  const [value, setvalue] = useState(false);
+  const [value, setValue] = useState(false);
 
-  return <Switch onValueChange={setvalue} value={value} />;
+  return <Switch onValueChange={setValue} value={value} />;
 }

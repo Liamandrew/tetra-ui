@@ -345,6 +345,20 @@
       ]
     },
     {
+      "name": "slider",
+      "type": "registry:ui",
+      "title": "Slider",
+      "description": "A control for selecting a value from a continuous or stepped range.",
+      "dependencies": ["@expo/ui"],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "../../packages/tetra-ui/src/components/slider.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "slot",
       "type": "registry:ui",
       "title": "Slot",

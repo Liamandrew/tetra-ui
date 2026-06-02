@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "slider",
+  "title": "Slider",
+  "description": "A control for selecting a value from a continuous or stepped range.",
+  "dependencies": [
+    "@expo/ui"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "../../packages/tetra-ui/src/components/slider.tsx",
+      "content": "import {\n  Host as HostPrimitive,\n  Slider as SliderPrimitive,\n  type SliderProps as SliderPrimitiveProps,\n} from \"@expo/ui\";\nimport { tint } from \"@expo/ui/swift-ui/modifiers\";\nimport { useCSSVariable, withUniwind } from \"uniwind\";\nimport { cn } from \"@/lib/utils\";\n\n// Types\ntype SliderProps = Omit<SliderPrimitiveProps, \"modifiers\"> & {\n  className?: string;\n};\n\n// Components\nconst StyledHost = withUniwind(HostPrimitive);\n\nexport function Slider({ className, ...props }: SliderProps) {\n  const primaryColor = useCSSVariable(\"--color-primary\") as string;\n\n  return (\n    <StyledHost className={cn(\"w-full flex-1\", className)}>\n      <SliderPrimitive {...props} modifiers={[tint(primaryColor)]} />\n    </StyledHost>\n  );\n}\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

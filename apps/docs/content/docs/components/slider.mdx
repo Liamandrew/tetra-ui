@@ -1,0 +1,78 @@
+---
+title: Slider
+description: A control for selecting a value from a continuous or stepped range.
+---
+
+<ComponentPreview name="slider" type="gif" />
+
+## Installation
+
+<Tabs defaultValue="cli">
+
+<TabsList>
+  <TabsTrigger value="cli">CLI</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+
+<TabsContent value="cli">
+
+```package-install
+npx shadcn@latest add @tetra-ui/slider
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+
+<Steps>
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource name="slider" title="components/ui/slider.tsx" />
+
+</Steps>
+
+</TabsContent>
+
+</Tabs>
+
+## Usage
+
+```tsx
+import { Slider } from "@/components/ui/slider";
+```
+
+```tsx
+<Slider value={0.5} onValueChange={() => {}} />
+```
+
+## Controlled
+
+Pass `value` and `onValueChange` for controlled state:
+
+```tsx
+const [value, setValue] = useState(0.5);
+
+<Slider value={value} onValueChange={setValue} />
+```
+
+## Range
+
+Use `min`, `max`, and `step` to configure the value range. By default, the slider ranges from `0` to `1`:
+
+```tsx
+<Slider
+  value={value}
+  onValueChange={setValue}
+  min={0}
+  max={100}
+  step={10}
+/>
+```
+
+## Disabled
+
+```tsx
+<Slider disabled value={0.5} onValueChange={() => {}} />
+```
