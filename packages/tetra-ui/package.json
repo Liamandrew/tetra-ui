@@ -13,6 +13,7 @@
     "check:types": "tsc --noEmit"
   },
   "dependencies": {
+    "@expo/material-symbols": "^0.1.1",
     "@expo/ui": "56.0.15",
     "@gorhom/bottom-sheet": "^5.2.6",
     "class-variance-authority": "^0.7.1",

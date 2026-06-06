@@ -183,6 +183,36 @@
       ]
     },
     {
+      "name": "menu",
+      "type": "registry:ui",
+      "title": "Menu",
+      "description": "A composable native menu built on Expo UI, with support for groups, separators, and nested submenus.",
+      "dependencies": ["@expo/ui", "@expo/material-symbols"],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "../../packages/tetra-ui/src/components/menu/index.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "../../packages/tetra-ui/src/components/menu/menu.types.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "../../packages/tetra-ui/src/components/menu/menu.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "../../packages/tetra-ui/src/components/menu/menu.ios.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "../../packages/tetra-ui/src/components/menu/menu.android.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "bottom-sheet",
       "type": "registry:ui",
       "title": "Bottom Sheet",

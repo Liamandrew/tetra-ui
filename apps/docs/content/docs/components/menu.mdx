@@ -1,0 +1,193 @@
+---
+title: Menu
+description: A composable native menu built on Expo UI, with support for groups, separators, and nested submenus.
+---
+
+<ComponentPreview name="menu" type="gif" />
+
+## Installation
+
+<Tabs defaultValue="cli">
+
+<TabsList>
+  <TabsTrigger value="cli">CLI</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+
+<TabsContent value="cli">
+
+```package-install
+npx shadcn@latest add @tetra-ui/menu
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps>
+
+<Step>Install the following dependencies:</Step>
+
+```package-install
+npm install @expo/ui @expo/material-symbols
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource name="menu" title="components/ui/menu/index.ts" />
+
+</Steps>
+
+</TabsContent>
+
+</Tabs>
+
+## Usage
+
+Compose a menu from a trigger and a content slot. Each item is built from `MenuItem`, `MenuItemIcon`, and `MenuItemLabel` parts.
+
+```tsx
+import { Button } from "@/components/ui/button";
+import {
+  Menu,
+  MenuContent,
+  MenuItem,
+  MenuItemIcon,
+  MenuItemLabel,
+  MenuSeparator,
+  MenuTrigger,
+} from "@/components/ui/menu";
+```
+
+```tsx
+<Menu>
+  <MenuTrigger>
+    <Button variant="outline">Open</Button>
+  </MenuTrigger>
+
+  <MenuContent>
+    <MenuItem onPress={() => {}}>
+      <MenuItemIcon
+        icon={MenuItemIcon.select({
+          ios: "gear",
+          android: require("@expo/material-symbols/settings.xml"),
+        })}
+      />
+      <MenuItemLabel>Settings</MenuItemLabel>
+    </MenuItem>
+    <MenuSeparator />
+    <MenuItem onPress={() => {}} variant="destructive">
+      <MenuItemIcon
+        icon={MenuItemIcon.select({
+          ios: "trash",
+          android: require("@expo/material-symbols/delete.xml"),
+        })}
+      />
+      <MenuItemLabel>Delete</MenuItemLabel>
+    </MenuItem>
+  </MenuContent>
+</Menu>
+```
+
+## Icons
+
+On iOS, pass an SF Symbol string to `MenuItemIcon`. On Android, pass a Material Symbol XML asset from `@expo/material-symbols`.
+
+Use `MenuItemIcon.select` for a cross-platform definition:
+
+```tsx
+<MenuItemIcon
+  icon={MenuItemIcon.select({
+    ios: "person",
+    android: require("@expo/material-symbols/person.xml"),
+  })}
+/>
+```
+
+Bare SF Symbol strings (for example `icon="person"`) do not render on Android.
+
+## Groups
+
+Group related items with `MenuGroup`. A vertical group with a `title` renders as a section. A horizontal group lays icon-only items in a row.
+
+```tsx
+<MenuContent>
+  <MenuGroup title="My Account">
+    <MenuItem onPress={() => {}}>
+      <MenuItemIcon
+        icon={MenuItemIcon.select({
+          ios: "person",
+          android: require("@expo/material-symbols/person.xml"),
+        })}
+      />
+      <MenuItemLabel>Profile</MenuItemLabel>
+    </MenuItem>
+  </MenuGroup>
+
+  <MenuSeparator />
+
+  <MenuGroup direction="horizontal" title="Quick Actions">
+    <MenuItem onPress={() => {}}>
+      <MenuItemIcon
+        icon={MenuItemIcon.select({
+          ios: "plus",
+          android: require("@expo/material-symbols/add.xml"),
+        })}
+      />
+    </MenuItem>
+    <MenuItem onPress={() => {}}>
+      <MenuItemIcon
+        icon={MenuItemIcon.select({
+          ios: "magnifyingglass",
+          android: require("@expo/material-symbols/search.xml"),
+        })}
+      />
+    </MenuItem>
+  </MenuGroup>
+</MenuContent>
+```
+
+On Android, horizontal groups use a compact row layout. Icon-only items work best in horizontal groups.
+
+## Submenus
+
+Nest a submenu with `MenuSub`, `MenuSubTrigger`, and `MenuSubContent`:
+
+```tsx
+<MenuContent>
+  <MenuSub>
+    <MenuSubTrigger>
+      <MenuItem>
+        <MenuItemIcon
+          icon={MenuItemIcon.select({
+            ios: "2.circle",
+            android: require("@expo/material-symbols/counter_2.xml"),
+          })}
+        />
+        <MenuItemLabel>More</MenuItemLabel>
+      </MenuItem>
+    </MenuSubTrigger>
+    <MenuSubContent>
+      <MenuItem onPress={() => {}}>
+        <MenuItemIcon
+          icon={MenuItemIcon.select({
+            ios: "doc",
+            android: require("@expo/material-symbols/description.xml"),
+          })}
+        />
+        <MenuItemLabel>Sub Item</MenuItemLabel>
+      </MenuItem>
+    </MenuSubContent>
+  </MenuSub>
+</MenuContent>
+```
+
+## Platform behavior
+
+| Platform | Native primitive |
+| -------- | ---------------- |
+| iOS      | SwiftUI `Menu`     |
+| Android  | Jetpack Compose `DropdownMenu` |
+| Web      | No-op stubs        |
+
+Menus use native Expo UI primitives under the hood. Selecting an item dismisses the menu automatically on iOS and Android.

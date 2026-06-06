@@ -10,6 +10,7 @@ export * from "./empty";
 export * from "./form";
 export * from "./heading";
 export * from "./label";
+export * from "./menu";
 export * from "./native-sheet";
 export * from "./password-input";
 export * from "./popover";
