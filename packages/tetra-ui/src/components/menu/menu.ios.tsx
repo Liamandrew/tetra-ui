@@ -11,6 +11,7 @@ import {
   RNHostView,
   Section as SectionPrimitive,
 } from "@expo/ui/swift-ui";
+import { disabled as disabledModifier } from "@expo/ui/swift-ui/modifiers";
 import { Children, isValidElement, useMemo } from "react";
 
 import type {
@@ -24,10 +25,19 @@ import type {
 } from "./menu.types";
 
 // Components
-export const MenuItem = ({ variant = "default", ...props }: MenuItemProps) => {
-  return <ButtonPrimitive {...props} role={variant} />;
+export const MenuItem = ({
+  variant = "default",
+  disabled,
+  ...props
+}: MenuItemProps) => {
+  return (
+    <ButtonPrimitive
+      modifiers={[disabledModifier(disabled)]}
+      {...props}
+      role={variant}
+    />
+  );
 };
-
 export const MenuItemLabel = ({ children }: MenuItemLabelProps) => {
   return <TextPrimitive>{children}</TextPrimitive>;
 };
@@ -35,8 +45,6 @@ export const MenuItemLabel = ({ children }: MenuItemLabelProps) => {
 export const MenuItemIcon = ({ icon }: MenuItemIconProps) => {
   return <IconPrimitive name={icon} />;
 };
-
-MenuItemIcon.select = IconPrimitive.select;
 
 export const MenuSeparator = DividerPrimitive;
 

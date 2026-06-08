@@ -97,6 +97,7 @@ export const MenuItem = ({
   variant = "default",
   onPress,
   children,
+  disabled,
   ...rest
 }: MenuItemProps) => {
   const { dismissAll: dismissRootMenu } = useMenuAndroidContext();
@@ -139,6 +140,7 @@ export const MenuItem = ({
       <DropdownMenuItemPrimitive
         {...rest}
         elementColors={elementColors}
+        enabled={!disabled}
         modifiers={modifiers}
         onClick={handleClick}
       >
@@ -173,8 +175,6 @@ export const MenuItemIcon = ({ icon }: MenuItemIconProps) => {
     </DropdownMenuItemPrimitive.LeadingIcon>
   );
 };
-
-MenuItemIcon.select = IconPrimitive.select;
 
 export const MenuSeparator = HorizontalDividerPrimitive;
 

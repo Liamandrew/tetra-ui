@@ -21,6 +21,7 @@ export type MenuGroupProps = {
 };
 
 export type MenuItemProps = {
+  disabled?: boolean;
   variant?: MenuItemVariant;
   onPress?: () => void;
   children: React.ReactElement | React.ReactElement[];

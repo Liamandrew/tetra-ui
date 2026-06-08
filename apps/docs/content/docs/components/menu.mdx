@@ -47,6 +47,7 @@ npm install @expo/ui @expo/material-symbols
 Compose a menu from a trigger and a content slot. Each item is built from `MenuItem`, `MenuItemIcon`, and `MenuItemLabel` parts.
 
 ```tsx
+import { Platform } from "react-native";
 import { Button } from "@/components/ui/button";
 import {
   Menu,
@@ -68,7 +69,7 @@ import {
   <MenuContent>
     <MenuItem onPress={() => {}}>
       <MenuItemIcon
-        icon={MenuItemIcon.select({
+        icon={Platform.select({
           ios: "gear",
           android: require("@expo/material-symbols/settings.xml"),
         })}
@@ -78,7 +79,7 @@ import {
     <MenuSeparator />
     <MenuItem onPress={() => {}} variant="destructive">
       <MenuItemIcon
-        icon={MenuItemIcon.select({
+        icon={Platform.select({
           ios: "trash",
           android: require("@expo/material-symbols/delete.xml"),
         })}
@@ -93,11 +94,13 @@ import {
 
 On iOS, pass an SF Symbol string to `MenuItemIcon`. On Android, pass a Material Symbol XML asset from `@expo/material-symbols`.
 
-Use `MenuItemIcon.select` for a cross-platform definition:
+Use `Platform.select` for a cross-platform definition:
 
 ```tsx
+import { Platform } from "react-native";
+
 <MenuItemIcon
-  icon={MenuItemIcon.select({
+  icon={Platform.select({
     ios: "person",
     android: require("@expo/material-symbols/person.xml"),
   })}
@@ -105,6 +108,22 @@ Use `MenuItemIcon.select` for a cross-platform definition:
 ```
 
 Bare SF Symbol strings (for example `icon="person"`) do not render on Android.
+
+## Disabled
+
+Pass `disabled` to prevent interaction:
+
+```tsx
+<MenuItem disabled>
+  <MenuItemIcon
+    icon={Platform.select({
+      ios: "archivebox",
+      android: require("@expo/material-symbols/archive.xml"),
+    })}
+  />
+  <MenuItemLabel>Archive</MenuItemLabel>
+</MenuItem>
+```
 
 ## Groups
 
@@ -115,7 +134,7 @@ Group related items with `MenuGroup`. A vertical group with a `title` renders as
   <MenuGroup title="My Account">
     <MenuItem onPress={() => {}}>
       <MenuItemIcon
-        icon={MenuItemIcon.select({
+        icon={Platform.select({
           ios: "person",
           android: require("@expo/material-symbols/person.xml"),
         })}
@@ -129,7 +148,7 @@ Group related items with `MenuGroup`. A vertical group with a `title` renders as
   <MenuGroup direction="horizontal" title="Quick Actions">
     <MenuItem onPress={() => {}}>
       <MenuItemIcon
-        icon={MenuItemIcon.select({
+        icon={Platform.select({
           ios: "plus",
           android: require("@expo/material-symbols/add.xml"),
         })}
@@ -137,7 +156,7 @@ Group related items with `MenuGroup`. A vertical group with a `title` renders as
     </MenuItem>
     <MenuItem onPress={() => {}}>
       <MenuItemIcon
-        icon={MenuItemIcon.select({
+        icon={Platform.select({
           ios: "magnifyingglass",
           android: require("@expo/material-symbols/search.xml"),
         })}
@@ -159,7 +178,7 @@ Nest a submenu with `MenuSub`, `MenuSubTrigger`, and `MenuSubContent`:
     <MenuSubTrigger>
       <MenuItem>
         <MenuItemIcon
-          icon={MenuItemIcon.select({
+          icon={Platform.select({
             ios: "2.circle",
             android: require("@expo/material-symbols/counter_2.xml"),
           })}
@@ -170,7 +189,7 @@ Nest a submenu with `MenuSub`, `MenuSubTrigger`, and `MenuSubContent`:
     <MenuSubContent>
       <MenuItem onPress={() => {}}>
         <MenuItemIcon
-          icon={MenuItemIcon.select({
+          icon={Platform.select({
             ios: "doc",
             android: require("@expo/material-symbols/description.xml"),
           })}
@@ -191,3 +210,10 @@ Nest a submenu with `MenuSub`, `MenuSubTrigger`, and `MenuSubContent`:
 | Web      | No-op stubs        |
 
 Menus use native Expo UI primitives under the hood. Selecting an item dismisses the menu automatically on iOS and Android.
+
+## Changelog
+
+### 08-06-2026 - Add support for disabled items & remove MenuItemIcon.select
+
+- Add support for disabled items.
+- Remove `MenuItemIcon.select` as it is no longer needed. Use `Platform.select` instead.

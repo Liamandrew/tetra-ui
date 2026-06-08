@@ -1,5 +1,3 @@
-import { Icon as IconPrimitive } from "@expo/ui";
-
 import type {
   MenuContentProps,
   MenuGroupProps,
@@ -22,8 +20,6 @@ export const MenuItemLabel = (_: MenuItemLabelProps) => {
 export const MenuItemIcon = (_: MenuItemIconProps) => {
   return null;
 };
-
-MenuItemIcon.select = IconPrimitive.select;
 
 export const MenuSeparator = () => {
   return null;

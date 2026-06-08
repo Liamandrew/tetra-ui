@@ -12,6 +12,7 @@ import {
   MenuSubTrigger,
   MenuTrigger,
 } from "@repo/tetra-ui/components/menu";
+import { Platform } from "react-native";
 import { MenuPreview } from "@/components/previews";
 import { ScreenHero, ScreenScrollView } from "@/components/screen";
 
@@ -31,7 +32,7 @@ export default function MenuScreen() {
           <MenuContent>
             <MenuItem onPress={() => console.log("Item 1")}>
               <MenuItemIcon
-                icon={MenuItemIcon.select({
+                icon={Platform.select({
                   android: require("@expo/material-symbols/counter_1.xml"),
                   ios: "1.circle",
                 })}
@@ -43,7 +44,7 @@ export default function MenuScreen() {
               <MenuSubTrigger>
                 <MenuItem onPress={() => console.log("Item 2")}>
                   <MenuItemIcon
-                    icon={MenuItemIcon.select({
+                    icon={Platform.select({
                       android: require("@expo/material-symbols/counter_2.xml"),
                       ios: "2.circle",
                     })}
@@ -54,7 +55,7 @@ export default function MenuScreen() {
               <MenuSubContent>
                 <MenuItem onPress={() => console.log("Sub Item 1")}>
                   <MenuItemIcon
-                    icon={MenuItemIcon.select({
+                    icon={Platform.select({
                       android: require("@expo/material-symbols/open_in_full.xml"),
                       ios: "arrow.up.left.and.arrow.down.right",
                     })}
@@ -63,7 +64,7 @@ export default function MenuScreen() {
                 </MenuItem>
                 <MenuItem onPress={() => console.log("Sub Item 2")}>
                   <MenuItemIcon
-                    icon={MenuItemIcon.select({
+                    icon={Platform.select({
                       android: require("@expo/material-symbols/close_fullscreen.xml"),
                       ios: "arrow.down.right.and.arrow.up.left",
                     })}
@@ -85,7 +86,7 @@ export default function MenuScreen() {
             <MenuGroup title="My Account">
               <MenuItem onPress={() => console.log("Profile")}>
                 <MenuItemIcon
-                  icon={MenuItemIcon.select({
+                  icon={Platform.select({
                     android: require("@expo/material-symbols/person.xml"),
                     ios: "person",
                   })}
@@ -94,7 +95,7 @@ export default function MenuScreen() {
               </MenuItem>
               <MenuItem onPress={() => console.log("Billing")}>
                 <MenuItemIcon
-                  icon={MenuItemIcon.select({
+                  icon={Platform.select({
                     android: require("@expo/material-symbols/credit_card.xml"),
                     ios: "creditcard",
                   })}
@@ -108,7 +109,7 @@ export default function MenuScreen() {
             <MenuGroup direction="horizontal" title="Quick Actions">
               <MenuItem onPress={() => console.log("Add")}>
                 <MenuItemIcon
-                  icon={MenuItemIcon.select({
+                  icon={Platform.select({
                     android: require("@expo/material-symbols/add.xml"),
                     ios: "plus",
                   })}
@@ -116,15 +117,15 @@ export default function MenuScreen() {
               </MenuItem>
               <MenuItem onPress={() => console.log("Search")}>
                 <MenuItemIcon
-                  icon={MenuItemIcon.select({
+                  icon={Platform.select({
                     android: require("@expo/material-symbols/search.xml"),
                     ios: "magnifyingglass",
                   })}
                 />
               </MenuItem>
-              <MenuItem onPress={() => console.log("Share")}>
+              <MenuItem disabled>
                 <MenuItemIcon
-                  icon={MenuItemIcon.select({
+                  icon={Platform.select({
                     android: require("@expo/material-symbols/share.xml"),
                     ios: "square.and.arrow.up",
                   })}
