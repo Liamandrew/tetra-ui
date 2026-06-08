@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "skeleton",
   "title": "Skeleton",
-  "description": "",
+  "description": "A component to display placeholder content while in a loading state.",
   "dependencies": [
     "react-native-reanimated"
   ],

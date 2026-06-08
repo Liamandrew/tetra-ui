@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "text",
   "title": "Text",
-  "description": "",
+  "description": "A lightweight wrapper around the React Native Text component to provide default styles.",
   "registryDependencies": [],
   "files": [
     {

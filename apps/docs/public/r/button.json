@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "button",
   "title": "Button",
-  "description": "A component to display a button and allows a user to trigger an action",
+  "description": "A component to display a button and allows a user to trigger an action.",
   "registryDependencies": [],
   "files": [
     {

@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "slot",
   "title": "Slot",
-  "description": "",
+  "description": "A utility component that allows merging props onto an optional child component.",
   "registryDependencies": [],
   "files": [
     {

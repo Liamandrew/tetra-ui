@@ -21,7 +21,7 @@
       "name": "action-input",
       "type": "registry:ui",
       "title": "Action Input",
-      "description": "",
+      "description": "A component that allows a user to trigger an action and displays a value attached to the action.",
       "registryDependencies": ["@tetra-ui/icons", "@tetra-ui/input"],
       "files": [
         {
@@ -34,7 +34,7 @@
       "name": "badge",
       "type": "registry:ui",
       "title": "Badge",
-      "description": "",
+      "description": "Displays a badge.",
       "registryDependencies": [],
       "files": [
         {
@@ -47,7 +47,7 @@
       "name": "button",
       "type": "registry:ui",
       "title": "Button",
-      "description": "A component to display a button and allows a user to trigger an action",
+      "description": "A component to display a button and allows a user to trigger an action.",
       "registryDependencies": [],
       "files": [
         {
@@ -60,7 +60,7 @@
       "name": "card",
       "type": "registry:ui",
       "title": "Card",
-      "description": "",
+      "description": "Displays a card with a header, content, and footer.",
       "registryDependencies": [],
       "files": [
         {
@@ -73,7 +73,7 @@
       "name": "checkbox",
       "type": "registry:ui",
       "title": "Checkbox",
-      "description": "",
+      "description": "A control that allows users to toggle between checked and unchecked states.",
       "dependencies": ["react-native-reanimated"],
       "registryDependencies": ["@tetra-ui/icons", "@tetra-ui/input"],
       "files": [
@@ -87,7 +87,7 @@
       "name": "chip",
       "type": "registry:ui",
       "title": "Chip",
-      "description": "",
+      "description": "Displays a compact, rounded chip element.",
       "registryDependencies": [],
       "files": [
         {
@@ -100,7 +100,7 @@
       "name": "empty",
       "type": "registry:ui",
       "title": "Empty",
-      "description": "",
+      "description": "Displays an empty state.",
       "registryDependencies": ["@tetra-ui/text"],
       "files": [
         {
@@ -113,7 +113,7 @@
       "name": "form",
       "type": "registry:ui",
       "title": "Form",
-      "description": "",
+      "description": "Components and utilities that help you compose forms with react-hook-form.",
       "registryDependencies": ["@tetra-ui/label"],
       "dependencies": ["react-hook-form"],
       "devDependencies": [],
@@ -128,7 +128,7 @@
       "name": "heading",
       "type": "registry:ui",
       "title": "Heading",
-      "description": "",
+      "description": "A component to display headings.",
       "registryDependencies": [],
       "files": [
         {
@@ -141,7 +141,7 @@
       "name": "icons",
       "type": "registry:ui",
       "title": "Icons",
-      "description": "",
+      "description": "Icon components styled with Tailwind classes for React Native.",
       "dependencies": ["react-native-svg"],
       "registryDependencies": [],
       "files": [
@@ -159,7 +159,7 @@
       "name": "input",
       "type": "registry:ui",
       "title": "Input",
-      "description": "",
+      "description": "A core component that allows users to enter text.",
       "dependencies": ["react-native-reanimated"],
       "registryDependencies": ["@tetra-ui/button"],
       "files": [
@@ -173,7 +173,7 @@
       "name": "label",
       "type": "registry:ui",
       "title": "Label",
-      "description": "",
+      "description": "A label component used to accompany form inputs.",
       "registryDependencies": [],
       "files": [
         {
@@ -242,7 +242,7 @@
       "name": "native-sheet",
       "type": "registry:ui",
       "title": "Native Sheet",
-      "description": "",
+      "description": "A sheet component that can be used to display content in a modal.",
       "dependencies": [
         "react-native-reanimated",
         "react-native-safe-area-context",
@@ -264,7 +264,7 @@
       "name": "password-input",
       "type": "registry:ui",
       "title": "Password Input",
-      "description": "",
+      "description": "An input component that allows users to enter a password.",
       "registryDependencies": [
         "@tetra-ui/icons",
         "@tetra-ui/input",
@@ -281,7 +281,7 @@
       "name": "popover",
       "type": "registry:ui",
       "title": "Popover",
-      "description": "",
+      "description": "Displays content in a portal relative to the triggering button element.",
       "dependencies": [
         "react-native-reanimated",
         "react-native-safe-area-context"
@@ -302,7 +302,7 @@
       "name": "portal",
       "type": "registry:ui",
       "title": "Portal",
-      "description": "",
+      "description": "Renders children into a different part of the app.",
       "dependencies": ["react-native-screens"],
       "registryDependencies": [],
       "files": [
@@ -316,7 +316,7 @@
       "name": "search-input",
       "type": "registry:ui",
       "title": "Search Input",
-      "description": "",
+      "description": "An input component that allows users to search for content.",
       "registryDependencies": ["@tetra-ui/icons", "@tetra-ui/input"],
       "files": [
         {
@@ -329,7 +329,7 @@
       "name": "select",
       "type": "registry:ui",
       "title": "Select",
-      "description": "",
+      "description": "A component that allows users to select a value from a list of options.",
       "dependencies": ["react-native-reanimated"],
       "registryDependencies": [
         "@tetra-ui/action-input",
@@ -351,7 +351,7 @@
       "name": "separator",
       "type": "registry:ui",
       "title": "Separator",
-      "description": "",
+      "description": "Divides content with a horizontal or vertical line.",
       "registryDependencies": [],
       "files": [
         {
@@ -364,7 +364,7 @@
       "name": "skeleton",
       "type": "registry:ui",
       "title": "Skeleton",
-      "description": "",
+      "description": "A component to display placeholder content while in a loading state.",
       "dependencies": ["react-native-reanimated"],
       "registryDependencies": [],
       "files": [
@@ -392,7 +392,7 @@
       "name": "slot",
       "type": "registry:ui",
       "title": "Slot",
-      "description": "",
+      "description": "A utility component that allows merging props onto an optional child component.",
       "registryDependencies": [],
       "files": [
         {
@@ -405,7 +405,7 @@
       "name": "stack",
       "type": "registry:ui",
       "title": "Stack",
-      "description": "",
+      "description": "A layout component that stacks children horizontally or vertically with consistent spacing.",
       "registryDependencies": [],
       "files": [
         {
@@ -418,7 +418,7 @@
       "name": "switch",
       "type": "registry:ui",
       "title": "Switch",
-      "description": "",
+      "description": "A control that allows users to toggle between checked and unchecked states.",
       "dependencies": ["@expo/ui"],
       "registryDependencies": [],
       "files": [
@@ -432,7 +432,7 @@
       "name": "text",
       "type": "registry:ui",
       "title": "Text",
-      "description": "",
+      "description": "A lightweight wrapper around the React Native Text component to provide default styles.",
       "registryDependencies": [],
       "files": [
         {
@@ -445,7 +445,7 @@
       "name": "text-input",
       "type": "registry:ui",
       "title": "TextInput",
-      "description": "",
+      "description": "A component that allows users to enter text.",
       "registryDependencies": ["@tetra-ui/input"],
       "files": [
         {
@@ -458,7 +458,7 @@
       "name": "textarea-input",
       "type": "registry:ui",
       "title": "Textarea Input",
-      "description": "",
+      "description": "A component that allows users to enter larger text.",
       "registryDependencies": [],
       "files": [
         {

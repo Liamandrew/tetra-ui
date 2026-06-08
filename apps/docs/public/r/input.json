@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "input",
   "title": "Input",
-  "description": "",
+  "description": "A core component that allows users to enter text.",
   "dependencies": [
     "react-native-reanimated"
   ],

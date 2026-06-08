@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "popover",
   "title": "Popover",
-  "description": "",
+  "description": "Displays content in a portal relative to the triggering button element.",
   "dependencies": [
     "react-native-reanimated",
     "react-native-safe-area-context"

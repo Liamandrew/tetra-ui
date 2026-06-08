@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "stack",
   "title": "Stack",
-  "description": "",
+  "description": "A layout component that stacks children horizontally or vertically with consistent spacing.",
   "registryDependencies": [],
   "files": [
     {

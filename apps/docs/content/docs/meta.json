@@ -7,6 +7,7 @@
     "(getting-started)/installation",
     "(getting-started)/monorepo",
     "(getting-started)/changelog",
+    "[llms.txt](/llms.txt)",
     "---Components---",
     "...components"
   ]

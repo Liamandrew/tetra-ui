@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "portal",
   "title": "Portal",
-  "description": "",
+  "description": "Renders children into a different part of the app.",
   "dependencies": [
     "react-native-screens"
   ],

@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "chip",
   "title": "Chip",
-  "description": "",
+  "description": "Displays a compact, rounded chip element.",
   "registryDependencies": [],
   "files": [
     {

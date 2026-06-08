@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "action-input",
   "title": "Action Input",
-  "description": "",
+  "description": "A component that allows a user to trigger an action and displays a value attached to the action.",
   "registryDependencies": [
     "@tetra-ui/icons",
     "@tetra-ui/input"

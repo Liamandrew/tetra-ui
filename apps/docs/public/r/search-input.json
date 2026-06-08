@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "search-input",
   "title": "Search Input",
-  "description": "",
+  "description": "An input component that allows users to search for content.",
   "registryDependencies": [
     "@tetra-ui/icons",
     "@tetra-ui/input"

@@ -1,0 +1,354 @@
+# tetra-ui — Full reference for AI agents
+
+> shadcn/ui-style copy-paste components for React Native. Expo + Uniwind + New Architecture.
+
+Website: https://tetra-ui.com
+GitHub: https://github.com/Liamandrew/tetra-ui
+Registry: https://tetra-ui.com/r/{name}.json
+Registry index: https://tetra-ui.com/r/registry.json
+
+---
+
+## Overview
+
+tetra-ui is a component registry for React Native — not a traditional npm UI library. Components are copied into your project with the shadcn CLI. You own and customize the source code.
+
+Philosophy:
+1. Add components with CLI: `npx shadcn@latest add @tetra-ui/button`
+2. Own the source — files live in your repo
+3. Mobile-native defaults — touch-first, accessible, platform-aware
+
+### Requirements
+
+- React 19
+- React Native New Architecture (required)
+- Uniwind for Tailwind-style styling
+- Expo recommended
+
+### When to use tetra-ui
+
+Use tetra-ui when:
+- You use or want shadcn/ui's copy-paste workflow on React Native
+- You build with Expo and Uniwind/Tailwind
+- You want purpose-built mobile UI, not universal web+native abstractions
+- You need native primitives like Expo UI Menu, bottom sheets, native sheets
+
+Consider alternatives when:
+- You need one package for web and native (Tamagui, etc.)
+- You want the largest component catalog (React Native Reusables, AniUI, native-shadcn)
+
+---
+
+## Installation
+
+### 1. Install Uniwind
+
+Follow https://docs.uniwind.dev/ to add Uniwind to your React Native/Expo project.
+
+### 2. Install utilities
+
+```bash
+npm install class-variance-authority clsx tailwind-merge
+```
+
+### 3. TypeScript paths
+
+```json
+{
+  "compilerOptions": {
+    "paths": {
+      "@/*": ["./*"]
+    }
+  }
+}
+```
+
+### 4. Theme tokens in globals.css
+
+Import tailwind and uniwind, then add theme CSS variables for light/dark variants. Full CSS block: https://tetra-ui.com/docs/installation
+
+Key tokens: `--background`, `--foreground`, `--primary`, `--secondary`, `--muted`, `--accent`, `--destructive`, `--border`, `--input`, `--ring`, `--radius`
+
+### 5. cn() helper
+
+```ts
+// lib/utils.ts
+import { type ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
+
+export function mergeRefs<T>(...refs: (React.Ref<T> | undefined)[]) {
+  return (value: T) => {
+    for (const ref of refs) {
+      if (typeof ref === "function") {
+        ref(value);
+      } else if (ref) {
+        ref.current = value;
+      }
+    }
+  };
+}
+```
+
+### 6. components.json
+
+```json
+{
+  "$schema": "https://ui.shadcn.com/schema.json",
+  "style": "new-york",
+  "rsc": false,
+  "tsx": true,
+  "tailwind": {
+    "config": "",
+    "css": "src/global.css",
+    "baseColor": "neutral",
+    "cssVariables": true,
+    "prefix": ""
+  },
+  "iconLibrary": "lucide",
+  "aliases": {
+    "components": "@/components",
+    "utils": "@/lib/utils",
+    "ui": "@/components",
+    "lib": "@/lib",
+    "hooks": "@/hooks"
+  },
+  "registries": {
+    "@tetra-ui": "https://tetra-ui.com/r/{name}.json"
+  }
+}
+```
+
+### 7. Add components
+
+```bash
+npx shadcn@latest add @tetra-ui/button
+```
+
+---
+
+## Agent rules
+
+- Always add components via `npx shadcn@latest add @tetra-ui/{name}` — do not generate from memory
+- Import from `@/components/ui/{name}` (or user's configured alias)
+- Use React Native primitives (View, Text, Pressable) — never DOM elements
+- Style with `className` + Uniwind — not StyleSheet
+- Text children must be styled directly; no CSS cascade on native
+- Check component docs before implementing: https://tetra-ui.com/docs/components/{name}
+
+---
+
+## Components
+
+Install: `npx shadcn@latest add @tetra-ui/{name}`
+
+### accordion
+A vertically stacked set of interactive headings that reveal associated content sections.
+Docs: https://tetra-ui.com/docs/components/accordion
+Deps: react-native-reanimated
+Registry deps: icons, slot
+
+### action-input
+A component that allows a user to trigger an action and displays a value attached to the action.
+Docs: https://tetra-ui.com/docs/components/action-input
+Registry deps: icons, input
+
+### badge
+Displays a badge.
+Docs: https://tetra-ui.com/docs/components/badge
+
+### bottom-sheet
+Interactive bottom sheet with snap points, gestures, and keyboard support.
+Docs: https://tetra-ui.com/docs/components/bottom-sheet
+Deps: @gorhom/bottom-sheet, react-native-gesture-handler, react-native-reanimated, react-native-safe-area-context, react-native-screens, react-native-worklets
+Registry deps: button, icons, portal, slot
+
+### button
+A component to display a button and allows a user to trigger an action.
+Docs: https://tetra-ui.com/docs/components/button
+Exports: Button, ButtonText, ButtonIcon
+Variants: default, secondary, destructive, outline, ghost, link
+Sizes: default, sm, lg, icon, icon-sm, icon-lg
+Props: busy (loading state), disabled
+
+Usage:
+```tsx
+import { Button, ButtonText, ButtonIcon } from "@/components/ui/button";
+
+<Button>
+  <ButtonText>Submit</ButtonText>
+</Button>
+
+<Button busy>
+  <ButtonText>Saving…</ButtonText>
+</Button>
+```
+
+### card
+Displays a card with a header, content, and footer.
+Docs: https://tetra-ui.com/docs/components/card
+Exports: Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter
+
+### checkbox
+A control that allows users to toggle between checked and unchecked states.
+Docs: https://tetra-ui.com/docs/components/checkbox
+Deps: react-native-reanimated
+Registry deps: icons, input
+
+### chip
+Displays a compact, rounded chip element.
+Docs: https://tetra-ui.com/docs/components/chip
+
+### empty
+Displays an empty state.
+Docs: https://tetra-ui.com/docs/components/empty
+Registry deps: text
+
+### form
+Components and utilities that help you compose forms with react-hook-form.
+Docs: https://tetra-ui.com/docs/components/form
+Deps: react-hook-form
+Registry deps: label
+Exports: Form, FormField, FormItem, FormLabel, FormControl, FormMessage, FormDescription
+
+### heading
+A component to display headings.
+Docs: https://tetra-ui.com/docs/components/heading
+
+### icons
+Icon components styled with Tailwind classes for React Native.
+Docs: https://tetra-ui.com/docs/components/icons
+Deps: react-native-svg
+
+### input
+A core component that allows users to enter text.
+Docs: https://tetra-ui.com/docs/components/input
+Deps: react-native-reanimated
+Registry deps: button
+
+### label
+A label component used to accompany form inputs.
+Docs: https://tetra-ui.com/docs/components/label
+
+### menu
+A composable native menu built on Expo UI, with support for groups, separators, and nested submenus.
+Docs: https://tetra-ui.com/docs/components/menu
+Deps: @expo/ui, @expo/material-symbols
+
+### native-sheet
+A sheet component that can be used to display content in a modal.
+Docs: https://tetra-ui.com/docs/components/native-sheet
+Deps: react-native-reanimated, react-native-safe-area-context, react-native-worklets
+Registry deps: button, icons, slot
+
+### password-input
+An input component that allows users to enter a password.
+Docs: https://tetra-ui.com/docs/components/password-input
+Registry deps: icons, input, text-input
+
+### popover
+Displays content in a portal relative to the triggering button element.
+Docs: https://tetra-ui.com/docs/components/popover
+Deps: react-native-reanimated, react-native-safe-area-context
+Registry deps: portal, slot
+
+### portal
+Renders children into a different part of the app.
+Docs: https://tetra-ui.com/docs/components/portal
+Deps: react-native-screens
+
+### search-input
+An input component that allows users to search for content.
+Docs: https://tetra-ui.com/docs/components/search-input
+Registry deps: icons, input
+
+### select
+A component that allows users to select a value from a list of options.
+Docs: https://tetra-ui.com/docs/components/select
+Deps: react-native-reanimated
+Registry deps: action-input, bottom-sheet, icons, input, popover, slot, text
+
+### separator
+Divides content with a horizontal or vertical line.
+Docs: https://tetra-ui.com/docs/components/separator
+
+### skeleton
+A component to display placeholder content while in a loading state.
+Docs: https://tetra-ui.com/docs/components/skeleton
+Deps: react-native-reanimated
+
+### slider
+A control for selecting a value from a continuous or stepped range.
+Docs: https://tetra-ui.com/docs/components/slider
+Deps: @expo/ui
+
+### slot
+A utility component that allows merging props onto an optional child component.
+Docs: https://tetra-ui.com/docs/components/slot
+
+### stack
+A layout component that stacks children horizontally or vertically with consistent spacing.
+Docs: https://tetra-ui.com/docs/components/stack
+
+### switch
+A control that allows users to toggle between checked and unchecked states.
+Docs: https://tetra-ui.com/docs/components/switch
+Deps: @expo/ui
+
+### text
+A lightweight wrapper around the React Native Text component to provide default styles.
+Docs: https://tetra-ui.com/docs/components/text
+
+### text-input
+A component that allows users to enter text.
+Docs: https://tetra-ui.com/docs/components/text-input
+Registry deps: input
+
+### textarea-input
+A component that allows users to enter larger text.
+Docs: https://tetra-ui.com/docs/components/textarea-input
+
+---
+
+## Common recipes
+
+### Login form
+Install: `npx shadcn@latest add @tetra-ui/form @tetra-ui/text-input @tetra-ui/password-input @tetra-ui/button @tetra-ui/label`
+
+Use Form + FormField + TextInput + PasswordInput + Button with react-hook-form and zod.
+
+### Settings screen
+Install: `npx shadcn@latest add @tetra-ui/switch @tetra-ui/separator @tetra-ui/heading @tetra-ui/text @tetra-ui/stack`
+
+Use Stack for layout, Switch for toggles, Separator between sections.
+
+### Bottom sheet picker
+Install: `npx shadcn@latest add @tetra-ui/select`
+
+Select uses bottom-sheet on mobile automatically.
+
+---
+
+## Key differences from web shadcn/ui
+
+- Uniwind instead of Tailwind CSS on DOM
+- No CSS cascade — style Text elements directly
+- No data-* attributes for variants
+- Portals use react-native-screens, not DOM portals
+- Reanimated for animations
+- Some controls use Expo UI for native platform behavior (Menu, Switch, Slider)
+- Icons via lucide-react-native with styled wrapper
+
+---
+
+## Links
+
+- Docs: https://tetra-ui.com/docs
+- Installation: https://tetra-ui.com/docs/installation
+- Components: https://tetra-ui.com/docs/components
+- Changelog: https://tetra-ui.com/docs/changelog
+- llms.txt: https://tetra-ui.com/llms.txt
+- AGENTS.md: https://github.com/Liamandrew/tetra-ui/blob/main/AGENTS.md

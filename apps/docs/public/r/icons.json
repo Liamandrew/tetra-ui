@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "icons",
   "title": "Icons",
-  "description": "",
+  "description": "Icon components styled with Tailwind classes for React Native.",
   "dependencies": [
     "react-native-svg"
   ],
