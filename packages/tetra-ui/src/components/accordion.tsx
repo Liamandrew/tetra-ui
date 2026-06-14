@@ -12,8 +12,8 @@ import {
   useState,
 } from "react";
 import {
+  type GestureResponderEvent,
   Pressable,
-  type PressableProps,
   View,
   type ViewProps,
 } from "react-native";
@@ -330,7 +330,7 @@ export const AccordionTrigger = ({
   const mergedRefs = mergeRefs(ref, refProp);
 
   const handlePress = useCallback(
-    (e: Parameters<NonNullable<PressableProps["onPress"]>>[0]) => {
+    (e: GestureResponderEvent) => {
       onPress?.(e);
       root.toggle(item.value);
     },

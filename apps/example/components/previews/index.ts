@@ -14,6 +14,7 @@ export * from "./menu";
 export * from "./native-sheet";
 export * from "./password-input";
 export * from "./popover";
+export * from "./progress";
 export * from "./search-input";
 export * from "./select";
 export * from "./separator";

@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@expo/material-symbols": "^0.1.1",
-    "@expo/ui": "56.0.15",
+    "@expo/ui": "56.0.17",
     "@gorhom/bottom-sheet": "^5.2.6",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",

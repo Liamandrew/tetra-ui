@@ -299,6 +299,20 @@
       ]
     },
     {
+      "name": "progress",
+      "type": "registry:ui",
+      "title": "Progress",
+      "description": "Displays an indicator showing the completion progress of a task.",
+      "dependencies": ["react-native-reanimated"],
+      "registryDependencies": ["@tetra-ui/text"],
+      "files": [
+        {
+          "path": "../../packages/tetra-ui/src/components/progress.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "portal",
       "type": "registry:ui",
       "title": "Portal",

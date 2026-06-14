@@ -255,6 +255,12 @@ Docs: https://tetra-ui.com/docs/components/popover
 Deps: react-native-reanimated, react-native-safe-area-context
 Registry deps: portal, slot
 
+### progress
+Displays an indicator showing the completion progress of a task.
+Docs: https://tetra-ui.com/docs/components/progress
+Deps: react-native-reanimated
+Registry deps: text
+
 ### portal
 Renders children into a different part of the app.
 Docs: https://tetra-ui.com/docs/components/portal

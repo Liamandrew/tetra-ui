@@ -7,7 +7,7 @@ import {
 import { ScreenActionsButton, ScreenHero } from "@/components/screen";
 
 export default function SwitchScreen() {
-  const [value, setValue] = useState(0.5);
+  const [value, setValue] = useState(50);
   const [showDisabled, setShowDisabled] = useState(false);
 
   return (

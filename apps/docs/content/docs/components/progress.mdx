@@ -1,0 +1,116 @@
+---
+title: Progress
+description: Displays an indicator showing the completion progress of a task.
+---
+
+<ComponentPreview name="progress" type="gif" />
+
+## Installation
+
+<Tabs defaultValue="cli">
+
+<TabsList>
+  <TabsTrigger value="cli">CLI</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+
+<TabsContent value="cli">
+
+```package-install
+npx shadcn@latest add @tetra-ui/progress
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps>
+
+<Step>Install the following dependencies:</Step>
+
+```package-install
+npm install react-native-reanimated
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource name="progress" title="components/ui/progress.tsx" />
+
+</Steps>
+
+</TabsContent>
+
+</Tabs>
+
+## Usage
+
+```tsx
+import {
+  Progress,
+  ProgressLabel,
+  ProgressValue,
+} from "@/components/ui/progress";
+```
+
+```tsx
+<Progress value={60}>
+  <ProgressLabel>Uploading</ProgressLabel>
+  <ProgressValue />
+</Progress>
+```
+
+## Label and value
+
+Compose `ProgressLabel` and `ProgressValue` to show a label alongside the current percentage. `ProgressValue` reads `value` and `max` from context and renders automatically:
+
+```tsx
+<Progress value={45} max={100}>
+  <ProgressLabel>Profile setup</ProgressLabel>
+  <ProgressValue />
+</Progress>
+```
+
+You can also pass custom children to `ProgressLabel`:
+
+```tsx
+<Progress value={2} max={5}>
+  <ProgressLabel>Step 2 of 5</ProgressLabel>
+</Progress>
+```
+
+## Variants
+
+Use the `variant` prop to switch between a continuous bar and discrete steps:
+
+```tsx
+<Progress value={60} />
+<Progress max={5} value={3} variant="steps" />
+```
+
+### Linear
+
+The default `linear` variant renders a single rounded track. Pass `value` from `0` to `max` (default `100`) to control fill:
+
+```tsx
+<Progress value={72} max={100}>
+  <ProgressLabel>Downloading</ProgressLabel>
+  <ProgressValue />
+</Progress>
+```
+
+### Steps
+
+The `steps` variant renders separate bars with a small gap between each step. Set `max` to the total number of steps and `value` to the current step progress:
+
+```tsx
+<Progress max={5} value={3} variant="steps">
+  <ProgressLabel>Onboarding</ProgressLabel>
+  <ProgressValue />
+</Progress>
+```
+
+Fractional values partially fill the active step:
+
+```tsx
+<Progress max={5} value={2.5} variant="steps" />
+```

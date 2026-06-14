@@ -59,6 +59,7 @@ const COMPONENTS: Array<{ title: string; href: Href }> = [
   { title: "Native Sheet", href: "/components/native-sheet" },
   { title: "Password Input", href: "/components/password-input" },
   { title: "Popover", href: "/components/popover" },
+  { title: "Progress", href: "/components/progress" },
   { title: "Search Input", href: "/components/search-input" },
   { title: "Select", href: "/components/select" },
   { title: "Separator", href: "/components/separator" },
