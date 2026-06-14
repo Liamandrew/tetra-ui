@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "radio",
+  "title": "Radio",
+  "description": "A control that indicates a selected option within a group.",
+  "dependencies": [
+    "react-native-reanimated"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "../../packages/tetra-ui/src/components/radio.tsx",
+      "content": "import { useEffect } from \"react\";\nimport type { View as ViewType } from \"react-native\";\nimport Animated, {\n  interpolateColor,\n  useAnimatedStyle,\n  useSharedValue,\n  withSequence,\n  withTiming,\n} from \"react-native-reanimated\";\nimport { useCSSVariable } from \"uniwind\";\nimport { cn } from \"../lib/utils\";\n\n// Constants\nconst ANIMATION_DURATION = 180;\nconst DOT_APPEAR_DURATION = 120;\nconst DOT_CONTRACT_DURATION = 100;\nconst DOT_CONTRACT_SCALE = 0.75;\n\n// Types\nexport type RadioProps = Omit<\n  React.ComponentProps<typeof ViewType>,\n  \"children\"\n> & {\n  checked?: boolean;\n  invalid?: boolean;\n};\n\n// Components\nexport const Radio = ({\n  className,\n  checked,\n  invalid,\n  ...props\n}: RadioProps) => {\n  const [primaryColor, primaryForegroundColor] = useCSSVariable([\n    \"--color-primary\",\n    \"--color-primary-foreground\",\n  ]) as [string, string];\n\n  const checkedSharedValue = useSharedValue(checked ? 1 : 0);\n  const dotScale = useSharedValue(checked ? DOT_CONTRACT_SCALE : 0);\n\n  useEffect(() => {\n    if (checked) {\n      checkedSharedValue.value = withTiming(1, {\n        duration: ANIMATION_DURATION,\n      });\n      dotScale.value = withSequence(\n        withTiming(1, { duration: DOT_APPEAR_DURATION }),\n        withTiming(DOT_CONTRACT_SCALE, { duration: DOT_CONTRACT_DURATION })\n      );\n      return;\n    }\n\n    checkedSharedValue.value = 0;\n    dotScale.value = 0;\n  }, [checked, checkedSharedValue, dotScale]);\n\n  const animatedStyle = useAnimatedStyle(() => {\n    const backgroundColor = interpolateColor(\n      checkedSharedValue.value,\n      [0, 1],\n      [\"transparent\", primaryColor]\n    );\n\n    return {\n      backgroundColor,\n    };\n  });\n\n  const dotAnimatedStyle = useAnimatedStyle(() => ({\n    transform: [{ scale: dotScale.value }],\n    opacity: dotScale.value > 0 ? 1 : 0,\n  }));\n\n  return (\n    <Animated.View\n      {...props}\n      accessibilityState={{ checked }}\n      className={cn(\n        \"size-6 shrink-0 items-center justify-center rounded-full border border-input shadow-xs dark:bg-input/30\",\n        checked && \"border-primary\",\n        invalid && \"border-destructive\",\n        className\n      )}\n      style={animatedStyle}\n    >\n      <Animated.View\n        className=\"size-2.5 rounded-full\"\n        style={[{ backgroundColor: primaryForegroundColor }, dotAnimatedStyle]}\n      />\n    </Animated.View>\n  );\n};\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

@@ -198,6 +198,12 @@ Docs: https://tetra-ui.com/docs/components/checkbox
 Deps: react-native-reanimated
 Registry deps: icons, input
 
+### choicebox
+A group of selectable cards for single or multiple choice.
+Docs: https://tetra-ui.com/docs/components/choicebox
+Registry deps: checkbox, input, radio, stack
+Exports: Choicebox, ChoiceboxItem, ChoiceboxItemHeader, ChoiceboxItemTitle, ChoiceboxItemDescription, ChoiceboxIndicator
+
 ### chip
 Displays a compact, rounded chip element.
 Docs: https://tetra-ui.com/docs/components/chip
@@ -260,6 +266,11 @@ Displays an indicator showing the completion progress of a task.
 Docs: https://tetra-ui.com/docs/components/progress
 Deps: react-native-reanimated
 Registry deps: text
+
+### radio
+A control that indicates a selected option within a group.
+Docs: https://tetra-ui.com/docs/components/radio
+Deps: react-native-reanimated
 
 ### portal
 Renders children into a different part of the app.

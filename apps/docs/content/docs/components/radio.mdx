@@ -1,0 +1,84 @@
+---
+title: Radio
+description: A control that indicates a selected option within a group.
+---
+
+<ComponentPreview name="radio" type="gif" />
+
+## Installation
+
+<Tabs defaultValue="cli">
+
+<TabsList>
+  <TabsTrigger value="cli">CLI</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+
+<TabsContent value="cli">
+
+```package-install
+npx shadcn@latest add @tetra-ui/radio
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps>
+
+<Step>Install the following dependencies:</Step>
+
+```package-install
+npm install react-native-reanimated
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource name="radio" title="components/ui/radio.tsx" />
+
+</Steps>
+
+</TabsContent>
+
+</Tabs>
+
+## Usage
+
+```tsx
+import { Radio } from "@/components/ui/radio";
+```
+
+```tsx
+<Radio checked />
+```
+
+## Controlled
+
+Manage checked state externally and wire up a pressable wrapper to toggle:
+
+```tsx
+const [checked, setChecked] = useState(false);
+
+<Pressable onPress={() => setChecked((prev) => !prev)}>
+  <Radio checked={checked} />
+</Pressable>
+```
+
+## Invalid state
+
+Pass `invalid` to show a destructive border, typically when paired with form validation:
+
+```tsx
+<Radio checked={checked} invalid />
+```
+
+## With Choicebox
+
+For selectable option groups, use [Choicebox](/docs/components/choicebox) instead of wiring up individual radios:
+
+```tsx
+<Choicebox type="single" defaultValue="standard">
+  <ChoiceboxItem value="standard">Standard shipping</ChoiceboxItem>
+  <ChoiceboxItem value="express">Express shipping</ChoiceboxItem>
+</Choicebox>
+```

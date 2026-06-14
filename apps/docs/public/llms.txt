@@ -38,6 +38,7 @@ Install any component with `npx shadcn@latest add @tetra-ui/{name}`.
 - [button](https://tetra-ui.com/docs/components/button): Button with variants, sizes, icons, and loading state
 - [card](https://tetra-ui.com/docs/components/card): Card with header, content, and footer
 - [checkbox](https://tetra-ui.com/docs/components/checkbox): Toggle between checked and unchecked states
+- [choicebox](https://tetra-ui.com/docs/components/choicebox): Selectable cards for single or multiple choice
 - [chip](https://tetra-ui.com/docs/components/chip): Compact, rounded chip element
 - [empty](https://tetra-ui.com/docs/components/empty): Empty state display
 - [form](https://tetra-ui.com/docs/components/form): Form composition with react-hook-form
@@ -49,8 +50,9 @@ Install any component with `npx shadcn@latest add @tetra-ui/{name}`.
 - [native-sheet](https://tetra-ui.com/docs/components/native-sheet): Modal sheet for displaying content
 - [password-input](https://tetra-ui.com/docs/components/password-input): Password entry with visibility toggle
 - [popover](https://tetra-ui.com/docs/components/popover): Portal-positioned content relative to a trigger
-- [progress](https://tetra-ui.com/docs/components/progress): Task completion indicator with linear and step variants
 - [portal](https://tetra-ui.com/docs/components/portal): Render children in a different part of the app
+- [progress](https://tetra-ui.com/docs/components/progress): Task completion indicator with linear and step variants
+- [radio](https://tetra-ui.com/docs/components/radio): Selected option indicator for radio groups
 - [search-input](https://tetra-ui.com/docs/components/search-input): Search field with icon
 - [select](https://tetra-ui.com/docs/components/select): Select a value from a list of options
 - [separator](https://tetra-ui.com/docs/components/separator): Horizontal or vertical divider

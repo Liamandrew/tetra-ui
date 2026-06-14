@@ -1,0 +1,152 @@
+---
+title: Choicebox
+description: A group of selectable cards for single or multiple choice.
+---
+
+<ComponentPreview name="choicebox" type="gif" />
+
+## Installation
+
+<Tabs defaultValue="cli">
+
+<TabsList>
+  <TabsTrigger value="cli">CLI</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+
+<TabsContent value="cli">
+
+```package-install
+npx shadcn@latest add @tetra-ui/choicebox
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps>
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource name="choicebox" title="components/ui/choicebox.tsx" />
+
+</Steps>
+
+</TabsContent>
+
+</Tabs>
+
+## Usage
+
+```tsx
+import {
+  Choicebox,
+  ChoiceboxItem,
+  ChoiceboxItemDescription,
+  ChoiceboxItemHeader,
+  ChoiceboxItemTitle,
+} from "@/components/ui/choicebox";
+```
+
+```tsx
+<Choicebox type="single" defaultValue="standard">
+  <ChoiceboxItem value="standard">
+    <ChoiceboxItemHeader>
+      <ChoiceboxItemTitle>Standard shipping</ChoiceboxItemTitle>
+      <ChoiceboxItemDescription>4–5 business days</ChoiceboxItemDescription>
+    </ChoiceboxItemHeader>
+  </ChoiceboxItem>
+  <ChoiceboxItem value="express">
+    <ChoiceboxItemHeader>
+      <ChoiceboxItemTitle>Express shipping</ChoiceboxItemTitle>
+      <ChoiceboxItemDescription>1–2 business days</ChoiceboxItemDescription>
+    </ChoiceboxItemHeader>
+  </ChoiceboxItem>
+</Choicebox>
+```
+
+## Single vs multiple
+
+Use `type="single"` (default) for one selection with a radio indicator, or `type="multiple"` for many selections with checkboxes:
+
+```tsx
+<Choicebox type="multiple" defaultValue={["newsletter"]}>
+  <ChoiceboxItem value="newsletter">Email updates</ChoiceboxItem>
+  <ChoiceboxItem value="sms">SMS alerts</ChoiceboxItem>
+</Choicebox>
+```
+
+## Clearable
+
+When `type` is `single`, set `clearable` to allow clearing the active selection:
+
+```tsx
+<Choicebox type="single" clearable defaultValue="standard">
+  {/* ... */}
+</Choicebox>
+```
+
+## Controlled
+
+Pass `value` and `onValueChange` for controlled state:
+
+```tsx
+const [value, setValue] = useState<string | undefined>("standard");
+
+<Choicebox
+  type="single"
+  clearable
+  value={value}
+  onValueChange={setValue}
+>
+  {/* ... */}
+</Choicebox>
+```
+
+For multiple selection, `value` is a `string[]`:
+
+```tsx
+const [value, setValue] = useState<string[]>(["newsletter"]);
+
+<Choicebox type="multiple" value={value} onValueChange={setValue}>
+  {/* ... */}
+</Choicebox>
+```
+
+## Item content
+
+Pass a string as `ChoiceboxItem` children for a simple label, or compose `ChoiceboxItemHeader`, `ChoiceboxItemTitle`, and `ChoiceboxItemDescription` for richer content:
+
+```tsx
+<ChoiceboxItem value="pro">
+  <ChoiceboxItemHeader>
+    <ChoiceboxItemTitle>Pro plan</ChoiceboxItemTitle>
+    <ChoiceboxItemDescription>$12/month</ChoiceboxItemDescription>
+  </ChoiceboxItemHeader>
+</ChoiceboxItem>
+```
+
+## Invalid and disabled
+
+Pass `invalid` on the root to style all indicators, or `disabled` on the root or individual items:
+
+```tsx
+<Choicebox invalid>
+  {/* ... */}
+</Choicebox>
+
+<ChoiceboxItem value="express" disabled>
+  Express shipping
+</ChoiceboxItem>
+```
+
+## Layout
+
+Use `direction="row"` to lay out items horizontally:
+
+```tsx
+<Choicebox direction="row" type="single" defaultValue="monthly">
+  <ChoiceboxItem value="monthly">Monthly</ChoiceboxItem>
+  <ChoiceboxItem value="yearly">Yearly</ChoiceboxItem>
+</Choicebox>
+```

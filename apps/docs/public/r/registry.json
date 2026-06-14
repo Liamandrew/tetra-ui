@@ -84,6 +84,24 @@
       ]
     },
     {
+      "name": "choicebox",
+      "type": "registry:ui",
+      "title": "Choicebox",
+      "description": "A group of selectable cards for single or multiple choice.",
+      "registryDependencies": [
+        "@tetra-ui/checkbox",
+        "@tetra-ui/input",
+        "@tetra-ui/radio",
+        "@tetra-ui/stack"
+      ],
+      "files": [
+        {
+          "path": "../../packages/tetra-ui/src/components/choicebox.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "chip",
       "type": "registry:ui",
       "title": "Chip",
@@ -308,6 +326,20 @@
       "files": [
         {
           "path": "../../packages/tetra-ui/src/components/progress.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "radio",
+      "type": "registry:ui",
+      "title": "Radio",
+      "description": "A control that indicates a selected option within a group.",
+      "dependencies": ["react-native-reanimated"],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "../../packages/tetra-ui/src/components/radio.tsx",
           "type": "registry:ui"
         }
       ]
