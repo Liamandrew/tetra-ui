@@ -64,6 +64,7 @@ Install any component with `npx shadcn@latest add @tetra-ui/{name}`.
 - [text](https://tetra-ui.com/docs/components/text): Styled wrapper around React Native Text
 - [text-input](https://tetra-ui.com/docs/components/text-input): Text entry field
 - [textarea-input](https://tetra-ui.com/docs/components/textarea-input): Multi-line text entry
+- [toast](https://tetra-ui.com/docs/components/toast): Opinionated toast component for React Native
 
 ## When to use tetra-ui
 

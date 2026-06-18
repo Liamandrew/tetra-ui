@@ -328,6 +328,31 @@ Registry deps: input
 A component that allows users to enter larger text.
 Docs: https://tetra-ui.com/docs/components/textarea-input
 
+### toast
+An opinionated toast component for React Native. Built on sonner-native.
+Docs: https://tetra-ui.com/docs/components/toast
+Deps: sonner-native, react-native-gesture-handler, react-native-reanimated, react-native-safe-area-context, react-native-screens, react-native-svg, react-native-worklets
+Registry deps: icons, text
+Exports: Toaster, toast
+
+Setup: add `<Toaster />` to your root layout (e.g. `app/_layout.tsx`).
+
+Usage:
+```tsx
+import { Toaster, toast } from "@/components/ui/toast";
+
+<Toaster position="top-center" />
+
+toast("Event has been created.");
+toast.success("Event has been created.");
+toast.error("Event has not been created.");
+toast.promise(fetchData(), {
+  loading: "Loading...",
+  success: "Data loaded",
+  error: "Failed to load data",
+});
+```
+
 ---
 
 ## Common recipes
