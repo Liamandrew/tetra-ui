@@ -1,0 +1,147 @@
+---
+title: Toast
+description: An opinionated toast component for React Native.
+---
+
+<ComponentPreview name="toast" type="gif" />
+
+## About
+
+Built on top of [sonner-native](https://sonner-native.netlify.app/), a port of [Sonner](https://sonner.emilkowal.ski/) for React Native.
+
+## Installation
+
+<Tabs defaultValue="cli">
+
+<TabsList>
+  <TabsTrigger value="cli">CLI</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+
+<TabsContent value="cli">
+
+```package-install
+npx shadcn@latest add @tetra-ui/toast
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps>
+
+<Step>Install the following dependencies:</Step>
+
+```package-install
+npm install sonner-native
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource name="toast" title="components/ui/toast.tsx" />
+
+</Steps>
+
+</TabsContent>
+
+</Tabs>
+
+## Setup
+
+Add the `Toaster` component to your root layout. With Expo Router, place it in `app/_layout.tsx`:
+
+```tsx
+import { Toaster } from "@/components/ui/toast";
+import { Stack } from "expo-router";
+
+export default function RootLayout() {
+  return (
+    <>
+      <Stack />
+      <Toaster />
+    </>
+  );
+}
+```
+
+## Usage
+
+```tsx
+import { Toaster, toast } from "@/components/ui/toast";
+```
+
+```tsx
+toast("Event has been created.");
+```
+
+## Types
+
+```tsx
+toast("Event has been created.");
+toast.success("Event has been created.");
+toast.info("Be at the area 10 minutes before the event time.");
+toast.warning("Event start time cannot be earlier than 8am.");
+toast.error("Event has not been created.");
+```
+
+## Custom
+
+Use `toast.custom()` for fully custom JSX beyond the built-in variants:
+
+```tsx
+import { View } from "react-native";
+import { Button, ButtonIcon } from "@/components/ui/button";
+import { Text } from "@/components/ui/text";
+import { XIcon } from "@/components/ui/icons";
+import { toast } from "@/components/ui/toast";
+
+const id = { current: "" as string | number };
+
+id.current = toast.custom(
+  <View className="mx-4 flex-row items-center gap-3 rounded-xl border border-border bg-popover p-4">
+    <Text className="font-medium">Event has been created.</Text>
+    <Button onPress={() => toast.dismiss(id.current)} size="icon" variant="ghost">
+      <ButtonIcon>
+        <XIcon />
+      </ButtonIcon>
+    </Button>
+  </View>,
+  { duration: Infinity }
+);
+```
+
+Built-in `toast()`, `toast.success()`, and other variants render a styled toast via Uniwind `className`. Customize appearance by editing the class constants at the top of `components/ui/toast.tsx`.
+
+## Description
+
+```tsx
+toast("Event has been created.", {
+  description: "Monday, January 3rd at 6:00pm",
+});
+```
+
+## Position
+
+Use the `position` prop on `Toaster` or per-toast to change placement. React Native supports `top-center`, `bottom-center`, and `center` — not all six web positions.
+
+```tsx
+<Toaster position="top-center" />
+```
+
+```tsx
+toast("Event has been created.", { position: "top-center" });
+```
+
+## Promise
+
+```tsx
+toast.promise(fetchData(), {
+  loading: "Loading...",
+  success: "Data loaded",
+  error: "Failed to load data",
+});
+```
+
+## API Reference
+
+For advanced options (`toast.custom`, `toast.dismiss`, swipe direction, stacking, and more), see the [sonner-native documentation](https://sonner-native.netlify.app/).

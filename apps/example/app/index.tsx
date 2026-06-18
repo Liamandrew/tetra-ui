@@ -70,4 +70,5 @@ const COMPONENTS: Array<{ title: string; href: Href }> = [
   { title: "Switch", href: "/components/switch" },
   { title: "Text Input", href: "/components/text-input" },
   { title: "Textarea Input", href: "/components/textarea-input" },
+  { title: "Toast", href: "/components/toast" as Href },
 ];

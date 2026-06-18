@@ -1,6 +1,7 @@
 import { ThemeToggle } from "@/components/theme-toggle";
 import "@repo/tetra-ui/globals.css";
 import { ThemeProvider } from "@repo/tetra-ui/components/theme";
+import { Toaster } from "@repo/tetra-ui/components/toast";
 import { Stack } from "expo-router";
 import { configureReanimatedLogger } from "react-native-reanimated";
 import { SafeAreaListener } from "react-native-safe-area-context";
@@ -27,6 +28,7 @@ export default function RootLayout() {
         >
           <Stack.Screen name="index" />
         </Stack>
+        <Toaster />
       </SafeAreaListener>
     </ThemeProvider>
   );

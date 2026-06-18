@@ -245,6 +245,9 @@ importers:
       react-native-worklets:
         specifier: 0.8.3
         version: 0.8.3(@babel/core@7.28.5)(@react-native/metro-config@0.85.3(@babel/core@7.28.5))(react-native@0.85.3(@babel/core@7.28.5)(@react-native/metro-config@0.85.3(@babel/core@7.28.5))(@types/react@19.2.14)(react@19.2.3))(react@19.2.3)
+      sonner-native:
+        specifier: ^0.26.1
+        version: 0.26.1(ba38a5523a7998726297aa647c7e896c)
       tailwind-merge:
         specifier: ^3.6.0
         version: 3.6.0
@@ -5803,6 +5806,18 @@ packages:
   slugify@1.6.6:
     resolution: {integrity: sha512-h+z7HKHYXj6wJU+AnS/+IH8Uh9fdcX1Lrhg1/VMdf9PwoBQXFcXiAdsy2tSK0P6gKwJLXp02r90ahUCqHk9rrw==}
     engines: {node: '>=8.0.0'}
+
+  sonner-native@0.26.1:
+    resolution: {integrity: sha512-jnpT1DIBdtX2M4JtF1FUMMP+4ThHJK/BfCqKsc31C9ouvYxeUERn/XxbctDvll2Pb3gBJROp9RHeT9emQCYebg==}
+    peerDependencies:
+      react: '*'
+      react-native: '*'
+      react-native-gesture-handler: ^2.28.0
+      react-native-reanimated: ^4.1.1
+      react-native-safe-area-context: ^5.6.0
+      react-native-screens: ^4.16.0
+      react-native-svg: ^15.12.1
+      react-native-worklets: ^0.6.1 || ^0.7.0 || ^0.8.0
 
   source-map-js@1.2.1:
     resolution: {integrity: sha512-UXWMKhLOwVKb728IUtQPXxfYU+usdybtUrK/8uGE8CQMvrhOpwvzDBwj0QhSL7MQc7vIsISBG8VQ8+IDQxpfQA==}
@@ -13497,6 +13512,17 @@ snapshots:
   sisteransi@1.0.5: {}
 
   slugify@1.6.6: {}
+
+  sonner-native@0.26.1(ba38a5523a7998726297aa647c7e896c):
+    dependencies:
+      react: 19.2.3
+      react-native: 0.85.3(@babel/core@7.28.5)(@react-native/metro-config@0.85.3(@babel/core@7.28.5))(@types/react@19.2.14)(react@19.2.3)
+      react-native-gesture-handler: 2.31.2(react-native@0.85.3(@babel/core@7.28.5)(@react-native/metro-config@0.85.3(@babel/core@7.28.5))(@types/react@19.2.14)(react@19.2.3))(react@19.2.3)
+      react-native-reanimated: 4.3.1(react-native-worklets@0.8.3(@babel/core@7.28.5)(@react-native/metro-config@0.85.3(@babel/core@7.28.5))(react-native@0.85.3(@babel/core@7.28.5)(@react-native/metro-config@0.85.3(@babel/core@7.28.5))(@types/react@19.2.14)(react@19.2.3))(react@19.2.3))(react-native@0.85.3(@babel/core@7.28.5)(@react-native/metro-config@0.85.3(@babel/core@7.28.5))(@types/react@19.2.14)(react@19.2.3))(react@19.2.3)
+      react-native-safe-area-context: 5.7.0(react-native@0.85.3(@babel/core@7.28.5)(@react-native/metro-config@0.85.3(@babel/core@7.28.5))(@types/react@19.2.14)(react@19.2.3))(react@19.2.3)
+      react-native-screens: 4.25.2(react-native@0.85.3(@babel/core@7.28.5)(@react-native/metro-config@0.85.3(@babel/core@7.28.5))(@types/react@19.2.14)(react@19.2.3))(react@19.2.3)
+      react-native-svg: 15.15.4(react-native@0.85.3(@babel/core@7.28.5)(@react-native/metro-config@0.85.3(@babel/core@7.28.5))(@types/react@19.2.14)(react@19.2.3))(react@19.2.3)
+      react-native-worklets: 0.8.3(@babel/core@7.28.5)(@react-native/metro-config@0.85.3(@babel/core@7.28.5))(react-native@0.85.3(@babel/core@7.28.5)(@react-native/metro-config@0.85.3(@babel/core@7.28.5))(@types/react@19.2.14)(react@19.2.3))(react@19.2.3)
 
   source-map-js@1.2.1: {}
 

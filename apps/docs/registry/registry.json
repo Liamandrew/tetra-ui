@@ -512,6 +512,28 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "toast",
+      "type": "registry:ui",
+      "title": "Toast",
+      "description": "An opinionated toast component for React Native.",
+      "dependencies": [
+        "sonner-native",
+        "react-native-gesture-handler",
+        "react-native-reanimated",
+        "react-native-safe-area-context",
+        "react-native-screens",
+        "react-native-svg",
+        "react-native-worklets"
+      ],
+      "registryDependencies": ["@tetra-ui/icons", "@tetra-ui/text"],
+      "files": [
+        {
+          "path": "../../packages/tetra-ui/src/components/toast.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }

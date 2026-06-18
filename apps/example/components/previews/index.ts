@@ -25,3 +25,4 @@ export * from "./slider";
 export * from "./switch";
 export * from "./text-input";
 export * from "./textarea-input";
+export * from "./toast";

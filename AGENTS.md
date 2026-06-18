@@ -76,6 +76,7 @@ Some components pull in registry dependencies automatically via the CLI. Complex
 | menu | @expo/ui, @expo/material-symbols |
 | switch, slider | @expo/ui |
 | form | react-hook-form |
+| toast | sonner-native, gesture-handler, reanimated, safe-area, screens, svg |
 
 When adding a component, let the shadcn CLI resolve `registryDependencies`. If adding manually, check the registry JSON for required peer components.
 
