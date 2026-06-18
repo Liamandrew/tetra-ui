@@ -13,17 +13,17 @@
   "dependencies": {
     "@repo/shadcn-ui": "workspace:*",
     "@vercel/analytics": "^2.0.1",
-    "fumadocs-core": "16.9.3",
-    "fumadocs-mdx": "15.0.10",
-    "fumadocs-ui": "16.9.3",
-    "next": "16.2.6",
+    "fumadocs-core": "16.10.4",
+    "fumadocs-mdx": "15.0.12",
+    "fumadocs-ui": "16.10.4",
+    "next": "16.2.9",
     "react": "19.2.4",
     "react-dom": "^19.2.4",
-    "shadcn": "4.8.3",
+    "shadcn": "4.11.0",
     "zod": "^4.4.3"
   },
   "devDependencies": {
-    "@types/mdx": "^2.0.13",
+    "@types/mdx": "^2.0.14",
     "@types/node": "24.0.7",
     "@types/react": "~19.2.14",
     "@types/react-dom": "~19.2.3",

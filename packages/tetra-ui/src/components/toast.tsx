@@ -42,7 +42,7 @@ const ToastIcon = ({ variant }: ToastIconProps) => {
     return (
       <View className="size-5 items-center justify-center">
         <ActivityIndicator
-          colorClassName="text-muted-foreground"
+          className="accent-muted-foreground"
           size="small"
         />
       </View>
