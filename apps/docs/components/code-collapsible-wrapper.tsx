@@ -37,7 +37,7 @@ export function CodeCollapsibleWrapper({
         </div>
       </CollapsibleTrigger>
       <CollapsibleContent
-        className="relative mt-6 overflow-hidden data-[state=closed]:max-h-64 [&>figure>div]:max-h-none data-[state=closed]:[&>figure>div]:overflow-hidden [&>figure]:mt-0 [&>figure]:md:mx-0!"
+        className="relative mt-6 overflow-hidden data-[state=closed]:max-h-64 [&>figure+figure]:mt-4 [&>figure>div]:max-h-none data-[state=closed]:[&>figure>div]:overflow-hidden [&>figure]:mt-0 [&>figure]:md:mx-0!"
         forceMount
       >
         {children}
