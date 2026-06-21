@@ -91,9 +91,6 @@ const useInputAddonButtonContext = () => {
 
 // Components
 export const Input = ({ className, disabled, ...props }: InputProps) => {
-  const placeholderTextColor = useCSSVariable(
-    "--color-muted-foreground"
-  ) as string;
   return (
     <RNTextInput
       className={cn(
@@ -101,7 +98,7 @@ export const Input = ({ className, disabled, ...props }: InputProps) => {
         className
       )}
       editable={!disabled}
-      placeholderTextColor={placeholderTextColor}
+      placeholderTextColorClassName="accent-muted-foreground"
       {...props}
     />
   );

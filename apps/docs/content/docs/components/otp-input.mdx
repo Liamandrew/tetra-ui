@@ -1,0 +1,196 @@
+---
+title: OTP Input
+description: A component for entering one-time passwords with individual character slots.
+---
+
+<ComponentPreview name="otp-input" type="gif" />
+
+## Installation
+
+<Tabs defaultValue="cli">
+
+<TabsList>
+  <TabsTrigger value="cli">CLI</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+
+<TabsContent value="cli">
+
+```package-install
+npx shadcn@latest add @tetra-ui/otp-input
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps>
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource name="otp-input" title="components/ui/otp-input.tsx" />
+
+</Steps>
+
+</TabsContent>
+
+</Tabs>
+
+## Usage
+
+The API mirrors [shadcn Input OTP](https://ui.shadcn.com/docs/components/base/input-otp) — `InputOTP` maps to `OTPInput`, `InputOTPGroup` to `OTPInputGroup`, and so on.
+
+```tsx
+import {
+  OTPInput,
+  OTPInputGroup,
+  OTPInputSeparator,
+  OTPInputSlot,
+} from "@/components/ui/otp-input";
+```
+
+```tsx
+<OTPInput maxLength={6} onComplete={(code) => console.log(code)}>
+  <OTPInputGroup>
+    <OTPInputSlot index={0} />
+    <OTPInputSlot index={1} />
+    <OTPInputSlot index={2} />
+  </OTPInputGroup>
+  <OTPInputSeparator />
+  <OTPInputGroup>
+    <OTPInputSlot index={3} />
+    <OTPInputSlot index={4} />
+    <OTPInputSlot index={5} />
+  </OTPInputGroup>
+</OTPInput>
+```
+
+## Four digits
+
+A common pattern for PIN codes:
+
+```tsx
+<OTPInput maxLength={4} secureTextEntry onComplete={(code) => console.log(code)}>
+  <OTPInputSlot index={0} />
+  <OTPInputSlot index={1} />
+  <OTPInputSlot index={2} />
+  <OTPInputSlot index={3} />
+</OTPInput>
+```
+
+## Controlled
+
+```tsx
+const [value, setValue] = useState("");
+
+<OTPInput maxLength={6} onChange={setValue} value={value}>
+  <OTPInputGroup>
+    <OTPInputSlot index={0} />
+    <OTPInputSlot index={1} />
+    <OTPInputSlot index={2} />
+  </OTPInputGroup>
+  <OTPInputSeparator />
+  <OTPInputGroup>
+    <OTPInputSlot index={3} />
+    <OTPInputSlot index={4} />
+    <OTPInputSlot index={5} />
+  </OTPInputGroup>
+</OTPInput>
+```
+
+## Disabled
+
+```tsx
+<OTPInput disabled maxLength={6}>
+  <OTPInputGroup>
+    <OTPInputSlot index={0} />
+    <OTPInputSlot index={1} />
+    <OTPInputSlot index={2} />
+  </OTPInputGroup>
+  <OTPInputSeparator />
+  <OTPInputGroup>
+    <OTPInputSlot index={3} />
+    <OTPInputSlot index={4} />
+    <OTPInputSlot index={5} />
+  </OTPInputGroup>
+</OTPInput>
+```
+
+## Invalid
+
+```tsx
+<OTPInput invalid maxLength={6}>
+  <OTPInputGroup>
+    <OTPInputSlot index={0} />
+    <OTPInputSlot index={1} />
+    <OTPInputSlot index={2} />
+  </OTPInputGroup>
+  <OTPInputSeparator />
+  <OTPInputGroup>
+    <OTPInputSlot index={3} />
+    <OTPInputSlot index={4} />
+    <OTPInputSlot index={5} />
+  </OTPInputGroup>
+</OTPInput>
+```
+
+## Pattern
+
+Restrict input to specific character patterns:
+
+```tsx
+import { OTPInput, REGEXP_ONLY_DIGITS } from "@/components/ui/otp-input";
+
+<OTPInput maxLength={6} pattern={REGEXP_ONLY_DIGITS}>
+  <OTPInputGroup>
+    <OTPInputSlot index={0} />
+    <OTPInputSlot index={1} />
+    <OTPInputSlot index={2} />
+  </OTPInputGroup>
+  <OTPInputSeparator />
+  <OTPInputGroup>
+    <OTPInputSlot index={3} />
+    <OTPInputSlot index={4} />
+    <OTPInputSlot index={5} />
+  </OTPInputGroup>
+</OTPInput>
+```
+
+## Form
+
+Use with `Field` and `FieldControl` for labels and validation:
+
+```tsx
+import {
+  Field,
+  FieldControl,
+  FieldErrorMessage,
+  FieldLabel,
+} from "@/components/ui/form";
+import {
+  OTPInput,
+  OTPInputGroup,
+  OTPInputSeparator,
+  OTPInputSlot,
+} from "@/components/ui/otp-input";
+
+<Field errorMessage={error} invalid={!!error}>
+  <FieldLabel>Verification code</FieldLabel>
+  <FieldControl>
+    <OTPInput maxLength={6} onChange={setValue} value={value}>
+      <OTPInputGroup>
+        <OTPInputSlot index={0} />
+        <OTPInputSlot index={1} />
+        <OTPInputSlot index={2} />
+      </OTPInputGroup>
+      <OTPInputSeparator />
+      <OTPInputGroup>
+        <OTPInputSlot index={3} />
+        <OTPInputSlot index={4} />
+        <OTPInputSlot index={5} />
+      </OTPInputGroup>
+    </OTPInput>
+  </FieldControl>
+  <FieldErrorMessage />
+</Field>
+```

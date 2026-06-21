@@ -250,6 +250,49 @@ Docs: https://tetra-ui.com/docs/components/native-sheet
 Deps: react-native-reanimated, react-native-safe-area-context, react-native-worklets
 Registry deps: button, icons, slot
 
+### otp-input
+A component for entering one-time passwords with individual character slots. API mirrors shadcn Input OTP (`InputOTP` → `OTPInput`).
+Docs: https://tetra-ui.com/docs/components/otp-input
+Deps: react-native-reanimated
+Registry deps: input, text
+Exports: OTPInput, OTPInputGroup, OTPInputSlot, OTPInputSeparator, OTPInputSlotPlaceholder, OTPInputSlotValue, OTPInputSlotCaret, useOTPInput, useOTPInputSlot, REGEXP_ONLY_DIGITS, REGEXP_ONLY_CHARS, REGEXP_ONLY_DIGITS_AND_CHARS
+Props: maxLength (required), value, defaultValue, onChange, onComplete, disabled, invalid, pattern, inputMode, placeholder, secureTextEntry, onFocus, onBlur
+Ref: focus(), blur(), clear(), setValue(value)
+
+Usage:
+```tsx
+import {
+  OTPInput,
+  OTPInputGroup,
+  OTPInputSeparator,
+  OTPInputSlot,
+} from "@/components/ui/otp-input";
+
+<OTPInput maxLength={6} onComplete={(code) => console.log(code)}>
+  <OTPInputGroup>
+    <OTPInputSlot index={0} />
+    <OTPInputSlot index={1} />
+    <OTPInputSlot index={2} />
+  </OTPInputGroup>
+  <OTPInputSeparator />
+  <OTPInputGroup>
+    <OTPInputSlot index={3} />
+    <OTPInputSlot index={4} />
+    <OTPInputSlot index={5} />
+  </OTPInputGroup>
+</OTPInput>
+```
+
+PIN (secure):
+```tsx
+<OTPInput maxLength={4} secureTextEntry>
+  <OTPInputSlot index={0} />
+  <OTPInputSlot index={1} />
+  <OTPInputSlot index={2} />
+  <OTPInputSlot index={3} />
+</OTPInput>
+```
+
 ### password-input
 An input component that allows users to enter a password.
 Docs: https://tetra-ui.com/docs/components/password-input
@@ -371,6 +414,46 @@ Use Stack for layout, Switch for toggles, Separator between sections.
 Install: `npx shadcn@latest add @tetra-ui/select`
 
 Select uses bottom-sheet on mobile automatically.
+
+### Verification code (OTP)
+Install: `npx shadcn@latest add @tetra-ui/otp-input @tetra-ui/form @tetra-ui/label`
+
+Use OTPInput with grouped slots for 6-digit codes, or `secureTextEntry` for 4-digit PINs. Wrap in Field + FieldControl for labels and validation errors.
+
+```tsx
+import {
+  Field,
+  FieldControl,
+  FieldErrorMessage,
+  FieldLabel,
+} from "@/components/ui/form";
+import {
+  OTPInput,
+  OTPInputGroup,
+  OTPInputSeparator,
+  OTPInputSlot,
+} from "@/components/ui/otp-input";
+
+<Field errorMessage={error} invalid={!!error}>
+  <FieldLabel>Verification code</FieldLabel>
+  <FieldControl>
+    <OTPInput maxLength={6} onChange={setValue} value={value}>
+      <OTPInputGroup>
+        <OTPInputSlot index={0} />
+        <OTPInputSlot index={1} />
+        <OTPInputSlot index={2} />
+      </OTPInputGroup>
+      <OTPInputSeparator />
+      <OTPInputGroup>
+        <OTPInputSlot index={3} />
+        <OTPInputSlot index={4} />
+        <OTPInputSlot index={5} />
+      </OTPInputGroup>
+    </OTPInput>
+  </FieldControl>
+  <FieldErrorMessage />
+</Field>
+```
 
 ---
 

@@ -279,6 +279,20 @@
       ]
     },
     {
+      "name": "otp-input",
+      "type": "registry:ui",
+      "title": "OTP Input",
+      "description": "A component for entering one-time passwords with individual character slots.",
+      "dependencies": ["react-native-reanimated"],
+      "registryDependencies": ["@tetra-ui/input", "@tetra-ui/text"],
+      "files": [
+        {
+          "path": "../../packages/tetra-ui/src/components/otp-input.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "password-input",
       "type": "registry:ui",
       "title": "Password Input",
