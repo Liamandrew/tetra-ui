@@ -1,12 +1,16 @@
-export function getRegistryFileTitle(filePath: string): string {
-  const normalized = filePath.replace(/\\/g, "/");
+const BACKSLASH_REGEX = /\\/g;
+const HOOKS_PATH_REGEX = /\/hooks\/(.+)$/;
+const COMPONENTS_PATH_REGEX = /\/components\/(.+)$/;
 
-  const hooksMatch = normalized.match(/\/hooks\/(.+)$/);
+export function getRegistryFileTitle(filePath: string): string {
+  const normalized = filePath.replace(BACKSLASH_REGEX, "/");
+
+  const hooksMatch = normalized.match(HOOKS_PATH_REGEX);
   if (hooksMatch) {
     return `hooks/${hooksMatch[1]}`;
   }
 
-  const componentsMatch = normalized.match(/\/components\/(.+)$/);
+  const componentsMatch = normalized.match(COMPONENTS_PATH_REGEX);
   if (componentsMatch) {
     return `components/ui/${componentsMatch[1]}`;
   }

@@ -1,7 +1,6 @@
 import { cva } from "class-variance-authority";
 import {
   createContext,
-  forwardRef,
   useCallback,
   useContext,
   useEffect,
@@ -14,7 +13,7 @@ import {
   type BlurEvent,
   type FocusEvent,
   Pressable,
-  TextInput as RNTextInput,
+  type TextInput as RNTextInput,
   View,
 } from "react-native";
 import Animated, {
@@ -81,7 +80,7 @@ export type OTPInputProps = {
   maxLength: number;
   value?: string;
   defaultValue?: string;
-  onChange?: (value: string) => void;
+  onValueChange?: (value: string) => void;
   onComplete?: (value: string) => void;
   disabled?: boolean;
   invalid?: boolean;
@@ -93,6 +92,7 @@ export type OTPInputProps = {
   onBlur?: (e: BlurEvent) => void;
   className?: string;
   children?: React.ReactNode;
+  ref?: React.RefObject<OTPInputRef>;
 };
 
 export type OTPInputGroupProps = React.ComponentProps<typeof View>;
@@ -134,7 +134,7 @@ const OTPInputSlotContext = createContext<OTPInputSlotContextValue | null>(
   null
 );
 
-export const useOTPInput = () => {
+const useOTPInput = () => {
   const context = useContext(OTPInputContext);
 
   if (!context) {
@@ -144,7 +144,7 @@ export const useOTPInput = () => {
   return context;
 };
 
-export const useOTPInputSlot = () => {
+const useOTPInputSlot = () => {
   const context = useContext(OTPInputSlotContext);
 
   if (!context) {
@@ -157,205 +157,195 @@ export const useOTPInputSlot = () => {
 };
 
 // Components
-export const OTPInput = forwardRef<OTPInputRef, OTPInputProps>(
-  (
-    {
-      maxLength,
-      value: valueProp,
-      defaultValue,
-      onChange,
-      onComplete,
-      disabled,
-      invalid,
-      pattern,
-      inputMode = "numeric",
-      placeholder,
-      secureTextEntry,
-      onFocus: onFocusProp,
-      onBlur: onBlurProp,
-      className,
-      children,
-    },
-    ref
-  ) => {
-    const [internalValue, setInternalValue] = useState(defaultValue ?? "");
-    const [isFocused, setIsFocused] = useState(false);
-    const inputRef = useRef<RNTextInput>(null);
+export const OTPInput = ({
+  maxLength,
+  value: valueProp,
+  defaultValue,
+  onValueChange,
+  onComplete,
+  disabled,
+  invalid,
+  pattern,
+  inputMode = "numeric",
+  placeholder,
+  secureTextEntry,
+  onFocus: onFocusProp,
+  onBlur: onBlurProp,
+  className,
+  children,
+  ref,
+}: OTPInputProps) => {
+  const [internalValue, setInternalValue] = useState(defaultValue ?? "");
+  const [isFocused, setIsFocused] = useState(false);
+  const inputRef = useRef<RNTextInput>(null);
 
-    const isControlled = valueProp !== undefined;
-    const value = isControlled ? valueProp : internalValue;
+  const isControlled = valueProp !== undefined;
+  const value = isControlled ? valueProp : internalValue;
 
-    const setValue = useCallback(
-      (nextValue: string) => {
-        if (!isControlled) {
-          setInternalValue(nextValue);
-        }
-
-        onChange?.(nextValue);
-      },
-      [isControlled, onChange]
-    );
-
-    const regexp = useMemo(() => {
-      if (!pattern) {
-        return null;
+  const setValue = useCallback(
+    (nextValue: string) => {
+      if (!isControlled) {
+        setInternalValue(nextValue);
       }
 
-      return new RegExp(pattern);
-    }, [pattern]);
+      onValueChange?.(nextValue);
+    },
+    [isControlled, onValueChange]
+  );
 
-    const pasteTransformFn = useMemo(
-      () => defaultPasteTransformer(maxLength),
-      [maxLength]
-    );
+  const regexp = useMemo(() => {
+    if (!pattern) {
+      return null;
+    }
 
-    const onChangeText = useCallback(
-      (text: string) => {
-        const isPaste = text.length > value.length + 1;
-        const transformedText = isPaste ? pasteTransformFn(text) : text;
-        const newValue = transformedText.slice(0, maxLength);
+    return new RegExp(pattern);
+  }, [pattern]);
 
-        if (newValue.length > 0 && regexp && !regexp.test(newValue)) {
-          return;
-        }
+  const pasteTransformFn = useMemo(
+    () => defaultPasteTransformer(maxLength),
+    [maxLength]
+  );
 
-        setValue(newValue);
+  const onChangeText = useCallback(
+    (text: string) => {
+      const isPaste = text.length > value.length + 1;
+      const transformedText = isPaste ? pasteTransformFn(text) : text;
+      const newValue = transformedText.slice(0, maxLength);
 
-        if (newValue.length === maxLength) {
-          onComplete?.(newValue);
-        }
-      },
-      [maxLength, onComplete, pasteTransformFn, regexp, setValue, value.length]
-    );
+      if (newValue.length > 0 && regexp && !regexp.test(newValue)) {
+        return;
+      }
 
-    const onFocus = useCallback(
-      (e: FocusEvent) => {
-        setIsFocused(true);
-        onFocusProp?.(e);
-      },
-      [onFocusProp]
-    );
+      setValue(newValue);
 
-    const onBlur = useCallback(
-      (e: BlurEvent) => {
-        setIsFocused(false);
-        onBlurProp?.(e);
-      },
-      [onBlurProp]
-    );
+      if (newValue.length === maxLength) {
+        onComplete?.(newValue);
+      }
+    },
+    [maxLength, onComplete, pasteTransformFn, regexp, setValue, value.length]
+  );
 
-    const focus = useCallback(() => {
-      inputRef.current?.focus();
-    }, []);
+  const onFocus = useCallback(
+    (e: FocusEvent) => {
+      setIsFocused(true);
+      onFocusProp?.(e);
+    },
+    [onFocusProp]
+  );
 
-    const blur = useCallback(() => {
-      inputRef.current?.blur();
-    }, []);
+  const onBlur = useCallback(
+    (e: BlurEvent) => {
+      setIsFocused(false);
+      onBlurProp?.(e);
+    },
+    [onBlurProp]
+  );
 
-    const clear = useCallback(() => {
-      inputRef.current?.clear();
-      setValue("");
-    }, [setValue]);
+  const focus = useCallback(() => {
+    inputRef.current?.focus();
+  }, []);
 
-    useImperativeHandle(
-      ref,
-      () => ({
-        focus,
-        blur,
-        clear,
-        setValue: onChangeText,
-      }),
-      [blur, clear, focus, onChangeText]
-    );
+  const blur = useCallback(() => {
+    inputRef.current?.blur();
+  }, []);
 
-    const slots = useMemo<SlotData[]>(() => {
-      return Array.from({ length: maxLength }, (_, slotIdx) => {
-        const char = value[slotIdx] ?? null;
-        const isActive = isFocused && slotIdx === value.length;
-        const placeholderChar =
-          isActive || char !== null ? null : (placeholder?.[slotIdx] ?? null);
+  const clear = useCallback(() => {
+    inputRef.current?.clear();
+    setValue("");
+  }, [setValue]);
 
-        return {
-          index: slotIdx,
-          char,
-          placeholderChar,
-          isActive,
-          isCaretVisible: isActive && char === null,
-        };
-      });
-    }, [isFocused, maxLength, placeholder, value]);
+  useImperativeHandle(
+    ref,
+    () => ({
+      focus,
+      blur,
+      clear,
+      setValue: onChangeText,
+    }),
+    [blur, clear, focus, onChangeText]
+  );
 
-    const onSlotPress = useCallback(
-      (_index: number) => {
-        focus();
-      },
-      [focus]
-    );
+  const slots = useMemo<SlotData[]>(() => {
+    return Array.from({ length: maxLength }, (_, slotIdx) => {
+      const char = value[slotIdx] ?? null;
+      const isActive = isFocused && slotIdx === value.length;
+      const placeholderChar =
+        isActive || char !== null ? null : (placeholder?.[slotIdx] ?? null);
 
-    const contextValue = useMemo<OTPInputContextValue>(
-      () => ({
-        value,
-        maxLength,
-        isFocused,
-        disabled,
-        invalid,
-        secureTextEntry,
-        slots,
-        inputRef,
-        focus,
-        onSlotPress,
-      }),
-      [
-        disabled,
-        focus,
-        inputRef,
-        invalid,
-        isFocused,
-        maxLength,
-        onSlotPress,
-        secureTextEntry,
-        slots,
-        value,
-      ]
-    );
+      return {
+        index: slotIdx,
+        char,
+        placeholderChar,
+        isActive,
+        isCaretVisible: isActive && char === null,
+      };
+    });
+  }, [isFocused, maxLength, placeholder, value]);
 
-    return (
-      <OTPInputContext.Provider value={contextValue}>
-        <Pressable
-          accessibilityRole="none"
-          className={cn("relative flex-row items-center gap-2", className)}
+  const onSlotPress = useCallback(
+    (_index: number) => {
+      focus();
+    },
+    [focus]
+  );
+
+  const contextValue = useMemo<OTPInputContextValue>(
+    () => ({
+      value,
+      maxLength,
+      isFocused,
+      disabled,
+      invalid,
+      secureTextEntry,
+      slots,
+      inputRef,
+      focus,
+      onSlotPress,
+    }),
+    [
+      disabled,
+      focus,
+      invalid,
+      isFocused,
+      maxLength,
+      onSlotPress,
+      secureTextEntry,
+      slots,
+      value,
+    ]
+  );
+
+  return (
+    <OTPInputContext.Provider value={contextValue}>
+      <Pressable
+        accessibilityRole="none"
+        className={cn("relative flex-row items-center gap-2", className)}
+        disabled={disabled}
+        onPress={focus}
+      >
+        <Input
+          autoComplete={secureTextEntry ? "off" : "one-time-code"}
+          caretHidden
+          className="absolute h-px w-px opacity-0"
           disabled={disabled}
-          onPress={focus}
-        >
-          <Input
-            autoComplete={secureTextEntry ? "off" : "one-time-code"}
-            caretHidden
-            className="absolute h-px w-px opacity-0"
-            disabled={disabled}
-            inputMode={inputMode}
-            onBlur={onBlur}
-            onChangeText={onChangeText}
-            onFocus={onFocus}
-            ref={inputRef}
-            secureTextEntry={secureTextEntry}
-            textContentType={secureTextEntry ? "password" : "oneTimeCode"}
-            value={value}
-          />
-          {children}
-        </Pressable>
-      </OTPInputContext.Provider>
-    );
-  }
-);
-
-OTPInput.displayName = "OTPInput";
+          inputMode={inputMode}
+          onBlur={onBlur}
+          onChangeText={onChangeText}
+          onFocus={onFocus}
+          ref={inputRef}
+          secureTextEntry={secureTextEntry}
+          textContentType={secureTextEntry ? "password" : "oneTimeCode"}
+          value={value}
+        />
+        {children}
+      </Pressable>
+    </OTPInputContext.Provider>
+  );
+};
 
 export const OTPInputGroup = ({ className, ...props }: OTPInputGroupProps) => {
   return (
-    <View
-      className={cn("flex-row items-center gap-2", className)}
-      {...props}
-    />
+    <View className={cn("flex-row items-center gap-2", className)} {...props} />
   );
 };
 
@@ -368,8 +358,21 @@ export const OTPInputSlot = ({
 }: OTPInputSlotProps) => {
   const { slots, disabled, invalid, onSlotPress } = useOTPInput();
   const slot = slots[index];
+  const isDisabled = disabledProp ?? disabled;
 
-  if (!slot) {
+  const slotContextValue = useMemo<OTPInputSlotContextValue | null>(() => {
+    if (!slot) {
+      return null;
+    }
+
+    return {
+      slot,
+      isActive: slot.isActive,
+      isCaretVisible: slot.isCaretVisible,
+    };
+  }, [slot]);
+
+  if (!(slot && slotContextValue)) {
     if (__DEV__) {
       throw new Error(
         `OTPInputSlot index ${index} is out of range. Must be between 0 and ${slots.length - 1}.`
@@ -378,17 +381,6 @@ export const OTPInputSlot = ({
 
     return null;
   }
-
-  const isDisabled = disabledProp ?? disabled;
-
-  const slotContextValue = useMemo<OTPInputSlotContextValue>(
-    () => ({
-      slot,
-      isActive: slot.isActive,
-      isCaretVisible: slot.isCaretVisible,
-    }),
-    [slot]
-  );
 
   return (
     <OTPInputSlotContext.Provider value={slotContextValue}>

@@ -17,9 +17,6 @@
         "noGlobalDirnameFilename": "off",
         "noUnknownFunction": "off"
       },
-      "nursery": {
-        "noLeakedRender": "off"
-      },
       "performance": {
         "noBarrelFile": "off",
         "noNamespaceImport": "off"

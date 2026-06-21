@@ -99,6 +99,8 @@ export function ComponentSource({
   }
 
   return (
-    <CodeCollapsibleWrapper className={className}>{blocks}</CodeCollapsibleWrapper>
+    <CodeCollapsibleWrapper className={className}>
+      {blocks}
+    </CodeCollapsibleWrapper>
   );
 }

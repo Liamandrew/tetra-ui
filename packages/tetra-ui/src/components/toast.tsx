@@ -41,10 +41,7 @@ const ToastIcon = ({ variant }: ToastIconProps) => {
   if (variant === "loading") {
     return (
       <View className="size-5 items-center justify-center">
-        <ActivityIndicator
-          className="accent-muted-foreground"
-          size="small"
-        />
+        <ActivityIndicator className="accent-muted-foreground" size="small" />
       </View>
     );
   }
