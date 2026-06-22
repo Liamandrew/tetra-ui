@@ -31,7 +31,7 @@ npx shadcn@latest add @tetra-ui/bottom-sheet
 <Step>Install the following dependencies:</Step>
 
 ```package-install
-npm install @gorhom/bottom-sheet react-native-gesture-handler react-native-reanimated react-native-safe-area-context react-native-screens react-native-worklets
+npm install @gorhom/bottom-sheet react-native-gesture-handler react-native-reanimated react-native-keyboard-controller react-native-safe-area-context react-native-screens react-native-worklets
 ```
 
 <Step>Wrap your app with `GestureHandlerRootView` (included in tetra-ui `ThemeProvider`).</Step>
@@ -119,14 +119,26 @@ Use `BottomSheetScrollView` for long lists so scrolling does not conflict with s
 
 ## Keyboard
 
-With snap points configured, call `useBottomSheetInputHandlers()` inside the sheet and pass `onFocus` / `onBlur` to inputs. The sheet expands to the highest snap while focused:
+With snap points configured, call `useBottomSheetInputHandlers()` inside the sheet and pass `onFocus` / `onBlur` to inputs. The sheet expands to the highest snap while focused, and `BottomSheetFooter` stays above the keyboard via gorhom's footer slot.
+
+`BottomSheetHeader`, `BottomSheetScrollView`, and `BottomSheetFooter` must be **direct children** of `BottomSheetContent` (fragments are fine). Wrapping them in a custom component prevents the footer from being registered:
 
 ```tsx
 function SheetForm() {
   const { onFocus, onBlur } = useBottomSheetInputHandlers();
 
   return (
-    <TextInput onFocus={onFocus} onBlur={onBlur} placeholder="Message" />
+    <>
+      <BottomSheetHeader>
+        <BottomSheetTitle>Send a message</BottomSheetTitle>
+      </BottomSheetHeader>
+      <BottomSheetScrollView>
+        <TextInput onFocus={onFocus} onBlur={onBlur} placeholder="Message" />
+      </BottomSheetScrollView>
+      <BottomSheetFooter>
+        <Button>Send</Button>
+      </BottomSheetFooter>
+    </>
   );
 }
 ```
@@ -151,3 +163,8 @@ function SheetForm() {
 - Compound API: `BottomSheet`, `BottomSheetPortal`, `BottomSheetOverlay`, `BottomSheetContent`, and layout primitives
 - Snap points, pan-down-to-close, dynamic sizing
 - `BottomSheetScrollView`, sticky `BottomSheetFooter`, `useBottomSheetInputHandlers`
+
+### 2026-06-22 Keyboard Controller integration
+
+- Added `react-native-keyboard-controller` as a dependency.
+- The sheet expands to the highest snap while focused, and `BottomSheetFooter` stays above the keyboard via gorhom's footer slot.

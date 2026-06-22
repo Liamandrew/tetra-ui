@@ -2,13 +2,14 @@ import GorhomBottomSheet, {
   type BottomSheetBackgroundProps,
   type BottomSheetProps,
   BottomSheetView,
-  BottomSheetFooter as GorhomBottomSheetFooter,
   BottomSheetScrollView as GorhomBottomSheetScrollView,
+  useBottomSheetInternal,
 } from "@gorhom/bottom-sheet";
 import {
   Children,
   cloneElement,
   createContext,
+  Fragment,
   isValidElement,
   useCallback,
   useContext,
@@ -26,11 +27,11 @@ import {
   Platform,
   Pressable,
   type PressableProps,
-  StyleSheet,
   Text,
   useWindowDimensions,
   View,
 } from "react-native";
+import { useReanimatedKeyboardAnimation } from "react-native-keyboard-controller";
 import Animated, {
   Extrapolation,
   interpolate,
@@ -54,6 +55,10 @@ const KEYBOARD_SHOW_EVENT =
   Platform.OS === "ios" ? "keyboardWillShow" : "keyboardDidShow";
 const KEYBOARD_HIDE_EVENT =
   Platform.OS === "ios" ? "keyboardWillHide" : "keyboardDidHide";
+const GORHOM_KEYBOARD_SHOWN = 1;
+const BOTTOM_SHEET_HEADER_HEIGHT_FALLBACK = 57;
+const BOTTOM_SHEET_SCROLL_CONTENT_TOP_PADDING = 16;
+const BOTTOM_SHEET_FOOTER_BASE_PADDING = 16;
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
 // Types
@@ -122,12 +127,60 @@ type BottomSheetCloseProps = PressableProps & {
 };
 
 type BottomSheetStickyScrollContentProps = {
-  header: React.ReactNode;
   body: React.ReactNode[];
   className?: string;
+  header: React.ReactNode;
 };
 
-// Utils
+const BottomSheetStickyScrollContent = ({
+  body,
+  className,
+  header,
+}: BottomSheetStickyScrollContentProps) => {
+  const [headerHeight, setHeaderHeight] = useState<number | null>(null);
+
+  const onHeaderLayout = useCallback((event: LayoutChangeEvent) => {
+    setHeaderHeight(event.nativeEvent.layout.height);
+  }, []);
+
+  const headerInset = header
+    ? (headerHeight ?? BOTTOM_SHEET_HEADER_HEIGHT_FALLBACK) +
+      BOTTOM_SHEET_SCROLL_CONTENT_TOP_PADDING
+    : 0;
+
+  return (
+    <View
+      className={cn("absolute inset-0 bg-background", className)}
+    >
+      {header ? (
+        <View
+          className="absolute inset-x-0 top-0 z-10 border-border border-b bg-background"
+          onLayout={onHeaderLayout}
+        >
+          {header}
+        </View>
+      ) : null}
+      {body.map((child, index) => {
+        if (
+          isBottomSheetChild(child, "BottomSheetScrollView") &&
+          isValidElement(child)
+        ) {
+          const scrollChild = child as React.ReactElement<{
+            headerInset?: number;
+          }>;
+
+          return cloneElement(scrollChild, {
+            headerInset,
+            key: scrollChild.key ?? `bottom-sheet-scroll-${index}`,
+          });
+        }
+
+        return child;
+      })}
+    </View>
+  );
+};
+
 const getMaxSnapPercent = (windowHeight: number, topInset: number) => {
   if (windowHeight <= 0) {
     return 100;
@@ -188,23 +241,48 @@ const isBottomSheetChild = (
   displayName: BottomSheetChildDisplayName
 ) => getBottomSheetChildDisplayName(child) === displayName;
 
+const flattenBottomSheetChildren = (
+  children: React.ReactNode
+): React.ReactNode[] => {
+  const flattened: React.ReactNode[] = [];
+
+  Children.forEach(children, (child) => {
+    if (child === null || child === undefined || typeof child === "boolean") {
+      return;
+    }
+
+    if (isValidElement(child) && child.type === Fragment) {
+      flattened.push(
+        ...flattenBottomSheetChildren(
+          (child.props as { children?: React.ReactNode }).children
+        )
+      );
+      return;
+    }
+
+    flattened.push(child);
+  });
+
+  return flattened;
+};
+
 const splitBottomSheetChildren = (children: React.ReactNode) => {
   const body: React.ReactNode[] = [];
   let footer: React.ReactNode = null;
   let header: React.ReactNode = null;
   let hasScrollView = false;
 
-  Children.forEach(children, (child) => {
+  for (const child of flattenBottomSheetChildren(children)) {
     const displayName = getBottomSheetChildDisplayName(child);
 
     if (displayName === "BottomSheetFooter") {
       footer = child;
-      return;
+      continue;
     }
 
     if (displayName === "BottomSheetHeader") {
       header = child;
-      return;
+      continue;
     }
 
     if (displayName === "BottomSheetScrollView") {
@@ -212,7 +290,7 @@ const splitBottomSheetChildren = (children: React.ReactNode) => {
     }
 
     body.push(child);
-  });
+  }
 
   return { body, footer, header, hasScrollView };
 };
@@ -222,47 +300,56 @@ const getOverlayOpacityRange = (isDark: boolean) => {
   return { maxOpacity, minOpacity: maxOpacity * 0.35 };
 };
 
-const BottomSheetStickyScrollContent = ({
-  header,
-  body,
-  className,
-}: BottomSheetStickyScrollContentProps) => {
-  const [headerHeight, setHeaderHeight] = useState(0);
+type BottomSheetAnimatedFooterProps = {
+  animatedFooterPosition: SharedValue<number>;
+  children: React.ReactNode;
+};
 
-  const onHeaderLayout = useCallback((event: LayoutChangeEvent) => {
-    setHeaderHeight(event.nativeEvent.layout.height);
-  }, []);
+const BottomSheetAnimatedFooter = ({
+  animatedFooterPosition,
+  children,
+}: BottomSheetAnimatedFooterProps) => {
+  const { animatedKeyboardState, animatedLayoutState } =
+    useBottomSheetInternal();
+  const { height: keyboardHeight } = useReanimatedKeyboardAnimation();
+
+  const containerAnimatedStyle = useAnimatedStyle(() => {
+    const keyboard = animatedKeyboardState.get();
+    let footerTranslateY = animatedFooterPosition.get();
+
+    if (keyboard.status === GORHOM_KEYBOARD_SHOWN) {
+      footerTranslateY += keyboard.heightWithinContainer;
+    }
+
+    footerTranslateY += keyboardHeight.value;
+
+    return {
+      transform: [{ translateY: Math.max(0, footerTranslateY) }],
+    };
+  }, [animatedFooterPosition, animatedKeyboardState, keyboardHeight]);
+
+  const handleContainerLayout = useCallback(
+    (event: LayoutChangeEvent) => {
+      const height = event.nativeEvent.layout.height;
+
+      animatedLayoutState.modify((state) => {
+        "worklet";
+        state.footerHeight = height;
+        return state;
+      });
+    },
+    [animatedLayoutState]
+  );
 
   return (
-    <View className={cn("flex-1 bg-background", className)}>
-      {header ? (
-        <View
-          className="absolute inset-x-0 top-0 z-10 border-border border-b bg-background"
-          onLayout={onHeaderLayout}
-        >
-          {header}
-        </View>
-      ) : null}
-      {body.map((child, index) => {
-        if (
-          isBottomSheetChild(child, "BottomSheetScrollView") &&
-          isValidElement(child)
-        ) {
-          const scrollChild = child as React.ReactElement<{
-            className?: string;
-            headerInset?: number;
-          }>;
-
-          return cloneElement(scrollChild, {
-            className: cn("flex-1", scrollChild.props.className),
-            headerInset: headerHeight,
-            key: scrollChild.key ?? `bottom-sheet-scroll-${index}`,
-          });
-        }
-
-        return child;
-      })}
-    </View>
+    <Animated.View
+      className="absolute top-0 right-0 left-0 z-9999"
+      onLayout={handleContainerLayout}
+      pointerEvents="box-none"
+      style={containerAnimatedStyle}
+    >
+      {children}
+    </Animated.View>
   );
 };
 
@@ -308,39 +395,17 @@ export const useBottomSheetInputHandlers = (handlers?: {
     currentSnapIndex,
     contentConfig,
     setCurrentSnapIndex,
+    keyboardVisible,
   } = useBottomSheetContext();
+  const { animatedKeyboardState, textInputNodesRef } = useBottomSheetInternal();
   const previousSnapIndexRef = useRef(0);
+  const keyboardSnapActiveRef = useRef(false);
 
   const snapPointCount = contentConfig.snapPoints?.length ?? 0;
   const maxSnapIndex = Math.max(0, snapPointCount - 1);
   const { keyboardBehavior } = contentConfig;
 
-  const onFocus = useCallback(() => {
-    previousSnapIndexRef.current = currentSnapIndex;
-
-    if (snapPointCount === 0) {
-      bottomSheetRef.current?.expand();
-      return;
-    }
-
-    if (keyboardBehavior === "extend") {
-      bottomSheetRef.current?.expand();
-      setCurrentSnapIndex(maxSnapIndex);
-      return;
-    }
-
-    bottomSheetRef.current?.snapToIndex(maxSnapIndex);
-    setCurrentSnapIndex(maxSnapIndex);
-  }, [
-    bottomSheetRef,
-    currentSnapIndex,
-    keyboardBehavior,
-    maxSnapIndex,
-    setCurrentSnapIndex,
-    snapPointCount,
-  ]);
-
-  const onBlur = useCallback(() => {
+  const restoreSnapIndex = useCallback(() => {
     if (snapPointCount === 0) {
       return;
     }
@@ -348,23 +413,118 @@ export const useBottomSheetInputHandlers = (handlers?: {
     const restoreIndex = previousSnapIndexRef.current;
     bottomSheetRef.current?.snapToIndex(restoreIndex);
     setCurrentSnapIndex(restoreIndex);
+    keyboardSnapActiveRef.current = false;
   }, [bottomSheetRef, setCurrentSnapIndex, snapPointCount]);
 
-  const onFocusWithEvent = useCallback(
-    (event: FocusEvent) => {
-      handlers?.onFocus?.(event);
-      onFocus();
+  const hasActiveSheetInput = useCallback(() => {
+    const target = animatedKeyboardState.get().target;
+
+    return target !== undefined && textInputNodesRef.current.has(target);
+  }, [animatedKeyboardState, textInputNodesRef]);
+
+  const onFocus = useCallback(
+    (event?: FocusEvent) => {
+      if (event) {
+        handlers?.onFocus?.(event);
+        textInputNodesRef.current.add(event.nativeEvent.target);
+
+        animatedKeyboardState.set((state) => ({
+          ...state,
+          target: event.nativeEvent.target,
+        }));
+      }
+
+      previousSnapIndexRef.current = currentSnapIndex;
+
+      if (snapPointCount === 0) {
+        bottomSheetRef.current?.expand();
+        keyboardSnapActiveRef.current = true;
+        return;
+      }
+
+      if (keyboardBehavior === "extend") {
+        bottomSheetRef.current?.expand();
+        setCurrentSnapIndex(maxSnapIndex);
+        keyboardSnapActiveRef.current = true;
+        return;
+      }
+
+      bottomSheetRef.current?.snapToIndex(maxSnapIndex);
+      setCurrentSnapIndex(maxSnapIndex);
+      keyboardSnapActiveRef.current = true;
     },
-    [handlers, onFocus]
+    [
+      animatedKeyboardState,
+      bottomSheetRef,
+      currentSnapIndex,
+      handlers,
+      keyboardBehavior,
+      maxSnapIndex,
+      setCurrentSnapIndex,
+      snapPointCount,
+      textInputNodesRef,
+    ]
   );
 
-  const onBlurWithEvent = useCallback(
-    (event: BlurEvent) => {
-      handlers?.onBlur?.(event);
-      onBlur();
+  const onBlur = useCallback(
+    (event?: BlurEvent) => {
+      if (event) {
+        handlers?.onBlur?.(event);
+      }
+
+      const blurredTarget = event?.nativeEvent.target;
+
+      queueMicrotask(() => {
+        const keyboardState = animatedKeyboardState.get();
+
+        if (
+          blurredTarget !== undefined &&
+          keyboardState.target === blurredTarget
+        ) {
+          animatedKeyboardState.set((state) => ({
+            ...state,
+            target: undefined,
+          }));
+        }
+
+        if (hasActiveSheetInput()) {
+          return;
+        }
+
+        if (keyboardVisible) {
+          return;
+        }
+
+        if (!keyboardSnapActiveRef.current) {
+          return;
+        }
+
+        restoreSnapIndex();
+      });
     },
-    [handlers, onBlur]
+    [
+      animatedKeyboardState,
+      handlers,
+      hasActiveSheetInput,
+      keyboardVisible,
+      restoreSnapIndex,
+    ]
   );
+
+  useEffect(() => {
+    if (keyboardVisible || !keyboardSnapActiveRef.current) {
+      return;
+    }
+
+    if (hasActiveSheetInput()) {
+      return;
+    }
+
+    restoreSnapIndex();
+  }, [hasActiveSheetInput, keyboardVisible, restoreSnapIndex]);
+
+  const onFocusWithEvent = onFocus;
+  const onBlurWithEvent = onBlur;
 
   return {
     onFocus,
@@ -533,10 +693,10 @@ export const BottomSheetOverlay = ({
 
   return (
     <AnimatedPressable
-      className={cn("bg-black", className)}
+      className={cn("absolute inset-0 bg-black", className)}
       disabled={!closeOnPress}
       onPress={handlePress}
-      style={[StyleSheet.absoluteFill, animatedStyle]}
+      style={animatedStyle}
     />
   );
 };
@@ -665,10 +825,12 @@ export const BottomSheetContent = ({
   }, [open, bottomSheetRef, enableDynamicSizing]);
 
   const footerComponent = useCallback(
-    (footerProps: React.ComponentProps<typeof GorhomBottomSheetFooter>) => (
-      <GorhomBottomSheetFooter {...footerProps}>
+    (footerProps: { animatedFooterPosition: SharedValue<number> }) => (
+      <BottomSheetAnimatedFooter
+        animatedFooterPosition={footerProps.animatedFooterPosition}
+      >
         {footer}
-      </GorhomBottomSheetFooter>
+      </BottomSheetAnimatedFooter>
     ),
     [footer]
   );
@@ -687,7 +849,7 @@ export const BottomSheetContent = ({
   ) : (
     <BottomSheetView
       className={cn("bg-background", className)}
-      enableFooterMarginAdjustment={Boolean(footer)}
+      enableFooterMarginAdjustment
       style={{ paddingBottom: footer ? 0 : bottom }}
     >
       {header}
@@ -728,18 +890,21 @@ export const BottomSheetScrollView = ({
   contentContainerClassName,
   contentContainerStyle,
   headerInset = 0,
+  style,
   ...props
 }: React.ComponentProps<typeof GorhomBottomSheetScrollView> & {
   contentContainerClassName?: string;
   headerInset?: number;
 }) => (
   <GorhomBottomSheetScrollView
-    className={className}
+    className={cn("min-h-0 flex-1", className)}
     contentContainerClassName={cn("px-4 pb-4", contentContainerClassName)}
     contentContainerStyle={[
       headerInset > 0 ? { paddingTop: headerInset } : undefined,
       contentContainerStyle,
     ]}
+    enableFooterMarginAdjustment
+    style={style}
     {...props}
   />
 );
@@ -797,14 +962,31 @@ export const BottomSheetFooter = ({
   ...props
 }: React.ComponentProps<typeof View>) => {
   const { bottom } = useSafeAreaInsets();
+  const { progress: keyboardProgress } = useReanimatedKeyboardAnimation();
+  const closedBottomPadding = Math.max(
+    bottom,
+    BOTTOM_SHEET_FOOTER_BASE_PADDING
+  );
+
+  const animatedStyle = useAnimatedStyle(
+    () => ({
+      paddingBottom: interpolate(
+        keyboardProgress.value,
+        [0, 1],
+        [closedBottomPadding, BOTTOM_SHEET_FOOTER_BASE_PADDING],
+        Extrapolation.CLAMP
+      ),
+    }),
+    [closedBottomPadding]
+  );
 
   return (
-    <View
+    <Animated.View
       className={cn(
         "flex flex-col gap-2 border-border border-t bg-background px-4 pt-4",
         className
       )}
-      style={[{ paddingBottom: Math.max(bottom, 16) }, style]}
+      style={[animatedStyle, style]}
       {...props}
     />
   );

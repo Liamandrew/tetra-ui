@@ -2,6 +2,7 @@ import {
   KeyboardAvoidingView as RNKeyboardAvoidingView,
   KeyboardAwareScrollView as RNKeyboardAwareScrollView,
   KeyboardProvider as RNKeyboardProvider,
+  KeyboardStickyView as RNKeyboardStickyView,
   KeyboardToolbar as RNKeyboardToolbar,
 } from "react-native-keyboard-controller";
 
@@ -15,5 +16,7 @@ export const KeyboardAwareScrollView = ({
 };
 
 export const KeyboardProvider = RNKeyboardProvider;
+
+export const KeyboardStickyView = RNKeyboardStickyView;
 
 export const KeyboardToolbar = RNKeyboardToolbar;

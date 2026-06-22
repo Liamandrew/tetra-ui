@@ -112,7 +112,7 @@ function ScrollableSheetExample() {
           <BottomSheetHeader>
             <BottomSheetTitle>Notifications</BottomSheetTitle>
           </BottomSheetHeader>
-          <BottomSheetScrollView className="flex-1">
+          <BottomSheetScrollView>
             {Array.from({ length: 24 }, (_, index) => (
               <View
                 className="border-border border-b py-3"
@@ -142,46 +142,44 @@ function KeyboardSheetExample() {
       <BottomSheetPortal>
         <BottomSheetOverlay />
         <BottomSheetContent defaultSnapIndex={0} snapPoints={[0.45, 0.92]}>
-          <KeyboardSheetForm onClose={() => setOpen(false)} />
+          <BottomSheetHeader>
+            <BottomSheetTitle>Send a message</BottomSheetTitle>
+          </BottomSheetHeader>
+          <BottomSheetScrollView>
+            <KeyboardSheetFields />
+          </BottomSheetScrollView>
+          <BottomSheetFooter>
+            <Button onPress={() => setOpen(false)}>Send</Button>
+          </BottomSheetFooter>
         </BottomSheetContent>
       </BottomSheetPortal>
     </BottomSheet>
   );
 }
 
-function KeyboardSheetForm({ onClose }: { onClose: () => void }) {
+function KeyboardSheetFields() {
   const inputHandlers = useBottomSheetInputHandlers();
 
   return (
-    <>
-      <BottomSheetHeader>
-        <BottomSheetTitle>Send a message</BottomSheetTitle>
-      </BottomSheetHeader>
-      <BottomSheetScrollView className="flex-1">
-        <Stack gap="md">
-          <Stack gap="xs">
-            <Label>Name</Label>
-            <TextInput
-              onBlur={inputHandlers.onBlur}
-              onFocus={inputHandlers.onFocus}
-              placeholder="Your name"
-            />
-          </Stack>
-          <Stack gap="xs">
-            <Label>Message</Label>
-            <TextInput
-              multiline
-              onBlur={inputHandlers.onBlur}
-              onFocus={inputHandlers.onFocus}
-              placeholder="Type a message..."
-            />
-          </Stack>
-        </Stack>
-      </BottomSheetScrollView>
-      <BottomSheetFooter>
-        <Button onPress={onClose}>Send</Button>
-      </BottomSheetFooter>
-    </>
+    <Stack gap="md">
+      <Stack gap="xs">
+        <Label>Name</Label>
+        <TextInput
+          onBlur={inputHandlers.onBlur}
+          onFocus={inputHandlers.onFocus}
+          placeholder="Your name"
+        />
+      </Stack>
+      <Stack gap="xs">
+        <Label>Message</Label>
+        <TextInput
+          multiline
+          onBlur={inputHandlers.onBlur}
+          onFocus={inputHandlers.onFocus}
+          placeholder="Type a message..."
+        />
+      </Stack>
+    </Stack>
   );
 }
 

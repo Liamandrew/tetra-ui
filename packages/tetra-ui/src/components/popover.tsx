@@ -13,7 +13,6 @@ import {
   type LayoutChangeEvent,
   type LayoutRectangle,
   Pressable,
-  StyleSheet,
   type View,
   type ViewStyle,
 } from "react-native";
@@ -238,10 +237,10 @@ export const PopoverOverlay = ({
 
   return (
     <AnimatedPressable
-      className={cn("bg-black", className)}
+      className={cn("absolute inset-0 bg-black", className)}
       disabled={!closeOnPress}
       onPress={() => onOpenChange(false)}
-      style={[StyleSheet.absoluteFill, animatedStyle]}
+      style={animatedStyle}
     />
   );
 };

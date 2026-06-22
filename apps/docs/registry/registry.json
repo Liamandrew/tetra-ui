@@ -239,6 +239,7 @@
         "@gorhom/bottom-sheet",
         "react-native-gesture-handler",
         "react-native-reanimated",
+        "react-native-keyboard-controller",
         "react-native-safe-area-context",
         "react-native-screens",
         "react-native-worklets"
