@@ -149,9 +149,7 @@ const BottomSheetStickyScrollContent = ({
     : 0;
 
   return (
-    <View
-      className={cn("absolute inset-0 bg-background", className)}
-    >
+    <View className={cn("absolute inset-0 bg-background", className)}>
       {header ? (
         <View
           className="absolute inset-x-0 top-0 z-10 border-border border-b bg-background"
