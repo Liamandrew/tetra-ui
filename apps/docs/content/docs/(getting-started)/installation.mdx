@@ -176,17 +176,8 @@ export function mergeRefs<T>(...refs: (React.Ref<T> | undefined)[]) {
     "ui": "@/components",
     "lib": "@/lib",
     "hooks": "@/hooks"
-  },
-  "registries": {
-    "@tetra-ui": "https://tetra-ui.com/r/{name}.json"
   }
 }
-```
-
-The key detail is to register the `tetra-ui` with the following entry:
-
-```
-"@tetra-ui": "https://tetra-ui.com/r/{name}.json"
 ```
 
 Learn more about the `components.json` file and how to configure it [here](https://ui.shadcn.com/docs/components-json).
