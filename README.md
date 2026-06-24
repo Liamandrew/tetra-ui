@@ -21,17 +21,7 @@ Components are styled with [Uniwind](https://docs.uniwind.dev/) (Tailwind for Re
 
 1. **Install Uniwind** — [docs.uniwind.dev](https://docs.uniwind.dev/)
 2. **Add utilities** — `npm install class-variance-authority clsx tailwind-merge`
-3. **Configure `components.json`** with the tetra-ui registry:
-
-```json
-{
-  "registries": {
-    "@tetra-ui": "https://tetra-ui.com/r/{name}.json"
-  }
-}
-```
-
-4. **Add a component:**
+3. **Add a component:**
 
 ```bash
 npx shadcn@latest add @tetra-ui/button
