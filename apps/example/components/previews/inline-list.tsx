@@ -1,4 +1,10 @@
 import {
+  ChevronRightIcon,
+  MailIcon,
+  ShieldIcon,
+  ShoppingCartIcon,
+} from "@/components/ui/icons";
+import {
   InlineList,
   InlineListItem,
   InlineListItemAddon,
@@ -6,12 +12,6 @@ import {
   InlineListItemDescription,
   InlineListItemTitle,
 } from "@/components/ui/inline-list";
-import {
-  ChevronRightIcon,
-  MailIcon,
-  ShieldIcon,
-  ShoppingCartIcon,
-} from "@/components/ui/icons";
 import { Stack } from "@/components/ui/stack";
 
 const handlePress = () => {

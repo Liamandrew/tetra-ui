@@ -21,7 +21,13 @@ export const PasswordInput = ({
   const Icon = isSecureEntry ? EyeOffIcon : EyeIcon;
 
   return (
-    <TextInput {...props} disabled={disabled} secureTextEntry={isSecureEntry}>
+    <TextInput
+      {...props}
+      disabled={disabled}
+      onBlur={onBlur}
+      onFocus={onFocus}
+      secureTextEntry={isSecureEntry}
+    >
       <InputAddon align="inline-end">
         <InputAddonButton
           disabled={disabled}
