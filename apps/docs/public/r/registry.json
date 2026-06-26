@@ -174,6 +174,19 @@
       ]
     },
     {
+      "name": "inline-list",
+      "type": "registry:ui",
+      "title": "Inline List",
+      "description": "A grouped list section for settings-style rows with flexible leading and trailing addons.",
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "../../packages/tetra-ui/src/components/inline-list.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "input",
       "type": "registry:ui",
       "title": "Input",

@@ -1,0 +1,177 @@
+---
+title: Inline List
+description: A grouped list section for settings-style rows with flexible leading and trailing addons.
+---
+
+<ComponentPreview name="inline-list" type="gif" />
+
+## Installation
+
+<Tabs defaultValue="cli">
+
+<TabsList>
+  <TabsTrigger value="cli">CLI</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+
+<TabsContent value="cli">
+
+```package-install
+npx shadcn@latest add @tetra-ui/inline-list
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps>
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource name="inline-list" title="components/ui/inline-list.tsx" />
+
+</Steps>
+
+</TabsContent>
+
+</Tabs>
+
+## Usage
+
+```tsx
+import {
+  InlineList,
+  InlineListItem,
+  InlineListItemDescription,
+  InlineListItemTitle,
+} from "@/components/ui/inline-list";
+```
+
+```tsx
+<InlineList title="Account">
+  <InlineListItem onPress={() => {}}>
+    <InlineListItemTitle>Personal Info</InlineListItemTitle>
+    <InlineListItemDescription>
+      Name, email, phone number
+    </InlineListItemDescription>
+  </InlineListItem>
+  <InlineListItem onPress={() => {}}>
+    <InlineListItemTitle>Payment Methods</InlineListItemTitle>
+    <InlineListItemDescription>Visa ending in 4829</InlineListItemDescription>
+  </InlineListItem>
+</InlineList>
+```
+
+Separators between items are inserted automatically with a left inset. You do not need to add `Separator` components manually.
+
+## String children
+
+Pass a string as `InlineListItem` children for a simple title-only row:
+
+```tsx
+<InlineListItem onPress={() => {}}>Wi-Fi</InlineListItem>
+```
+
+## With icons
+
+Use `InlineListItemAddon` with `align="inline-start"` or `align="inline-end"` to position leading or trailing content:
+
+```tsx
+import {
+  InlineListItemAddon,
+  InlineListItemAddonIcon,
+} from "@/components/ui/inline-list";
+import { ChevronRightIcon, ShieldIcon } from "@/components/ui/icons";
+```
+
+```tsx
+<InlineList title="Security">
+  <InlineListItem onPress={() => {}}>
+    <InlineListItemAddon align="inline-start">
+      <InlineListItemAddonIcon>
+        <ShieldIcon />
+      </InlineListItemAddonIcon>
+    </InlineListItemAddon>
+    <InlineListItemTitle>Two-Factor Auth</InlineListItemTitle>
+    <InlineListItemDescription>SMS and authenticator app</InlineListItemDescription>
+    <InlineListItemAddon align="inline-end">
+      <InlineListItemAddonIcon>
+        <ChevronRightIcon />
+      </InlineListItemAddonIcon>
+    </InlineListItemAddon>
+  </InlineListItem>
+</InlineList>
+```
+
+When a row has a leading addon, the separator inset aligns with the title text rather than under the icon.
+
+## Selection rows
+
+Selection state is controlled by the consumer. Compose `Radio` or `Checkbox` in an `inline-end` addon:
+
+```tsx
+import { Radio } from "@/components/ui/radio";
+```
+
+```tsx
+<InlineList title="Network">
+  <InlineListItem
+    accessibilityRole="radio"
+    accessibilityState={{ selected: value === "wifi" }}
+    onPress={() => setValue("wifi")}
+  >
+    <InlineListItemTitle>Wi-Fi</InlineListItemTitle>
+    <InlineListItemAddon align="inline-end">
+      <Radio checked={value === "wifi"} />
+    </InlineListItemAddon>
+  </InlineListItem>
+  <InlineListItem
+    accessibilityRole="radio"
+    accessibilityState={{ selected: value === "cellular" }}
+    onPress={() => setValue("cellular")}
+  >
+    <InlineListItemTitle>Cellular</InlineListItemTitle>
+    <InlineListItemAddon align="inline-end">
+      <Radio checked={value === "cellular"} />
+    </InlineListItemAddon>
+  </InlineListItem>
+</InlineList>
+```
+
+## Static rows
+
+Omit `onPress` to render a non-interactive row — useful for trailing controls such as `Switch`:
+
+```tsx
+import { Switch } from "@/components/ui/switch";
+```
+
+```tsx
+  <InlineListItem>
+    <InlineListItemTitle>Notifications</InlineListItemTitle>
+    <InlineListItemAddon align="inline-end">
+      <Switch onValueChange={setEnabled} value={enabled} />
+    </InlineListItemAddon>
+  </InlineListItem>
+```
+
+## Multiple sections
+
+Stack multiple `InlineList` components with section titles:
+
+```tsx
+<Stack gap="lg">
+  <InlineList title="Account">{/* ... */}</InlineList>
+  <InlineList title="Preferences">{/* ... */}</InlineList>
+</Stack>
+```
+
+## Suppress a separator
+
+Pass `showSeparator={false}` on a specific item to hide the divider below it:
+
+```tsx
+<InlineListItem showSeparator={false} onPress={() => {}}>
+  Last item without a trailing separator
+</InlineListItem>
+```

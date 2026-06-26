@@ -44,6 +44,7 @@ Install any component with `npx shadcn@latest add @tetra-ui/{name}`.
 - [form](https://tetra-ui.com/docs/components/form): Form composition with react-hook-form
 - [heading](https://tetra-ui.com/docs/components/heading): Heading text component
 - [icons](https://tetra-ui.com/docs/components/icons): Icons styled with Tailwind classes
+- [inline-list](https://tetra-ui.com/docs/components/inline-list): Grouped list section for settings-style rows with leading and trailing addons
 - [input](https://tetra-ui.com/docs/components/input): Core text input primitive
 - [label](https://tetra-ui.com/docs/components/label): Form input labels
 - [menu](https://tetra-ui.com/docs/components/menu): Native menu via Expo UI with groups, separators, and submenus

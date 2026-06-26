@@ -1,43 +1,32 @@
-import { Card, CardContent } from "@repo/tetra-ui/components/card";
 import { ChevronRightIcon } from "@repo/tetra-ui/components/icons";
-import { Separator } from "@repo/tetra-ui/components/separator";
-import { Stack } from "@repo/tetra-ui/components/stack";
-import { Text } from "@repo/tetra-ui/components/text";
-import { type Href, Link } from "expo-router";
-import { Fragment } from "react";
-import { Pressable, View } from "react-native";
+import {
+  InlineList,
+  InlineListItem,
+  InlineListItemAddon,
+  InlineListItemAddonIcon,
+  InlineListItemTitle,
+} from "@repo/tetra-ui/components/inline-list";
+import { type Href, router } from "expo-router";
 import { ScreenScrollView } from "@/components/screen";
 
 export default function Index() {
   return (
     <ScreenScrollView contentContainerClassName="p-4">
-      <Card className="p-0">
-        <CardContent className="p-0">
-          {COMPONENTS.map((component, index) => (
-            <Fragment key={index.toString()}>
-              <Link asChild href={component.href}>
-                <Pressable className="p-4 active:bg-muted/40">
-                  <Stack
-                    className="items-center justify-between"
-                    direction="row"
-                    gap="sm"
-                  >
-                    <Text className="font-medium text-base">
-                      {component.title}
-                    </Text>
-
-                    <ChevronRightIcon className="size-5 text-muted-foreground" />
-                  </Stack>
-                </Pressable>
-              </Link>
-
-              <View className="px-4">
-                <Separator />
-              </View>
-            </Fragment>
-          ))}
-        </CardContent>
-      </Card>
+      <InlineList>
+        {COMPONENTS.map((component) => (
+          <InlineListItem
+            key={component.title}
+            onPress={() => router.push(component.href)}
+          >
+            <InlineListItemTitle>{component.title}</InlineListItemTitle>
+            <InlineListItemAddon align="inline-end">
+              <InlineListItemAddonIcon>
+                <ChevronRightIcon />
+              </InlineListItemAddonIcon>
+            </InlineListItemAddon>
+          </InlineListItem>
+        ))}
+      </InlineList>
     </ScreenScrollView>
   );
 }
@@ -55,6 +44,7 @@ const COMPONENTS: Array<{ title: string; href: Href }> = [
   { title: "Empty", href: "/components/empty" },
   { title: "Form", href: "/components/form" },
   { title: "Heading", href: "/components/heading" },
+  { title: "Inline List", href: "/components/inline-list" },
   { title: "Label", href: "/components/label" },
   { title: "Menu", href: "/components/menu" },
   { title: "Native Sheet", href: "/components/native-sheet" },

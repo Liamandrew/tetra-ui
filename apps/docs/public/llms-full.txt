@@ -229,6 +229,62 @@ Icon components styled with Tailwind classes for React Native.
 Docs: https://tetra-ui.com/docs/components/icons
 Deps: react-native-svg
 
+### inline-list
+A grouped list section for settings-style rows with flexible leading and trailing addons.
+Docs: https://tetra-ui.com/docs/components/inline-list
+Registry deps: text
+Exports: InlineList, InlineListItem, InlineListItemTitle, InlineListItemDescription, InlineListItemAddon, InlineListItemAddonIcon, useInlineListItemAddons
+Props (InlineList): title (optional section heading)
+Props (InlineListItem): onPress (makes row pressable), showSeparator (default: true except last item), disabled
+Props (InlineListItemAddon): align ("inline-start" | "inline-end")
+
+Separators between items are inserted automatically with a left inset. Pass a string as InlineListItem children for a title-only row. Omit onPress for static rows (e.g. trailing Switch). Compose Radio or Checkbox in an inline-end addon for selection rows.
+
+Usage:
+```tsx
+import {
+  InlineList,
+  InlineListItem,
+  InlineListItemAddon,
+  InlineListItemAddonIcon,
+  InlineListItemDescription,
+  InlineListItemTitle,
+} from "@/components/ui/inline-list";
+import { ChevronRightIcon, ShieldIcon } from "@/components/ui/icons";
+
+<InlineList title="Account">
+  <InlineListItem onPress={() => {}}>
+    <InlineListItemTitle>Personal Info</InlineListItemTitle>
+    <InlineListItemDescription>
+      Name, email, phone number
+    </InlineListItemDescription>
+  </InlineListItem>
+  <InlineListItem onPress={() => {}}>
+    <InlineListItemAddon align="inline-start">
+      <InlineListItemAddonIcon>
+        <ShieldIcon />
+      </InlineListItemAddonIcon>
+    </InlineListItemAddon>
+    <InlineListItemTitle>Two-Factor Auth</InlineListItemTitle>
+    <InlineListItemAddon align="inline-end">
+      <InlineListItemAddonIcon>
+        <ChevronRightIcon />
+      </InlineListItemAddonIcon>
+    </InlineListItemAddon>
+  </InlineListItem>
+</InlineList>
+```
+
+Static row with Switch:
+```tsx
+<InlineListItem>
+  <InlineListItemTitle>Notifications</InlineListItemTitle>
+  <InlineListItemAddon align="inline-end">
+    <Switch onValueChange={setEnabled} value={enabled} />
+  </InlineListItemAddon>
+</InlineListItem>
+```
+
 ### input
 A core component that allows users to enter text.
 Docs: https://tetra-ui.com/docs/components/input
@@ -406,9 +462,9 @@ Install: `npx shadcn@latest add @tetra-ui/form @tetra-ui/text-input @tetra-ui/pa
 Use Form + FormField + TextInput + PasswordInput + Button with react-hook-form and zod.
 
 ### Settings screen
-Install: `npx shadcn@latest add @tetra-ui/switch @tetra-ui/separator @tetra-ui/heading @tetra-ui/text @tetra-ui/stack`
+Install: `npx shadcn@latest add @tetra-ui/inline-list @tetra-ui/switch @tetra-ui/radio @tetra-ui/icons @tetra-ui/stack`
 
-Use Stack for layout, Switch for toggles, Separator between sections.
+Use InlineList for grouped settings rows (automatic separators, optional section titles). Stack multiple InlineList sections. Use Switch in static rows, Radio in pressable selection rows, and InlineListItemAddon for leading icons or trailing chevrons.
 
 ### Bottom sheet picker
 Install: `npx shadcn@latest add @tetra-ui/select`
