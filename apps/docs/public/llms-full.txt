@@ -235,7 +235,7 @@ Docs: https://tetra-ui.com/docs/components/inline-list
 Registry deps: text
 Exports: InlineList, InlineListItem, InlineListItemTitle, InlineListItemDescription, InlineListItemAddon, InlineListItemAddonIcon, useInlineListItemAddons
 Props (InlineList): title (optional section heading)
-Props (InlineListItem): onPress (makes row pressable), showSeparator (default: true except last item), disabled
+Props (InlineListItem): onPress (makes row pressable), showSeparator (default: true except last item), disabled, variant ("default" | "destructive")
 Props (InlineListItemAddon): align ("inline-start" | "inline-end")
 
 Separators between items are inserted automatically with a left inset. Pass a string as InlineListItem children for a title-only row. Omit onPress for static rows (e.g. trailing Switch). Compose Radio or Checkbox in an inline-end addon for selection rows.
@@ -282,6 +282,13 @@ Static row with Switch:
   <InlineListItemAddon align="inline-end">
     <Switch onValueChange={setEnabled} value={enabled} />
   </InlineListItemAddon>
+</InlineListItem>
+```
+
+Destructive row:
+```tsx
+<InlineListItem onPress={() => {}} variant="destructive">
+  <InlineListItemTitle>Delete Account</InlineListItemTitle>
 </InlineListItem>
 ```
 

@@ -104,6 +104,10 @@ export default function InlineListScreen() {
                 </InlineListItemAddonIcon>
               </InlineListItemAddon>
             </InlineListItem>
+
+            <InlineListItem onPress={handlePress} variant="destructive">
+              <InlineListItemTitle>Delete Account</InlineListItemTitle>
+            </InlineListItem>
           </InlineList>
         </Stack>
       </ScreenHero>

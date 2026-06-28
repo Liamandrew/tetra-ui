@@ -17,9 +17,12 @@ export type InlineListProps = React.ComponentProps<typeof View> & {
   children: React.ReactNode;
 };
 
+type InlineListItemVariant = "default" | "destructive";
+
 export type InlineListItemProps = React.ComponentProps<typeof Pressable> & {
   children: React.ReactNode;
   showSeparator?: boolean;
+  variant?: InlineListItemVariant;
 };
 
 export type InlineListItemTitleProps = React.ComponentProps<typeof Text>;
@@ -49,6 +52,10 @@ type InlineListItemAddonAlign = NonNullable<
 >;
 
 // Context
+const InlineListItemContext = createContext<InlineListItemVariant>("default");
+
+const useInlineListItemContext = () => useContext(InlineListItemContext);
+
 const InlineListItemAddonContext =
   createContext<InlineListItemAddonAlign>("inline-start");
 
@@ -177,6 +184,7 @@ export const InlineListItem = ({
   showSeparator = false,
   onPress,
   disabled,
+  variant = "default",
   ...props
 }: InlineListItemProps) => {
   const { startAddons, endAddons } = useInlineListItemAddons(children);
@@ -185,12 +193,7 @@ export const InlineListItem = ({
     [children]
   );
 
-  const rowClassName = cn(
-    "min-h-12 w-full flex-row items-center gap-3 px-4 py-2",
-    onPress &&
-      "active:bg-accent/90 disabled:opacity-50 dark:active:bg-accent/50",
-    className
-  );
+  const rowClassName = cn(inlineListItemVariants({ variant }), className);
 
   const rowContent = (
     <>
@@ -203,31 +206,33 @@ export const InlineListItem = ({
   );
 
   return (
-    <View className="w-full" data-slot="inline-list-item">
-      {onPress ? (
-        <Pressable
-          {...props}
-          accessibilityState={{
-            disabled: disabled ?? undefined,
-            ...props.accessibilityState,
-          }}
-          className={rowClassName}
-          disabled={disabled}
-          onPress={onPress}
-        >
-          {rowContent}
-        </Pressable>
-      ) : (
-        <View className={rowClassName}>{rowContent}</View>
-      )}
+    <InlineListItemContext.Provider value={variant}>
+      <View className="w-full" data-slot="inline-list-item">
+        {onPress ? (
+          <Pressable
+            {...props}
+            accessibilityState={{
+              disabled: disabled ?? undefined,
+              ...props.accessibilityState,
+            }}
+            className={rowClassName}
+            disabled={disabled}
+            onPress={onPress}
+          >
+            {rowContent}
+          </Pressable>
+        ) : (
+          <View className={rowClassName}>{rowContent}</View>
+        )}
 
-      {showSeparator ? (
-        <View
-          className="ml-4 h-hairline bg-border"
-          data-slot="inline-list-item-separator"
-        />
-      ) : null}
-    </View>
+        {showSeparator ? (
+          <View
+            className="mx-4 h-hairline bg-border"
+            data-slot="inline-list-item-separator"
+          />
+        ) : null}
+      </View>
+    </InlineListItemContext.Provider>
   );
 };
 
@@ -235,9 +240,14 @@ export const InlineListItemTitle = ({
   className,
   ...props
 }: InlineListItemTitleProps) => {
+  const variant = useInlineListItemContext();
   return (
     <Text
-      className={cn("font-medium text-base text-foreground", className)}
+      className={cn(
+        "font-medium text-base text-foreground",
+        variant === "destructive" && "font-normal text-destructive",
+        className
+      )}
       data-slot="inline-list-item-title"
       {...props}
     />
@@ -250,7 +260,7 @@ export const InlineListItemDescription = ({
 }: InlineListItemDescriptionProps) => {
   return (
     <Text
-      className={cn("text-muted-foreground text-sm leading-none", className)}
+      className={cn("text-muted-foreground text-xs leading-none", className)}
       data-slot="inline-list-item-description"
       {...props}
     />
@@ -308,6 +318,21 @@ export const InlineListItemAddonIcon = ({
 };
 
 // Styles
+const inlineListItemVariants = cva(
+  "min-h-12 w-full flex-row items-center gap-3 px-4 py-2 disabled:opacity-50",
+  {
+    variants: {
+      variant: {
+        default: "active:bg-accent/90 dark:active:bg-accent/50",
+        destructive: "active:bg-destructive/5 dark:active:bg-destructive/10",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+    },
+  }
+);
+
 const inlineListItemAddonVariants = cva(
   "shrink-0 items-center justify-center",
   {

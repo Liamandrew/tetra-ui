@@ -155,6 +155,16 @@ import { Switch } from "@/components/ui/switch";
   </InlineListItem>
 ```
 
+## Destructive row
+
+Use `variant="destructive"` on `InlineListItem` for destructive actions such as sign out or delete account. The title is rendered in destructive color with a matching press highlight:
+
+```tsx
+<InlineListItem onPress={() => {}} variant="destructive">
+  <InlineListItemTitle>Delete Account</InlineListItemTitle>
+</InlineListItem>
+```
+
 ## Multiple sections
 
 Stack multiple `InlineList` components with section titles:
@@ -175,3 +185,9 @@ Pass `showSeparator={false}` on a specific item to hide the divider below it:
   Last item without a trailing separator
 </InlineListItem>
 ```
+
+## Changelog
+
+### 2026-06-29
+
+- Added `variant` prop to `InlineListItem` for destructive actions.
