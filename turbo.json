@@ -10,12 +10,23 @@
     "lint": {
       "dependsOn": ["^lint"]
     },
+    "check:lint": {
+      "dependsOn": ["^check:lint"]
+    },
     "check:types": {
       "dependsOn": ["^check:types"]
     },
     "dev": {
       "cache": false,
       "persistent": true
+    },
+    "fix:lint": {
+      "cache": false,
+      "persistent": true
+    },
+    "registry:build": {
+      "cache": false,
+      "dependsOn": ["fix:lint"]
     }
   }
 }

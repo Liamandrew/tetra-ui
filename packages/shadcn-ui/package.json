@@ -16,8 +16,8 @@
   "dependencies": {
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
-    "lucide-react": "^1.17.0",
-    "radix-ui": "1.4.3",
+    "lucide-react": "^1.22.0",
+    "radix-ui": "1.6.0",
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "tailwind-merge": "^3.6.0",
@@ -25,8 +25,8 @@
   },
   "devDependencies": {
     "@repo/typescript-config": "workspace:*",
-    "@tailwindcss/postcss": "^4.3.0",
-    "tailwindcss": "^4.3.0",
+    "@tailwindcss/postcss": "^4.3.1",
+    "tailwindcss": "^4.3.1",
     "typescript": "~6.0.3"
   }
 }

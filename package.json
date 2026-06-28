@@ -9,12 +9,13 @@
     "dev": "turbo run dev",
     "dev:docs": "turbo run dev --filter=docs",
     "dev:example": "turbo run dev --filter=example",
-    "fix:lint": "npx ultracite fix"
+    "fix:lint": "npx ultracite fix",
+    "registry:build": "turbo run registry:build --filter=docs"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.5.0",
+    "@biomejs/biome": "2.5.1",
     "husky": "^9.1.7",
-    "turbo": "^2.9.18",
+    "turbo": "^2.10.0",
     "typescript": "~6.0.3",
     "ultracite": "7.8.3"
   },
