@@ -186,7 +186,7 @@ export const InlineListItem = ({
   );
 
   const rowClassName = cn(
-    "min-h-12 w-full flex-row items-center gap-3 px-4 py-2.5",
+    "min-h-12 w-full flex-row items-center gap-3 px-4 py-2",
     onPress &&
       "active:bg-accent/90 disabled:opacity-50 dark:active:bg-accent/50",
     className
