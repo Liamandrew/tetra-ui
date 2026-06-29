@@ -292,6 +292,7 @@ export const InlineListItemAddonIcon = ({
   children,
   ...props
 }: InlineListItemAddonIconProps): React.ReactElement | null => {
+  const variant = useInlineListItemContext();
   const align = useInlineListItemAddonContext();
   const child = Children.only(children);
 
@@ -310,7 +311,11 @@ export const InlineListItemAddonIcon = ({
       ...props,
       className: cn(
         "size-5",
-        align === "inline-start" ? "text-foreground" : "text-muted-foreground",
+        align === "inline-start"
+          ? variant === "destructive"
+            ? "text-destructive"
+            : "text-foreground"
+          : "text-muted-foreground",
         props.className
       ),
     }
