@@ -10,8 +10,12 @@ import {
   Menu as MenuPrimitive,
   RNHostView,
   Section as SectionPrimitive,
+  Toggle as TogglePrimitive,
 } from "@expo/ui/swift-ui";
-import { disabled as disabledModifier } from "@expo/ui/swift-ui/modifiers";
+import {
+  disabled as disabledModifier,
+  type ModifierConfig,
+} from "@expo/ui/swift-ui/modifiers";
 import { Children, isValidElement, useMemo } from "react";
 
 import type {
@@ -24,26 +28,78 @@ import type {
   MenuTriggerProps,
 } from "./menu.types";
 
-// Components
-export const MenuItem = ({
-  variant = "default",
-  disabled,
-  ...props
-}: MenuItemProps) => {
-  return (
-    <ButtonPrimitive
-      modifiers={[disabledModifier(disabled)]}
-      {...props}
-      role={variant}
-    />
-  );
+// Types
+type MenuItemToggleProps = {
+  children: React.ReactElement | React.ReactElement[];
+  selected: boolean;
+  onPress?: () => void;
+  modifiers?: ModifierConfig[];
 };
+
+// Components
 export const MenuItemLabel = ({ children }: MenuItemLabelProps) => {
   return <TextPrimitive>{children}</TextPrimitive>;
 };
 
+MenuItemLabel.displayName = "MenuItemLabel";
+
 export const MenuItemIcon = ({ icon }: MenuItemIconProps) => {
   return <IconPrimitive name={icon} />;
+};
+
+MenuItemIcon.displayName = "MenuItemIcon";
+
+const MenuItemToggle = ({
+  selected,
+  onPress,
+  children,
+  modifiers,
+}: MenuItemToggleProps) => {
+  const selectableParts = useMemo(
+    () => extractSelectableItemParts(children),
+    [children]
+  );
+
+  return (
+    <TogglePrimitive
+      isOn={selected}
+      label={selectableParts.label}
+      modifiers={modifiers}
+      onIsOnChange={onPress}
+      systemImage={
+        typeof selectableParts.systemImage === "string"
+          ? selectableParts.systemImage
+          : undefined
+      }
+    />
+  );
+};
+export const MenuItem = ({
+  variant = "default",
+  disabled,
+  selected,
+  onPress,
+  children,
+}: MenuItemProps) => {
+  const modifiers = disabled ? [disabledModifier(true)] : undefined;
+
+  if (selected !== undefined) {
+    return (
+      <MenuItemToggle
+        modifiers={modifiers}
+        onPress={onPress}
+        selected={selected}
+      >
+        {children}
+      </MenuItemToggle>
+    );
+  }
+
+  return (
+    <ButtonPrimitive modifiers={modifiers} onPress={onPress} role={variant}>
+      {children}
+    </ButtonPrimitive>
+  );
 };
 
 export const MenuSeparator = DividerPrimitive;
@@ -120,6 +176,32 @@ export const MenuSub = ({ children, ...props }: MenuProps) => {
 };
 
 // Utils
+const extractSelectableItemParts = (
+  children: React.ReactElement | React.ReactElement[]
+) => {
+  let label: string | undefined;
+  let systemImage: MenuItemIconProps["icon"] | undefined;
+
+  Children.forEach(children, (child) => {
+    if (!isValidElement(child)) {
+      return;
+    }
+
+    const displayName = getMenuChildDisplayName(child);
+
+    if (displayName === "MenuItemIcon") {
+      systemImage = (child.props as MenuItemIconProps).icon;
+      return;
+    }
+
+    if (displayName === "MenuItemLabel") {
+      label = (child.props as MenuItemLabelProps).children;
+    }
+  });
+
+  return { label, systemImage };
+};
+
 const getMenuChildDisplayName = (child: React.ReactNode) => {
   if (!isValidElement(child)) {
     return;

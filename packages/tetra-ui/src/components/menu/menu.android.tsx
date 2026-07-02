@@ -98,6 +98,7 @@ export const MenuItem = ({
   onPress,
   children,
   disabled,
+  selected,
   ...rest
 }: MenuItemProps) => {
   const { dismissAll: dismissRootMenu } = useMenuAndroidContext();
@@ -105,6 +106,9 @@ export const MenuItem = ({
   const isSubTrigger = useContext(MenuSubTriggerContext);
   const isHorizontalGroup = useContext(MenuGroupHorizontalContext);
   const destructiveColor = useCSSVariable("--color-destructive") as string;
+  const foregroundColor = useCSSVariable(
+    variant === "destructive" ? "--color-destructive" : "--color-foreground"
+  ) as string;
 
   const modifiers = isHorizontalGroup
     ? [
@@ -145,6 +149,11 @@ export const MenuItem = ({
         onClick={handleClick}
       >
         {children}
+        {selected && (
+          <DropdownMenuItemPrimitive.TrailingIcon>
+            <TextPrimitive color={foregroundColor}>✓</TextPrimitive>
+          </DropdownMenuItemPrimitive.TrailingIcon>
+        )}
       </DropdownMenuItemPrimitive>
     </MenuItemAndroidContext.Provider>
   );

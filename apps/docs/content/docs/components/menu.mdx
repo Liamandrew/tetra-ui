@@ -125,6 +125,58 @@ Pass `disabled` to prevent interaction:
 </MenuItem>
 ```
 
+## Selected
+
+Pass `selected` to render a checkmark on selectable items. Omit `selected` for regular action items. You control the state and update it in `onPress`.
+
+Single-select (for example, sort options):
+
+```tsx
+import { useState } from "react";
+
+const [sort, setSort] = useState<"name" | "date">("name");
+
+<MenuItem selected={sort === "name"} onPress={() => setSort("name")}>
+  <MenuItemIcon
+    icon={Platform.select({
+      ios: "textformat",
+      android: require("@expo/material-symbols/sort_by_alpha.xml"),
+    })}
+  />
+  <MenuItemLabel>Name</MenuItemLabel>
+</MenuItem>
+<MenuItem selected={sort === "date"} onPress={() => setSort("date")}>
+  <MenuItemIcon
+    icon={Platform.select({
+      ios: "calendar",
+      android: require("@expo/material-symbols/calendar_today.xml"),
+    })}
+  />
+  <MenuItemLabel>Date</MenuItemLabel>
+</MenuItem>
+```
+
+Multi-toggle (for example, filters):
+
+```tsx
+const [showCompleted, setShowCompleted] = useState(true);
+
+<MenuItem
+  selected={showCompleted}
+  onPress={() => setShowCompleted((value) => !value)}
+>
+  <MenuItemIcon
+    icon={Platform.select({
+      ios: "checkmark.circle",
+      android: require("@expo/material-symbols/check_circle.xml"),
+    })}
+  />
+  <MenuItemLabel>Show completed</MenuItemLabel>
+</MenuItem>
+```
+
+On iOS, selectable items use SwiftUI `Toggle` and render a trailing checkmark when `selected` is `true`. On Android, a trailing `✓` is shown. Destructive items with `selected` do not show a checkmark on iOS because `Toggle` has no destructive role.
+
 ## Groups
 
 Group related items with `MenuGroup`. A vertical group with a `title` renders as a section. A horizontal group lays icon-only items in a row.
@@ -209,11 +261,16 @@ Nest a submenu with `MenuSub`, `MenuSubTrigger`, and `MenuSubContent`:
 | Android  | Jetpack Compose `DropdownMenu` |
 | Web      | No-op stubs        |
 
-Menus use native Expo UI primitives under the hood. Selecting an item dismisses the menu automatically on iOS and Android.
+Menus use native Expo UI primitives under the hood. Selecting a regular item dismisses the menu automatically on iOS and Android. Selectable items on iOS may keep the menu open after tap (native SwiftUI `Toggle` behavior); on Android, selectable items still dismiss the menu.
 
 ## Changelog
 
-### 08-06-2026 - Add support for disabled items & remove MenuItemIcon.select
+### 2026-06-08 - Add support for disabled items & remove MenuItemIcon.select
 
 - Add support for disabled items.
 - Remove `MenuItemIcon.select` as it is no longer needed. Use `Platform.select` instead.
+
+### 2026-07-02 - Add support for selected items
+
+- Add optional `selected` prop to `MenuItem` for checkmark states.
+- iOS uses SwiftUI `Toggle`; Android renders a trailing checkmark.
