@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { BottomSheetPreview } from "@/components/previews";
 import { ScreenHero, ScreenScrollView } from "@/components/screen";
 import {
   BottomSheet,
@@ -11,7 +12,6 @@ import {
   BottomSheetTrigger,
 } from "@/components/ui/bottom-sheet";
 import { Button } from "@/components/ui/button";
-import { CheckboxInput } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { Stack } from "@/components/ui/stack";
 import { Text } from "@/components/ui/text";
@@ -22,7 +22,7 @@ export default function BottomSheetScreen() {
     <ScreenScrollView>
       <ScreenHero className="items-stretch">
         <Stack gap="md">
-          <BasicSheetExample />
+          <BottomSheetPreview />
           <SnapPointsSheetExample />
           <FullOnlySheetExample />
           <ScrollableSheetExample />
@@ -31,40 +31,6 @@ export default function BottomSheetScreen() {
         </Stack>
       </ScreenHero>
     </ScreenScrollView>
-  );
-}
-
-function BasicSheetExample() {
-  const [open, setOpen] = useState(false);
-  const [notifications, setNotifications] = useState(true);
-
-  return (
-    <BottomSheet onOpenChange={setOpen} open={open}>
-      <BottomSheetTrigger asChild>
-        <Button>Open Settings</Button>
-      </BottomSheetTrigger>
-      <BottomSheetContent>
-        <BottomSheetHeader>
-          <BottomSheetTitle>Settings</BottomSheetTitle>
-        </BottomSheetHeader>
-        <BottomSheetBody className="pb-4">
-          <Stack gap="md">
-            <Text className="text-muted-foreground">
-              Auto-sizes to content. No portal or overlay needed.
-            </Text>
-            <CheckboxInput
-              checked={notifications}
-              onPress={() => setNotifications(!notifications)}
-            >
-              <Text>Enable notifications</Text>
-            </CheckboxInput>
-          </Stack>
-        </BottomSheetBody>
-        <BottomSheetFooter>
-          <Button onPress={() => setOpen(false)}>Done</Button>
-        </BottomSheetFooter>
-      </BottomSheetContent>
-    </BottomSheet>
   );
 }
 
