@@ -1,9 +1,9 @@
 ---
 title: Bottom Sheet
-description: An interactive bottom sheet with snap points, gestures, scroll coordination, and keyboard support.
+description: An interactive bottom sheet built on Expo UI with native snap points, gestures, and keyboard support.
 ---
 
-Bottom Sheet wraps [@gorhom/bottom-sheet](https://github.com/gorhom/react-native-bottom-sheet) with a compound component API similar to [Native Sheet](/docs/components/native-sheet). It is the recommended sheet component for new projects—whether you need draggable snap points, scrollable content, keyboard-aware forms, or a simple modal sheet.
+Bottom Sheet is built on [@expo/ui](https://docs.expo.dev/versions/latest/sdk/ui/) native bottom sheets — SwiftUI on iOS and Jetpack Compose on Android. Use it for draggable snap points, scrollable content, keyboard-aware forms, or simple modal sheets.
 
 <ComponentPreview name="bottom-sheet" type="gif" />
 
@@ -31,14 +31,12 @@ npx shadcn@latest add @tetra-ui/bottom-sheet
 <Step>Install the following dependencies:</Step>
 
 ```package-install
-npm install @gorhom/bottom-sheet react-native-gesture-handler react-native-reanimated react-native-keyboard-controller react-native-safe-area-context react-native-screens react-native-worklets
+npm install @expo/ui react-native-reanimated react-native-keyboard-controller react-native-safe-area-context
 ```
-
-<Step>Wrap your app with `GestureHandlerRootView` (included in tetra-ui `ThemeProvider`).</Step>
 
 <Step>Copy and paste the following code into your project.</Step>
 
-<ComponentSource name="bottom-sheet" title="components/ui/bottom-sheet.tsx" />
+<ComponentSource name="bottom-sheet" />
 
 </Steps>
 
@@ -57,8 +55,6 @@ import {
   BottomSheetContent,
   BottomSheetFooter,
   BottomSheetHeader,
-  BottomSheetOverlay,
-  BottomSheetPortal,
   BottomSheetTitle,
   BottomSheetTrigger,
 } from "@/components/ui/bottom-sheet";
@@ -71,43 +67,49 @@ import {
       <ButtonText>Open</ButtonText>
     </Button>
   </BottomSheetTrigger>
-  <BottomSheetPortal>
-    <BottomSheetOverlay />
-    <BottomSheetContent>
-      <BottomSheetHeader>
-        <BottomSheetTitle>Bottom Sheet Title</BottomSheetTitle>
-      </BottomSheetHeader>
-      <BottomSheetBody>
-        <Text className="text-foreground">Bottom Sheet Body</Text>
-      </BottomSheetBody>
-      <BottomSheetFooter>
-        <BottomSheetClose asChild>
-          <Button>
-            <ButtonText>Close</ButtonText>
-          </Button>
-        </BottomSheetClose>
-      </BottomSheetFooter>
-    </BottomSheetContent>
-  </BottomSheetPortal>
+  <BottomSheetContent>
+    <BottomSheetHeader>
+      <BottomSheetTitle>Bottom Sheet Title</BottomSheetTitle>
+    </BottomSheetHeader>
+    <BottomSheetBody>
+      <Text className="text-foreground">Bottom Sheet Body</Text>
+    </BottomSheetBody>
+    <BottomSheetFooter>
+      <BottomSheetClose asChild>
+        <Button>
+          <ButtonText>Close</ButtonText>
+        </Button>
+      </BottomSheetClose>
+    </BottomSheetFooter>
+  </BottomSheetContent>
 </BottomSheet>
 ```
 
 ## Snap points
 
-Pass fractional values (`0.4` → `40%`), pixel numbers, or percentage strings to `BottomSheetContent`:
+Pass Expo UI `SnapPoint` values to `BottomSheetContent`:
+
+- `"half"` — medium detent (iOS) / partial expansion (Android)
+- `"full"` — large detent (iOS) / full expansion (Android)
+- `{ fraction: 0.4 }` — fractional height
+- `{ height: 320 }` — fixed height in points
 
 ```tsx
-<BottomSheetContent snapPoints={[0.35, 0.65, 1]} defaultSnapIndex={1}>
+<BottomSheetContent snapPoints={[{ fraction: 1 / 3 }, "half", "full"]}>
   {/* ... */}
 </BottomSheetContent>
 ```
 
+Omit `snapPoints` to auto-size the sheet to its content.
+
+On iOS, multiple detents are supported natively. On Android, fractional and height snap points map to the nearest partial or expanded state.
+
 ## Scrollable content
 
-Use `BottomSheetScrollView` for long lists so scrolling does not conflict with sheet drag gestures. Place `BottomSheetHeader` as a sibling above the scroll view — it stays pinned at the top while content scrolls beneath it (same pattern as `BottomSheetFooter`):
+Use `BottomSheetScrollView` for long lists. Place `BottomSheetHeader` as a sibling above the scroll view:
 
 ```tsx
-<BottomSheetContent snapPoints={[0.5, 0.9]}>
+<BottomSheetContent snapPoints={["half", "full"]}>
   <BottomSheetHeader>
     <BottomSheetTitle>List</BottomSheetTitle>
   </BottomSheetHeader>
@@ -119,52 +121,51 @@ Use `BottomSheetScrollView` for long lists so scrolling does not conflict with s
 
 ## Keyboard
 
-With snap points configured, call `useBottomSheetInputHandlers()` inside the sheet and pass `onFocus` / `onBlur` to inputs. The sheet expands to the highest snap while focused, and `BottomSheetFooter` stays above the keyboard via gorhom's footer slot.
+The native sheet handles keyboard avoidance automatically. `BottomSheetFooter` stays above the keyboard without manual input hooks.
 
-`BottomSheetHeader`, `BottomSheetScrollView`, and `BottomSheetFooter` must be **direct children** of `BottomSheetContent` (fragments are fine). Wrapping them in a custom component prevents the footer from being registered:
+`BottomSheetHeader`, `BottomSheetScrollView`, and `BottomSheetFooter` must be **direct children** of `BottomSheetContent` (fragments are fine). On Android, children are split by component type so the footer can sit outside the scroll area in the Compose layout.
 
 ```tsx
-function SheetForm() {
-  const { onFocus, onBlur } = useBottomSheetInputHandlers();
-
-  return (
-    <>
-      <BottomSheetHeader>
-        <BottomSheetTitle>Send a message</BottomSheetTitle>
-      </BottomSheetHeader>
-      <BottomSheetScrollView>
-        <TextInput onFocus={onFocus} onBlur={onBlur} placeholder="Message" />
-      </BottomSheetScrollView>
-      <BottomSheetFooter>
-        <Button>Send</Button>
-      </BottomSheetFooter>
-    </>
-  );
-}
+<BottomSheetContent snapPoints={["half", "full"]}>
+  <BottomSheetHeader>
+    <BottomSheetTitle>Send a message</BottomSheetTitle>
+  </BottomSheetHeader>
+  <BottomSheetScrollView>
+    <TextInput placeholder="Message" />
+  </BottomSheetScrollView>
+  <BottomSheetFooter>
+    <Button>Send</Button>
+  </BottomSheetFooter>
+</BottomSheetContent>
 ```
 
 ## Bottom Sheet vs Native Sheet
 
 | Feature | Bottom Sheet | Native Sheet |
 | --- | --- | --- |
-| Foundation | @gorhom/bottom-sheet | React Native Modal |
+| Foundation | @expo/ui (SwiftUI / Compose) | React Native Modal |
 | Snap points | Yes | No |
 | Drag to resize / dismiss | Yes | No |
 | Scroll coordination | `BottomSheetScrollView` | Manual |
-| Keyboard awareness | Yes | No |
-| Overlay opacity vs expansion | Animated with snap index | Fade with open state |
+| Keyboard awareness | Yes (native) | No |
 | Sticky footer | `BottomSheetFooter` | `NativeSheetFooter` |
-| Best for | Interactive sheets, forms, lists | Simple dialogs, selects |
+| Best for | Interactive sheets, forms, lists | Simple dialogs |
 
 ## Changelog
 
-### 2026-05-25 Initial release
+### 2026-05-25 - Initial release
 
-- Compound API: `BottomSheet`, `BottomSheetPortal`, `BottomSheetOverlay`, `BottomSheetContent`, and layout primitives
+- Compound API: `BottomSheet`, `BottomSheetContent`, and layout primitives
 - Snap points, pan-down-to-close, dynamic sizing
-- `BottomSheetScrollView`, sticky `BottomSheetFooter`, `useBottomSheetInputHandlers`
+- `BottomSheetScrollView`, sticky `BottomSheetFooter`
 
-### 2026-06-22 Keyboard Controller integration
+### 2026-06-22 - Keyboard Controller integration
 
-- Added `react-native-keyboard-controller` as a dependency.
-- The sheet expands to the highest snap while focused, and `BottomSheetFooter` stays above the keyboard via gorhom's footer slot.
+- Added `react-native-keyboard-controller` as a dependency for footer keyboard avoidance on iOS.
+
+### 2026-07-08 - Expo UI rewrite
+
+- Rebuilt on [@expo/ui](https://docs.expo.dev/versions/latest/sdk/ui/) native bottom sheets (SwiftUI on iOS, Jetpack Compose on Android)
+- Removed `BottomSheetPortal`, `BottomSheetOverlay`, `useBottomSheet`, `useBottomSheetAnimation`, and `useBottomSheetInputHandlers`
+- Snap points now use Expo UI `SnapPoint` format (`"half"`, `"full"`, `{ fraction }`, `{ height }`)
+- No portal or overlay required — the native sheet is the modal

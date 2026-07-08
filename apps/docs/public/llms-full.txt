@@ -161,10 +161,10 @@ Displays a badge.
 Docs: https://tetra-ui.com/docs/components/badge
 
 ### bottom-sheet
-Interactive bottom sheet with snap points, gestures, and keyboard support.
+Interactive bottom sheet built on Expo UI with native snap points, gestures, and keyboard support.
 Docs: https://tetra-ui.com/docs/components/bottom-sheet
-Deps: @gorhom/bottom-sheet, react-native-gesture-handler, react-native-reanimated, react-native-safe-area-context, react-native-screens, react-native-worklets
-Registry deps: button, icons, portal, slot
+Deps: @expo/ui, react-native-reanimated, react-native-keyboard-controller, react-native-safe-area-context
+Registry deps: button, icons, slot
 
 ### button
 A component to display a button and allows a user to trigger an action.

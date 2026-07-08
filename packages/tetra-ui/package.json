@@ -15,7 +15,6 @@
   "dependencies": {
     "@expo/material-symbols": "^0.1.1",
     "@expo/ui": "57.0.3",
-    "@gorhom/bottom-sheet": "^5.2.14",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react-native": "^1.23.0",

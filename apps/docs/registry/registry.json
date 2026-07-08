@@ -247,25 +247,45 @@
       "name": "bottom-sheet",
       "type": "registry:ui",
       "title": "Bottom Sheet",
-      "description": "Interactive bottom sheet with snap points, gestures, and keyboard support.",
+      "description": "Interactive bottom sheet built on Expo UI with native snap points, gestures, and keyboard support.",
       "dependencies": [
-        "@gorhom/bottom-sheet",
-        "react-native-gesture-handler",
+        "@expo/ui",
         "react-native-reanimated",
         "react-native-keyboard-controller",
-        "react-native-safe-area-context",
-        "react-native-screens",
-        "react-native-worklets"
+        "react-native-safe-area-context"
       ],
       "registryDependencies": [
         "@tetra-ui/button",
         "@tetra-ui/icons",
-        "@tetra-ui/portal",
         "@tetra-ui/slot"
       ],
       "files": [
         {
-          "path": "../../packages/tetra-ui/src/components/bottom-sheet.tsx",
+          "path": "../../packages/tetra-ui/src/components/bottom-sheet/index.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "../../packages/tetra-ui/src/components/bottom-sheet/types.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "../../packages/tetra-ui/src/components/bottom-sheet/bottom-sheet-context.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "../../packages/tetra-ui/src/components/bottom-sheet/bottom-sheet-common.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "../../packages/tetra-ui/src/components/bottom-sheet/bottom-sheet.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "../../packages/tetra-ui/src/components/bottom-sheet/bottom-sheet.ios.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "../../packages/tetra-ui/src/components/bottom-sheet/bottom-sheet.android.tsx",
           "type": "registry:ui"
         }
       ]

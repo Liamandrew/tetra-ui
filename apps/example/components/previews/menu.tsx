@@ -28,10 +28,7 @@ export function MenuPreview() {
 
       <MenuContent>
         <MenuGroup title="Sort by">
-          <MenuItem
-            onPress={() => setSort("name")}
-            selected={sort === "name"}
-          >
+          <MenuItem onPress={() => setSort("name")} selected={sort === "name"}>
             <MenuItemIcon
               icon={Platform.select({
                 android: require("@expo/material-symbols/sort_by_alpha.xml"),
@@ -40,10 +37,7 @@ export function MenuPreview() {
             />
             <MenuItemLabel>Name</MenuItemLabel>
           </MenuItem>
-          <MenuItem
-            onPress={() => setSort("date")}
-            selected={sort === "date"}
-          >
+          <MenuItem onPress={() => setSort("date")} selected={sort === "date"}>
             <MenuItemIcon
               icon={Platform.select({
                 android: require("@expo/material-symbols/calendar_today.xml"),

@@ -34,7 +34,7 @@ Install any component with `npx shadcn@latest add @tetra-ui/{name}`.
 - [accordion](https://tetra-ui.com/docs/components/accordion): Vertically stacked interactive headings that reveal content sections
 - [action-input](https://tetra-ui.com/docs/components/action-input): Trigger an action and display an attached value
 - [badge](https://tetra-ui.com/docs/components/badge): Display a badge
-- [bottom-sheet](https://tetra-ui.com/docs/components/bottom-sheet): Interactive bottom sheet with snap points, gestures, and keyboard support
+- [bottom-sheet](https://tetra-ui.com/docs/components/bottom-sheet): Interactive bottom sheet built on Expo UI with native snap points, gestures, and keyboard support
 - [button](https://tetra-ui.com/docs/components/button): Button with variants, sizes, icons, and loading state
 - [card](https://tetra-ui.com/docs/components/card): Card with header, content, and footer
 - [checkbox](https://tetra-ui.com/docs/components/checkbox): Toggle between checked and unchecked states

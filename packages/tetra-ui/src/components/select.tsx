@@ -27,8 +27,6 @@ import {
   BottomSheetContent,
   BottomSheetFooter,
   BottomSheetHeader,
-  BottomSheetOverlay,
-  BottomSheetPortal,
   BottomSheetTitle,
 } from "./bottom-sheet";
 import { CheckIcon, ChevronDownIcon } from "./icons";
@@ -410,12 +408,9 @@ export const SelectContentSheet = ({
 
   return (
     <BottomSheet onOpenChange={ctx.onCancel} open={ctx.open}>
-      <BottomSheetPortal>
-        <SelectContext.Provider value={ctx}>
-          <BottomSheetOverlay />
-          <BottomSheetContent>{children}</BottomSheetContent>
-        </SelectContext.Provider>
-      </BottomSheetPortal>
+      <SelectContext.Provider value={ctx}>
+        <BottomSheetContent>{children}</BottomSheetContent>
+      </SelectContext.Provider>
     </BottomSheet>
   );
 };

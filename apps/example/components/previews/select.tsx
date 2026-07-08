@@ -35,7 +35,7 @@ export function SelectPreview() {
           <SelectContentSheetHeader>
             <SelectContentSheetTitle>Select a value</SelectContentSheetTitle>
           </SelectContentSheetHeader>
-          <SelectContentSheetBody>
+          <SelectContentSheetBody className="pb-4">
             {OPTIONS.map((option) => (
               <SelectItem
                 key={option.value}
