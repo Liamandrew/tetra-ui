@@ -24,7 +24,7 @@ export const TextareaInput = ({
   ...props
 }: TextareaInputProps) => {
   const { isFocused, internalRef, handleFocus, handleBlur, handlePress } =
-    useInputFocusState({ onFocus, onBlur });
+    useInputFocusState({ onBlur, onFocus });
 
   return (
     <InputPressable

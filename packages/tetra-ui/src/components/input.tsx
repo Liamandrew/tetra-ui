@@ -149,8 +149,8 @@ export const InputPressable = ({
     );
 
     return {
-      outlineWidth: outlineWidth.value,
       outlineColor,
+      outlineWidth: outlineWidth.value,
     };
   });
 
@@ -276,11 +276,11 @@ export const useInputFocusState = ({
   const handlePress = useCallback(() => internalRef.current?.focus(), []);
 
   return {
-    isFocused,
-    internalRef,
-    handleFocus,
     handleBlur,
+    handleFocus,
     handlePress,
+    internalRef,
+    isFocused,
   };
 };
 
@@ -308,69 +308,69 @@ export const useInputAddons = (
   });
 
   return {
-    startAddons,
     endAddons,
     pressableClassName: cn(
       startAddons.length && "pl-0",
       endAddons.length && "pr-0"
     ),
+    startAddons,
   };
 };
 
 // Styles
 const inputAddonVariants = cva("flex items-center justify-center", {
-  variants: {
-    align: {
-      "inline-start": "pl-3",
-      "inline-end": "pr-3",
-    },
-  },
   defaultVariants: {
     align: "inline-start",
+  },
+  variants: {
+    align: {
+      "inline-end": "pr-3",
+      "inline-start": "pl-3",
+    },
   },
 });
 
 const inputAddonButtonVariants = cva("w-fit gap-1 shadow-none", {
-  variants: {
-    size: { sm: "h-8 px-2", icon: "size-7" },
-  },
   defaultVariants: {
     size: "sm",
+  },
+  variants: {
+    size: { icon: "size-7", sm: "h-8 px-2" },
   },
 });
 
 const inputAddonButtonTextVariants = cva("text-sm", {
+  defaultVariants: {
+    variant: "default",
+  },
   variants: {
     variant: {
       default: "text-primary-foreground",
       destructive: "text-white",
-      outline: "text-muted-foreground",
-      secondary: "text-secondary-foreground",
       ghost: "text-muted-foreground",
       link: "text-muted-foreground",
+      outline: "text-muted-foreground",
+      secondary: "text-secondary-foreground",
     },
-  },
-  defaultVariants: {
-    variant: "default",
   },
 });
 
 const inputAddonButtonIconVariants = cva("", {
+  defaultVariants: {
+    size: "sm",
+  },
   variants: {
+    size: {
+      icon: "size-5",
+      sm: "size-4",
+    },
     variant: {
       default: "text-primary-foreground",
       destructive: "text-white",
-      outline: "text-muted-foreground",
-      secondary: "text-secondary-foreground",
       ghost: "text-muted-foreground",
       link: "text-muted-foreground",
+      outline: "text-muted-foreground",
+      secondary: "text-secondary-foreground",
     },
-    size: {
-      sm: "size-4",
-      icon: "size-5",
-    },
-  },
-  defaultVariants: {
-    size: "sm",
   },
 });

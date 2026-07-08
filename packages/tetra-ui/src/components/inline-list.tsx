@@ -85,8 +85,8 @@ export const useInlineListItemAddons = (children?: React.ReactNode) => {
   });
 
   return {
-    startAddons,
     endAddons,
+    startAddons,
   };
 };
 
@@ -135,7 +135,7 @@ const parseInlineListItemContent = (children: React.ReactNode) => {
     }
 
     if (isValidElement(child)) {
-      if (child.key == null) {
+      if (child.key === null) {
         content.push(
           cloneElement(child, {
             key: `inline-list-item-content-${contentIndex}`,
@@ -326,14 +326,14 @@ export const InlineListItemAddonIcon = ({
 const inlineListItemVariants = cva(
   "min-h-12 w-full flex-row items-center gap-3 px-4 py-2 disabled:opacity-50",
   {
+    defaultVariants: {
+      variant: "default",
+    },
     variants: {
       variant: {
         default: "active:bg-accent/90 dark:active:bg-accent/50",
         destructive: "active:bg-destructive/5 dark:active:bg-destructive/10",
       },
-    },
-    defaultVariants: {
-      variant: "default",
     },
   }
 );
@@ -341,14 +341,14 @@ const inlineListItemVariants = cva(
 const inlineListItemAddonVariants = cva(
   "shrink-0 items-center justify-center",
   {
-    variants: {
-      align: {
-        "inline-start": "",
-        "inline-end": "",
-      },
-    },
     defaultVariants: {
       align: "inline-start",
+    },
+    variants: {
+      align: {
+        "inline-end": "",
+        "inline-start": "",
+      },
     },
   }
 );

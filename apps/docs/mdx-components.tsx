@@ -19,12 +19,12 @@ export function getMDXComponents(components?: MDXComponents): MDXComponents {
     ...TabsComponents,
     Button,
     CodeBlock,
+    CodeCollapsibleWrapper,
     CodeTabs,
+    ComponentPreview,
+    ComponentSource,
     ComponentsList,
     DocsIntroActions,
-    ComponentSource,
-    CodeCollapsibleWrapper,
-    ComponentPreview,
     Step: ({ className, ...props }: React.ComponentProps<"h3">) => (
       <h3
         className={cn(

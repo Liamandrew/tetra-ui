@@ -19,12 +19,14 @@
       },
       "performance": {
         "noBarrelFile": "off",
-        "noNamespaceImport": "off"
+        "noNamespaceImport": "off",
+        "noJsxPropsBind": "off"
       },
       "suspicious": {
         "noUnknownAtRules": "off"
       },
       "style": {
+        "noMultiAssign": "off",
         "noNestedTernary": "off",
         "useConsistentArrowReturn": "off",
         "useConsistentTypeDefinitions": {

@@ -20,40 +20,40 @@ export const Separator = ({
 
 // Styles
 const separatorVariants = cva("h-10 bg-border", {
-  variants: {
-    thickness: {
-      thin: "",
-      thick: "",
-    },
-    orientation: {
-      horizontal: "w-full",
-      vertical: "h-full",
-    },
-  },
   compoundVariants: [
     {
-      orientation: "horizontal",
-      thickness: "thin",
       class: "h-hairline",
+      orientation: "horizontal",
+      thickness: "thin",
     },
     {
+      class: "h-1",
       orientation: "horizontal",
       thickness: "thick",
-      class: "h-1",
     },
     {
+      class: "w-hairline",
       orientation: "vertical",
       thickness: "thin",
-      class: "w-hairline",
     },
     {
+      class: "w-1",
       orientation: "vertical",
       thickness: "thick",
-      class: "w-1",
     },
   ],
   defaultVariants: {
     orientation: "horizontal",
     thickness: "thin",
+  },
+  variants: {
+    orientation: {
+      horizontal: "w-full",
+      vertical: "h-full",
+    },
+    thickness: {
+      thick: "",
+      thin: "",
+    },
   },
 });

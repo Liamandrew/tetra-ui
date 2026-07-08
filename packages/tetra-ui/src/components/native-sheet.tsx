@@ -135,13 +135,13 @@ export const NativeSheet = ({
 
   const ctx = useMemo(
     () => ({
-      open,
+      contentLayout,
       onOpenChange,
+      open,
+      setContentLayout,
+      setVisible,
       visibilityProgress,
       visible,
-      setVisible,
-      contentLayout,
-      setContentLayout,
     }),
     [open, contentLayout, visibilityProgress, visible, onOpenChange]
   );

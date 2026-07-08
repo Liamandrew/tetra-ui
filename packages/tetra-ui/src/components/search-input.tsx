@@ -29,7 +29,7 @@ export const SearchInput = ({
   ...props
 }: SearchInputProps) => {
   const { isFocused, internalRef, handleFocus, handleBlur, handlePress } =
-    useInputFocusState({ onFocus, onBlur });
+    useInputFocusState({ onBlur, onFocus });
 
   const { startAddons, endAddons, pressableClassName } =
     useInputAddons(children);

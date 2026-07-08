@@ -24,29 +24,29 @@ import {
   TriangleAlert,
   X,
 } from "lucide-react-native";
-import { createStyledSvg } from "./styled-icon";
+import { createStyledIcon } from "./styled-icon";
 
 export * from "./styled-icon";
 
-export const BadgeCheckIcon = createStyledSvg(BadgeCheck);
-export const BellIcon = createStyledSvg(Bell);
-export const BookOpenIcon = createStyledSvg(BookOpen);
-export const CalendarPlusIcon = createStyledSvg(CalendarPlus);
-export const CheckIcon = createStyledSvg(Check);
-export const CircleAlertIcon = createStyledSvg(CircleAlert);
-export const CircleCheckIcon = createStyledSvg(CircleCheck);
-export const ChevronDownIcon = createStyledSvg(ChevronDown);
-export const ChevronLeftIcon = createStyledSvg(ChevronLeft);
-export const ChevronRightIcon = createStyledSvg(ChevronRight);
-export const EllipsisVerticalIcon = createStyledSvg(EllipsisVertical);
-export const EyeIcon = createStyledSvg(Eye);
-export const EyeOffIcon = createStyledSvg(EyeOff);
-export const InfoIcon = createStyledSvg(Info);
-export const MailIcon = createStyledSvg(Mail);
-export const MoonIcon = createStyledSvg(Moon);
-export const SearchIcon = createStyledSvg(Search);
-export const ShieldIcon = createStyledSvg(Shield);
-export const ShoppingCartIcon = createStyledSvg(ShoppingCart);
-export const SunIcon = createStyledSvg(Sun);
-export const TriangleAlertIcon = createStyledSvg(TriangleAlert);
-export const XIcon = createStyledSvg(X);
+export const BadgeCheckIcon = createStyledIcon(BadgeCheck);
+export const BellIcon = createStyledIcon(Bell);
+export const BookOpenIcon = createStyledIcon(BookOpen);
+export const CalendarPlusIcon = createStyledIcon(CalendarPlus);
+export const CheckIcon = createStyledIcon(Check);
+export const CircleAlertIcon = createStyledIcon(CircleAlert);
+export const CircleCheckIcon = createStyledIcon(CircleCheck);
+export const ChevronDownIcon = createStyledIcon(ChevronDown);
+export const ChevronLeftIcon = createStyledIcon(ChevronLeft);
+export const ChevronRightIcon = createStyledIcon(ChevronRight);
+export const EllipsisVerticalIcon = createStyledIcon(EllipsisVertical);
+export const EyeIcon = createStyledIcon(Eye);
+export const EyeOffIcon = createStyledIcon(EyeOff);
+export const InfoIcon = createStyledIcon(Info);
+export const MailIcon = createStyledIcon(Mail);
+export const MoonIcon = createStyledIcon(Moon);
+export const SearchIcon = createStyledIcon(Search);
+export const ShieldIcon = createStyledIcon(Shield);
+export const ShoppingCartIcon = createStyledIcon(ShoppingCart);
+export const SunIcon = createStyledIcon(Sun);
+export const TriangleAlertIcon = createStyledIcon(TriangleAlert);
+export const XIcon = createStyledIcon(X);

@@ -14,10 +14,10 @@ export async function CodeBlock({
   lang: string;
 }) {
   const rendered = await highlight(code, {
-    lang,
     components: {
       pre: (props) => <BasePre {...props} />,
     },
+    lang,
     // other Shiki options
   });
 

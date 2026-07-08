@@ -39,7 +39,7 @@ const ITEM_LAYOUT = LinearTransition.springify()
   .damping(28)
   .stiffness(340)
   .mass(0.6);
-const ICON_SPRING = { damping: 26, stiffness: 320, mass: 0.5 };
+const ICON_SPRING = { damping: 26, mass: 0.5, stiffness: 320 };
 
 const ACCORDION_ITEM_CLASSNAME = cn(
   "my-0 overflow-hidden rounded-none bg-card",
@@ -199,7 +199,7 @@ export const Accordion = ({
   const itemLayouts = useMemo(() => {
     const layouts: Record<string, AccordionItemLayout> = {};
 
-    for (let index = 0; index < itemValues.length; index++) {
+    for (let index = 0; index < itemValues.length; index += 1) {
       const itemValue = itemValues[index] ?? "";
 
       layouts[itemValue] = isOpen(itemValue)
@@ -250,11 +250,11 @@ export const Accordion = ({
 
   const ctx = useMemo(
     () => ({
-      type,
       collapsible,
-      itemLayouts,
       isOpen,
+      itemLayouts,
       toggle,
+      type,
     }),
     [type, collapsible, itemLayouts, isOpen, toggle]
   );
@@ -286,10 +286,10 @@ export const AccordionItem = ({
 
   const itemCtx = useMemo(
     () => ({
-      value,
-      isOpen: open,
       contentId,
+      isOpen: open,
       triggerId,
+      value,
     }),
     [value, open, contentId, triggerId]
   );

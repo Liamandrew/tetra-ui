@@ -112,6 +112,6 @@ function mergeProps(slotProps: AnyProps, childProps: AnyProps) {
 }
 
 export const Slot = {
-  View,
   Pressable,
+  View,
 };

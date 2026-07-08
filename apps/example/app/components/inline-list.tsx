@@ -21,9 +21,7 @@ import { Switch } from "@repo/tetra-ui/components/switch";
 import { useState } from "react";
 import { ScreenHero, ScreenScrollView } from "@/components/screen";
 
-const handlePress = () => {
-  return;
-};
+const handlePress = () => null;
 
 export default function InlineListScreen() {
   const [network, setNetwork] = useState("wifi");

@@ -73,7 +73,9 @@ export const Checkbox = ({
       )}
       style={animatedStyle}
     >
-      {checked && <CheckIcon className="size-4 text-primary-foreground" />}
+      {checked ? (
+        <CheckIcon className="size-4 text-primary-foreground" />
+      ) : null}
     </Animated.View>
   );
 };

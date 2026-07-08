@@ -21,25 +21,25 @@ import { ScreenHero, ScreenScrollView } from "@/components/screen";
 
 const FAQ_ITEMS = [
   {
-    value: "shipping",
-    title: "How long does shipping take?",
     content:
       "Standard shipping takes 2–3 business days. Express options are available at checkout.",
     Icon: ShoppingCartIcon,
+    title: "How long does shipping take?",
+    value: "shipping",
   },
   {
-    value: "returns",
-    title: "What is your return policy?",
     content:
       "You can return unused items within 30 days of delivery for a full refund.",
     Icon: BadgeCheckIcon,
+    title: "What is your return policy?",
+    value: "returns",
   },
   {
-    value: "support",
-    title: "How do I contact support?",
     content:
       "Email support@example.com or open a chat from your account settings.",
     Icon: MailIcon,
+    title: "How do I contact support?",
+    value: "support",
   },
 ] as const satisfies Array<{
   value: string;
@@ -50,22 +50,22 @@ const FAQ_ITEMS = [
 
 const SETTINGS_ITEMS = [
   {
-    value: "notifications",
-    title: "Notifications",
     content: "Choose which alerts you receive by email and push.",
     Icon: BellIcon,
+    title: "Notifications",
+    value: "notifications",
   },
   {
-    value: "privacy",
-    title: "Privacy",
     content: "Manage profile visibility and data sharing preferences.",
     Icon: EyeIcon,
+    title: "Privacy",
+    value: "privacy",
   },
   {
-    value: "security",
-    title: "Security",
     content: "Update your password and enable two-factor authentication.",
     Icon: ShieldIcon,
+    title: "Security",
+    value: "security",
   },
 ] as const satisfies Array<{
   value: string;

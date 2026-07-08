@@ -210,20 +210,20 @@ export const Select = <T extends SelectValueType>({
 
   const ctx = useMemo(
     () => ({
-      open,
-      onOpenChange,
       disabled,
-      value,
       invalid,
-      placeholder,
-      options,
-      selectedValue,
-      onValueChange,
-      setSelectedValue,
-      onConfirm,
       onCancel,
+      onConfirm,
+      onOpenChange,
+      onValueChange,
+      open,
+      options,
+      placeholder,
       popoverTriggerPosition,
+      selectedValue,
       setPopoverTriggerPosition,
+      setSelectedValue,
+      value,
     }),
     [
       open,
@@ -269,10 +269,10 @@ export const SelectTrigger = ({
 
       ref.current?.measure((_x, _y, width, height, pageX, pageY) => {
         setPopoverTriggerPosition({
+          height,
           pageX,
           pageY,
           width,
-          height,
         });
 
         onOpenChange(!open);

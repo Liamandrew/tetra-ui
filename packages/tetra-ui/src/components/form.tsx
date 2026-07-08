@@ -48,7 +48,7 @@ export const Field = ({
   children,
 }: FieldProps) => {
   const ctx = useMemo(
-    () => ({ errorMessage, disabled, invalid }),
+    () => ({ disabled, errorMessage, invalid }),
     [errorMessage, disabled, invalid]
   );
 
@@ -67,8 +67,8 @@ export const FieldLabel = ({ className, ...props }: LabelProps) => {
       {...props}
       className={cn(
         {
-          "text-muted-foreground": disabled,
           "text-destructive": invalid,
+          "text-muted-foreground": disabled,
         },
         className
       )}
@@ -148,7 +148,7 @@ export function validateField<TFieldErrors extends FieldErrors<any>>(
   }
 
   return {
-    invalid: true,
     errorMessage: error.message as string | undefined,
+    invalid: true,
   } as const;
 }

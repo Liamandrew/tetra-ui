@@ -228,7 +228,6 @@ const splitMenuChildren = (
 
     if (displayName === contentName) {
       content = child;
-      return;
     }
   });
 
@@ -240,5 +239,5 @@ const splitMenuChildren = (
     throw new Error("Menu must have a content");
   }
 
-  return { trigger, content };
+  return { content, trigger };
 };

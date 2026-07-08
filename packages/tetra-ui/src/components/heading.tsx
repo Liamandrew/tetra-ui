@@ -22,6 +22,9 @@ export const Heading = ({
 
 // Styles
 const headingVariants = cva("font-bold text-foreground tracking-tight", {
+  defaultVariants: {
+    level: "1",
+  },
   variants: {
     level: {
       "1": "text-4xl",
@@ -31,8 +34,5 @@ const headingVariants = cva("font-bold text-foreground tracking-tight", {
       "5": "text-lg",
       "6": "text-base",
     },
-  },
-  defaultVariants: {
-    level: "1",
   },
 });

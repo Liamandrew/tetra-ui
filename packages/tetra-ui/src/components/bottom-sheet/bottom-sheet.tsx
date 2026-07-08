@@ -1,12 +1,4 @@
-import type {
-  BottomSheetContentProps,
-  BottomSheetFooterProps,
-  BottomSheetProps,
-} from "./types";
-
-export const BottomSheet = (_: BottomSheetProps) => {
-  return null;
-};
+import type { BottomSheetContentProps, BottomSheetFooterProps } from "./types";
 
 export const BottomSheetContent = (_: BottomSheetContentProps) => {
   return null;

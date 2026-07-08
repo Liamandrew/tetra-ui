@@ -81,9 +81,9 @@ export default function ToastScreen() {
                   setTimeout(resolve, 2000);
                 }),
                 {
+                  error: "Failed to load data",
                   loading: "Loading...",
                   success: () => "Data loaded",
-                  error: "Failed to load data",
                 }
               )
             }

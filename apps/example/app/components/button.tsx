@@ -20,16 +20,16 @@ import {
 
 const sizes = [
   {
-    size: "sm",
     label: "Small",
+    size: "sm",
   },
   {
-    size: "default",
     label: "Default",
+    size: "default",
   },
   {
-    size: "lg",
     label: "Large",
+    size: "lg",
   },
 ] as const;
 
@@ -85,9 +85,9 @@ export default function ButtonScreen() {
 
 const ButtonExample = ({ children, size, ...props }: ButtonProps) => {
   const mapSizeToIconSize = {
-    sm: "icon-sm",
     default: "icon",
     lg: "icon-lg",
+    sm: "icon-sm",
   } as const;
 
   return (

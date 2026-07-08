@@ -37,7 +37,7 @@
     },
     {
       "path": "../../packages/tetra-ui/src/components/bottom-sheet/bottom-sheet.tsx",
-      "content": "import type {\n  BottomSheetContentProps,\n  BottomSheetFooterProps,\n  BottomSheetProps,\n} from \"./types\";\n\nexport const BottomSheet = (_: BottomSheetProps) => {\n  return null;\n};\n\nexport const BottomSheetContent = (_: BottomSheetContentProps) => {\n  return null;\n};\n\nexport const BottomSheetFooter = (_: BottomSheetFooterProps) => {\n  return null;\n};\n",
+      "content": "import type { BottomSheetContentProps, BottomSheetFooterProps } from \"./types\";\n\nexport const BottomSheetContent = (_: BottomSheetContentProps) => {\n  return null;\n};\n\nexport const BottomSheetFooter = (_: BottomSheetFooterProps) => {\n  return null;\n};\n",
       "type": "registry:ui"
     },
     {

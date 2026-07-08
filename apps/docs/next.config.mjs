@@ -7,14 +7,14 @@ const config = {
   reactStrictMode: true,
   redirects: async () => [
     {
-      source: "/docs/llms.txt",
       destination: "/llms.txt",
       permanent: false,
+      source: "/docs/llms.txt",
     },
     {
-      source: "/docs/llms-full.txt",
       destination: "/llms-full.txt",
       permanent: false,
+      source: "/docs/llms-full.txt",
     },
   ],
 };

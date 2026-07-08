@@ -8,8 +8,8 @@ export const Footer = () => {
         Built by{" "}
         <a
           className={buttonVariants({
-            variant: "link",
             className: "w-0 p-0",
+            variant: "link",
           })}
           href={siteConfig.links.twitter}
         >

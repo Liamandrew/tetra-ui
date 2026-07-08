@@ -69,8 +69,8 @@ export const Radio = ({
   });
 
   const dotAnimatedStyle = useAnimatedStyle(() => ({
-    transform: [{ scale: dotScale.value }],
     opacity: dotScale.value > 0 ? 1 : 0,
+    transform: [{ scale: dotScale.value }],
   }));
 
   return (

@@ -48,7 +48,7 @@ export const Badge = ({
 
   return (
     <BadgeContext.Provider value={ctx}>
-      <View className={cn(badgeVariants({ variant, className }))} {...props}>
+      <View className={cn(badgeVariants({ className, variant }))} {...props}>
         {Children.map(children, (child) => {
           if (typeof child === "string") {
             return <BadgeText>{child}</BadgeText>;
@@ -91,16 +91,16 @@ export const BadgeIcon = ({ children, ...props }: BadgeChildProps) => {
 const badgeVariants = cva(
   "flex w-fit shrink-0 flex-row items-center justify-center gap-1.5 self-start overflow-hidden whitespace-nowrap rounded-md border border-border px-2 py-1 font-medium text-xs transition-[color,box-shadow] aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40",
   {
+    defaultVariants: {
+      variant: "default",
+    },
     variants: {
       variant: {
         default: "border-transparent bg-primary",
-        secondary: "border-transparent bg-secondary",
         destructive: "border-transparent bg-destructive",
         outline: "",
+        secondary: "border-transparent bg-secondary",
       },
-    },
-    defaultVariants: {
-      variant: "default",
     },
   }
 );
@@ -108,30 +108,30 @@ const badgeVariants = cva(
 const badgeTextVariants = cva(
   "whitespace-nowrap font-semibold text-sm leading-none",
   {
+    defaultVariants: {
+      variant: "default",
+    },
     variants: {
       variant: {
         default: "text-primary-foreground",
-        secondary: "text-secondary-foreground",
         destructive: "text-white",
         outline: "text-foreground",
+        secondary: "text-secondary-foreground",
       },
-    },
-    defaultVariants: {
-      variant: "default",
     },
   }
 );
 
 const badgeIconVariants = cva("size-4", {
+  defaultVariants: {
+    variant: "default",
+  },
   variants: {
     variant: {
       default: "text-primary-foreground",
-      secondary: "text-secondary-foreground",
       destructive: "text-white",
       outline: "text-foreground",
+      secondary: "text-secondary-foreground",
     },
-  },
-  defaultVariants: {
-    variant: "default",
   },
 });

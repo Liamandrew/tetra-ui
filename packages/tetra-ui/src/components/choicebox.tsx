@@ -181,11 +181,11 @@ export const Choicebox = ({
 
   const ctx = useMemo(
     () => ({
-      type,
       disabled,
       invalid,
       isSelected,
       toggle,
+      type,
     }),
     [type, disabled, invalid, isSelected, toggle]
   );
@@ -232,9 +232,9 @@ export const ChoiceboxItem = ({
 
   const itemCtx = useMemo(
     () => ({
-      value,
-      selected,
       disabled,
+      selected,
+      value,
     }),
     [value, selected, disabled]
   );
@@ -269,7 +269,7 @@ export const ChoiceboxItem = ({
     }
 
     if (isValidElement(child)) {
-      if (child.key == null) {
+      if (child.key === null) {
         content.push(cloneElement(child, { key: getContentKey(child) }));
         return;
       }

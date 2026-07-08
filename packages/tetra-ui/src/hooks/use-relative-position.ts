@@ -153,27 +153,27 @@ function getSidePosition({
   // Handle vertical sides (top/bottom)
   if (side === "top" || side === "bottom") {
     return getVerticalSidePosition({
-      side,
-      triggerPosition,
-      contentLayout,
-      sideOffset,
-      insetTop,
-      insetBottom,
       avoidCollisions,
+      contentLayout,
       dimensions,
+      insetBottom,
+      insetTop,
+      side,
+      sideOffset,
+      triggerPosition,
     });
   }
 
   // Handle horizontal sides (left/right)
   return getHorizontalSidePosition({
-    side,
-    triggerPosition,
+    avoidCollisions,
     contentLayout,
-    sideOffset,
+    dimensions,
     insetLeft,
     insetRight,
-    avoidCollisions,
-    dimensions,
+    side,
+    sideOffset,
+    triggerPosition,
   });
 }
 
@@ -311,13 +311,13 @@ function getHorizontalAlignWithCollision({
 }): number {
   let left = getHorizontalAlignPosition({
     align,
-    triggerPageX: triggerPosition.pageX,
-    triggerWidth: triggerPosition.width,
-    contentWidth,
     alignOffset,
+    contentWidth,
+    dimensions,
     insetLeft,
     insetRight,
-    dimensions,
+    triggerPageX: triggerPosition.pageX,
+    triggerWidth: triggerPosition.width,
   });
 
   if (avoidCollisions) {
@@ -325,11 +325,11 @@ function getHorizontalAlignWithCollision({
       left < insetLeft || left + contentWidth > dimensions.width - insetRight;
     if (doesCollide) {
       left = adjustHorizontalCollision({
-        left,
         contentWidth,
+        dimensions,
         insetLeft,
         insetRight,
-        dimensions,
+        left,
       });
     }
   }
@@ -387,13 +387,13 @@ function getVerticalAlignWithCollision({
 }): number {
   let top = getVerticalAlignPosition({
     align: verticalAlign,
-    triggerPageY: triggerPosition.pageY,
-    triggerHeight: triggerPosition.height,
-    contentHeight,
     alignOffset,
-    insetTop,
-    insetBottom,
+    contentHeight,
     dimensions,
+    insetBottom,
+    insetTop,
+    triggerHeight: triggerPosition.height,
+    triggerPageY: triggerPosition.pageY,
   });
 
   if (avoidCollisions) {
@@ -410,11 +410,11 @@ function getVerticalAlignWithCollision({
         top = idealTop;
       } else {
         top = adjustVerticalCollision({
-          idealTop,
           contentHeight,
-          insetTop,
-          insetBottom,
           dimensions,
+          idealTop,
+          insetBottom,
+          insetTop,
         });
       }
     }
@@ -450,13 +450,13 @@ function getAlignPosition({
 
     const left = getHorizontalAlignWithCollision({
       align,
-      triggerPosition,
-      contentWidth,
       alignOffset,
+      avoidCollisions,
+      contentWidth,
+      dimensions,
       insetLeft,
       insetRight,
-      avoidCollisions,
-      dimensions,
+      triggerPosition,
     });
 
     return { left, maxWidth: maxContentWidth };
@@ -474,17 +474,17 @@ function getAlignPosition({
   const contentHeight = Math.min(contentLayout.height, maxContentHeight);
 
   const top = getVerticalAlignWithCollision({
-    verticalAlign,
-    triggerPosition,
-    contentHeight,
     alignOffset,
-    insetTop,
-    insetBottom,
     avoidCollisions,
+    contentHeight,
     dimensions,
+    insetBottom,
+    insetTop,
+    triggerPosition,
+    verticalAlign,
   });
 
-  return { top, maxHeight: maxContentHeight, maxWidth: maxContentWidth };
+  return { maxHeight: maxContentHeight, maxWidth: maxContentWidth, top };
 }
 
 function getEstimatedPosition({
@@ -544,7 +544,7 @@ function getEstimatedPosition({
     top += alignOffset;
   }
 
-  return { top, left };
+  return { left, top };
 }
 
 export function useRelativePosition({
@@ -562,10 +562,10 @@ export function useRelativePosition({
 
     if (!triggerPosition) {
       return {
-        position: "absolute",
-        opacity: 0,
-        top: -9999,
         left: -9999,
+        opacity: 0,
+        position: "absolute",
+        top: -9999,
       };
     }
 
@@ -574,33 +574,33 @@ export function useRelativePosition({
         position: "absolute",
         ...getEstimatedPosition({
           align,
-          triggerPosition,
+          alignOffset,
           side,
           sideOffset,
-          alignOffset,
+          triggerPosition,
         }),
       };
     }
 
     const sidePosition = getSidePosition({
-      side,
-      triggerPosition,
-      contentLayout,
-      sideOffset,
-      insets,
       avoidCollisions,
+      contentLayout,
       dimensions,
+      insets,
+      side,
+      sideOffset,
+      triggerPosition,
     });
 
     const alignPosition = getAlignPosition({
       align,
-      avoidCollisions,
-      triggerPosition,
-      contentLayout,
       alignOffset,
+      avoidCollisions,
+      contentLayout,
+      dimensions,
       insets,
       side,
-      dimensions,
+      triggerPosition,
     });
 
     return {

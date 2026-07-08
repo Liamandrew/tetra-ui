@@ -58,10 +58,10 @@ const styledSvgOptionMapping = {
 
 export const StyledSvg = withUniwind(Svg, styledSvgOptionMapping);
 
-export const createStyledSvg = (Icon: LucideIcon): LucideIcon => {
+export const createStyledIcon = (Icon: LucideIcon): LucideIcon => {
   const UniwindIcon = withUniwind(Icon, styledSvgOptionMapping);
 
-  const StyledSvg = ({
+  const StyledIcon = ({
     className,
     ...props
   }: React.ComponentProps<typeof UniwindIcon>) => {
@@ -73,7 +73,7 @@ export const createStyledSvg = (Icon: LucideIcon): LucideIcon => {
     );
   };
 
-  return StyledSvg as LucideIcon;
+  return StyledIcon as LucideIcon;
 };
 ```
 
@@ -84,10 +84,10 @@ import {
   Check,
   ChevronDown,
 } from "lucide-react-native";
-import { createStyledSvg } from "./styled-icon";
+import { createStyledIcon } from "./styled-icon";
 
-export const CheckIcon = createStyledSvg(Check);
-export const ChevronDownIcon = createStyledSvg(ChevronDown);
+export const CheckIcon = createStyledIcon(Check);
+export const ChevronDownIcon = createStyledIcon(ChevronDown);
 // ... and so on
 ```
 
@@ -116,3 +116,7 @@ Updated the configuration for `withUniwind` so that stroke classes are used.
 ### 2026-02-12 Added Lucide Icons
 
 Use Lucide icons as the default icon set.
+
+### 2026-07-08 - Renamed createStyledSvg to createStyledIcon
+
+Renamed the `createStyledSvg` function to `createStyledIcon` to better reflect its purpose.

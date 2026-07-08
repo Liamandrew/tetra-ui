@@ -149,11 +149,11 @@ export const MenuItem = ({
         onClick={handleClick}
       >
         {children}
-        {selected && (
+        {selected ? (
           <DropdownMenuItemPrimitive.TrailingIcon>
             <TextPrimitive color={foregroundColor}>✓</TextPrimitive>
           </DropdownMenuItemPrimitive.TrailingIcon>
-        )}
+        ) : null}
       </DropdownMenuItemPrimitive>
     </MenuItemAndroidContext.Provider>
   );
@@ -377,7 +377,6 @@ const splitMenuChildren = (
 
     if (displayName === contentName) {
       content = child;
-      return;
     }
   });
 
@@ -389,5 +388,5 @@ const splitMenuChildren = (
     throw new Error("Menu must have a content");
   }
 
-  return { trigger, content };
+  return { content, trigger };
 };

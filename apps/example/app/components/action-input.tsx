@@ -31,11 +31,11 @@ export default function ActionInputScreen() {
           </InputAddonIcon>
         </InputAddon>
 
-        {showCustomAddon && (
+        {showCustomAddon ? (
           <InputAddon align="inline-end">
             <Text className="text-base text-muted-foreground">Search...</Text>
           </InputAddon>
-        )}
+        ) : null}
       </ActionInput>
 
       <ComponentBehaviourSheet

@@ -10,6 +10,9 @@ import { siteConfig } from "@/lib/config";
  * Docs Layout: app/docs/layout.tsx
  */
 export const baseOptions: BaseLayoutProps = {
+  githubUrl: siteConfig.links.github,
+  // see https://fumadocs.dev/docs/ui/navigation/links
+  links: [],
   nav: {
     title: (
       <>
@@ -18,7 +21,4 @@ export const baseOptions: BaseLayoutProps = {
       </>
     ),
   },
-  githubUrl: siteConfig.links.github,
-  // see https://fumadocs.dev/docs/ui/navigation/links
-  links: [],
 };

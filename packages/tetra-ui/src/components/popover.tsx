@@ -127,13 +127,13 @@ export const Popover = ({
 
   const ctx = useMemo(
     () => ({
-      open,
-      onOpenChange,
-      visibilityProgress,
       contentLayout,
+      onOpenChange,
+      open,
       setContentLayout,
-      triggerPosition,
       setTriggerPosition,
+      triggerPosition,
+      visibilityProgress,
     }),
     [open, triggerPosition, contentLayout, visibilityProgress, onOpenChange]
   );
@@ -161,10 +161,10 @@ export const PopoverTrigger = ({
 
       ref.current?.measure((_x, _y, width, height, pageX, pageY) => {
         setTriggerPosition({
+          height,
           pageX,
           pageY,
           width,
-          height,
         });
 
         onOpenChange(true);
@@ -299,13 +299,13 @@ export const PopoverContent = ({
 
   const positionStyle = useRelativePosition({
     align,
-    avoidCollisions,
-    triggerPosition: triggerPosition ?? null,
-    contentLayout: contentLayout ?? null,
     alignOffset,
+    avoidCollisions,
+    contentLayout: contentLayout ?? null,
     insets,
     side,
     sideOffset,
+    triggerPosition: triggerPosition ?? null,
   });
 
   const widthStyle = useMemo(() => {

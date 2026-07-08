@@ -257,9 +257,9 @@ export const OTPInput = ({
   useImperativeHandle(
     ref,
     () => ({
-      focus,
       blur,
       clear,
+      focus,
       setValue: onChangeText,
     }),
     [blur, clear, focus, onChangeText]
@@ -273,11 +273,11 @@ export const OTPInput = ({
         isActive || char !== null ? null : (placeholder?.[slotIdx] ?? null);
 
       return {
-        index: slotIdx,
         char,
-        placeholderChar,
+        index: slotIdx,
         isActive,
         isCaretVisible: isActive && char === null,
+        placeholderChar,
       };
     });
   }, [isFocused, maxLength, placeholder, value]);
@@ -291,16 +291,16 @@ export const OTPInput = ({
 
   const contextValue = useMemo<OTPInputContextValue>(
     () => ({
-      value,
-      maxLength,
-      isFocused,
       disabled,
+      focus,
+      inputRef,
       invalid,
+      isFocused,
+      maxLength,
+      onSlotPress,
       secureTextEntry,
       slots,
-      inputRef,
-      focus,
-      onSlotPress,
+      value,
     }),
     [
       disabled,
@@ -366,9 +366,9 @@ export const OTPInputSlot = ({
     }
 
     return {
-      slot,
       isActive: slot.isActive,
       isCaretVisible: slot.isCaretVisible,
+      slot,
     };
   }, [slot]);
 
@@ -388,9 +388,9 @@ export const OTPInputSlot = ({
         accessibilityRole="none"
         className={cn(
           otpInputSlotVariants({
-            isActive: slot.isActive,
-            invalid,
             disabled: isDisabled,
+            invalid,
+            isActive: slot.isActive,
           }),
           className
         )}
@@ -519,24 +519,24 @@ export const OTPInputSeparator = ({
 const otpInputSlotVariants = cva(
   "relative h-12 w-11 items-center justify-center overflow-hidden rounded-lg border bg-background",
   {
+    defaultVariants: {
+      disabled: false,
+      invalid: false,
+      isActive: false,
+    },
     variants: {
-      isActive: {
-        true: "border-2 border-ring",
-        false: "border-input",
+      disabled: {
+        false: "",
+        true: "pointer-events-none opacity-50",
       },
       invalid: {
+        false: "",
         true: "border-destructive",
-        false: "",
       },
-      disabled: {
-        true: "pointer-events-none opacity-50",
-        false: "",
+      isActive: {
+        false: "border-input",
+        true: "border-2 border-ring",
       },
-    },
-    defaultVariants: {
-      isActive: false,
-      invalid: false,
-      disabled: false,
     },
   }
 );

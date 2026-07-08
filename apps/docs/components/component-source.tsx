@@ -55,9 +55,9 @@ function resolveRegistryFiles(
 
     return {
       code: file.content as string,
-      title: fileTitle,
       lang,
       path: file.path,
+      title: fileTitle,
     };
   });
 }
@@ -73,8 +73,8 @@ export function ComponentSource({
   const registryItem = getRegistryItem(name);
   const sources = resolveRegistryFiles(registryItem?.files, {
     file,
-    title,
     language,
+    title,
   });
 
   if (!sources.length) {

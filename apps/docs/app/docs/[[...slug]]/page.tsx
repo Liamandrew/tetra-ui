@@ -46,7 +46,7 @@ export async function generateMetadata(props: PageProps<"/docs/[[...slug]]">) {
   }
 
   return {
-    title: page.data.title,
     description: page.data.description,
+    title: page.data.title,
   };
 }

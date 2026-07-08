@@ -45,7 +45,7 @@ export const EmptyMedia = ({
 }: EmptyMediaProps) => {
   return (
     <View
-      className={cn(emptyMediaVariants({ variant, className }))}
+      className={cn(emptyMediaVariants({ className, variant }))}
       data-slot="empty-icon"
       data-variant={variant}
       {...props}
@@ -126,14 +126,14 @@ export const EmptyContent = ({
 const emptyMediaVariants = cva(
   "mb-2 flex shrink-0 items-center justify-center",
   {
+    defaultVariants: {
+      variant: "default",
+    },
     variants: {
       variant: {
         default: "bg-transparent",
         icon: "flex shrink-0 items-center justify-center rounded-full bg-muted p-2.5",
       },
-    },
-    defaultVariants: {
-      variant: "default",
     },
   }
 );

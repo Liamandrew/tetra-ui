@@ -119,17 +119,14 @@ export const toast = Object.assign(
   (message: string, options?: ToastOptions) =>
     showToast("default", message, options),
   {
-    success: (message: string, options?: ToastOptions) =>
-      showToast("success", message, options),
+    custom: ToastPrimitive.toast.custom,
+    dismiss: ToastPrimitive.toast.dismiss,
     error: (message: string, options?: ToastOptions) =>
       showToast("error", message, options),
-    warning: (message: string, options?: ToastOptions) =>
-      showToast("warning", message, options),
     info: (message: string, options?: ToastOptions) =>
       showToast("info", message, options),
     loading: (message: string, options?: ToastOptions) =>
       showToast("loading", message, options),
-    custom: ToastPrimitive.toast.custom,
     promise: <T,>(promise: Promise<T>, options: PromiseOptions) => {
       const { loading, success, error, ...rest } = options;
       const id = ToastPrimitive.toast.custom(
@@ -143,8 +140,8 @@ export const toast = Object.assign(
           ToastPrimitive.toast.custom(
             <TetraToast title={title} variant="success" />,
             {
-              id,
               duration: rest.duration,
+              id,
             }
           );
         })
@@ -153,15 +150,18 @@ export const toast = Object.assign(
           ToastPrimitive.toast.custom(
             <TetraToast title={title} variant="error" />,
             {
-              id,
               duration: rest.duration,
+              id,
             }
           );
         });
 
       return id;
     },
-    dismiss: ToastPrimitive.toast.dismiss,
+    success: (message: string, options?: ToastOptions) =>
+      showToast("success", message, options),
+    warning: (message: string, options?: ToastOptions) =>
+      showToast("warning", message, options),
     wiggle: ToastPrimitive.toast.wiggle,
   }
 );
@@ -171,11 +171,11 @@ const titleVariants = cva("font-semibold leading-5", {
   variants: {
     variant: {
       default: "text-popover-foreground",
-      success: "text-success",
       error: "text-destructive",
-      warning: "text-warning",
       info: "text-info",
       loading: "text-popover-foreground",
+      success: "text-success",
+      warning: "text-warning",
     },
   },
 });
@@ -184,11 +184,11 @@ const iconVariants = cva("size-5", {
   variants: {
     variant: {
       default: "text-muted-foreground",
-      success: "text-success",
       error: "text-destructive",
-      warning: "text-warning",
       info: "text-info",
       loading: "text-muted-foreground",
+      success: "text-success",
+      warning: "text-warning",
     },
   },
 });

@@ -14,9 +14,7 @@ import {
 } from "@/components/ui/inline-list";
 import { Stack } from "@/components/ui/stack";
 
-const handlePress = () => {
-  return;
-};
+const handlePress = () => null;
 
 export function InlineListPreview() {
   return (

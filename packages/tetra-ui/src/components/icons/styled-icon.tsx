@@ -4,12 +4,12 @@ import { withUniwind } from "uniwind";
 import { cn } from "@/lib/utils";
 
 const styledSvgOptionMapping = {
-  style: {
-    fromClassName: "className",
-  },
   height: {
     fromClassName: "className",
     styleProperty: "height",
+  },
+  style: {
+    fromClassName: "className",
   },
   width: {
     fromClassName: "className",
@@ -19,10 +19,10 @@ const styledSvgOptionMapping = {
 
 export const StyledSvg = withUniwind(Svg, styledSvgOptionMapping);
 
-export const createStyledSvg = (Icon: LucideIcon): LucideIcon => {
+export const createStyledIcon = (Icon: LucideIcon): LucideIcon => {
   const UniwindIcon = withUniwind(Icon, styledSvgOptionMapping);
 
-  const StyledSvg = ({
+  const StyledIcon = ({
     className,
     ...props
   }: React.ComponentProps<typeof UniwindIcon>) => {
@@ -34,5 +34,5 @@ export const createStyledSvg = (Icon: LucideIcon): LucideIcon => {
     );
   };
 
-  return StyledSvg as LucideIcon;
+  return StyledIcon as LucideIcon;
 };

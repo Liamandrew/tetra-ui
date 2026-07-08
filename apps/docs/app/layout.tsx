@@ -9,12 +9,19 @@ import { siteConfig } from "@/lib/config";
 const geist = Geist();
 
 export const metadata: Metadata = {
-  metadataBase: new URL(siteConfig.url),
-  title: {
-    default: siteConfig.name,
-    template: `%s | ${siteConfig.name}`,
-  },
+  authors: [
+    {
+      name: "Liam Andrew",
+      url: siteConfig.links.twitter,
+    },
+  ],
+  creator: "Liam Andrew",
   description: siteConfig.description,
+  icons: {
+    apple: "/apple-touch-icon.png",
+    icon: "/favicon.ico",
+    shortcut: "/favicon-16x16.png",
+  },
   keywords: [
     "react native",
     "ui",
@@ -23,40 +30,33 @@ export const metadata: Metadata = {
     "uniwind",
     "mobile",
   ],
-  authors: [
-    {
-      name: "Liam Andrew",
-      url: siteConfig.links.twitter,
-    },
-  ],
-  creator: "Liam Andrew",
+  manifest: `${siteConfig.url}/site.webmanifest`,
+  metadataBase: new URL(siteConfig.url),
   openGraph: {
-    type: "website",
-    locale: "en_US",
-    url: siteConfig.url,
-    title: siteConfig.name,
     description: siteConfig.description,
-    siteName: siteConfig.name,
     images: [
       {
-        url: `${process.env.NEXT_PUBLIC_APP_URL}/opengraph-image.png`,
         alt: siteConfig.name,
+        url: `${process.env.NEXT_PUBLIC_APP_URL}/opengraph-image.png`,
       },
     ],
+    locale: "en_US",
+    siteName: siteConfig.name,
+    title: siteConfig.name,
+    type: "website",
+    url: siteConfig.url,
+  },
+  title: {
+    default: siteConfig.name,
+    template: `%s | ${siteConfig.name}`,
   },
   twitter: {
     card: "summary_large_image",
-    title: siteConfig.name,
+    creator: "@_liamandr",
     description: siteConfig.description,
     images: [`${siteConfig.url}/opengraph-image.png`],
-    creator: "@_liamandr",
+    title: siteConfig.name,
   },
-  icons: {
-    icon: "/favicon.ico",
-    shortcut: "/favicon-16x16.png",
-    apple: "/apple-touch-icon.png",
-  },
-  manifest: `${siteConfig.url}/site.webmanifest`,
 };
 
 export default function Layout({ children }: React.PropsWithChildren) {
