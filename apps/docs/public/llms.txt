@@ -49,7 +49,6 @@ Install any component with `npx shadcn@latest add @tetra-ui/{name}`.
 - [label](https://tetra-ui.com/docs/components/label): Form input labels
 - [menu](https://tetra-ui.com/docs/components/menu): Native menu via Expo UI with groups, separators, and submenus
 - [native-select](https://tetra-ui.com/docs/components/native-select): Native single-selection via Expo UI Picker; NativeSelectInput uses wheel sheet on iOS and platform dropdown on Android
-- [native-sheet](https://tetra-ui.com/docs/components/native-sheet): Modal sheet for displaying content
 - [otp-input](https://tetra-ui.com/docs/components/otp-input): One-time password entry with individual character slots
 - [password-input](https://tetra-ui.com/docs/components/password-input): Password entry with visibility toggle
 - [popover](https://tetra-ui.com/docs/components/popover): Portal-positioned content relative to a trigger

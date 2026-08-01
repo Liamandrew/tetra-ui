@@ -31,7 +31,7 @@ Use tetra-ui when:
 - You use or want shadcn/ui's copy-paste workflow on React Native
 - You build with Expo and Uniwind/Tailwind
 - You want purpose-built mobile UI, not universal web+native abstractions
-- You need native primitives like Expo UI Menu, bottom sheets, native sheets
+- You need native primitives like Expo UI Menu and bottom sheets
 
 Consider alternatives when:
 - You need one package for web and native (Tamagui, etc.)
@@ -312,12 +312,6 @@ A native single-selection input built on Expo UI Picker. Menu/wheel appearances,
 Docs: https://tetra-ui.com/docs/components/native-select
 Deps: @expo/ui, react-native-reanimated
 Registry deps: action-input, bottom-sheet, icons, input
-
-### native-sheet
-A sheet component that can be used to display content in a modal.
-Docs: https://tetra-ui.com/docs/components/native-sheet
-Deps: react-native-reanimated, react-native-safe-area-context, react-native-worklets
-Registry deps: button, icons, slot
 
 ### otp-input
 A component for entering one-time passwords with individual character slots. API mirrors shadcn Input OTP (`InputOTP` → `OTPInput`).

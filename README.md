@@ -38,7 +38,7 @@ Full setup guide: [tetra-ui.com/docs/installation](https://tetra-ui.com/docs/ins
 
 ## Components
 
-30+ components including Button, Card, Form, Select, Bottom Sheet, Native Sheet, Menu (Expo UI), Switch, Slider, and more.
+30+ components including Button, Card, Form, Select, Bottom Sheet, Menu (Expo UI), Switch, Slider, and more.
 
 | Component | Install |
 |-----------|---------|

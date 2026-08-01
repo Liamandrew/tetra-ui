@@ -1,13 +1,11 @@
 import {
-  NativeSheet,
-  NativeSheetBody,
-  NativeSheetContent,
-  NativeSheetHeader,
-  NativeSheetModal,
-  NativeSheetOverlay,
-  NativeSheetTitle,
-  NativeSheetTrigger,
-} from "@repo/tetra-ui/components/native-sheet";
+  BottomSheet,
+  BottomSheetBody,
+  BottomSheetContent,
+  BottomSheetHeader,
+  BottomSheetTitle,
+  BottomSheetTrigger,
+} from "@repo/tetra-ui/components/bottom-sheet";
 import { Stack } from "@repo/tetra-ui/components/stack";
 import { Switch } from "@repo/tetra-ui/components/switch";
 import { Text } from "@repo/tetra-ui/components/text";
@@ -31,7 +29,7 @@ export const ComponentBehaviourSwitch = ({
   );
 };
 
-type ComponentBehaviourSheetProps = React.ComponentProps<typeof NativeSheet> & {
+type ComponentBehaviourSheetProps = React.ComponentProps<typeof BottomSheet> & {
   trigger: React.ReactNode;
 };
 
@@ -41,19 +39,16 @@ export const ComponentBehaviourSheet = ({
   ...props
 }: ComponentBehaviourSheetProps) => {
   return (
-    <NativeSheet {...props}>
-      <NativeSheetTrigger asChild>{trigger}</NativeSheetTrigger>
-      <NativeSheetModal>
-        <NativeSheetOverlay />
-        <NativeSheetContent>
-          <NativeSheetHeader>
-            <NativeSheetTitle>Behavior</NativeSheetTitle>
-          </NativeSheetHeader>
-          <NativeSheetBody>
-            <Stack gap="md">{children}</Stack>
-          </NativeSheetBody>
-        </NativeSheetContent>
-      </NativeSheetModal>
-    </NativeSheet>
+    <BottomSheet {...props}>
+      <BottomSheetTrigger asChild>{trigger}</BottomSheetTrigger>
+      <BottomSheetContent snapPoints={[{ fraction: 0.5 }, "full"]}>
+        <BottomSheetHeader>
+          <BottomSheetTitle>Behavior</BottomSheetTitle>
+        </BottomSheetHeader>
+        <BottomSheetBody>
+          <Stack gap="md">{children}</Stack>
+        </BottomSheetBody>
+      </BottomSheetContent>
+    </BottomSheet>
   );
 };

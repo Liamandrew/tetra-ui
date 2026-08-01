@@ -14,7 +14,6 @@ export * from "./inline-list";
 export * from "./label";
 export * from "./menu";
 export * from "./native-select";
-export * from "./native-sheet";
 export * from "./otp-input";
 export * from "./password-input";
 export * from "./popover";
