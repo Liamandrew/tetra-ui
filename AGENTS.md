@@ -72,6 +72,7 @@ Some components pull in registry dependencies automatically via the CLI. Complex
 | Component | Notable dependencies |
 |-----------|---------------------|
 | select | action-input, bottom-sheet, popover, portal, and others |
+| native-select | @expo/ui, action-input, bottom-sheet, icons, input, slot, reanimated |
 | bottom-sheet | @expo/ui, reanimated, keyboard-controller, safe-area |
 | menu | @expo/ui, @expo/material-symbols |
 | switch, slider | @expo/ui |

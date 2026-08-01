@@ -1,0 +1,161 @@
+---
+title: Native Select
+description: A native single-selection input built on Expo UI Picker, with optional input chrome and platform-aware presentation.
+---
+
+Native Select wraps Expo UI's [Picker](https://docs.expo.dev/versions/latest/sdk/ui/universal/picker/). Without `NativeSelectInput`, it renders the menu or wheel control directly. With `NativeSelectInput`, behavior is platform-baked: iOS opens a wheel in a bottom sheet; Android uses ActionInput as an [`ExposedDropdownMenuBox`](https://docs.expo.dev/versions/latest/sdk/ui/jetpack-compose/exposeddropdownmenubox/) anchor.
+
+<ComponentPreview name="native-select" type="gif" />
+
+## Installation
+
+<Tabs defaultValue="cli">
+
+<TabsList>
+  <TabsTrigger value="cli">CLI</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+
+<TabsContent value="cli">
+
+```package-install
+npx shadcn@latest add @tetra-ui/native-select
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps>
+
+<Step>Install the following dependencies:</Step>
+
+```package-install
+npm install @expo/ui react-native-reanimated
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource name="native-select" />
+
+</Steps>
+
+</TabsContent>
+
+</Tabs>
+
+## Usage
+
+### Menu and wheel
+
+Omit `NativeSelectInput` to render the Expo Picker directly. Set `appearance` on the root (`menu` or `wheel`). `appearance="wheel"` is iOS-only; on Android it falls back to the platform menu.
+
+```tsx
+import {
+  NativeSelect,
+  NativeSelectItem,
+} from "@/components/ui/native-select";
+```
+
+```tsx
+const [value, setValue] = useState("1");
+
+<NativeSelect appearance="menu" value={value} onValueChange={setValue}>
+  <NativeSelectItem label="Option 1" value="1" />
+  <NativeSelectItem label="Option 2" value="2" />
+  <NativeSelectItem label="Option 3" value="3" />
+</NativeSelect>
+```
+
+```tsx
+<NativeSelect appearance="wheel" value={value} onValueChange={setValue}>
+  <NativeSelectItem label="Option 1" value="1" />
+  <NativeSelectItem label="Option 2" value="2" />
+  <NativeSelectItem label="Option 3" value="3" />
+</NativeSelect>
+```
+
+### NativeSelectInput
+
+Renders form-styled input chrome. Presentation is platform-specific:
+
+- **iOS** — ActionInput that opens a bottom sheet containing a wheel picker
+- **Android** — ActionInput as the [`ExposedDropdownMenuBox`](https://docs.expo.dev/versions/latest/sdk/ui/jetpack-compose/exposeddropdownmenubox/) anchor via `menuAnchor()` (Material menu, tetra input chrome)
+
+Pass `InputAddon` children for `inline-start` / `inline-end` adornments. On iOS, optionally compose `NativeSelectSheetFooter` and `NativeSelectSheetConfirm` to require an explicit confirm before committing the wheel selection (dismiss cancels).
+
+```tsx
+import { Button } from "@/components/ui/button";
+import {
+  NativeSelect,
+  NativeSelectInput,
+  NativeSelectItem,
+  NativeSelectSheetConfirm,
+  NativeSelectSheetFooter,
+} from "@/components/ui/native-select";
+import { InputAddon, InputAddonIcon } from "@/components/ui/input";
+import { SearchIcon } from "@/components/ui/icons";
+```
+
+```tsx
+<NativeSelect value={value} onValueChange={setValue}>
+  <NativeSelectInput placeholder="Select...">
+    <InputAddon align="inline-start">
+      <InputAddonIcon>
+        <SearchIcon />
+      </InputAddonIcon>
+    </InputAddon>
+    <NativeSelectItem label="Option 1" value="1" />
+    <NativeSelectItem label="Option 2" value="2" />
+    <NativeSelectItem label="Option 3" value="3" />
+    <NativeSelectSheetFooter>
+      <NativeSelectSheetConfirm asChild>
+        <Button>Confirm</Button>
+      </NativeSelectSheetConfirm>
+    </NativeSelectSheetFooter>
+  </NativeSelectInput>
+</NativeSelect>
+```
+
+Without a sheet footer, iOS commits the wheel value as it changes (previous behavior).
+## Controlled
+
+Pass `value` and `onValueChange` for controlled selection. On iOS, optionally control `open` and `onOpenChange` for the sheet:
+
+```tsx
+const [value, setValue] = useState("1");
+const [open, setOpen] = useState(false);
+
+<NativeSelect
+  value={value}
+  onValueChange={setValue}
+  open={open}
+  onOpenChange={setOpen}
+>
+  <NativeSelectInput placeholder="Select...">
+    <NativeSelectItem label="Option 1" value="1" />
+    <NativeSelectItem label="Option 2" value="2" />
+  </NativeSelectInput>
+</NativeSelect>
+```
+
+## Disabled
+
+```tsx
+<NativeSelect disabled value={value} onValueChange={setValue}>
+  <NativeSelectInput placeholder="Select...">
+    <NativeSelectItem label="Option 1" value="1" />
+    <NativeSelectItem label="Option 2" value="2" />
+  </NativeSelectInput>
+</NativeSelect>
+```
+
+## Changelog
+
+### 2026-08-01 - Android input chrome + sheet confirm
+
+Android `NativeSelectInput` uses `ExposedDropdownMenuBox` with ActionInput as the `menuAnchor`, so the Material TextField is no longer nested inside tetra input chrome. Add `NativeSelectSheetFooter` and `NativeSelectSheetConfirm` for an explicit confirm action on the iOS wheel sheet. When present, wheel changes are drafted until confirm; dismiss cancels.
+
+### 2026-07-31 - Initial release
+
+Add `NativeSelect`, `NativeSelectInput`, and `NativeSelectItem` built on Expo UI Picker. `NativeSelectInput` uses a wheel bottom sheet on iOS and an `ExposedDropdownMenuBox` with custom input chrome on Android.

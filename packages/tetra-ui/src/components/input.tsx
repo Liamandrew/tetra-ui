@@ -14,6 +14,7 @@ import {
 import {
   type BlurEvent,
   type FocusEvent,
+  Platform,
   Pressable,
   TextInput as RNTextInput,
   View,
@@ -142,14 +143,22 @@ export const InputPressable = ({
   }, [focused, invalid, outlineWidth, outlineColorProgress]);
 
   const animatedStyle = useAnimatedStyle(() => {
-    const outlineColor = interpolateColor(
+    const color = interpolateColor(
       outlineColorProgress.value,
       [0, 1, 2],
       [inputColor, ringColor, destructiveColor]
     );
 
+    // Android outline ignores borderRadius and shows in the corners.
+    if (Platform.OS === "android") {
+      return {
+        borderColor: color,
+        borderWidth: outlineWidth.value,
+      };
+    }
+
     return {
-      outlineColor,
+      outlineColor: color,
       outlineWidth: outlineWidth.value,
     };
   });

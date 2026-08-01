@@ -44,7 +44,6 @@ import { Text } from "./text";
 // Constants
 const ANIMATION_DURATION = 280;
 const ANIMATION_EASING = Easing.out(Easing.cubic);
-const AnimatedChevronDown = Animated.createAnimatedComponent(ChevronDownIcon);
 
 // Types
 type LayoutPosition = {
@@ -331,9 +330,11 @@ export const SelectInput = ({
       {children as InputAddonChild}
 
       <InputAddon align="inline-end">
-        <InputAddonIcon>
-          <AnimatedChevronDown style={animatedStyle} />
-        </InputAddonIcon>
+        <Animated.View style={animatedStyle}>
+          <InputAddonIcon>
+            <ChevronDownIcon />
+          </InputAddonIcon>
+        </Animated.View>
       </InputAddon>
     </ActionInput>
   );

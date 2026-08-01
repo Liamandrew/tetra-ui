@@ -34,7 +34,7 @@ export const TextInput = ({
 
   return (
     <InputPressable
-      className={pressableClassName}
+      className={cn("h-12 android:py-0", pressableClassName)}
       disabled={disabled}
       focused={isFocused}
       invalid={invalid}
@@ -44,10 +44,11 @@ export const TextInput = ({
 
       <Input
         {...props}
-        className={cn("shrink", props.className)}
+        className={cn("h-12 shrink", props.className)}
         disabled={disabled}
         onBlur={handleBlur}
         onFocus={handleFocus}
+        pointerEvents={isFocused ? undefined : "none"}
         ref={internalRef}
       />
 

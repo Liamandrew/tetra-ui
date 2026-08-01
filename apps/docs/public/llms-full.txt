@@ -307,6 +307,12 @@ A composable native menu built on Expo UI, with support for groups, separators, 
 Docs: https://tetra-ui.com/docs/components/menu
 Deps: @expo/ui, @expo/material-symbols
 
+### native-select
+A native single-selection input built on Expo UI Picker. Menu/wheel appearances, or NativeSelectInput (iOS: wheel in bottom sheet; Android: platform dropdown).
+Docs: https://tetra-ui.com/docs/components/native-select
+Deps: @expo/ui, react-native-reanimated
+Registry deps: action-input, bottom-sheet, icons, input
+
 ### native-sheet
 A sheet component that can be used to display content in a modal.
 Docs: https://tetra-ui.com/docs/components/native-sheet
@@ -476,7 +482,9 @@ Use InlineList for grouped settings rows (automatic separators, optional section
 ### Bottom sheet picker
 Install: `npx shadcn@latest add @tetra-ui/select`
 
-Select uses bottom-sheet on mobile automatically.
+Select uses bottom-sheet on mobile automatically for custom option lists.
+
+For a form-styled native picker, use `npx shadcn@latest add @tetra-ui/native-select` with `<NativeSelectInput>` (iOS: wheel in a bottom sheet; Android: platform dropdown).
 
 ### Verification code (OTP)
 Install: `npx shadcn@latest add @tetra-ui/otp-input @tetra-ui/form @tetra-ui/label`
