@@ -13,6 +13,7 @@ export * from "./heading";
 export * from "./inline-list";
 export * from "./label";
 export * from "./menu";
+export * from "./native-date-select";
 export * from "./native-select";
 export * from "./otp-input";
 export * from "./password-input";

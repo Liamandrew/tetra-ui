@@ -16,7 +16,6 @@ import {
   ComponentBehaviourSheet,
   ComponentBehaviourSwitch,
 } from "@/components/component-behaviour";
-import { NativeSelectPreview } from "@/components/previews";
 import {
   ScreenActionsButton,
   ScreenHero,
@@ -40,10 +39,6 @@ export default function NativeSelectScreen() {
   return (
     <ScreenScrollView>
       <ScreenHero className="items-stretch">
-        <NativeSelectPreview />
-      </ScreenHero>
-
-      <ScreenHero className="items-stretch bg-background">
         <Stack className="w-full" gap="md">
           <Stack gap="xs">
             <Text className="text-muted-foreground text-sm">Input — wheel</Text>
@@ -117,7 +112,20 @@ export default function NativeSelectScreen() {
               </NativeSelect>
             </Stack>
           ) : null}
+        </Stack>
 
+        <ComponentBehaviourSheet trigger={<ScreenActionsButton />}>
+          <ComponentBehaviourSwitch
+            onValueChange={setShowDisabled}
+            value={showDisabled}
+          >
+            Show Disabled
+          </ComponentBehaviourSwitch>
+        </ComponentBehaviourSheet>
+      </ScreenHero>
+
+      <ScreenHero className="items-stretch bg-background">
+        <Stack className="w-full" gap="md">
           <Stack gap="xs">
             <Text className="text-muted-foreground text-sm">Menu</Text>
             <NativeSelect
@@ -156,15 +164,6 @@ export default function NativeSelectScreen() {
             </Stack>
           ) : null}
         </Stack>
-
-        <ComponentBehaviourSheet trigger={<ScreenActionsButton />}>
-          <ComponentBehaviourSwitch
-            onValueChange={setShowDisabled}
-            value={showDisabled}
-          >
-            Show Disabled
-          </ComponentBehaviourSwitch>
-        </ComponentBehaviourSheet>
       </ScreenHero>
     </ScreenScrollView>
   );

@@ -291,6 +291,38 @@
       ]
     },
     {
+      "name": "native-date-select",
+      "type": "registry:ui",
+      "title": "Native Date Select",
+      "description": "A native date/time selection input built on Expo UI DatePicker (iOS) and DateTimePicker (Android). NativeDateSelectInput uses a wheel bottom sheet on iOS and Material dialogs on Android.",
+      "dependencies": ["@expo/ui", "react-native-reanimated"],
+      "registryDependencies": [
+        "@tetra-ui/action-input",
+        "@tetra-ui/bottom-sheet",
+        "@tetra-ui/icons",
+        "@tetra-ui/input",
+        "@tetra-ui/slot"
+      ],
+      "files": [
+        {
+          "path": "../../packages/tetra-ui/src/components/native-date-select/index.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "../../packages/tetra-ui/src/components/native-date-select/native-date-select.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "../../packages/tetra-ui/src/components/native-date-select/native-date-select-picker.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "../../packages/tetra-ui/src/components/native-date-select/native-date-select-picker.ios.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "native-select",
       "type": "registry:ui",
       "title": "Native Select",

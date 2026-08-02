@@ -1,0 +1,188 @@
+---
+title: Native Date Select
+description: A native date and time selection input built on Expo UI DatePicker and DateTimePicker, with optional input chrome and platform-aware presentation.
+---
+
+Native Date Select wraps Expo UI's [SwiftUI DatePicker](https://docs.expo.dev/versions/latest/sdk/ui/swift-ui/datepicker/) on iOS and [Jetpack Compose DateTimePicker](https://docs.expo.dev/versions/latest/sdk/ui/jetpack-compose/datetimepicker/) on Android. Without `NativeDateSelectInput`, it renders the native picker inline. With `NativeDateSelectInput`, iOS defaults to a wheel bottom sheet (`display="compact"` embeds the native compact picker in the input chrome); Android mounts a Material date/time dialog.
+
+<ComponentPreview name="native-date-select" type="gif" />
+
+## Installation
+
+<Tabs defaultValue="cli">
+
+<TabsList>
+  <TabsTrigger value="cli">CLI</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+
+<TabsContent value="cli">
+
+```package-install
+npx shadcn@latest add @tetra-ui/native-date-select
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps>
+
+<Step>Install the following dependencies:</Step>
+
+```package-install
+npm install @expo/ui react-native-reanimated
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource name="native-date-select" />
+
+</Steps>
+
+</TabsContent>
+
+</Tabs>
+
+## Usage
+
+### Modes
+
+Set `mode` on the root to choose what the picker selects: `date` (default), `time`, or `datetime`.
+
+```tsx
+import {
+  NativeDateSelect,
+  NativeDateSelectInput,
+} from "@/components/ui/native-date-select";
+```
+
+```tsx
+const [date, setDate] = useState(new Date());
+
+<NativeDateSelect mode="date" value={date} onValueChange={setDate} />
+
+<NativeDateSelect mode="time" value={date} onValueChange={setDate} />
+
+<NativeDateSelect mode="datetime" value={date} onValueChange={setDate} />
+```
+
+Omit `NativeDateSelectInput` to render the picker directly. On iOS, set `display` to `compact`, `graphical`, or `wheel` (maps to SwiftUI [`datePickerStyle`](https://docs.expo.dev/versions/latest/sdk/ui/swift-ui/datepicker/#styling-with-modifiers)). On Android, inline has no combined datetime UI — use `NativeDateSelectInput` for `mode="datetime"` (sequential date then time dialogs).
+
+### NativeDateSelectInput
+
+Renders form-styled input chrome. Set `display` on the input (or root) to choose the iOS presentation:
+
+- **`wheel` / default (iOS)** — ActionInput that opens a bottom sheet with a wheel DatePicker
+- **`compact` (iOS)** — non-pressable input chrome; only the native compact DatePicker is interactive
+- **Android** — ActionInput that mounts a Material dialog (`DatePickerDialog` / `TimePickerDialog`). For `datetime`, date then time dialogs run sequentially. `display` maps to picker/input variant on the dialog.
+
+Pass `InputAddon` children for adornments. On iOS wheel, optionally compose `NativeDateSelectSheetFooter` and `NativeDateSelectSheetConfirm` to require an explicit confirm before committing (dismiss cancels).
+
+```tsx
+import { Button } from "@/components/ui/button";
+import {
+  NativeDateSelect,
+  NativeDateSelectInput,
+  NativeDateSelectSheetConfirm,
+  NativeDateSelectSheetFooter,
+} from "@/components/ui/native-date-select";
+```
+
+```tsx
+<NativeDateSelect mode="date" value={date} onValueChange={setDate}>
+  <NativeDateSelectInput placeholder="Pick a date">
+    <NativeDateSelectSheetFooter>
+      <NativeDateSelectSheetConfirm asChild>
+        <Button>Confirm</Button>
+      </NativeDateSelectSheetConfirm>
+    </NativeDateSelectSheetFooter>
+  </NativeDateSelectInput>
+</NativeDateSelect>
+```
+
+```tsx
+<NativeDateSelect mode="date" value={date} onValueChange={setDate}>
+  <NativeDateSelectInput display="compact" placeholder="Pick a date" />
+</NativeDateSelect>
+```
+
+Without a sheet footer, iOS wheel commits the value as it changes.
+
+Use `formatValue` to customize the displayed label (defaults to `Intl.DateTimeFormat` by mode):
+
+```tsx
+<NativeDateSelectInput
+  formatValue={(d) => d.toLocaleDateString()}
+  placeholder="Pick a date"
+/>
+```
+
+## Bounds
+
+Constrain selectable dates with `minimumDate` and `maximumDate`. On iOS these map to SwiftUI DatePicker [`range`](https://docs.expo.dev/versions/latest/sdk/ui/swift-ui/datepicker/#with-date-range); on Android they map to Compose `selectableDates`. This limits which dates can be chosen — it is not a dual start/end *value*.
+
+```tsx
+<NativeDateSelect
+  mode="date"
+  value={date}
+  onValueChange={setDate}
+  minimumDate={new Date(2024, 0, 1)}
+  maximumDate={new Date(2024, 11, 31)}
+>
+  <NativeDateSelectInput placeholder="Pick a date" />
+</NativeDateSelect>
+```
+
+## Range selection
+
+Expo UI pickers still select a single date. For a start–end range value, compose two pickers and cross-constrain with `minimumDate` / `maximumDate`:
+
+```tsx
+const [start, setStart] = useState<Date>();
+const [end, setEnd] = useState<Date>();
+
+<NativeDateSelect
+  mode="date"
+  value={start}
+  onValueChange={setStart}
+  maximumDate={end}
+>
+  <NativeDateSelectInput placeholder="Start date" />
+</NativeDateSelect>
+
+<NativeDateSelect
+  mode="date"
+  value={end}
+  onValueChange={setEnd}
+  minimumDate={start}
+>
+  <NativeDateSelectInput placeholder="End date" />
+</NativeDateSelect>
+```
+
+## Controlled
+
+Pass `value` and `onValueChange` for controlled selection. Optionally control `open` and `onOpenChange` for the sheet/dialog:
+
+```tsx
+const [date, setDate] = useState(new Date());
+const [open, setOpen] = useState(false);
+
+<NativeDateSelect
+  value={date}
+  onValueChange={setDate}
+  open={open}
+  onOpenChange={setOpen}
+>
+  <NativeDateSelectInput placeholder="Pick a date" />
+</NativeDateSelect>
+```
+
+## Disabled
+
+```tsx
+<NativeDateSelect disabled value={date} onValueChange={setDate}>
+  <NativeDateSelectInput placeholder="Pick a date" />
+</NativeDateSelect>
+```

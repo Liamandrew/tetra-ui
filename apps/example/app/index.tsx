@@ -47,6 +47,7 @@ const COMPONENTS: Array<{ title: string; href: Href }> = [
   { href: "/components/inline-list", title: "Inline List" },
   { href: "/components/label", title: "Label" },
   { href: "/components/menu", title: "Menu" },
+  { href: "/components/native-date-select", title: "Native Date Select" },
   { href: "/components/native-select", title: "Native Select" },
   { href: "/components/otp-input" as Href, title: "OTP Input" },
   { href: "/components/password-input", title: "Password Input" },

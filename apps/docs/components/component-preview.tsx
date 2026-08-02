@@ -51,11 +51,12 @@ const PreviewImage = ({
     <Image
       alt={name}
       className={cn(
-        "rounded-3xl",
+        "h-auto rounded-3xl",
         platform === "android" && "bg-white pt-2.5",
         className
       )}
       height={684}
+      loading="eager"
       src={`/previews/${platform}-${name}.${type}`}
       unoptimized={type === "gif"}
       width={312}
