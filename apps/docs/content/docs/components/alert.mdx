@@ -73,11 +73,12 @@ Alert
 
 ## Variants
 
-Use `variant` to change the alert's visual style. Available variants: `default`, `destructive`, `warning`, and `info`.
+Use `variant` to change the alert's visual style. Available variants: `default`, `destructive`, `success`, `warning`, and `info`.
 
 ```tsx
 import {
   CircleAlertIcon,
+  CircleCheckIcon,
   InfoIcon,
   TriangleAlertIcon,
 } from "@/components/ui/icons";
@@ -90,6 +91,17 @@ import {
   <AlertDescription>
     Your payment could not be processed. Please check your payment method and
     try again.
+  </AlertDescription>
+</Alert>
+
+<Alert variant="success">
+  <AlertIcon>
+    <CircleCheckIcon />
+  </AlertIcon>
+  <AlertTitle>Account updated successfully</AlertTitle>
+  <AlertDescription>
+    Your profile information has been saved. Changes will be reflected
+    immediately.
   </AlertDescription>
 </Alert>
 
@@ -147,7 +159,7 @@ Extends [React Native View](https://reactnative.dev/docs/view#props) props. Posi
   type={{
     variant: {
       description: "Visual style of the alert.",
-      type: '"default" | "destructive" | "warning" | "info"',
+      type: '"default" | "destructive" | "success" | "warning" | "info"',
       default: '"default"',
     },
   }}

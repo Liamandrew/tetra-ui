@@ -17,7 +17,7 @@ import { Stack } from "@/components/ui/stack";
 export function AlertPreview() {
   return (
     <Stack className="w-full" gap="md">
-      <Alert>
+      <Alert variant="success">
         <AlertIcon>
           <CircleCheckIcon />
         </AlertIcon>
