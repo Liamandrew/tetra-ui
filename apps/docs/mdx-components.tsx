@@ -26,7 +26,6 @@ export function getMDXComponents(components?: MDXComponents): MDXComponents {
     ComponentSource,
     ComponentsList,
     DocsIntroActions,
-    TypeTable,
     Step: ({ className, ...props }: React.ComponentProps<"h3">) => (
       <h3
         className={cn(
@@ -42,5 +41,6 @@ export function getMDXComponents(components?: MDXComponents): MDXComponents {
         {...props}
       />
     ),
+    TypeTable,
   };
 }

@@ -158,8 +158,7 @@ export const AlertIcon = ({
       {cloneElement(element, {
         ...props,
         className: cn(
-          "size-4",
-          variant === "destructive" ? "text-destructive" : "text-foreground",
+          alertIconVariants({ variant }),
           className,
           element.props.className
         ),
@@ -178,11 +177,7 @@ export const AlertTitle = ({
 
   return (
     <Text
-      className={cn(
-        "font-medium text-sm leading-snug",
-        variant === "destructive" ? "text-destructive" : "text-foreground",
-        className
-      )}
+      className={cn(alertTitleVariants({ variant }), className)}
       data-slot="alert-title"
       {...props}
     />
@@ -198,13 +193,7 @@ export const AlertDescription = ({
 
   return (
     <Text
-      className={cn(
-        "text-sm",
-        variant === "destructive"
-          ? "text-destructive/90"
-          : "text-muted-foreground",
-        className
-      )}
+      className={cn(alertDescriptionVariants({ variant }), className)}
       data-slot="alert-description"
       {...props}
     />
@@ -238,6 +227,41 @@ const alertVariants = cva("relative w-full rounded-2xl bg-muted px-4 py-3", {
     variant: {
       default: "",
       destructive: "",
+      info: "",
+      warning: "",
+    },
+  },
+});
+
+const alertIconVariants = cva("size-4", {
+  variants: {
+    variant: {
+      default: "text-foreground",
+      destructive: "text-destructive",
+      info: "text-info",
+      warning: "text-warning",
+    },
+  },
+});
+
+const alertTitleVariants = cva("font-medium text-sm leading-snug", {
+  variants: {
+    variant: {
+      default: "text-foreground",
+      destructive: "text-destructive",
+      info: "text-info",
+      warning: "text-warning",
+    },
+  },
+});
+
+const alertDescriptionVariants = cva("text-sm", {
+  variants: {
+    variant: {
+      default: "text-muted-foreground",
+      destructive: "text-destructive/90",
+      info: "text-info/90",
+      warning: "text-warning/90",
     },
   },
 });

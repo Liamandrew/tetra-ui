@@ -10,6 +10,7 @@ import {
   CircleAlertIcon,
   CircleCheckIcon,
   InfoIcon,
+  TriangleAlertIcon,
 } from "@/components/ui/icons";
 import { Stack } from "@/components/ui/stack";
 
@@ -35,6 +36,26 @@ export function AlertPreview() {
         <AlertDescription>
           Your payment could not be processed. Please check your payment method
           and try again.
+        </AlertDescription>
+      </Alert>
+
+      <Alert variant="warning">
+        <AlertIcon>
+          <TriangleAlertIcon />
+        </AlertIcon>
+        <AlertTitle>Storage almost full</AlertTitle>
+        <AlertDescription>
+          You have used 90% of your storage. Free up space or upgrade your plan.
+        </AlertDescription>
+      </Alert>
+
+      <Alert variant="info">
+        <AlertIcon>
+          <InfoIcon />
+        </AlertIcon>
+        <AlertTitle>New features available</AlertTitle>
+        <AlertDescription>
+          Check out the latest updates in your account settings.
         </AlertDescription>
       </Alert>
 

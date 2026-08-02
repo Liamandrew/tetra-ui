@@ -71,12 +71,16 @@ Alert
 └── AlertAction
 ```
 
-## Destructive
+## Variants
 
-Use `variant="destructive"` for error or destructive callouts.
+Use `variant` to change the alert's visual style. Available variants: `default`, `destructive`, `warning`, and `info`.
 
 ```tsx
-import { CircleAlertIcon } from "@/components/ui/icons";
+import {
+  CircleAlertIcon,
+  InfoIcon,
+  TriangleAlertIcon,
+} from "@/components/ui/icons";
 
 <Alert variant="destructive">
   <AlertIcon>
@@ -86,6 +90,26 @@ import { CircleAlertIcon } from "@/components/ui/icons";
   <AlertDescription>
     Your payment could not be processed. Please check your payment method and
     try again.
+  </AlertDescription>
+</Alert>
+
+<Alert variant="warning">
+  <AlertIcon>
+    <TriangleAlertIcon />
+  </AlertIcon>
+  <AlertTitle>Storage almost full</AlertTitle>
+  <AlertDescription>
+    You have used 90% of your storage. Free up space or upgrade your plan.
+  </AlertDescription>
+</Alert>
+
+<Alert variant="info">
+  <AlertIcon>
+    <InfoIcon />
+  </AlertIcon>
+  <AlertTitle>New features available</AlertTitle>
+  <AlertDescription>
+    Check out the latest updates in your account settings.
   </AlertDescription>
 </Alert>
 ```
@@ -123,7 +147,7 @@ Extends [React Native View](https://reactnative.dev/docs/view#props) props. Posi
   type={{
     variant: {
       description: "Visual style of the alert.",
-      type: '"default" | "destructive"',
+      type: '"default" | "destructive" | "warning" | "info"',
       default: '"default"',
     },
   }}
