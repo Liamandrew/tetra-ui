@@ -112,3 +112,49 @@ import { Button } from "@/components/ui/button";
   </AlertAction>
 </Alert>
 ```
+
+## API Reference
+
+### Alert
+
+Extends [React Native View](https://reactnative.dev/docs/view#props) props. Positions `AlertIcon` and `AlertAction` slots automatically.
+
+<TypeTable
+  type={{
+    variant: {
+      description: "Visual style of the alert.",
+      type: '"default" | "destructive"',
+      default: '"default"',
+    },
+  }}
+/>
+
+### AlertIcon
+
+Clones a single child icon with size and color from the parent `Alert` context. Must be used within `Alert`.
+
+<TypeTable
+  type={{
+    children: {
+      description: "A single icon element.",
+      type: "React.ReactNode",
+      required: true,
+    },
+    className: {
+      description: "Additional Tailwind classes applied to the icon.",
+      type: "string",
+    },
+  }}
+/>
+
+### AlertTitle
+
+Extends [React Native Text](https://reactnative.dev/docs/text#props) props. Must be used within `Alert`.
+
+### AlertDescription
+
+Extends [React Native Text](https://reactnative.dev/docs/text#props) props. Must be used within `Alert`.
+
+### AlertAction
+
+Extends [React Native View](https://reactnative.dev/docs/view#props) props. Absolutely positioned in the top-right of the alert.

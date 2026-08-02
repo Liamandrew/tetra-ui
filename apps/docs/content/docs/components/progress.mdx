@@ -114,3 +114,37 @@ Fractional values partially fill the active step:
 ```tsx
 <Progress max={5} value={2.5} variant="steps" />
 ```
+
+## API Reference
+
+### Progress
+
+Extends [React Native View](https://reactnative.dev/docs/view#props) props.
+
+<TypeTable
+  type={{
+    variant: {
+      description: "Render as a continuous bar or discrete steps.",
+      type: '"linear" | "steps"',
+      default: '"linear"',
+    },
+    value: {
+      description: "Current progress. For steps, fractional values partially fill the active step.",
+      type: "number | null",
+      default: "0",
+    },
+    max: {
+      description: "Maximum value (or total step count for the steps variant).",
+      type: "number",
+      default: "100",
+    },
+  }}
+/>
+
+### ProgressLabel
+
+Extends [React Native Text](https://reactnative.dev/docs/text#props) props.
+
+### ProgressValue
+
+Extends [React Native Text](https://reactnative.dev/docs/text#props) props. Renders the progress percentage.

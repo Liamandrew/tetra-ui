@@ -54,4 +54,17 @@ export const Button = ({ asChild, children, ...props }: ButtonProps) => {
 };
 ```
 
+## API Reference
+
+### Slot
+
+`Slot` exports `Pressable` and `View` helpers that merge props onto a single child element. Use them when implementing an `asChild` pattern.
+
+### Slot.Pressable
+
+Merges [React Native Pressable](https://reactnative.dev/docs/pressable#props) props onto its single child. Event handlers, `style`, and `className` are composed; other child props override the slot.
+
+### Slot.View
+
+Merges [React Native View](https://reactnative.dev/docs/view#props) props onto its single child with the same merge rules as `Slot.Pressable`.
 

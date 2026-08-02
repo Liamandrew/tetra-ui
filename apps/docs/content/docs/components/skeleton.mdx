@@ -73,6 +73,26 @@ import { Stack } from "@/components/ui/stack";
 </SkeletonGroup>
 ```
 
+## API Reference
+
+### Skeleton
+
+Extends [Reanimated](https://docs.swmansion.com/react-native-reanimated/) `Animated.View` props. Pulses on its own when used outside `SkeletonGroup`.
+
+### SkeletonGroup
+
+Shares a single pulse opacity with nested `Skeleton` children so they animate in sync.
+
+<TypeTable
+  type={{
+    children: {
+      description: "Skeleton elements that should pulse together.",
+      type: "React.ReactNode",
+      required: true,
+    },
+  }}
+/>
+
 ## Changelog
 
 ### 2026-05-21 - Added SkeletonGroup component

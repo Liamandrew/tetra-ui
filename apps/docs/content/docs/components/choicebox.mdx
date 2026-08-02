@@ -150,3 +150,83 @@ Use `direction="row"` to lay out items horizontally:
   <ChoiceboxItem value="yearly">Yearly</ChoiceboxItem>
 </Choicebox>
 ```
+
+## API Reference
+
+### Choicebox
+
+Root selection state. Renders children in a `Stack`.
+
+<TypeTable
+  type={{
+    type: {
+      description: "Single-select (radio) or multi-select (checkbox) behavior.",
+      type: '"single" | "multiple"',
+      default: '"single"',
+    },
+    clearable: {
+      description: "When `type` is `single`, allow clearing the selected item.",
+      type: "boolean",
+      default: "false",
+    },
+    value: {
+      description: "Controlled selected value(s).",
+      type: "string | string[]",
+    },
+    defaultValue: {
+      description: "Uncontrolled initial value(s).",
+      type: "string | string[]",
+    },
+    onValueChange: {
+      description: "Called when the selection changes. Single type may emit `undefined` when cleared.",
+      type: "(value: string | string[] | undefined) => void",
+    },
+    disabled: {
+      description: "Disables all items.",
+      type: "boolean",
+    },
+    invalid: {
+      description: "Marks the group invalid and styles indicators.",
+      type: "boolean",
+    },
+    direction: {
+      description: "Flex direction passed to the underlying `Stack`.",
+      type: '"row" | "row-reverse" | "column" | "column-reverse"',
+      default: '"column"',
+    },
+  }}
+/>
+
+### ChoiceboxItem
+
+Extends [`InputPressable`](/docs/components/input) props (Pressable with focus ring and invalid styles). Must be used within `Choicebox`.
+
+<TypeTable
+  type={{
+    value: {
+      description: "Unique value for this option.",
+      type: "string",
+      required: true,
+    },
+    disabled: {
+      description: "Disables this item (combined with root `disabled`).",
+      type: "boolean",
+    },
+  }}
+/>
+
+### ChoiceboxItemHeader
+
+Extends [React Native View](https://reactnative.dev/docs/view#props) props.
+
+### ChoiceboxItemTitle
+
+Extends [React Native Text](https://reactnative.dev/docs/text#props) props.
+
+### ChoiceboxItemDescription
+
+Extends [React Native Text](https://reactnative.dev/docs/text#props) props.
+
+### ChoiceboxIndicator
+
+Renders a `Radio` or `Checkbox` from root `type` and selection state. No props. Auto-injected when omitted from `ChoiceboxItem`.

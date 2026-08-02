@@ -186,3 +186,105 @@ const [open, setOpen] = useState(false);
   <NativeDateSelectInput placeholder="Pick a date" />
 </NativeDateSelect>
 ```
+
+## API Reference
+
+Built on [Expo UI](https://docs.expo.dev/versions/latest/sdk/ui/) DatePicker (iOS) / DateTimePicker and Material dialogs (Android). Without `NativeDateSelectInput`, renders an inline picker; with it, uses form chrome and sheet/dialog.
+
+### NativeDateSelect
+
+Root value/open state for the date/time picker.
+
+<TypeTable
+  type={{
+    value: {
+      description: "Controlled date. Uncontrolled when omitted.",
+      type: "Date",
+    },
+    onValueChange: {
+      description: "Called when a date is committed.",
+      type: "(value: Date) => void",
+    },
+    open: {
+      description: "Controlled open state for sheet/dialog UI. Uncontrolled when omitted (starts closed).",
+      type: "boolean",
+    },
+    onOpenChange: {
+      description: "Called when open state should change.",
+      type: "(open: boolean) => void",
+    },
+    mode: {
+      description: "Which components the picker shows.",
+      type: '"date" | "time" | "datetime"',
+      default: '"date"',
+    },
+    display: {
+      description: "Picker style. On Android, `wheel` maps to the input variant; others use the picker variant.",
+      type: '"default" | "wheel" | "compact" | "graphical"',
+      default: '"default"',
+    },
+    minimumDate: {
+      description: "Earliest selectable date.",
+      type: "Date",
+    },
+    maximumDate: {
+      description: "Latest selectable date.",
+      type: "Date",
+    },
+    is24Hour: {
+      description: "Prefer 24-hour time where supported.",
+      type: "boolean",
+    },
+    disabled: {
+      description: "Disables interaction.",
+      type: "boolean",
+    },
+    className: {
+      description: "Classes on the inline picker host when rendering without `NativeDateSelectInput`.",
+      type: "string",
+    },
+  }}
+/>
+
+### NativeDateSelectInput
+
+Form-styled chrome. iOS `compact` uses non-pressable chrome with only the native compact DatePicker interactive; other iOS displays open a [`BottomSheet`](/docs/components/bottom-sheet); Android opens a Material dialog.
+
+<TypeTable
+  type={{
+    display: {
+      description: "Overrides root `display` for this input.",
+      type: '"default" | "wheel" | "compact" | "graphical"',
+    },
+    placeholder: {
+      description: "Placeholder / sheet title text.",
+      type: "string",
+      default: '"Pick a date"',
+    },
+    formatValue: {
+      description: "Custom label formatter. Defaults to `Intl.DateTimeFormat` by `mode`.",
+      type: "(date: Date) => string",
+    },
+    className: {
+      description: "Additional Tailwind classes on the input chrome.",
+      type: "string",
+    },
+  }}
+/>
+
+### NativeDateSelectSheetFooter
+
+Accepts [`BottomSheetFooter`](/docs/components/bottom-sheet) props. When present on iOS, picker changes are drafted until confirm; dismiss cancels.
+
+### NativeDateSelectSheetConfirm
+
+Extends [React Native Pressable](https://reactnative.dev/docs/pressable#props) props. Commits the draft date and closes the sheet. Must be used within `NativeDateSelect`.
+
+<TypeTable
+  type={{
+    asChild: {
+      description: "Merges props onto the child via `Slot.Pressable` instead of rendering a Pressable.",
+      type: "boolean",
+    },
+  }}
+/>

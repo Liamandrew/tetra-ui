@@ -144,4 +144,73 @@ toast.promise(fetchData(), {
 
 ## API Reference
 
-For advanced options (`toast.custom`, `toast.dismiss`, swipe direction, stacking, and more), see the [sonner-native documentation](https://sonner-native.netlify.app/).
+Built on [sonner-native](https://sonner-native.netlify.app/). Theme is driven by Uniwind (`theme` is omitted from `Toaster` props).
+
+### Toaster
+
+Accepts [sonner-native `Toaster`](https://sonner-native.netlify.app/) props except `theme`. Always enables stacking with `gap={4}`.
+
+### toast
+
+Shows a toast. Signature: `toast(message, options?)`.
+
+Variants: `toast.success`, `toast.error`, `toast.warning`, `toast.info`, `toast.loading` — same `(message, options?)` shape.
+
+<TypeTable
+  type={{
+    message: {
+      description: "Toast title.",
+      type: "string",
+      required: true,
+    },
+    description: {
+      description: "Optional supporting text.",
+      type: "string",
+    },
+    icon: {
+      description: "Optional custom icon. Overrides the variant icon.",
+      type: "React.ReactNode",
+    },
+    duration: {
+      description: "Display duration in milliseconds (from sonner-native options).",
+      type: "number",
+    },
+    id: {
+      description: "Stable id for updating or dismissing a toast.",
+      type: "string | number",
+    },
+  }}
+/>
+
+### toast.promise
+
+Shows a loading toast, then success or error when the promise settles.
+
+<TypeTable
+  type={{
+    promise: {
+      description: "Promise to track.",
+      type: "Promise<T>",
+      required: true,
+    },
+    loading: {
+      description: "Title while pending.",
+      type: "string",
+      required: true,
+    },
+    success: {
+      description: "Title (or formatter) on resolve.",
+      type: "string | ((result: T) => string)",
+      required: true,
+    },
+    error: {
+      description: "Title (or formatter) on reject.",
+      type: "string | ((error: unknown) => string)",
+      required: true,
+    },
+  }}
+/>
+
+### Passthrough helpers
+
+`toast.custom`, `toast.dismiss`, and `toast.wiggle` are re-exported from sonner-native. For swipe direction, stacking, and other advanced options, see the [sonner-native documentation](https://sonner-native.netlify.app/).

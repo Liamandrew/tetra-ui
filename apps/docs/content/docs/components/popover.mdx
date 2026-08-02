@@ -141,3 +141,119 @@ Wrap long content in a `ScrollView` and constrain the popover height:
 </PopoverContent>
 ```
 
+
+## API Reference
+
+### Popover
+
+Root open state. Controlled when `open` is set.
+
+<TypeTable
+  type={{
+    open: {
+      description: "Controlled open state. Uncontrolled when omitted (starts closed).",
+      type: "boolean",
+    },
+    onOpenChange: {
+      description: "Called when open state should change.",
+      type: "(open: boolean) => void",
+    },
+  }}
+/>
+
+### PopoverTrigger
+
+Extends [React Native Pressable](https://reactnative.dev/docs/pressable#props) props. Measures itself and opens the popover on press. Must be used within `Popover`.
+
+<TypeTable
+  type={{
+    asChild: {
+      description: "Merges props onto the child via `Slot.Pressable` instead of rendering a Pressable.",
+      type: "boolean",
+    },
+  }}
+/>
+
+### PopoverClose
+
+Extends [React Native Pressable](https://reactnative.dev/docs/pressable#props) props. Closes the popover on press. Must be used within `Popover`.
+
+<TypeTable
+  type={{
+    asChild: {
+      description: "Merges props onto the child via `Slot.Pressable` instead of rendering a Pressable.",
+      type: "boolean",
+    },
+  }}
+/>
+
+### PopoverPortal
+
+Accepts [`Portal`](/docs/components/portal) props. Renders nothing when closed. Must be used within `Popover`.
+
+<TypeTable
+  type={{
+    name: {
+      description: "Portal entry name.",
+      type: "string",
+      default: '"popover-portal"',
+    },
+  }}
+/>
+
+### PopoverOverlay
+
+Dimmed backdrop. Must be used within `Popover` (typically inside `PopoverPortal`).
+
+<TypeTable
+  type={{
+    closeOnPress: {
+      description: "Closes the popover when the overlay is pressed.",
+      type: "boolean",
+      default: "true",
+    },
+    className: {
+      description: "Additional Tailwind classes on the overlay.",
+      type: "string",
+    },
+  }}
+/>
+
+### PopoverContent
+
+Extends [React Native View](https://reactnative.dev/docs/view#props) props. Positions relative to the trigger. Must be used within `Popover` (typically inside `PopoverPortal`).
+
+<TypeTable
+  type={{
+    side: {
+      description: "Preferred side of the trigger.",
+      type: '"top" | "bottom" | "left" | "right"',
+      default: '"bottom"',
+    },
+    sideOffset: {
+      description: "Gap in pixels between trigger and content along `side`.",
+      type: "number",
+      default: "8",
+    },
+    align: {
+      description: "Alignment along the cross axis.",
+      type: '"start" | "center" | "end"',
+      default: '"start"',
+    },
+    alignOffset: {
+      description: "Pixel offset along the alignment axis.",
+      type: "number",
+      default: "0",
+    },
+    avoidCollisions: {
+      description: "Flips or shifts content to stay in the safe area.",
+      type: "boolean",
+      default: "true",
+    },
+    width: {
+      description: "Content width. `trigger` matches trigger width; `fit` sizes to content.",
+      type: '"full" | "fit" | "auto" | "trigger" | number | `${number}%`',
+      default: '"fit"',
+    },
+  }}
+/>

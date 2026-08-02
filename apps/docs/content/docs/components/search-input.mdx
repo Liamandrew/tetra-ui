@@ -74,3 +74,23 @@ import { XIcon } from "@/components/ui/icons";
 <SearchInput disabled placeholder="Search..." />
 ```
 
+## API Reference
+
+### SearchInput
+
+Extends [`Input`](/docs/components/input) props. Renders a leading search icon. Defaults `accessibilityRole` to `"search"`.
+
+<TypeTable
+  type={{
+    disabled: {
+      description: "Disables the field and pressable wrapper.",
+      type: "boolean",
+    },
+    children: {
+      description: "Additional `InputAddon` children for leading or trailing content.",
+      type: "InputAddonChildren",
+    },
+  }}
+/>
+
+

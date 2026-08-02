@@ -72,9 +72,64 @@ Chips are pressable by default. Add a trailing icon for dismissible or actionabl
 
 ## Disabled
 
-Pass `disabled` to prevent interaction:
+Pass `disabled` to mark the chip as disabled for accessibility (`accessibilityState`). It does not currently block presses or change styles:
 
 ```tsx
 <Chip disabled>Unavailable</Chip>
 ```
 
+## API Reference
+
+### Chip
+
+Extends [React Native Pressable](https://reactnative.dev/docs/pressable#props) props. String children are wrapped in `ChipText` automatically.
+
+<TypeTable
+  type={{
+    variant: {
+      description: "Visual style of the chip.",
+      type: '"default" | "secondary" | "destructive" | "outline"',
+      default: '"default"',
+    },
+    disabled: {
+      description: "Sets `accessibilityState.disabled`. Not forwarded to Pressable and does not apply disabled styles.",
+      type: "boolean",
+    },
+  }}
+/>
+
+### ChipText
+
+Renders chip label text styled from the parent `Chip` context.
+
+<TypeTable
+  type={{
+    children: {
+      description: "Label content.",
+      type: "React.ReactNode",
+      required: true,
+    },
+    className: {
+      description: "Additional Tailwind classes.",
+      type: "string",
+    },
+  }}
+/>
+
+### ChipIcon
+
+Clones a single child icon with size and color from the parent `Chip` context.
+
+<TypeTable
+  type={{
+    children: {
+      description: "A single icon element.",
+      type: "React.ReactNode",
+      required: true,
+    },
+    className: {
+      description: "Additional Tailwind classes.",
+      type: "string",
+    },
+  }}
+/>

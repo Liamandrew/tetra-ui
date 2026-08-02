@@ -82,3 +82,22 @@ For selectable option groups, use [Choicebox](/docs/components/choicebox) instea
   <ChoiceboxItem value="express">Express shipping</ChoiceboxItem>
 </Choicebox>
 ```
+
+## API Reference
+
+### Radio
+
+Extends [React Native View](https://reactnative.dev/docs/view#props) props (`children` omitted). Visual-only — wrap in a `Pressable` (or use [Choicebox](/docs/components/choicebox)) to handle selection.
+
+<TypeTable
+  type={{
+    checked: {
+      description: "Whether the radio appears selected.",
+      type: "boolean",
+    },
+    invalid: {
+      description: "Applies destructive border styles for validation errors.",
+      type: "boolean",
+    },
+  }}
+/>

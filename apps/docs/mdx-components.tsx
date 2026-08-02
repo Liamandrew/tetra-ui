@@ -1,6 +1,7 @@
 import { Button } from "@repo/shadcn-ui/components/button";
 import * as TabsComponents from "@repo/shadcn-ui/components/tabs";
 import { cn } from "@repo/shadcn-ui/lib/utils";
+import { TypeTable } from "fumadocs-ui/components/type-table";
 import defaultMdxComponents from "fumadocs-ui/mdx";
 import type { MDXComponents } from "mdx/types";
 import { CodeBlock } from "@/components/code-block";
@@ -25,6 +26,7 @@ export function getMDXComponents(components?: MDXComponents): MDXComponents {
     ComponentSource,
     ComponentsList,
     DocsIntroActions,
+    TypeTable,
     Step: ({ className, ...props }: React.ComponentProps<"h3">) => (
       <h3
         className={cn(

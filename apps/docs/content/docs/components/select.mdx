@@ -155,6 +155,142 @@ For shorter option lists, use `SelectContentPopover` instead of a sheet:
 
 When using popover content, `PortalHost` must be present in your root layout.
 
+## API Reference
+
+### Select
+
+Root selection and open state. Value type is `string | number`.
+
+<TypeTable
+  type={{
+    options: {
+      description: "Available options (`value` + `label`).",
+      type: "SelectOption<T>[]",
+      required: true,
+    },
+    value: {
+      description: "Controlled selected value. Uncontrolled when omitted.",
+      type: "T",
+    },
+    onValueChange: {
+      description: "Called when a value is committed.",
+      type: "(value: T) => void",
+    },
+    open: {
+      description: "Controlled open state. Uncontrolled when omitted (starts closed).",
+      type: "boolean",
+    },
+    onOpenChange: {
+      description: "Called when open state should change.",
+      type: "(open: boolean) => void",
+    },
+    placeholder: {
+      description: "Placeholder shown by `SelectInput` when empty.",
+      type: "string",
+      default: '"Select..."',
+    },
+    disabled: {
+      description: "Disables the trigger and input.",
+      type: "boolean",
+    },
+    invalid: {
+      description: "Marks the input invalid.",
+      type: "boolean",
+    },
+  }}
+/>
+
+### SelectTrigger
+
+Extends [React Native Pressable](https://reactnative.dev/docs/pressable#props) props. Toggles open and records trigger layout for popover positioning. Must be used within `Select`.
+
+<TypeTable
+  type={{
+    asChild: {
+      description: "Merges props onto the child via `Slot.Pressable` instead of rendering a Pressable.",
+      type: "boolean",
+    },
+  }}
+/>
+
+### SelectInput
+
+Accepts partial [`ActionInput`](/docs/components/action-input) props. Shows the selected option label, placeholder, chevron, and focus/disabled/invalid from `Select` context. Must be used within `Select`.
+
+### SelectItem
+
+Extends [React Native Pressable](https://reactnative.dev/docs/pressable#props) props except `onPress` (managed). In popover mode, press commits immediately; in sheet mode, press updates the draft selection. Must be used within `Select`.
+
+<TypeTable
+  type={{
+    value: {
+      description: "Option value.",
+      type: "T",
+      required: true,
+    },
+    label: {
+      description: "Default label when children are omitted.",
+      type: "string",
+      required: true,
+    },
+  }}
+/>
+
+### SelectItemLabel
+
+Extends [`Text`](/docs/components/text) props.
+
+### SelectItemIndicator
+
+Renders a check icon when the item matches the draft selection. Must be used within `SelectItem`.
+
+### SelectContentSheet
+
+Renders options in a [`BottomSheet`](/docs/components/bottom-sheet). Sheet open state is bound to `Select`; dismiss cancels the draft.
+
+### SelectContentSheetHeader
+
+Alias of [`BottomSheetHeader`](/docs/components/bottom-sheet).
+
+### SelectContentSheetTitle
+
+Alias of [`BottomSheetTitle`](/docs/components/bottom-sheet).
+
+### SelectContentSheetBody
+
+Alias of [`BottomSheetBody`](/docs/components/bottom-sheet).
+
+### SelectContentSheetFooter
+
+Alias of [`BottomSheetFooter`](/docs/components/bottom-sheet).
+
+### SelectContentSheetConfirm
+
+Extends [React Native Pressable](https://reactnative.dev/docs/pressable#props) props. Commits the draft selection and closes the sheet. Must be used within `Select`.
+
+<TypeTable
+  type={{
+    asChild: {
+      description: "Merges props onto the child via `Slot.Pressable` instead of rendering a Pressable.",
+      type: "boolean",
+    },
+  }}
+/>
+
+### SelectContentPopover
+
+Accepts [`PopoverContent`](/docs/components/popover) props. Renders options in a popover (requires [`PortalHost`](/docs/components/portal)). Selecting an item commits immediately.
+
+<TypeTable
+  type={{
+    width: {
+      description: "Passed through to `PopoverContent`.",
+      type: '"full" | "fit" | "auto" | "trigger" | number | `${number}%`',
+      default: '"trigger"',
+    },
+  }}
+/>
+
 ## Changelog
 
 ### 2026-05-30 - Migrate to BottomSheet

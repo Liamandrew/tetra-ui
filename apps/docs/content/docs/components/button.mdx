@@ -90,6 +90,71 @@ Set `busy` to show a spinner and disable interaction while an action is in progr
 </Button>
 ```
 
+## API Reference
+
+### Button
+
+Extends [React Native Pressable](https://reactnative.dev/docs/pressable#props) props.
+
+<TypeTable
+  type={{
+    variant: {
+      description: "Visual style of the button.",
+      type: '"default" | "destructive" | "outline" | "secondary" | "ghost" | "link"',
+      default: '"default"',
+    },
+    size: {
+      description: "Size of the button. Use icon sizes for icon-only buttons.",
+      type: '"default" | "sm" | "lg" | "icon" | "icon-sm" | "icon-lg"',
+      default: '"default"',
+    },
+    busy: {
+      description: "Shows a spinner and disables interaction while true.",
+      type: "boolean",
+    },
+    disabled: {
+      description: "Disables press handling and applies disabled styles.",
+      type: "boolean",
+    },
+  }}
+/>
+
+### ButtonText
+
+Renders button label text styled from the parent `Button` context.
+
+<TypeTable
+  type={{
+    children: {
+      description: "Label content.",
+      type: "React.ReactNode",
+      required: true,
+    },
+    className: {
+      description: "Additional Tailwind classes.",
+      type: "string",
+    },
+  }}
+/>
+
+### ButtonIcon
+
+Clones a single child icon with size and color from the parent `Button` context.
+
+<TypeTable
+  type={{
+    children: {
+      description: "A single icon element.",
+      type: "React.ReactNode",
+      required: true,
+    },
+    className: {
+      description: "Additional Tailwind classes.",
+      type: "string",
+    },
+  }}
+/>
+
 ## Changelog
 
 ### 2025-12-03 Icon sizes

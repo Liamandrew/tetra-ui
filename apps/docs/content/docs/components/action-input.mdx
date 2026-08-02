@@ -67,3 +67,27 @@ Add a leading icon or other addon content:
 
 A chevron icon is rendered automatically on the trailing edge when no end addon is provided.
 
+## API Reference
+
+### ActionInput
+
+Extends [`InputPressable`](/docs/components/input) props. Displays `value` or `placeholder` as text (not an editable TextInput). A trailing chevron is rendered when no end addon is provided.
+
+<TypeTable
+  type={{
+    value: {
+      description: "Displayed value. When empty or undefined, shows the placeholder.",
+      type: "string",
+    },
+    placeholder: {
+      description: "Placeholder text when there is no value.",
+      type: "string",
+      required: true,
+    },
+    children: {
+      description: "`InputAddon` children. End addons replace the default chevron.",
+      type: "InputAddonChildren",
+    },
+  }}
+/>
+

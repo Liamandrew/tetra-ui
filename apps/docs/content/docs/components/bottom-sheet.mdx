@@ -139,6 +139,93 @@ The native sheet handles keyboard avoidance automatically. `BottomSheetFooter` s
 </BottomSheetContent>
 ```
 
+## API Reference
+
+### BottomSheet
+
+Root open state. Built on [Expo UI BottomSheet](https://docs.expo.dev/versions/latest/sdk/ui/) (SwiftUI / Jetpack Compose). Controlled when `open` is set.
+
+<TypeTable
+  type={{
+    open: {
+      description: "Controlled open state. Uncontrolled when omitted (starts closed).",
+      type: "boolean",
+    },
+    onOpenChange: {
+      description: "Called when open state should change (including dismiss).",
+      type: "(open: boolean) => void",
+    },
+  }}
+/>
+
+### BottomSheetTrigger
+
+Extends [React Native Pressable](https://reactnative.dev/docs/pressable#props) props. Opens the sheet on press. Must be used within `BottomSheet`.
+
+<TypeTable
+  type={{
+    asChild: {
+      description: "Merges props onto the child via `Slot.Pressable` instead of rendering a Pressable.",
+      type: "boolean",
+    },
+  }}
+/>
+
+### BottomSheetClose
+
+Extends [React Native Pressable](https://reactnative.dev/docs/pressable#props) props. Closes the sheet on press. Must be used within `BottomSheet`.
+
+<TypeTable
+  type={{
+    asChild: {
+      description: "Merges props onto the child via `Slot.Pressable` instead of rendering a Pressable.",
+      type: "boolean",
+    },
+  }}
+/>
+
+### BottomSheetContent
+
+Extends [React Native View](https://reactnative.dev/docs/view#props) props. Hosts the native sheet. Must be used within `BottomSheet`.
+
+<TypeTable
+  type={{
+    snapPoints: {
+      description: "Rest heights from Expo UI `SnapPoint`. When omitted, the sheet fits its content.",
+      type: '("half" | "full" | { fraction: number } | { height: number })[]',
+    },
+    showDragIndicator: {
+      description: "Shows the drag handle / indicator.",
+      type: "boolean",
+      default: "true",
+    },
+    className: {
+      description: "Additional Tailwind classes on the content host.",
+      type: "string",
+    },
+  }}
+/>
+
+### BottomSheetHeader
+
+Extends [React Native View](https://reactnative.dev/docs/view#props) props. Renders children and a trailing close button.
+
+### BottomSheetTitle
+
+Extends [React Native Text](https://reactnative.dev/docs/text#props) props.
+
+### BottomSheetBody
+
+Extends [React Native View](https://reactnative.dev/docs/view#props) props. Padded sheet body region.
+
+### BottomSheetScrollView
+
+Extends [React Native ScrollView](https://reactnative.dev/docs/scrollview#props) props. Sets `nestedScrollEnabled` and default content padding classes.
+
+### BottomSheetFooter
+
+Extends [React Native View](https://reactnative.dev/docs/view#props) props. Sticky footer with safe-area and keyboard padding.
+
 ## Changelog
 
 ### 2026-05-25 - Initial release

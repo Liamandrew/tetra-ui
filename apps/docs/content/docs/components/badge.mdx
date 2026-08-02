@@ -82,3 +82,54 @@ Apply custom sizing classes to create compact count indicators:
 </Badge>
 ```
 
+## API Reference
+
+### Badge
+
+Extends [React Native View](https://reactnative.dev/docs/view#props) props. String children are wrapped in `BadgeText` automatically.
+
+<TypeTable
+  type={{
+    variant: {
+      description: "Visual style of the badge.",
+      type: '"default" | "secondary" | "destructive" | "outline"',
+      default: '"default"',
+    },
+  }}
+/>
+
+### BadgeText
+
+Renders badge label text styled from the parent `Badge` context.
+
+<TypeTable
+  type={{
+    children: {
+      description: "Label content.",
+      type: "React.ReactNode",
+      required: true,
+    },
+    className: {
+      description: "Additional Tailwind classes.",
+      type: "string",
+    },
+  }}
+/>
+
+### BadgeIcon
+
+Clones a single child icon with size and color from the parent `Badge` context.
+
+<TypeTable
+  type={{
+    children: {
+      description: "A single icon element.",
+      type: "React.ReactNode",
+      required: true,
+    },
+    className: {
+      description: "Additional Tailwind classes.",
+      type: "string",
+    },
+  }}
+/>

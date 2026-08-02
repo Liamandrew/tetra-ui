@@ -88,3 +88,26 @@ Pass `invalid` to show a destructive focus ring, typically when paired with form
 ```tsx
 <TextInput invalid placeholder="Enter your username" />
 ```
+
+## API Reference
+
+### TextInput
+
+Extends [`Input`](/docs/components/input) props (React Native [TextInput](https://reactnative.dev/docs/textinput#props), omitting `editable`).
+
+<TypeTable
+  type={{
+    disabled: {
+      description: "Disables the field and pressable wrapper.",
+      type: "boolean",
+    },
+    invalid: {
+      description: "Shows a destructive focus ring.",
+      type: "boolean",
+    },
+    children: {
+      description: "`InputAddon` children for leading or trailing content.",
+      type: "InputAddonChildren",
+    },
+  }}
+/>

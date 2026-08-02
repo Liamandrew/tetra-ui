@@ -161,6 +161,107 @@ const [open, setOpen] = useState(false);
 </NativeSelect>
 ```
 
+## API Reference
+
+Built on [Expo UI Picker](https://docs.expo.dev/versions/latest/sdk/ui/universal/picker/). Without `NativeSelectInput`, renders the picker directly; with it, uses form chrome and platform presentation.
+
+### NativeSelect
+
+Root value/open state. Value type is Expo UI `PickerItemValue` (`string | number`).
+
+<TypeTable
+  type={{
+    value: {
+      description: "Controlled selected value. Uncontrolled when omitted.",
+      type: "T",
+    },
+    onValueChange: {
+      description: "Called when a value is committed.",
+      type: "(value: T) => void",
+    },
+    open: {
+      description: "Controlled open state for sheet/menu UI. Uncontrolled when omitted (starts closed).",
+      type: "boolean",
+    },
+    onOpenChange: {
+      description: "Called when open state should change.",
+      type: "(open: boolean) => void",
+    },
+    appearance: {
+      description: "Picker appearance when rendering without `NativeSelectInput`.",
+      type: '"wheel" | "menu"',
+      default: '"menu"',
+    },
+    disabled: {
+      description: "Disables interaction.",
+      type: "boolean",
+    },
+    className: {
+      description: "Classes on the picker host when rendering without `NativeSelectInput`.",
+      type: "string",
+    },
+  }}
+/>
+
+### NativeSelectItem
+
+Alias of Expo UI `Picker.Item`.
+
+<TypeTable
+  type={{
+    label: {
+      description: "Display text.",
+      type: "string",
+      required: true,
+    },
+    value: {
+      description: "Option value.",
+      type: "string | number",
+      required: true,
+    },
+  }}
+/>
+
+### NativeSelectInput
+
+Form-styled chrome. iOS `wheel` (default) opens a [`BottomSheet`](/docs/components/bottom-sheet); iOS `menu` uses non-pressable chrome with only the native menu picker interactive; Android uses ActionInput as an ExposedDropdownMenuBox anchor.
+
+<TypeTable
+  type={{
+    appearance: {
+      description: "iOS presentation. Android always uses the menu dropdown.",
+      type: '"wheel" | "menu"',
+      default: '"wheel"',
+    },
+    placeholder: {
+      description: "Placeholder / sheet title text.",
+      type: "string",
+      default: '"Select..."',
+    },
+    className: {
+      description: "Additional Tailwind classes on the input chrome.",
+      type: "string",
+    },
+  }}
+/>
+
+### NativeSelectSheetFooter
+
+Accepts [`BottomSheetFooter`](/docs/components/bottom-sheet) props. When present on iOS `wheel`, picker changes are drafted until confirm; dismiss cancels.
+
+### NativeSelectSheetConfirm
+
+Extends [React Native Pressable](https://reactnative.dev/docs/pressable#props) props. Commits the draft value and closes the sheet. Must be used within `NativeSelect`.
+
+<TypeTable
+  type={{
+    asChild: {
+      description: "Merges props onto the child via `Slot.Pressable` instead of rendering a Pressable.",
+      type: "boolean",
+    },
+  }}
+/>
+
 ## Changelog
 
 ### 2026-08-02 - Menu appearance on NativeSelectInput

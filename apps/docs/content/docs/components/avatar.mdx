@@ -119,3 +119,52 @@ Use the `size` prop to change the size of the avatar.
   <AvatarFallback>JD</AvatarFallback>
 </Avatar>
 ```
+
+## API Reference
+
+### Avatar
+
+Extends [React Native View](https://reactnative.dev/docs/view#props) props.
+
+<TypeTable
+  type={{
+    size: {
+      description: "Size of the avatar. Also drives badge and fallback text sizing.",
+      type: '"default" | "sm" | "lg"',
+      default: '"default"',
+    },
+  }}
+/>
+
+### AvatarImage
+
+Extends [React Native Image](https://reactnative.dev/docs/image#props) props. Renders nothing when neither `source` nor `src` is provided. Must be used within `Avatar`.
+
+<TypeTable
+  type={{
+    alt: {
+      description: "Web-style shim mapped to `accessibilityLabel`.",
+      type: "string",
+    },
+    src: {
+      description: "Web-style shim mapped to `source={{ uri: src }}` when `source` is omitted.",
+      type: "string",
+    },
+  }}
+/>
+
+### AvatarFallback
+
+Extends [React Native View](https://reactnative.dev/docs/view#props) props. Hidden once the image has loaded. String children are wrapped in `Text`. Must be used within `Avatar`.
+
+### AvatarBadge
+
+Extends [React Native View](https://reactnative.dev/docs/view#props) props. Sized from the parent `Avatar` context. Must be used within `Avatar`.
+
+### AvatarGroup
+
+Extends [React Native View](https://reactnative.dev/docs/view#props) props. Overlaps child avatars with a border.
+
+### AvatarGroupCount
+
+Extends [React Native View](https://reactnative.dev/docs/view#props) props. String children are wrapped in `Text`.

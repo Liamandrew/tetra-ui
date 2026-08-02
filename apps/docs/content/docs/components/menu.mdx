@@ -263,6 +263,120 @@ Nest a submenu with `MenuSub`, `MenuSubTrigger`, and `MenuSubContent`:
 
 Menus use native Expo UI primitives under the hood. Selecting a regular item dismisses the menu automatically on iOS and Android. Selectable items on iOS may keep the menu open after tap (native SwiftUI `Toggle` behavior); on Android, selectable items still dismiss the menu.
 
+## API Reference
+
+Native surface on [Expo UI](https://docs.expo.dev/versions/latest/sdk/ui/) (`Menu` / `DropdownMenu`). Documented props are the tetra-ui API; underlying Expo primitives are managed internally.
+
+### Menu
+
+Root menu. Requires `MenuTrigger` and `MenuContent` children.
+
+### MenuTrigger
+
+Single React element rendered as the menu label / anchor (typically a pressable).
+
+<TypeTable
+  type={{
+    children: {
+      description: "A single trigger element.",
+      type: "React.ReactElement",
+      required: true,
+    },
+  }}
+/>
+
+### MenuContent
+
+Menu items, groups, separators, and submenus.
+
+### MenuGroup
+
+Groups items. Vertical uses a section; horizontal uses a control group / row.
+
+<TypeTable
+  type={{
+    direction: {
+      description: "Layout direction for items in the group.",
+      type: '"horizontal" | "vertical"',
+      default: '"vertical"',
+    },
+    title: {
+      description: "Optional group label.",
+      type: "string",
+    },
+  }}
+/>
+
+### MenuItem
+
+A tappable row. When `selected` is defined, iOS uses a native toggle; Android shows a trailing checkmark.
+
+<TypeTable
+  type={{
+    variant: {
+      description: "Visual role. Maps to destructive styling / button role.",
+      type: '"default" | "destructive"',
+      default: '"default"',
+    },
+    disabled: {
+      description: "Disables the item.",
+      type: "boolean",
+    },
+    selected: {
+      description: "When set, renders as a selectable item with checkmark/toggle state.",
+      type: "boolean",
+    },
+    onPress: {
+      description: "Called when the item is activated.",
+      type: "() => void",
+    },
+  }}
+/>
+
+### MenuItemLabel
+
+Label text for the item.
+
+<TypeTable
+  type={{
+    children: {
+      description: "Label string.",
+      type: "string",
+      required: true,
+    },
+  }}
+/>
+
+### MenuItemIcon
+
+Leading icon via [Expo UI Icon](https://docs.expo.dev/versions/latest/sdk/ui/) `name` (SF Symbol on iOS; drawable / material symbol on Android — prefer platform-selected names for cross-platform).
+
+<TypeTable
+  type={{
+    icon: {
+      description: "Expo UI icon name.",
+      type: "IconName",
+      required: true,
+    },
+  }}
+/>
+
+### MenuSeparator
+
+Native divider between items. No custom props.
+
+### MenuSub
+
+Nested submenu. Same child contract as `Menu` (`MenuSubTrigger` + `MenuSubContent`).
+
+### MenuSubTrigger
+
+Same shape as `MenuTrigger` for the submenu entry.
+
+### MenuSubContent
+
+Same shape as `MenuContent` for nested items.
+
 ## Changelog
 
 ### 2026-06-08 - Add support for disabled items & remove MenuItemIcon.select

@@ -186,6 +186,85 @@ Pass `showSeparator={false}` on a specific item to hide the divider below it:
 </InlineListItem>
 ```
 
+## API Reference
+
+### InlineList
+
+Extends [React Native View](https://reactnative.dev/docs/view#props) props. Auto-sets `showSeparator` on child `InlineListItem`s (all but the last).
+
+<TypeTable
+  type={{
+    title: {
+      description: "Optional section title rendered above the list.",
+      type: "string",
+    },
+    children: {
+      description: "List items and related content.",
+      type: "React.ReactNode",
+      required: true,
+    },
+  }}
+/>
+
+### InlineListItem
+
+Extends [React Native Pressable](https://reactnative.dev/docs/pressable#props) props when `onPress` is set; otherwise renders a non-pressable row.
+
+<TypeTable
+  type={{
+    showSeparator: {
+      description: "Shows a hairline divider below the item. Inside `InlineList`, defaults to true for all but the last item.",
+      type: "boolean",
+      default: "false",
+    },
+    variant: {
+      description: "Visual style of the row.",
+      type: '"default" | "destructive"',
+      default: '"default"',
+    },
+  }}
+/>
+
+### InlineListItemTitle
+
+Extends [React Native Text](https://reactnative.dev/docs/text#props) props. Colored from the parent item `variant`.
+
+### InlineListItemDescription
+
+Extends [React Native Text](https://reactnative.dev/docs/text#props) props.
+
+### InlineListItemAddon
+
+Extends [React Native View](https://reactnative.dev/docs/view#props) props.
+
+<TypeTable
+  type={{
+    align: {
+      description: "Places the addon at the start or end of the row.",
+      type: '"inline-start" | "inline-end"',
+      default: '"inline-start"',
+    },
+  }}
+/>
+
+### InlineListItemAddonIcon
+
+Clones a single child icon with size and color from item/addon context.
+
+<TypeTable
+  type={{
+    children: {
+      description: "A single icon element.",
+      type: "React.ReactNode",
+      required: true,
+    },
+    className: {
+      description: "Additional Tailwind classes applied to the icon.",
+      type: "string",
+    },
+  }}
+/>
+
 ## Changelog
 
 ### 2026-06-29

@@ -81,3 +81,43 @@ Pass `invalid` to show a destructive border, typically when paired with form val
 <Checkbox checked={checked} invalid />
 ```
 
+## API Reference
+
+### Checkbox
+
+Extends [React Native View](https://reactnative.dev/docs/view#props) props (`children` omitted). Visual-only — wrap in a `Pressable` (or use `CheckboxInput` / [Choicebox](/docs/components/choicebox)) to handle toggling.
+
+<TypeTable
+  type={{
+    checked: {
+      description: "Whether the checkbox appears checked.",
+      type: "boolean",
+    },
+    invalid: {
+      description: "Applies destructive border styles for validation errors.",
+      type: "boolean",
+    },
+  }}
+/>
+
+### CheckboxInput
+
+Extends [InputPressable](/docs/components/input) props. Renders a labeled checkbox row.
+
+<TypeTable
+  type={{
+    checked: {
+      description: "Whether the checkbox appears checked.",
+      type: "boolean",
+    },
+    invalid: {
+      description: "Applies invalid styles to the row and checkbox.",
+      type: "boolean",
+    },
+    children: {
+      description: "Label content shown next to the checkbox.",
+      type: "React.ReactNode",
+      required: true,
+    },
+  }}
+/>

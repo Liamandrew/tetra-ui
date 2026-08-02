@@ -64,3 +64,98 @@ The input module exports lower-level primitives for composing custom input compo
 
 See [Text Input](/docs/components/text-input), [Search Input](/docs/components/search-input), and [Action Input](/docs/components/action-input) for composed examples.
 
+## API Reference
+
+### Input
+
+Extends [React Native TextInput](https://reactnative.dev/docs/textinput#props) props, omitting `editable`.
+
+<TypeTable
+  type={{
+    disabled: {
+      description: "When true, sets `editable` to false on the underlying TextInput.",
+      type: "boolean",
+    },
+  }}
+/>
+
+### InputPressable
+
+Extends [React Native Pressable](https://reactnative.dev/docs/pressable#props) props.
+
+<TypeTable
+  type={{
+    disabled: {
+      description: "Disables the pressable and dims the field.",
+      type: "boolean",
+    },
+    invalid: {
+      description: "Shows a destructive outline for validation errors.",
+      type: "boolean",
+    },
+    focused: {
+      description: "Shows the focus ring outline.",
+      type: "boolean",
+    },
+  }}
+/>
+
+### InputAddon
+
+Extends [React Native View](https://reactnative.dev/docs/view#props) props.
+
+<TypeTable
+  type={{
+    align: {
+      description: "Places the addon on the leading or trailing edge.",
+      type: '"inline-start" | "inline-end"',
+      default: '"inline-start"',
+    },
+  }}
+/>
+
+### InputAddonIcon
+
+Clones a single child icon with sizing and color classes.
+
+<TypeTable
+  type={{
+    children: {
+      description: "A single icon element.",
+      type: "React.ReactNode",
+      required: true,
+    },
+    className: {
+      description: "Additional classes merged onto the child.",
+      type: "string",
+    },
+  }}
+/>
+
+### InputAddonButton
+
+Extends [Button](/docs/components/button) props, omitting Button `size`.
+
+<TypeTable
+  type={{
+    variant: {
+      description: "Button visual variant.",
+      type: '"default" | "destructive" | "ghost" | "link" | "outline" | "secondary"',
+      default: '"ghost"',
+    },
+    size: {
+      description: "Addon button size.",
+      type: '"sm" | "icon"',
+      default: '"sm"',
+    },
+  }}
+/>
+
+### InputAddonButtonText
+
+Same API as [ButtonText](/docs/components/button#buttontext). Must be used inside `InputAddonButton`.
+
+### InputAddonButtonIcon
+
+Same API as [ButtonIcon](/docs/components/button#buttonicon). Must be used inside `InputAddonButton`.
+

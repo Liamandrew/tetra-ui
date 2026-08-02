@@ -134,3 +134,84 @@ Use `asChild` on `AccordionTrigger` to compose with other pressable components:
 ## Spacing
 
 Closed items that sit next to each other are visually grouped with no gap between them. When an item opens, it separates from its neighbors with vertical spacing so the expanded content reads as its own card.
+
+## API Reference
+
+### Accordion
+
+Root open/closed state provider.
+
+<TypeTable
+  type={{
+    type: {
+      description: "Allow one or many open items.",
+      type: '"single" | "multiple"',
+      default: '"single"',
+    },
+    collapsible: {
+      description: "When `type` is `single`, allow closing the open item so none are open.",
+      type: "boolean",
+      default: "false",
+    },
+    value: {
+      description: "Controlled open value(s).",
+      type: "string | string[]",
+    },
+    defaultValue: {
+      description: "Uncontrolled initial open value(s).",
+      type: "string | string[]",
+    },
+    onValueChange: {
+      description: "Called when open state changes. Single type may emit `undefined` when collapsed.",
+      type: "(value: string | string[] | undefined) => void",
+    },
+  }}
+/>
+
+### AccordionItem
+
+Extends [React Native View](https://reactnative.dev/docs/view#props) props. Must be used within `Accordion`.
+
+<TypeTable
+  type={{
+    value: {
+      description: "Unique value for this item.",
+      type: "string",
+      required: true,
+    },
+  }}
+/>
+
+### AccordionTrigger
+
+Extends [React Native Pressable](https://reactnative.dev/docs/pressable#props) props. Must be used within `AccordionItem`.
+
+<TypeTable
+  type={{
+    asChild: {
+      description: "Merge props onto the child pressable via `Slot.Pressable`.",
+      type: "boolean",
+    },
+  }}
+/>
+
+### AccordionContent
+
+Extends [React Native View](https://reactnative.dev/docs/view#props) props. Only mounted while open. Must be used within `AccordionItem`.
+
+### AccordionIndicator
+
+Animated chevron (or custom children) that rotates with open state. Must be used within `AccordionItem`.
+
+<TypeTable
+  type={{
+    className: {
+      description: "Additional Tailwind classes on the default `ChevronDownIcon`.",
+      type: "string",
+    },
+    children: {
+      description: "Optional custom indicator. When set, replaces the default chevron.",
+      type: "React.ReactNode",
+    },
+  }}
+/>

@@ -194,3 +194,107 @@ import {
   <FieldErrorMessage />
 </Field>
 ```
+
+## API Reference
+
+### OTPInput
+
+Root OTP field with its own prop surface (not a TextInput wrapper).
+
+<TypeTable
+  type={{
+    maxLength: {
+      description: "Number of OTP slots / max characters.",
+      type: "number",
+      required: true,
+    },
+    value: {
+      description: "Controlled value.",
+      type: "string",
+    },
+    defaultValue: {
+      description: "Uncontrolled initial value.",
+      type: "string",
+    },
+    onValueChange: {
+      description: "Called when the value changes.",
+      type: "(value: string) => void",
+    },
+    onComplete: {
+      description: "Called when the value reaches `maxLength`.",
+      type: "(value: string) => void",
+    },
+    disabled: {
+      description: "Disables the input and slots.",
+      type: "boolean",
+    },
+    invalid: {
+      description: "Applies destructive styles to slots.",
+      type: "boolean",
+    },
+    pattern: {
+      description: "RegExp source string; rejects values that fail the test.",
+      type: "string",
+    },
+    inputMode: {
+      description: "Passed to the hidden TextInput.",
+      type: "TextInputProps['inputMode']",
+      default: '"numeric"',
+    },
+    placeholder: {
+      description: "Per-slot placeholder characters (indexed by slot).",
+      type: "string",
+    },
+    secureTextEntry: {
+      description: "Masks slot values as bullets.",
+      type: "boolean",
+    },
+    onFocus: {
+      description: "Called when the hidden input focuses.",
+      type: "(e: FocusEvent) => void",
+    },
+    onBlur: {
+      description: "Called when the hidden input blurs.",
+      type: "(e: BlurEvent) => void",
+    },
+    className: {
+      description: "Classes on the root pressable wrapper.",
+      type: "string",
+    },
+  }}
+/>
+
+### OTPInputGroup
+
+Extends [React Native View](https://reactnative.dev/docs/view#props) props.
+
+### OTPInputSlot
+
+Extends [React Native Pressable](https://reactnative.dev/docs/pressable#props) props. Defaults children to placeholder, value, and caret.
+
+<TypeTable
+  type={{
+    index: {
+      description: "Zero-based slot index (must be less than `maxLength`).",
+      type: "number",
+      required: true,
+    },
+  }}
+/>
+
+### OTPInputSlotPlaceholder
+
+Extends [`Text`](/docs/components/text) props. Falls back to `placeholder[index]` from `OTPInput`.
+
+### OTPInputSlotValue
+
+Extends [`Text`](/docs/components/text) props. Falls back to the slot character (or `•` when `secureTextEntry`).
+
+### OTPInputSlotCaret
+
+Extends Reanimated `Animated.View` props. Renders only when the slot is active and empty.
+
+### OTPInputSeparator
+
+Extends [React Native View](https://reactnative.dev/docs/view#props) props. Must be rendered under `OTPInput`.
+

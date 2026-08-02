@@ -57,3 +57,47 @@ Add `PortalHost` once at the root of your app. Components that render into a por
 
 Place `PortalHost` as a sibling to your navigation stack, not inside individual screens.
 
+## API Reference
+
+### PortalHost
+
+Mount point where portal content is rendered. Place once at the app root.
+
+<TypeTable
+  type={{
+    name: {
+      description: "Host name. Must match `hostName` on `Portal` when using a custom host.",
+      type: "string",
+      default: '"TETRA_UI_DEFAULT_HOST_NAME"',
+    },
+  }}
+/>
+
+### Portal
+
+Renders `null` in place. Injects `children` into the matching `PortalHost`.
+
+<TypeTable
+  type={{
+    name: {
+      description: "Unique name for this portal entry.",
+      type: "string",
+      required: true,
+    },
+    hostName: {
+      description: "Target host name.",
+      type: "string",
+      default: '"TETRA_UI_DEFAULT_HOST_NAME"',
+    },
+    children: {
+      description: "Content to render inside the host.",
+      type: "React.ReactNode",
+      required: true,
+    },
+  }}
+/>
+
+### PortalOverlay
+
+Platform wrapper used by overlays: `FullWindowOverlay` on iOS, `Fragment` elsewhere.
+

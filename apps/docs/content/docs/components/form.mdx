@@ -143,9 +143,61 @@ const Form = () => {
 
 ```
 
+## API Reference
+
+Companion components for [react-hook-form](https://react-hook-form.com/). There is no `Form` provider export — use RHF's `useForm` / `Controller` (or `FormProvider`) and wire field state into `Field`.
+
+### Field
+
+Root field state for label, control, description, and error message.
+
+<TypeTable
+  type={{
+    invalid: {
+      description: "Marks the field invalid (destructive label styles).",
+      type: "boolean",
+    },
+    disabled: {
+      description: "Marks the field disabled and styles the label.",
+      type: "boolean",
+    },
+    errorMessage: {
+      description: "Error text shown by `FieldErrorMessage`. Hides `FieldDescription` when set.",
+      type: "string",
+    },
+  }}
+/>
+
+### FieldLabel
+
+Extends [`Label`](/docs/components/label) props. Reads `invalid` / `disabled` from `Field`.
+
+### FieldControl
+
+Clones a single child and passes `disabled` and `invalid` from `Field`.
+
+<TypeTable
+  type={{
+    children: {
+      description: "A single control element that accepts `disabled` and `invalid`.",
+      type: "React.ReactElement",
+      required: true,
+    },
+  }}
+/>
+
+### FieldDescription
+
+Extends [React Native Text](https://reactnative.dev/docs/text#props) props. Hidden when `errorMessage` is set on `Field`.
+
+### FieldErrorMessage
+
+Extends [React Native Text](https://reactnative.dev/docs/text#props) props (`children` omitted). Renders `errorMessage` from `Field` with `accessibilityRole="alert"`.
+
 ## Changelog
 
 ### 2025-12-06 - Displaying error messages
+
 
 FieldDescription now automatically hides when an error message is present.
 
