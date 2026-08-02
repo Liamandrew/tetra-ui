@@ -1,0 +1,121 @@
+---
+title: Avatar
+description: An image element with a fallback for representing the user.
+---
+
+<ComponentPreview name="avatar" type="png" />
+
+## Installation
+
+<Tabs defaultValue="cli">
+
+<TabsList>
+  <TabsTrigger value="cli">CLI</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+
+<TabsContent value="cli">
+
+```package-install
+npx shadcn@latest add @tetra-ui/avatar
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps>
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource name="avatar" title="components/ui/avatar.tsx" />
+
+</Steps>
+
+</TabsContent>
+
+</Tabs>
+
+
+## Usage
+
+```tsx
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "@/components/ui/avatar";
+```
+
+```tsx
+<Avatar>
+  <AvatarImage
+    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face"
+    alt="Avatar"
+  />
+  <AvatarFallback>JD</AvatarFallback>
+</Avatar>
+```
+
+## Composition
+
+```
+Avatar
+├── AvatarImage
+├── AvatarFallback
+└── AvatarBadge
+
+AvatarGroup
+├── Avatar
+│   ├── AvatarImage
+│   ├── AvatarFallback
+│   └── AvatarBadge
+└── AvatarGroupCount
+```
+
+## Badge
+
+Use `AvatarBadge` to add a status indicator at the bottom right of the avatar.
+
+```tsx
+<Avatar>
+  <AvatarImage
+    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face"
+    alt="Avatar"
+  />
+  <AvatarFallback>JD</AvatarFallback>
+  <AvatarBadge className="bg-green-600 dark:bg-green-800" />
+</Avatar>
+```
+
+## Avatar group
+
+Use `AvatarGroup` and `AvatarGroupCount` to stack overlapping avatars.
+
+```tsx
+<AvatarGroup>
+  <Avatar>
+    <AvatarFallback>JD</AvatarFallback>
+  </Avatar>
+  <Avatar>
+    <AvatarFallback>LR</AvatarFallback>
+  </Avatar>
+  <AvatarGroupCount>+3</AvatarGroupCount>
+</AvatarGroup>
+```
+
+## Sizes
+
+Use the `size` prop to change the size of the avatar.
+
+```tsx
+<Avatar size="sm">
+  <AvatarFallback>JD</AvatarFallback>
+</Avatar>
+<Avatar size="default">
+  <AvatarFallback>JD</AvatarFallback>
+</Avatar>
+<Avatar size="lg">
+  <AvatarFallback>JD</AvatarFallback>
+</Avatar>
+```

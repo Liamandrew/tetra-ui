@@ -1,0 +1,114 @@
+---
+title: Alert
+description: Displays a callout for user attention.
+---
+
+<ComponentPreview name="alert" type="png" />
+
+## Installation
+
+<Tabs defaultValue="cli">
+
+<TabsList>
+  <TabsTrigger value="cli">CLI</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+
+<TabsContent value="cli">
+
+```package-install
+npx shadcn@latest add @tetra-ui/alert
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps>
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource name="alert" title="components/ui/alert.tsx" />
+
+</Steps>
+
+</TabsContent>
+
+</Tabs>
+
+
+## Usage
+
+```tsx
+import {
+  Alert,
+  AlertDescription,
+  AlertIcon,
+  AlertTitle,
+} from "@/components/ui/alert";
+import { InfoIcon } from "@/components/ui/icons";
+```
+
+```tsx
+<Alert>
+  <AlertIcon>
+    <InfoIcon />
+  </AlertIcon>
+  <AlertTitle>Heads up!</AlertTitle>
+  <AlertDescription>
+    You can add components and dependencies to your app using the cli.
+  </AlertDescription>
+</Alert>
+```
+
+## Composition
+
+```
+Alert
+├── AlertIcon
+├── AlertTitle
+├── AlertDescription
+└── AlertAction
+```
+
+## Destructive
+
+Use `variant="destructive"` for error or destructive callouts.
+
+```tsx
+import { CircleAlertIcon } from "@/components/ui/icons";
+
+<Alert variant="destructive">
+  <AlertIcon>
+    <CircleAlertIcon />
+  </AlertIcon>
+  <AlertTitle>Payment failed</AlertTitle>
+  <AlertDescription>
+    Your payment could not be processed. Please check your payment method and
+    try again.
+  </AlertDescription>
+</Alert>
+```
+
+## Action
+
+Use `AlertAction` to add a button or other action element to the alert.
+
+```tsx
+import { Button } from "@/components/ui/button";
+
+<Alert>
+  <AlertIcon>
+    <InfoIcon />
+  </AlertIcon>
+  <AlertTitle>Dark mode is now available</AlertTitle>
+  <AlertDescription>
+    Enable it under your profile settings to get started.
+  </AlertDescription>
+  <AlertAction>
+    <Button className="w-fit" size="sm" variant="outline">
+      Enable
+    </Button>
+  </AlertAction>
+</Alert>
+```
