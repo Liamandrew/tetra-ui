@@ -1,5 +1,4 @@
 import {
-  Host as HostPrimitive,
   type PickerAppearance,
   type PickerItemValue,
   Picker as PickerPrimitive,
@@ -19,6 +18,7 @@ import {
   Platform,
   Pressable,
   type PressableProps,
+  View,
 } from "react-native";
 import Animated, {
   Easing,
@@ -27,7 +27,6 @@ import Animated, {
   useSharedValue,
   withTiming,
 } from "react-native-reanimated";
-import { withUniwind } from "uniwind";
 import { cn } from "@/lib/utils";
 import { ActionInput } from "../action-input";
 import {
@@ -48,6 +47,7 @@ import {
 } from "../input";
 import { Slot } from "../slot";
 import { NativeSelectInputPlatform } from "./native-select-input";
+import { NativeSelectPicker } from "./native-select-picker";
 
 // Constants
 const ANIMATION_DURATION = 280;
@@ -55,8 +55,6 @@ const ANIMATION_EASING = Easing.out(Easing.cubic);
 const NATIVE_SELECT_INPUT_NAME = "NativeSelectInput";
 const NATIVE_SELECT_SHEET_FOOTER_NAME = "NativeSelectSheetFooter";
 const WHEEL_PICKER_HEIGHT = 216;
-
-const StyledHost = withUniwind(HostPrimitive);
 
 // Types
 type NativeSelectContextProps<T extends PickerItemValue> = {
@@ -84,22 +82,11 @@ type NativeSelectProps<T extends PickerItemValue> = {
 };
 
 type NativeSelectInputProps = {
+  appearance?: PickerAppearance;
   placeholder?: string;
   className?: string;
   testID?: string;
   children?: React.ReactNode;
-};
-
-type NativeSelectPickerProps<T extends PickerItemValue> = {
-  appearance?: PickerAppearance;
-  selectedValue: T;
-  onValueChange: (value: T) => void;
-  enabled?: boolean;
-  className?: string;
-  style?: React.ComponentProps<typeof HostPrimitive>["style"];
-  testID?: string;
-  matchContents?: boolean;
-  children: React.ReactNode;
 };
 
 type NativeSelectItemData<T extends PickerItemValue> = {
@@ -191,36 +178,6 @@ const hasNativeSelectInput = (children: React.ReactNode) => {
 
 // Components
 export const NativeSelectItem = PickerPrimitive.Item;
-
-const NativeSelectPicker = <T extends PickerItemValue>({
-  appearance = "menu",
-  selectedValue,
-  onValueChange,
-  enabled = true,
-  className,
-  style,
-  testID,
-  matchContents = true,
-  children,
-}: NativeSelectPickerProps<T>) => {
-  return (
-    <StyledHost
-      className={cn(className)}
-      matchContents={matchContents}
-      style={style}
-    >
-      <PickerPrimitive
-        appearance={appearance}
-        enabled={enabled}
-        onValueChange={onValueChange}
-        selectedValue={selectedValue}
-        testID={testID}
-      >
-        {children}
-      </PickerPrimitive>
-    </StyledHost>
-  );
-};
 
 export const NativeSelect = <T extends PickerItemValue>({
   open: openProp,
@@ -343,10 +300,12 @@ export const NativeSelect = <T extends PickerItemValue>({
 
 /**
  * Form-styled native select.
- * - iOS: ActionInput that opens a bottom sheet with a wheel picker
- * - Android / others: platform dropdown inside input chrome (no sheet)
+ * - iOS `wheel` (default): ActionInput that opens a bottom sheet with a wheel picker
+ * - iOS `menu`: non-pressable input chrome; only the native menu picker is interactive
+ * - Android: ActionInput as ExposedDropdownMenuBox anchor (menu)
  */
 export const NativeSelectInput = ({
+  appearance = "wheel",
   placeholder = "Select...",
   className,
   testID,
@@ -375,7 +334,7 @@ export const NativeSelectInput = ({
     addonElements as InputAddonChildren
   );
 
-  const requiresConfirm = Boolean(sheetFooter);
+  const requiresConfirm = appearance === "wheel" && Boolean(sheetFooter);
   const committedValue = value ?? items.at(0)?.value;
   const draftValue = selectedValue ?? committedValue;
   const pickerValue = requiresConfirm ? draftValue : committedValue;
@@ -416,6 +375,38 @@ export const NativeSelectInput = ({
 
   if (pickerValue === undefined) {
     return null;
+  }
+
+  if (Platform.OS === "ios" && appearance === "menu") {
+    return (
+      <View
+        className={cn(
+          "flex min-h-12 w-full flex-row items-center gap-2 rounded-lg border border-input bg-background py-2 pr-0 pl-3",
+          disabled && "opacity-50",
+          pressableClassName,
+          className
+        )}
+        pointerEvents="box-none"
+      >
+        {startAddons}
+
+        <View className="min-w-0 grow" />
+
+        <InputAddon align="inline-end">
+          <NativeSelectPicker
+            appearance="menu"
+            enabled={!disabled}
+            onValueChange={onValueChange}
+            selectedValue={pickerValue}
+            testID={testID}
+          >
+            {itemElements}
+          </NativeSelectPicker>
+        </InputAddon>
+
+        {endAddons}
+      </View>
+    );
   }
 
   if (Platform.OS === "ios") {

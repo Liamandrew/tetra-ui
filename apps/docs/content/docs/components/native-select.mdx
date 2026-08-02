@@ -3,7 +3,7 @@ title: Native Select
 description: A native single-selection input built on Expo UI Picker, with optional input chrome and platform-aware presentation.
 ---
 
-Native Select wraps Expo UI's [Picker](https://docs.expo.dev/versions/latest/sdk/ui/universal/picker/). Without `NativeSelectInput`, it renders the menu or wheel control directly. With `NativeSelectInput`, behavior is platform-baked: iOS opens a wheel in a bottom sheet; Android uses ActionInput as an [`ExposedDropdownMenuBox`](https://docs.expo.dev/versions/latest/sdk/ui/jetpack-compose/exposeddropdownmenubox/) anchor.
+Native Select wraps Expo UI's [Picker](https://docs.expo.dev/versions/latest/sdk/ui/universal/picker/). Without `NativeSelectInput`, it renders the menu or wheel control directly. With `NativeSelectInput`, iOS defaults to a wheel bottom sheet (`appearance="menu"` uses a non-pressable input with the native menu picker); Android uses ActionInput as an [`ExposedDropdownMenuBox`](https://docs.expo.dev/versions/latest/sdk/ui/jetpack-compose/exposeddropdownmenubox/) anchor.
 
 <ComponentPreview name="native-select" type="gif" />
 
@@ -77,12 +77,13 @@ const [value, setValue] = useState("1");
 
 ### NativeSelectInput
 
-Renders form-styled input chrome. Presentation is platform-specific:
+Renders form-styled input chrome. Use `appearance` to choose the iOS presentation:
 
-- **iOS** — ActionInput that opens a bottom sheet containing a wheel picker
-- **Android** — ActionInput as the [`ExposedDropdownMenuBox`](https://docs.expo.dev/versions/latest/sdk/ui/jetpack-compose/exposeddropdownmenubox/) anchor via `menuAnchor()` (Material menu, tetra input chrome)
+- **`wheel` (default)** — ActionInput that opens a bottom sheet containing a wheel picker
+- **`menu`** — non-pressable input chrome; only the native menu picker is tappable
+- **Android** — ActionInput as the [`ExposedDropdownMenuBox`](https://docs.expo.dev/versions/latest/sdk/ui/jetpack-compose/exposeddropdownmenubox/) anchor via `menuAnchor()` (Material menu). `appearance` is ignored.
 
-Pass `InputAddon` children for `inline-start` / `inline-end` adornments. On iOS, optionally compose `NativeSelectSheetFooter` and `NativeSelectSheetConfirm` to require an explicit confirm before committing the wheel selection (dismiss cancels).
+Pass `InputAddon` children for `inline-start` / `inline-end` adornments. On iOS wheel, optionally compose `NativeSelectSheetFooter` and `NativeSelectSheetConfirm` to require an explicit confirm before committing (dismiss cancels).
 
 ```tsx
 import { Button } from "@/components/ui/button";
@@ -117,7 +118,17 @@ import { SearchIcon } from "@/components/ui/icons";
 </NativeSelect>
 ```
 
-Without a sheet footer, iOS commits the wheel value as it changes (previous behavior).
+```tsx
+<NativeSelect value={value} onValueChange={setValue}>
+  <NativeSelectInput appearance="menu" placeholder="Select...">
+    <NativeSelectItem label="Option 1" value="1" />
+    <NativeSelectItem label="Option 2" value="2" />
+    <NativeSelectItem label="Option 3" value="3" />
+  </NativeSelectInput>
+</NativeSelect>
+```
+
+Without a sheet footer, iOS wheel commits the value as it changes.
 ## Controlled
 
 Pass `value` and `onValueChange` for controlled selection. On iOS, optionally control `open` and `onOpenChange` for the sheet:
@@ -151,6 +162,10 @@ const [open, setOpen] = useState(false);
 ```
 
 ## Changelog
+
+### 2026-08-02 - Menu appearance on NativeSelectInput
+
+`NativeSelectInput` accepts `appearance`. On iOS, `menu` uses non-pressable input chrome with only the native menu picker interactive; `wheel` (default) keeps the bottom sheet.
 
 ### 2026-08-01 - Android input chrome + sheet confirm
 
