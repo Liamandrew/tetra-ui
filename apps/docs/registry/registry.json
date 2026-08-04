@@ -320,7 +320,7 @@
       "name": "native-date-select",
       "type": "registry:ui",
       "title": "Native Date Select",
-      "description": "A native date/time selection input built on Expo UI DatePicker (iOS) and DateTimePicker (Android). Compose Trigger + Input + Content for form chrome or a custom trigger; Content opens a wheel bottom sheet on iOS and Material dialogs on Android.",
+      "description": "A native date/time selection input built on Expo UI DatePicker (iOS) and DateTimePicker (Android). Always compose with Content; optionally add Trigger and Input for a form-styled field or custom trigger. Content opens a wheel bottom sheet on iOS and Material dialogs on Android.",
       "dependencies": ["@expo/ui", "react-native-reanimated"],
       "registryDependencies": [
         "@tetra-ui/action-input",
@@ -352,7 +352,7 @@
       "name": "native-select",
       "type": "registry:ui",
       "title": "Native Select",
-      "description": "A native single-selection input built on Expo UI Picker. Compose Trigger + Input + Content for form chrome or a custom trigger; Content opens a wheel bottom sheet on iOS and ExposedDropdownMenuBox on Android.",
+      "description": "A native single-selection input built on Expo UI Picker. Always compose with Content; optionally add Trigger and Input for a form-styled field or custom trigger. Content opens a wheel bottom sheet on iOS and ExposedDropdownMenuBox on Android.",
       "dependencies": ["@expo/ui", "react-native-reanimated"],
       "registryDependencies": [
         "@tetra-ui/action-input",

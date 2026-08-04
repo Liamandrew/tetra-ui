@@ -106,8 +106,8 @@ export default function NativeDateSelectScreen() {
                 value={compactInputValue}
               >
                 <NativeDateSelectInput
-                  display="compact"
                   placeholder="Pick a date"
+                  variant="compact"
                 >
                   <InputAddon align="inline-start">
                     <Label>Date</Label>
@@ -180,33 +180,39 @@ export default function NativeDateSelectScreen() {
               <Text className="text-muted-foreground text-sm">Compact</Text>
               <NativeDateSelect
                 disabled={showDisabled}
-                display="compact"
                 mode="date"
                 onValueChange={setCompactValue}
                 value={compactValue}
-              />
+                variant="compact"
+              >
+                <NativeDateSelectContent />
+              </NativeDateSelect>
             </Stack>
 
             <Stack gap="xs">
               <Text className="text-muted-foreground text-sm">Graphical</Text>
               <NativeDateSelect
                 disabled={showDisabled}
-                display="graphical"
                 mode="date"
                 onValueChange={setGraphicalValue}
                 value={graphicalValue}
-              />
+                variant="graphical"
+              >
+                <NativeDateSelectContent />
+              </NativeDateSelect>
             </Stack>
 
             <Stack gap="xs">
               <Text className="text-muted-foreground text-sm">Wheel</Text>
               <NativeDateSelect
                 disabled={showDisabled}
-                display="wheel"
                 mode="date"
                 onValueChange={setWheelValue}
                 value={wheelValue}
-              />
+                variant="wheel"
+              >
+                <NativeDateSelectContent />
+              </NativeDateSelect>
             </Stack>
           </Stack>
         </ScreenHero>
@@ -220,7 +226,9 @@ export default function NativeDateSelectScreen() {
                 mode="date"
                 onValueChange={setGraphicalValue}
                 value={graphicalValue}
-              />
+              >
+                <NativeDateSelectContent />
+              </NativeDateSelect>
             </Stack>
           </Stack>
         </ScreenHero>

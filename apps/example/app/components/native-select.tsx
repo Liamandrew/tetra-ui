@@ -110,7 +110,7 @@ export default function NativeSelectScreen() {
                 onValueChange={setMenuInputValue}
                 value={menuInputValue}
               >
-                <NativeSelectInput appearance="menu" placeholder="Select...">
+                <NativeSelectInput placeholder="Select..." variant="menu">
                   <InputAddon align="inline-start">
                     <Label>Choice</Label>
                   </InputAddon>
@@ -170,30 +170,12 @@ export default function NativeSelectScreen() {
           <Stack gap="xs">
             <Text className="text-muted-foreground text-sm">Menu</Text>
             <NativeSelect
-              appearance="menu"
               disabled={showDisabled}
               onValueChange={setMenuValue}
               value={menuValue}
+              variant="menu"
             >
-              {OPTIONS.map((option) => (
-                <NativeSelectItem
-                  key={option.value}
-                  label={option.label}
-                  value={option.value}
-                />
-              ))}
-            </NativeSelect>
-          </Stack>
-
-          {Platform.OS === "ios" ? (
-            <Stack gap="xs">
-              <Text className="text-muted-foreground text-sm">Wheel</Text>
-              <NativeSelect
-                appearance="wheel"
-                disabled={showDisabled}
-                onValueChange={setStandaloneWheelValue}
-                value={standaloneWheelValue}
-              >
+              <NativeSelectContent>
                 {OPTIONS.map((option) => (
                   <NativeSelectItem
                     key={option.value}
@@ -201,6 +183,28 @@ export default function NativeSelectScreen() {
                     value={option.value}
                   />
                 ))}
+              </NativeSelectContent>
+            </NativeSelect>
+          </Stack>
+
+          {Platform.OS === "ios" ? (
+            <Stack gap="xs">
+              <Text className="text-muted-foreground text-sm">Wheel</Text>
+              <NativeSelect
+                disabled={showDisabled}
+                onValueChange={setStandaloneWheelValue}
+                value={standaloneWheelValue}
+                variant="wheel"
+              >
+                <NativeSelectContent>
+                  {OPTIONS.map((option) => (
+                    <NativeSelectItem
+                      key={option.value}
+                      label={option.label}
+                      value={option.value}
+                    />
+                  ))}
+                </NativeSelectContent>
               </NativeSelect>
             </Stack>
           ) : null}

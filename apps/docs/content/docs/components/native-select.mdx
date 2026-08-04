@@ -1,9 +1,9 @@
 ---
 title: Native Select
-description: A native single-selection input built on Expo UI Picker, with optional input chrome and platform-aware presentation.
+description: A native single-selection input built on Expo UI Picker, with optional form-styled input and platform-aware presentation.
 ---
 
-Native Select wraps Expo UI's [Picker](https://docs.expo.dev/versions/latest/sdk/ui/universal/picker/). Without Trigger/Input/Content, it renders the menu or wheel control directly. With the composed API, iOS defaults to a wheel bottom sheet (`appearance="menu"` embeds the native menu picker in input chrome); Android uses [`ExposedDropdownMenuBox`](https://docs.expo.dev/versions/latest/sdk/ui/jetpack-compose/exposeddropdownmenubox/) with the Trigger as the menu anchor.
+Native Select wraps Expo UI's [Picker](https://docs.expo.dev/versions/latest/sdk/ui/universal/picker/).
 
 <ComponentPreview name="native-select" type="gif" />
 
@@ -48,11 +48,12 @@ npm install @expo/ui react-native-reanimated
 
 ### Menu and wheel
 
-Omit Trigger/Input/Content to render the Expo Picker directly. Set `appearance` on the root (`menu` or `wheel`). `appearance="wheel"` is iOS-only; on Android it falls back to the platform menu.
+Use Content alone to render the Expo Picker inline. Set `variant` on the root (`menu` or `wheel`). `variant="wheel"` is iOS-only; on Android it falls back to the platform menu.
 
 ```tsx
 import {
   NativeSelect,
+  NativeSelectContent,
   NativeSelectItem,
 } from "@/components/ui/native-select";
 ```
@@ -60,30 +61,34 @@ import {
 ```tsx
 const [value, setValue] = useState("1");
 
-<NativeSelect appearance="menu" value={value} onValueChange={setValue}>
-  <NativeSelectItem label="Option 1" value="1" />
-  <NativeSelectItem label="Option 2" value="2" />
-  <NativeSelectItem label="Option 3" value="3" />
+<NativeSelect variant="menu" value={value} onValueChange={setValue}>
+  <NativeSelectContent>
+    <NativeSelectItem label="Option 1" value="1" />
+    <NativeSelectItem label="Option 2" value="2" />
+    <NativeSelectItem label="Option 3" value="3" />
+  </NativeSelectContent>
 </NativeSelect>
 ```
 
 ```tsx
-<NativeSelect appearance="wheel" value={value} onValueChange={setValue}>
-  <NativeSelectItem label="Option 1" value="1" />
-  <NativeSelectItem label="Option 2" value="2" />
-  <NativeSelectItem label="Option 3" value="3" />
+<NativeSelect variant="wheel" value={value} onValueChange={setValue}>
+  <NativeSelectContent>
+    <NativeSelectItem label="Option 1" value="1" />
+    <NativeSelectItem label="Option 2" value="2" />
+    <NativeSelectItem label="Option 3" value="3" />
+  </NativeSelectContent>
 </NativeSelect>
 ```
 
-### Composed select
+### Form-styled select
 
-Compose `NativeSelectTrigger`, `NativeSelectInput`, and `NativeSelectContent` like Select. The Trigger opens the picker; Input is display-only chrome; Content owns the sheet/menu and hosts items.
+Compose `NativeSelectTrigger`, `NativeSelectInput`, and `NativeSelectContent` like Select. The Trigger opens the picker; Input is display-only; Content owns the sheet/menu and hosts items. Content has no props — the sheet title follows the Input placeholder.
 
-Use `appearance` on Input to choose the iOS presentation:
+Use `variant` on Input to choose the iOS presentation:
 
 - **`wheel` (default)** — Trigger opens a bottom sheet containing a wheel picker
-- **`menu`** — non-pressable input chrome; only the native menu picker is tappable (Trigger optional)
-- **Android** — Trigger anchors an [`ExposedDropdownMenuBox`](https://docs.expo.dev/versions/latest/sdk/ui/jetpack-compose/exposeddropdownmenubox/). `appearance` is ignored.
+- **`menu`** — non-pressable input; only the native menu picker is tappable (Trigger optional)
+- **Android** — Trigger anchors an [`ExposedDropdownMenuBox`](https://docs.expo.dev/versions/latest/sdk/ui/jetpack-compose/exposeddropdownmenubox/). `variant` is ignored.
 
 Pass `InputAddon` children to Input for adornments. On iOS wheel, optionally compose `NativeSelectSheetFooter` and `NativeSelectSheetConfirm` inside Content to require an explicit confirm before committing (dismiss cancels).
 
@@ -128,7 +133,7 @@ import { SearchIcon } from "@/components/ui/icons";
 
 ```tsx
 <NativeSelect value={value} onValueChange={setValue}>
-  <NativeSelectInput appearance="menu" placeholder="Select..." />
+  <NativeSelectInput variant="menu" placeholder="Select..." />
   <NativeSelectContent>
     <NativeSelectItem label="Option 1" value="1" />
     <NativeSelectItem label="Option 2" value="2" />
@@ -208,7 +213,7 @@ const [open, setOpen] = useState(false);
 
 ## API Reference
 
-Built on [Expo UI Picker](https://docs.expo.dev/versions/latest/sdk/ui/universal/picker/). Without Trigger/Input/Content, renders the picker directly; with them, uses form chrome and platform presentation.
+Built on [Expo UI Picker](https://docs.expo.dev/versions/latest/sdk/ui/universal/picker/). Always include `NativeSelectContent`. Content-only renders the picker inline; with Trigger/Input, uses a form-styled input and platform presentation.
 
 ### NativeSelect
 
@@ -232,8 +237,8 @@ Root value/open state. Value type is Expo UI `PickerItemValue` (`string | number
       description: "Called when open state should change.",
       type: "(open: boolean) => void",
     },
-    appearance: {
-      description: "Picker appearance when rendering without the composed API.",
+    variant: {
+      description: "Picker style for Content-only (inline) usage. Input can override for form-styled usage.",
       type: '"wheel" | "menu"',
       default: '"menu"',
     },
@@ -242,7 +247,7 @@ Root value/open state. Value type is Expo UI `PickerItemValue` (`string | number
       type: "boolean",
     },
     className: {
-      description: "Classes on the picker host when rendering without the composed API.",
+      description: "Classes on the picker host for Content-only (inline) usage.",
       type: "string",
     },
   }}
@@ -282,22 +287,22 @@ Opens the sheet/menu. Extends [React Native Pressable](https://reactnative.dev/d
 
 ### NativeSelectInput
 
-Display-only form chrome. Compose inside `NativeSelectTrigger` for wheel/Android. iOS `menu` embeds the native menu picker and does not need a Trigger.
+Display-only form-styled input. Compose inside `NativeSelectTrigger` for wheel/Android. iOS `menu` embeds the native menu picker and does not need a Trigger.
 
 <TypeTable
   type={{
-    appearance: {
+    variant: {
       description: "iOS presentation. Android always uses the menu dropdown.",
       type: '"wheel" | "menu"',
       default: '"wheel"',
     },
     placeholder: {
-      description: "Placeholder / default sheet title text.",
+      description: "Placeholder and sheet title text.",
       type: "string",
       default: '"Select..."',
     },
     className: {
-      description: "Additional Tailwind classes on the input chrome.",
+      description: "Additional Tailwind classes on the input.",
       type: "string",
     },
   }}
@@ -305,16 +310,7 @@ Display-only form chrome. Compose inside `NativeSelectTrigger` for wheel/Android
 
 ### NativeSelectContent
 
-Owns presentation: iOS wheel bottom sheet, or Android ExposedDropdownMenu. Hosts `NativeSelectItem` children and optional sheet footer.
-
-<TypeTable
-  type={{
-    title: {
-      description: "Sheet title. Falls back to Input placeholder when omitted.",
-      type: "string",
-    },
-  }}
-/>
+Always required. Owns presentation: inline picker, iOS wheel bottom sheet, or Android ExposedDropdownMenu. Hosts `NativeSelectItem` children and optional sheet footer. No props — sheet title follows the Input placeholder.
 
 ### NativeSelectSheetFooter
 
@@ -335,6 +331,10 @@ Extends [React Native Pressable](https://reactnative.dev/docs/pressable#props) p
 
 ## Changelog
 
+### 2026-08-05 - Mandatory Content and variant
+
+`NativeSelectContent` is required for all usage. Renamed `appearance` to `variant`. Content takes no props (sheet title follows Input placeholder).
+
 ### 2026-08-04 - Trigger and Content composition
 
-Add `NativeSelectTrigger` and `NativeSelectContent`. `NativeSelectInput` is display-only chrome; open the picker via Trigger (or use any pressable with `asChild`). Items and sheet footer move into Content.
+Add `NativeSelectTrigger` and `NativeSelectContent`. `NativeSelectInput` is display-only; open the picker via Trigger (or use any pressable with `asChild`). Items and sheet footer move into Content.

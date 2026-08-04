@@ -308,8 +308,14 @@ Docs: https://tetra-ui.com/docs/components/menu
 Deps: @expo/ui, @expo/material-symbols
 
 ### native-select
-A native single-selection input built on Expo UI Picker. Menu/wheel appearances, or NativeSelectInput (iOS: wheel in bottom sheet; Android: platform dropdown).
+A native single-selection input built on Expo UI Picker. Always compose with NativeSelectContent. Content-only for inline menu/wheel; Trigger + Input for form-styled field (iOS: wheel bottom sheet or menu in input; Android: ExposedDropdownMenuBox).
 Docs: https://tetra-ui.com/docs/components/native-select
+Deps: @expo/ui, react-native-reanimated
+Registry deps: action-input, bottom-sheet, icons, input
+
+### native-date-select
+A native date/time input built on Expo UI DatePicker (iOS) and DateTimePicker (Android). Always compose with NativeDateSelectContent. Content-only for inline picker; Trigger + Input for form-styled field (iOS: wheel bottom sheet or compact in input; Android: Material dialogs).
+Docs: https://tetra-ui.com/docs/components/native-date-select
 Deps: @expo/ui, react-native-reanimated
 Registry deps: action-input, bottom-sheet, icons, input
 
@@ -478,7 +484,7 @@ Install: `npx shadcn@latest add @tetra-ui/select`
 
 Select uses bottom-sheet on mobile automatically for custom option lists.
 
-For a form-styled native picker, use `npx shadcn@latest add @tetra-ui/native-select` with `<NativeSelectInput>` (iOS: wheel in a bottom sheet; Android: platform dropdown).
+For a form-styled native picker, use `npx shadcn@latest add @tetra-ui/native-select` with `NativeSelectTrigger`, `NativeSelectInput`, and `NativeSelectContent` (iOS: wheel in a bottom sheet; Android: platform dropdown).
 
 ### Verification code (OTP)
 Install: `npx shadcn@latest add @tetra-ui/otp-input @tetra-ui/form @tetra-ui/label`

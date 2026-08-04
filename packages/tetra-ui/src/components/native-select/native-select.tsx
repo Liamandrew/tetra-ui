@@ -64,6 +64,8 @@ const NATIVE_SELECT_SHEET_FOOTER_NAME = "NativeSelectSheetFooter";
 const WHEEL_PICKER_HEIGHT = 216;
 const DEFAULT_PLACEHOLDER = "Select...";
 
+type NativeSelectVariant = PickerAppearance;
+
 // Types
 type NativeSelectItemData<T extends PickerItemValue> = {
   label: string;
@@ -85,8 +87,12 @@ type NativeSelectContextProps<T extends PickerItemValue> = {
   setItemElements: (elements: React.ReactElement[]) => void;
   placeholder: string;
   setPlaceholder: (placeholder: string) => void;
-  appearance: PickerAppearance;
-  setAppearance: (appearance: PickerAppearance) => void;
+  variant: NativeSelectVariant;
+  setVariant: (variant: NativeSelectVariant) => void;
+  hasTrigger: boolean;
+  hasInput: boolean;
+  className?: string;
+  testID?: string;
 };
 
 type NativeSelectProps<T extends PickerItemValue> = {
@@ -95,7 +101,7 @@ type NativeSelectProps<T extends PickerItemValue> = {
   value?: T;
   onValueChange?: (value: T) => void;
   disabled?: boolean;
-  appearance?: PickerAppearance;
+  variant?: NativeSelectVariant;
   className?: string;
   testID?: string;
   children: React.ReactNode;
@@ -104,7 +110,7 @@ type NativeSelectProps<T extends PickerItemValue> = {
 type NativeSelectInputProps = Partial<
   React.ComponentProps<typeof ActionInput>
 > & {
-  appearance?: PickerAppearance;
+  variant?: NativeSelectVariant;
   placeholder?: string;
   children?: React.ReactNode;
 };
@@ -114,8 +120,6 @@ type NativeSelectTriggerProps = PressableProps & {
 };
 
 type NativeSelectContentProps = {
-  title?: string;
-  testID?: string;
   children?: React.ReactNode;
 };
 
@@ -185,41 +189,56 @@ const splitNativeSelectContentChildren = (children: React.ReactNode) => {
   return { itemElements, sheetFooter };
 };
 
-const getNativeSelectComposedFlags = (children: React.ReactNode) => {
-  let hasContent = false;
-  let hasComposedApi = false;
+const getNativeSelectFormFlags = (children: React.ReactNode) => {
+  let hasTrigger = false;
+  let hasInput = false;
+  let inputVariant: NativeSelectVariant | undefined;
 
-  for (const child of Children.toArray(children)) {
-    if (!isValidElement(child)) {
-      continue;
-    }
+  const visit = (node: React.ReactNode) => {
+    for (const child of Children.toArray(node)) {
+      if (!isValidElement(child)) {
+        continue;
+      }
 
-    const name = getDisplayName(child.type);
-    if (
-      name === NATIVE_SELECT_INPUT_NAME ||
-      name === NATIVE_SELECT_TRIGGER_NAME ||
-      name === NATIVE_SELECT_CONTENT_NAME
-    ) {
-      hasComposedApi = true;
-    }
-    if (name === NATIVE_SELECT_CONTENT_NAME) {
-      hasContent = true;
-    }
-  }
+      const name = getDisplayName(child.type);
+      if (name === NATIVE_SELECT_TRIGGER_NAME) {
+        hasTrigger = true;
+      }
+      if (name === NATIVE_SELECT_INPUT_NAME) {
+        hasInput = true;
+        const props = child.props as { variant?: NativeSelectVariant };
+        inputVariant = props.variant ?? "wheel";
+      }
 
-  return { hasComposedApi, hasContent };
+      if (
+        child.props &&
+        typeof child.props === "object" &&
+        "children" in child.props
+      ) {
+        visit((child.props as { children?: React.ReactNode }).children);
+      }
+    }
+  };
+
+  visit(children);
+
+  return { hasInput, hasTrigger, inputVariant };
 };
 
 // Components
 export const NativeSelectItem = PickerPrimitive.Item;
 
+/**
+ * Native single-selection input built on Expo UI Picker.
+ * Always compose with NativeSelectContent. Optionally add Trigger and Input.
+ */
 export const NativeSelect = <T extends PickerItemValue>({
   open: openProp,
   onOpenChange: onOpenChangeProp,
   value: valueProp,
   onValueChange: onValueChangeProp,
   disabled,
-  appearance: appearanceProp = "menu",
+  variant: variantProp = "menu",
   className,
   testID,
   children,
@@ -229,9 +248,16 @@ export const NativeSelect = <T extends PickerItemValue>({
   const [selectedValue, setSelectedValue] = useState<T>();
   const [itemElements, setItemElements] = useState<React.ReactElement[]>([]);
   const [placeholder, setPlaceholder] = useState(DEFAULT_PLACEHOLDER);
-  // Composed Content defaults to wheel sheet; Input can override to `menu`.
-  // Root `appearance` is only for the inline picker path and must not sync here.
-  const [appearance, setAppearance] = useState<PickerAppearance>("wheel");
+  // Seeded from root or Input; Input can still override. Do not re-sync from
+  // root props or an Input override will be overwritten.
+  const { hasTrigger, hasInput, inputVariant } = useMemo(
+    () => getNativeSelectFormFlags(children),
+    [children]
+  );
+  const hasFormUi = hasTrigger || hasInput;
+  const [variant, setVariant] = useState<NativeSelectVariant>(
+    () => inputVariant ?? (hasFormUi ? "wheel" : variantProp)
+  );
 
   const items = useMemo(
     () => extractNativeSelectItems<T>(itemElements),
@@ -243,12 +269,6 @@ export const NativeSelect = <T extends PickerItemValue>({
 
   const isValueControlled = valueProp !== undefined;
   const value = isValueControlled ? valueProp : internalValue;
-
-  const { hasComposedApi, hasContent } = getNativeSelectComposedFlags(children);
-  const pickerItems = hasComposedApi
-    ? []
-    : extractNativeSelectItems<T>(children);
-  const resolvedValue = (value ?? pickerItems.at(0)?.value) as T | undefined;
 
   useEffect(() => {
     if (value !== undefined) {
@@ -298,8 +318,10 @@ export const NativeSelect = <T extends PickerItemValue>({
 
   const ctx = useMemo(
     () => ({
-      appearance,
+      className,
       disabled,
+      hasInput,
+      hasTrigger,
       itemElements,
       items,
       onCancel,
@@ -309,15 +331,19 @@ export const NativeSelect = <T extends PickerItemValue>({
       open,
       placeholder,
       selectedValue,
-      setAppearance,
       setItemElements,
       setPlaceholder,
       setSelectedValue,
+      setVariant,
+      testID,
       value,
+      variant,
     }),
     [
-      appearance,
+      className,
       disabled,
+      hasInput,
+      hasTrigger,
       itemElements,
       items,
       onCancel,
@@ -327,39 +353,26 @@ export const NativeSelect = <T extends PickerItemValue>({
       open,
       placeholder,
       selectedValue,
+      testID,
       value,
+      variant,
     ]
-  );
-
-  const content = hasComposedApi ? (
-    children
-  ) : resolvedValue === undefined ? null : (
-    <NativeSelectPicker
-      appearance={appearanceProp}
-      className={className}
-      enabled={!disabled}
-      onValueChange={onValueChange}
-      selectedValue={resolvedValue}
-      testID={testID}
-    >
-      {children}
-    </NativeSelectPicker>
   );
 
   return (
     <NativeSelectContext.Provider
       value={ctx as NativeSelectContextProps<T | PickerItemValue>}
     >
-      {Platform.OS === "android" && hasContent ? (
+      {Platform.OS === "android" && hasFormUi ? (
         <NativeSelectAndroidHost
           disabled={disabled}
           onOpenChange={onOpenChange}
           open={open}
         >
-          {content}
+          {children}
         </NativeSelectAndroidHost>
       ) : (
-        content
+        children
       )}
     </NativeSelectContext.Provider>
   );
@@ -425,12 +438,12 @@ export const NativeSelectTrigger = ({
 NativeSelectTrigger.displayName = NATIVE_SELECT_TRIGGER_NAME;
 
 /**
- * Form-styled native select chrome.
+ * Form-styled native select input.
  * - Default / wheel: display-only ActionInput (open via NativeSelectTrigger)
- * - iOS `menu`: non-pressable input chrome; only the native menu picker is interactive
+ * - iOS `menu`: non-pressable input shell; only the native menu picker is interactive
  */
 export const NativeSelectInput = ({
-  appearance = "wheel",
+  variant = "wheel",
   placeholder = DEFAULT_PLACEHOLDER,
   className,
   testID,
@@ -445,7 +458,7 @@ export const NativeSelectInput = ({
     itemElements,
     disabled,
     setPlaceholder,
-    setAppearance,
+    setVariant,
   } = useNativeSelect();
 
   const addonElements = useMemo(() => {
@@ -467,8 +480,8 @@ export const NativeSelectInput = ({
   }, [placeholder, setPlaceholder]);
 
   useLayoutEffect(() => {
-    setAppearance(appearance);
-  }, [appearance, setAppearance]);
+    setVariant(variant);
+  }, [variant, setVariant]);
 
   const committedValue = value ?? items.at(0)?.value;
 
@@ -495,7 +508,7 @@ export const NativeSelectInput = ({
     };
   });
 
-  if (Platform.OS === "ios" && appearance === "menu") {
+  if (Platform.OS === "ios" && variant === "menu") {
     if (committedValue === undefined) {
       return null;
     }
@@ -561,16 +574,13 @@ export const NativeSelectInput = ({
 NativeSelectInput.displayName = NATIVE_SELECT_INPUT_NAME;
 
 /**
- * Presentation surface for the native select.
- * - iOS wheel: bottom sheet with wheel picker
- * - iOS menu: registers items only (picker lives in NativeSelectInput)
- * - Android: ExposedDropdownMenu items
+ * Presentation surface for the native select. Always required.
+ * - Content-only: inline Expo Picker (variant from root)
+ * - iOS wheel + form UI: bottom sheet with wheel picker
+ * - iOS menu + Input: registers items only (picker lives in NativeSelectInput)
+ * - Android + form UI: ExposedDropdownMenu items
  */
-export const NativeSelectContent = ({
-  title,
-  testID,
-  children,
-}: NativeSelectContentProps) => {
+export const NativeSelectContent = ({ children }: NativeSelectContentProps) => {
   const {
     open,
     onOpenChange,
@@ -580,10 +590,16 @@ export const NativeSelectContent = ({
     setSelectedValue,
     onCancel,
     disabled,
-    appearance,
+    variant,
     placeholder,
     setItemElements,
+    hasTrigger,
+    hasInput,
+    className,
+    testID,
   } = useNativeSelect();
+
+  const hasFormUi = hasTrigger || hasInput;
 
   const { itemElements, sheetFooter } = useMemo(
     () => splitNativeSelectContentChildren(children),
@@ -599,11 +615,10 @@ export const NativeSelectContent = ({
   }, [itemElements, setItemElements]);
 
   const requiresConfirm =
-    Platform.OS === "ios" && appearance === "wheel" && Boolean(sheetFooter);
+    Platform.OS === "ios" && variant === "wheel" && Boolean(sheetFooter);
   const committedValue = value ?? items.at(0)?.value;
   const draftValue = selectedValue ?? committedValue;
   const pickerValue = requiresConfirm ? draftValue : committedValue;
-  const sheetTitle = title ?? placeholder;
 
   const handlePickerValueChange = useCallback(
     (nextValue: PickerItemValue) => {
@@ -616,7 +631,27 @@ export const NativeSelectContent = ({
     [onValueChange, requiresConfirm, setSelectedValue]
   );
 
-  if (Platform.OS === "ios" && appearance === "menu") {
+  if (!hasFormUi) {
+    if (committedValue === undefined) {
+      return null;
+    }
+
+    return (
+      <NativeSelectPicker
+        appearance={variant}
+        className={className}
+        enabled={!disabled}
+        onValueChange={onValueChange}
+        selectedValue={committedValue}
+        testID={testID}
+      >
+        {itemElements}
+      </NativeSelectPicker>
+    );
+  }
+
+  // Menu picker is embedded in Input; Content only registers items.
+  if (Platform.OS === "ios" && variant === "menu" && hasInput) {
     return null;
   }
 
@@ -644,7 +679,7 @@ export const NativeSelectContent = ({
     >
       <BottomSheetContent>
         <BottomSheetHeader>
-          <BottomSheetTitle>{sheetTitle}</BottomSheetTitle>
+          <BottomSheetTitle>{placeholder}</BottomSheetTitle>
         </BottomSheetHeader>
         <BottomSheetBody className={sheetFooter ? undefined : "pb-4"}>
           <NativeSelectPicker

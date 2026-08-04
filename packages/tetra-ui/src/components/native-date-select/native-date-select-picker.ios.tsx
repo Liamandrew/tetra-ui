@@ -13,18 +13,20 @@ import { cn } from "@/lib/utils";
 const StyledHost = withUniwind(HostPrimitive);
 
 export type NativeDateSelectMode = "date" | "time" | "datetime";
-export type NativeDateSelectDisplay =
+export type NativeDateSelectVariant =
   | "default"
   | "wheel"
   | "compact"
   | "graphical";
+/** @deprecated Use NativeDateSelectVariant */
+export type NativeDateSelectDisplay = NativeDateSelectVariant;
 export type NativeDateSelectPresentation = "inline" | "dialog";
 
 export type NativeDateSelectPickerProps = {
   value: Date;
   onValueChange: (value: Date) => void;
   mode?: NativeDateSelectMode;
-  display?: NativeDateSelectDisplay;
+  variant?: NativeDateSelectVariant;
   minimumDate?: Date;
   maximumDate?: Date;
   disabled?: boolean;
@@ -50,10 +52,10 @@ const modeToDisplayedComponents = (
   }
 };
 
-const displayToDatePickerStyle = (
-  display: NativeDateSelectDisplay
+const variantToDatePickerStyle = (
+  variant: NativeDateSelectVariant
 ): "automatic" | "compact" | "graphical" | "wheel" => {
-  switch (display) {
+  switch (variant) {
     case "wheel":
       return "wheel";
     case "compact":
@@ -73,7 +75,7 @@ export const NativeDateSelectPicker = ({
   value,
   onValueChange,
   mode = "date",
-  display = "default",
+  variant = "default",
   minimumDate,
   maximumDate,
   disabled,
@@ -85,11 +87,11 @@ export const NativeDateSelectPicker = ({
   const primaryColor = useCSSVariable("--color-primary") as string;
 
   const modifiers: ModifierConfig[] = [
-    datePickerStyle(displayToDatePickerStyle(display)),
+    datePickerStyle(variantToDatePickerStyle(variant)),
     tint(primaryColor),
   ];
 
-  if (display === "compact") {
+  if (variant === "compact") {
     modifiers.push(labelsHidden());
   }
 

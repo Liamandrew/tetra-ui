@@ -43,9 +43,9 @@ import {
 } from "../input";
 import { Slot } from "../slot";
 import {
-  type NativeDateSelectDisplay,
   type NativeDateSelectMode,
   NativeDateSelectPicker,
+  type NativeDateSelectVariant,
 } from "./native-date-select-picker";
 
 // Constants
@@ -70,13 +70,17 @@ type NativeDateSelectContextProps = {
   onCancel: () => void;
   disabled?: boolean;
   mode: NativeDateSelectMode;
-  display: NativeDateSelectDisplay;
-  setDisplay: (display: NativeDateSelectDisplay) => void;
+  variant: NativeDateSelectVariant;
+  setVariant: (variant: NativeDateSelectVariant) => void;
   minimumDate?: Date;
   maximumDate?: Date;
   is24Hour?: boolean;
   placeholder: string;
   setPlaceholder: (placeholder: string) => void;
+  hasTrigger: boolean;
+  hasInput: boolean;
+  className?: string;
+  testID?: string;
 };
 
 type NativeDateSelectProps = {
@@ -85,7 +89,7 @@ type NativeDateSelectProps = {
   value?: Date;
   onValueChange?: (value: Date) => void;
   mode?: NativeDateSelectMode;
-  display?: NativeDateSelectDisplay;
+  variant?: NativeDateSelectVariant;
   minimumDate?: Date;
   maximumDate?: Date;
   disabled?: boolean;
@@ -98,7 +102,7 @@ type NativeDateSelectProps = {
 type NativeDateSelectInputProps = Partial<
   React.ComponentProps<typeof ActionInput>
 > & {
-  display?: NativeDateSelectDisplay;
+  variant?: NativeDateSelectVariant;
   placeholder?: string;
   formatValue?: (date: Date) => string;
   children?: React.ReactNode;
@@ -109,8 +113,6 @@ type NativeDateSelectTriggerProps = PressableProps & {
 };
 
 type NativeDateSelectContentProps = {
-  title?: string;
-  testID?: string;
   children?: React.ReactNode;
 };
 
@@ -176,29 +178,46 @@ const findNativeDateSelectSheetFooter = (children: React.ReactNode) => {
   }
 };
 
-const hasComposedNativeDateSelectApi = (children: React.ReactNode) => {
-  for (const child of Children.toArray(children)) {
-    if (!isValidElement(child)) {
-      continue;
-    }
+const getNativeDateSelectFormFlags = (children: React.ReactNode) => {
+  let hasTrigger = false;
+  let hasInput = false;
+  let inputVariant: NativeDateSelectVariant | undefined;
 
-    const name = getDisplayName(child.type);
-    if (
-      name === NATIVE_DATE_SELECT_INPUT_NAME ||
-      name === NATIVE_DATE_SELECT_TRIGGER_NAME ||
-      name === NATIVE_DATE_SELECT_CONTENT_NAME
-    ) {
-      return true;
-    }
-  }
+  const visit = (node: React.ReactNode) => {
+    for (const child of Children.toArray(node)) {
+      if (!isValidElement(child)) {
+        continue;
+      }
 
-  return false;
+      const name = getDisplayName(child.type);
+      if (name === NATIVE_DATE_SELECT_TRIGGER_NAME) {
+        hasTrigger = true;
+      }
+      if (name === NATIVE_DATE_SELECT_INPUT_NAME) {
+        hasInput = true;
+        const props = child.props as { variant?: NativeDateSelectVariant };
+        inputVariant = props.variant;
+      }
+
+      if (
+        child.props &&
+        typeof child.props === "object" &&
+        "children" in child.props
+      ) {
+        visit((child.props as { children?: React.ReactNode }).children);
+      }
+    }
+  };
+
+  visit(children);
+
+  return { hasInput, hasTrigger, inputVariant };
 };
 
 // Components
 /**
  * Native date/time select built on Expo UI DatePicker (iOS) and DateTimePicker (Android).
- * Omit Trigger/Input/Content for the raw inline picker.
+ * Always compose with NativeDateSelectContent. Optionally add Trigger and Input.
  */
 export const NativeDateSelect = ({
   open: openProp,
@@ -206,7 +225,7 @@ export const NativeDateSelect = ({
   value: valueProp,
   onValueChange: onValueChangeProp,
   mode = "date",
-  display: displayProp = "default",
+  variant: variantProp = "default",
   minimumDate,
   maximumDate,
   disabled,
@@ -219,19 +238,22 @@ export const NativeDateSelect = ({
   const [internalValue, setInternalValue] = useState<Date>();
   const [selectedValue, setSelectedValue] = useState<Date>();
   const [placeholder, setPlaceholder] = useState(DEFAULT_PLACEHOLDER);
-  // Composed Content uses this for compact vs sheet. Input can override.
-  // Root `display` is also the initial value / inline picker style — do not
-  // re-sync from props or it will overwrite Input's compact override.
-  const [display, setDisplay] = useState<NativeDateSelectDisplay>(displayProp);
+
+  const { hasTrigger, hasInput, inputVariant } = useMemo(
+    () => getNativeDateSelectFormFlags(children),
+    [children]
+  );
+  // Seeded from Input override, else root. Do not re-sync from root props or
+  // an Input override will be overwritten.
+  const [variant, setVariant] = useState<NativeDateSelectVariant>(
+    () => inputVariant ?? variantProp
+  );
 
   const isOpenControlled = openProp !== undefined;
   const open = isOpenControlled ? openProp : internalOpen;
 
   const isValueControlled = valueProp !== undefined;
   const value = isValueControlled ? valueProp : internalValue;
-
-  const containsComposedApi = hasComposedNativeDateSelectApi(children);
-  const resolvedValue = value ?? (containsComposedApi ? undefined : new Date());
 
   useEffect(() => {
     if (value !== undefined) {
@@ -281,8 +303,10 @@ export const NativeDateSelect = ({
 
   const ctx = useMemo(
     () => ({
+      className,
       disabled,
-      display,
+      hasInput,
+      hasTrigger,
       is24Hour,
       maximumDate,
       minimumDate,
@@ -294,14 +318,18 @@ export const NativeDateSelect = ({
       open,
       placeholder,
       selectedValue,
-      setDisplay,
       setPlaceholder,
       setSelectedValue,
+      setVariant,
+      testID,
       value,
+      variant,
     }),
     [
+      className,
       disabled,
-      display,
+      hasInput,
+      hasTrigger,
       is24Hour,
       maximumDate,
       minimumDate,
@@ -313,29 +341,15 @@ export const NativeDateSelect = ({
       open,
       placeholder,
       selectedValue,
+      testID,
       value,
+      variant,
     ]
   );
 
   return (
     <NativeDateSelectContext.Provider value={ctx}>
-      {containsComposedApi ? (
-        children
-      ) : resolvedValue === undefined ? null : (
-        <NativeDateSelectPicker
-          className={className}
-          disabled={disabled}
-          display={displayProp}
-          is24Hour={is24Hour}
-          maximumDate={maximumDate}
-          minimumDate={minimumDate}
-          mode={mode}
-          onValueChange={onValueChange}
-          presentation="inline"
-          testID={testID}
-          value={resolvedValue}
-        />
-      )}
+      {children}
     </NativeDateSelectContext.Provider>
   );
 };
@@ -378,12 +392,12 @@ export const NativeDateSelectTrigger = ({
 NativeDateSelectTrigger.displayName = NATIVE_DATE_SELECT_TRIGGER_NAME;
 
 /**
- * Form-styled native date select chrome.
+ * Form-styled native date select input.
  * - Default / wheel: display-only ActionInput (open via NativeDateSelectTrigger)
- * - iOS `compact`: non-pressable input chrome; only the native compact DatePicker is interactive
+ * - iOS `compact`: non-pressable input shell; only the native compact DatePicker is interactive
  */
 export const NativeDateSelectInput = ({
-  display: displayProp,
+  variant: variantProp,
   placeholder = DEFAULT_PLACEHOLDER,
   formatValue,
   className,
@@ -398,15 +412,15 @@ export const NativeDateSelectInput = ({
     selectedValue,
     disabled,
     mode,
-    display: displayFromRoot,
+    variant: variantFromRoot,
     minimumDate,
     maximumDate,
     is24Hour,
     setPlaceholder,
-    setDisplay,
+    setVariant,
   } = useNativeDateSelect();
 
-  const display = displayProp ?? displayFromRoot;
+  const variant = variantProp ?? variantFromRoot;
 
   const addonElements = useMemo(() => {
     const addons: InputAddonChild[] = [];
@@ -427,10 +441,10 @@ export const NativeDateSelectInput = ({
   }, [placeholder, setPlaceholder]);
 
   useLayoutEffect(() => {
-    if (displayProp !== undefined) {
-      setDisplay(displayProp);
+    if (variantProp !== undefined) {
+      setVariant(variantProp);
     }
-  }, [displayProp, setDisplay]);
+  }, [variantProp, setVariant]);
 
   const committedValue = value;
   const pickerValue = selectedValue ?? committedValue ?? new Date();
@@ -460,7 +474,7 @@ export const NativeDateSelectInput = ({
     };
   });
 
-  if (Platform.OS === "ios" && display === "compact") {
+  if (Platform.OS === "ios" && variant === "compact") {
     return (
       <View
         className={cn(
@@ -477,7 +491,6 @@ export const NativeDateSelectInput = ({
         <InputAddon align="inline-end" className="shrink-0">
           <NativeDateSelectPicker
             disabled={disabled}
-            display="compact"
             is24Hour={is24Hour}
             maximumDate={maximumDate}
             minimumDate={minimumDate}
@@ -485,6 +498,7 @@ export const NativeDateSelectInput = ({
             onValueChange={onValueChange}
             testID={testID}
             value={pickerValue}
+            variant="compact"
           />
         </InputAddon>
 
@@ -523,14 +537,13 @@ export const NativeDateSelectInput = ({
 NativeDateSelectInput.displayName = NATIVE_DATE_SELECT_INPUT_NAME;
 
 /**
- * Presentation surface for the native date select.
- * - iOS wheel/default: bottom sheet with wheel DatePicker
- * - iOS compact: registers footer only (picker lives in NativeDateSelectInput)
- * - Android: Material date/time dialog when open
+ * Presentation surface for the native date select. Always required.
+ * - Content-only: inline native picker (variant from root)
+ * - iOS wheel/default + form UI: bottom sheet with wheel DatePicker
+ * - iOS compact + Input: no sheet (picker lives in NativeDateSelectInput)
+ * - Android + form UI: Material date/time dialog when open
  */
 export const NativeDateSelectContent = ({
-  title,
-  testID,
   children,
 }: NativeDateSelectContentProps) => {
   const {
@@ -543,25 +556,31 @@ export const NativeDateSelectContent = ({
     onCancel,
     disabled,
     mode,
-    display,
+    variant,
     minimumDate,
     maximumDate,
     is24Hour,
     placeholder,
+    hasTrigger,
+    hasInput,
+    className,
+    testID,
   } = useNativeDateSelect();
+
+  const hasFormUi = hasTrigger || hasInput;
 
   const sheetFooter = useMemo(
     () => findNativeDateSelectSheetFooter(children),
     [children]
   );
 
-  const requiresConfirm = Platform.OS === "ios" && Boolean(sheetFooter);
+  const requiresConfirm =
+    Platform.OS === "ios" && hasFormUi && Boolean(sheetFooter);
   const committedValue = value;
   const draftValue = selectedValue ?? committedValue ?? new Date();
   const pickerValue = requiresConfirm
     ? draftValue
     : (committedValue ?? draftValue);
-  const sheetTitle = title ?? placeholder;
 
   const handlePickerValueChange = useCallback(
     (nextValue: Date) => {
@@ -574,7 +593,25 @@ export const NativeDateSelectContent = ({
     [onValueChange, requiresConfirm, setSelectedValue]
   );
 
-  if (Platform.OS === "ios" && display === "compact") {
+  if (!hasFormUi) {
+    return (
+      <NativeDateSelectPicker
+        className={className}
+        disabled={disabled}
+        is24Hour={is24Hour}
+        maximumDate={maximumDate}
+        minimumDate={minimumDate}
+        mode={mode}
+        onValueChange={onValueChange}
+        presentation="inline"
+        testID={testID}
+        value={committedValue ?? new Date()}
+        variant={variant}
+      />
+    );
+  }
+
+  if (Platform.OS === "ios" && variant === "compact" && hasInput) {
     return null;
   }
 
@@ -586,12 +623,11 @@ export const NativeDateSelectContent = ({
       >
         <BottomSheetContent>
           <BottomSheetHeader>
-            <BottomSheetTitle>{sheetTitle}</BottomSheetTitle>
+            <BottomSheetTitle>{placeholder}</BottomSheetTitle>
           </BottomSheetHeader>
           <BottomSheetBody className={sheetFooter ? undefined : "pb-4"}>
             <NativeDateSelectPicker
               disabled={disabled}
-              display="wheel"
               is24Hour={is24Hour}
               matchContents={false}
               maximumDate={maximumDate}
@@ -601,6 +637,7 @@ export const NativeDateSelectContent = ({
               style={{ height: WHEEL_PICKER_HEIGHT, width: "100%" }}
               testID={testID}
               value={pickerValue}
+              variant="wheel"
             />
           </BottomSheetBody>
           {sheetFooter}
@@ -616,7 +653,6 @@ export const NativeDateSelectContent = ({
   return (
     <NativeDateSelectPicker
       disabled={disabled}
-      display={display}
       is24Hour={is24Hour}
       maximumDate={maximumDate}
       minimumDate={minimumDate}
@@ -629,6 +665,7 @@ export const NativeDateSelectContent = ({
       presentation="dialog"
       testID={testID}
       value={pickerValue}
+      variant={variant}
     />
   );
 };

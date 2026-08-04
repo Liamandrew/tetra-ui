@@ -12,18 +12,20 @@ import { cn } from "@/lib/utils";
 const StyledHost = withUniwind(HostPrimitive);
 
 export type NativeDateSelectMode = "date" | "time" | "datetime";
-export type NativeDateSelectDisplay =
+export type NativeDateSelectVariant =
   | "default"
   | "wheel"
   | "compact"
   | "graphical";
+/** @deprecated Use NativeDateSelectVariant */
+export type NativeDateSelectDisplay = NativeDateSelectVariant;
 export type NativeDateSelectPresentation = "inline" | "dialog";
 
 export type NativeDateSelectPickerProps = {
   value: Date;
   onValueChange: (value: Date) => void;
   mode?: NativeDateSelectMode;
-  display?: NativeDateSelectDisplay;
+  variant?: NativeDateSelectVariant;
   minimumDate?: Date;
   maximumDate?: Date;
   disabled?: boolean;
@@ -45,10 +47,10 @@ const modeToDisplayedComponents = (
   return "date";
 };
 
-const displayToAndroidVariant = (
-  display: NativeDateSelectDisplay
+const variantToAndroidPickerVariant = (
+  variant: NativeDateSelectVariant
 ): "picker" | "input" => {
-  if (display === "wheel") {
+  if (variant === "wheel") {
     return "input";
   }
   return "picker";
@@ -74,7 +76,7 @@ export const NativeDateSelectPicker = ({
   value,
   onValueChange,
   mode = "date",
-  display = "default",
+  variant = "default",
   minimumDate,
   maximumDate,
   is24Hour,
@@ -139,7 +141,7 @@ export const NativeDateSelectPicker = ({
           }}
           onDismissRequest={handleDismiss}
           selectableDates={selectableDates}
-          variant={displayToAndroidVariant(display)}
+          variant={variantToAndroidPickerVariant(variant)}
         />
       </HostPrimitive>
     );
@@ -159,7 +161,7 @@ export const NativeDateSelectPicker = ({
         onDateSelected={onValueChange}
         selectableDates={selectableDates}
         showVariantToggle={false}
-        variant={displayToAndroidVariant(display)}
+        variant={variantToAndroidPickerVariant(variant)}
       />
     </StyledHost>
   );

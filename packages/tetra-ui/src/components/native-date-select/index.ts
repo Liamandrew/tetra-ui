@@ -4,4 +4,5 @@ export type {
   NativeDateSelectMode,
   NativeDateSelectPickerProps,
   NativeDateSelectPresentation,
+  NativeDateSelectVariant,
 } from "./native-date-select-picker";
