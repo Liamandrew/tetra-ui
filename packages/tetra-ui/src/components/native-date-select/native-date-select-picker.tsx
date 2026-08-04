@@ -33,6 +33,7 @@ export type NativeDateSelectPickerProps = {
   className?: string;
   style?: StyleProp<ViewStyle>;
   testID?: string;
+  matchContents?: boolean;
 };
 
 const modeToDisplayedComponents = (

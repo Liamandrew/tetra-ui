@@ -41,16 +41,6 @@ const ITEM_LAYOUT = LinearTransition.springify()
   .mass(0.6);
 const ICON_SPRING = { damping: 26, mass: 0.5, stiffness: 320 };
 
-const ACCORDION_ITEM_CLASSNAME = cn(
-  "my-0 overflow-hidden rounded-none bg-card",
-  "data-[layout=open]:my-2 data-[layout=open]:rounded-2xl",
-  "data-[layout=closed-only]:rounded-2xl",
-  "data-[layout=closed-start]:rounded-t-2xl",
-  "data-[layout=closed-end]:rounded-b-2xl"
-);
-
-const AnimatedView = Animated.createAnimatedComponent(View);
-
 // Types
 type AccordionType = "single" | "multiple";
 
@@ -60,6 +50,16 @@ type AccordionItemLayout =
   | "closed-start"
   | "closed-middle"
   | "closed-end";
+
+const ACCORDION_ITEM_LAYOUT_CLASSNAME = {
+  "closed-end": "my-0 rounded-b-2xl",
+  "closed-middle": "my-0 rounded-none",
+  "closed-only": "my-0 rounded-2xl",
+  "closed-start": "my-0 rounded-t-2xl",
+  open: "my-2 rounded-2xl",
+} as const satisfies Record<AccordionItemLayout, string>;
+
+const AnimatedView = Animated.createAnimatedComponent(View);
 
 type AccordionRootContextValue = {
   type: AccordionType;
@@ -297,8 +297,11 @@ export const AccordionItem = ({
   return (
     <AccordionItemContext.Provider value={itemCtx}>
       <AnimatedView
-        className={cn(ACCORDION_ITEM_CLASSNAME, className)}
-        data-layout={layout}
+        className={cn(
+          "overflow-hidden bg-card",
+          ACCORDION_ITEM_LAYOUT_CLASSNAME[layout],
+          className
+        )}
         layout={ITEM_LAYOUT}
         {...props}
       >

@@ -50,7 +50,7 @@ export const BottomSheetContent = ({
 
   if (hasSnapPoints) {
     contentModifiers.push(
-      presentationDetents(snapPoints?.map(snapPointToDetent) ?? [])
+      presentationDetents(snapPoints?.map(snapPointToDetent) || [])
     );
   }
 
