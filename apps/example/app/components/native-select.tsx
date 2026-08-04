@@ -1,12 +1,14 @@
-import { Button } from "@repo/tetra-ui/components/button";
+import { Button, ButtonText } from "@repo/tetra-ui/components/button";
 import { InputAddon } from "@repo/tetra-ui/components/input";
 import { Label } from "@repo/tetra-ui/components/label";
 import {
   NativeSelect,
+  NativeSelectContent,
   NativeSelectInput,
   NativeSelectItem,
   NativeSelectSheetConfirm,
   NativeSelectSheetFooter,
+  NativeSelectTrigger,
 } from "@repo/tetra-ui/components/native-select";
 import { Stack } from "@repo/tetra-ui/components/stack";
 import { Text } from "@repo/tetra-ui/components/text";
@@ -32,9 +34,14 @@ export default function NativeSelectScreen() {
   const [wheelValue, setWheelValue] = useState("1");
   const [confirmValue, setConfirmValue] = useState("1");
   const [menuInputValue, setMenuInputValue] = useState("1");
+  const [customValue, setCustomValue] = useState("1");
   const [menuValue, setMenuValue] = useState("1");
   const [standaloneWheelValue, setStandaloneWheelValue] = useState("2");
   const [showDisabled, setShowDisabled] = useState(false);
+
+  const customLabel = OPTIONS.find(
+    (option) => option.value === customValue
+  )?.label;
 
   return (
     <ScreenScrollView>
@@ -47,7 +54,10 @@ export default function NativeSelectScreen() {
               onValueChange={setWheelValue}
               value={wheelValue}
             >
-              <NativeSelectInput placeholder="Select...">
+              <NativeSelectTrigger asChild>
+                <NativeSelectInput placeholder="Select..." />
+              </NativeSelectTrigger>
+              <NativeSelectContent>
                 {OPTIONS.map((option) => (
                   <NativeSelectItem
                     key={option.value}
@@ -55,7 +65,7 @@ export default function NativeSelectScreen() {
                     value={option.value}
                   />
                 ))}
-              </NativeSelectInput>
+              </NativeSelectContent>
             </NativeSelect>
           </Stack>
 
@@ -69,7 +79,10 @@ export default function NativeSelectScreen() {
                 onValueChange={setConfirmValue}
                 value={confirmValue}
               >
-                <NativeSelectInput placeholder="Select with confirm...">
+                <NativeSelectTrigger asChild>
+                  <NativeSelectInput placeholder="Select with confirm..." />
+                </NativeSelectTrigger>
+                <NativeSelectContent>
                   {OPTIONS.map((option) => (
                     <NativeSelectItem
                       key={option.value}
@@ -82,7 +95,7 @@ export default function NativeSelectScreen() {
                       <Button>Confirm</Button>
                     </NativeSelectSheetConfirm>
                   </NativeSelectSheetFooter>
-                </NativeSelectInput>
+                </NativeSelectContent>
               </NativeSelect>
             </Stack>
           ) : null}
@@ -101,6 +114,8 @@ export default function NativeSelectScreen() {
                   <InputAddon align="inline-start">
                     <Label>Choice</Label>
                   </InputAddon>
+                </NativeSelectInput>
+                <NativeSelectContent>
                   {OPTIONS.map((option) => (
                     <NativeSelectItem
                       key={option.value}
@@ -108,10 +123,36 @@ export default function NativeSelectScreen() {
                       value={option.value}
                     />
                   ))}
-                </NativeSelectInput>
+                </NativeSelectContent>
               </NativeSelect>
             </Stack>
           ) : null}
+
+          <Stack gap="xs">
+            <Text className="text-muted-foreground text-sm">
+              Custom trigger
+            </Text>
+            <NativeSelect
+              disabled={showDisabled}
+              onValueChange={setCustomValue}
+              value={customValue}
+            >
+              <NativeSelectTrigger asChild>
+                <Button className="w-fit" size="sm" variant="secondary">
+                  <ButtonText>{customLabel ?? "Select"}</ButtonText>
+                </Button>
+              </NativeSelectTrigger>
+              <NativeSelectContent>
+                {OPTIONS.map((option) => (
+                  <NativeSelectItem
+                    key={option.value}
+                    label={option.label}
+                    value={option.value}
+                  />
+                ))}
+              </NativeSelectContent>
+            </NativeSelect>
+          </Stack>
         </Stack>
 
         <ComponentBehaviourSheet trigger={<ScreenActionsButton />}>

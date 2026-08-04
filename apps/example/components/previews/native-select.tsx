@@ -1,8 +1,10 @@
 import { useState } from "react";
 import {
   NativeSelect,
+  NativeSelectContent,
   NativeSelectInput,
   NativeSelectItem,
+  NativeSelectTrigger,
 } from "@/components/ui/native-select";
 
 const OPTIONS = [
@@ -16,7 +18,10 @@ export function NativeSelectPreview() {
 
   return (
     <NativeSelect onValueChange={setValue} value={value}>
-      <NativeSelectInput placeholder="Select...">
+      <NativeSelectTrigger asChild>
+        <NativeSelectInput placeholder="Select..." />
+      </NativeSelectTrigger>
+      <NativeSelectContent>
         {OPTIONS.map((option) => (
           <NativeSelectItem
             key={option.value}
@@ -24,7 +29,7 @@ export function NativeSelectPreview() {
             value={option.value}
           />
         ))}
-      </NativeSelectInput>
+      </NativeSelectContent>
     </NativeSelect>
   );
 }

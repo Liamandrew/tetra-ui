@@ -1,7 +1,9 @@
 import { useState } from "react";
 import {
   NativeDateSelect,
+  NativeDateSelectContent,
   NativeDateSelectInput,
+  NativeDateSelectTrigger,
 } from "@/components/ui/native-date-select";
 
 export function NativeDateSelectPreview() {
@@ -9,7 +11,10 @@ export function NativeDateSelectPreview() {
 
   return (
     <NativeDateSelect mode="date" onValueChange={setDate} value={date}>
-      <NativeDateSelectInput placeholder="Pick a date" />
+      <NativeDateSelectTrigger asChild>
+        <NativeDateSelectInput placeholder="Pick a date" />
+      </NativeDateSelectTrigger>
+      <NativeDateSelectContent />
     </NativeDateSelect>
   );
 }

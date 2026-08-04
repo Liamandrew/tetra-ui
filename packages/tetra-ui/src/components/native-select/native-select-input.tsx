@@ -1,25 +1,43 @@
 import type { PickerItemValue } from "@expo/ui";
-import type { InputAddonChild } from "../input";
 
-type NativeSelectInputPlatformProps = {
-  placeholder: string;
-  className?: string;
-  testID?: string;
-  disabled?: boolean;
+type NativeSelectAndroidHostProps = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  valueLabel?: string;
-  selectedValue: PickerItemValue;
+  disabled?: boolean;
+  children: React.ReactNode;
+};
+
+type NativeSelectTriggerAnchorProps = {
+  disabled?: boolean;
+  children: React.ReactElement;
+};
+
+type NativeSelectContentMenuProps = {
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+  disabled?: boolean;
+  selectedValue?: PickerItemValue;
   onValueChange: (value: PickerItemValue) => void;
   items: { label: string; value: PickerItemValue }[];
-  startAddons: InputAddonChild[];
-  endAddons: InputAddonChild[];
-  pressableClassName?: string;
 };
 
 /** Default stub — Metro resolves the `.android` file on Android. */
-export const NativeSelectInputPlatform = (
-  _props: NativeSelectInputPlatformProps
+export const NativeSelectAndroidHost = ({
+  children,
+}: NativeSelectAndroidHostProps) => {
+  return <>{children}</>;
+};
+
+/** Default stub — Metro resolves the `.android` file on Android. */
+export const NativeSelectTriggerAnchor = ({
+  children,
+}: NativeSelectTriggerAnchorProps) => {
+  return <>{children}</>;
+};
+
+/** Default stub — Metro resolves the `.android` file on Android. */
+export const NativeSelectContentMenu = (
+  _props: NativeSelectContentMenuProps
 ) => {
   return null;
 };

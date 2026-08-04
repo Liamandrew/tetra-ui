@@ -1,11 +1,13 @@
-import { Button } from "@repo/tetra-ui/components/button";
+import { Button, ButtonText } from "@repo/tetra-ui/components/button";
 import { InputAddon } from "@repo/tetra-ui/components/input";
 import { Label } from "@repo/tetra-ui/components/label";
 import {
   NativeDateSelect,
+  NativeDateSelectContent,
   NativeDateSelectInput,
   NativeDateSelectSheetConfirm,
   NativeDateSelectSheetFooter,
+  NativeDateSelectTrigger,
 } from "@repo/tetra-ui/components/native-date-select";
 import { Stack } from "@repo/tetra-ui/components/stack";
 import { Text } from "@repo/tetra-ui/components/text";
@@ -27,12 +29,19 @@ export default function NativeDateSelectScreen() {
   const [dateTimeValue, setDateTimeValue] = useState(new Date());
   const [confirmValue, setConfirmValue] = useState(new Date());
   const [compactInputValue, setCompactInputValue] = useState(new Date());
+  const [customValue, setCustomValue] = useState(new Date());
   const [compactValue, setCompactValue] = useState(new Date());
   const [graphicalValue, setGraphicalValue] = useState(new Date());
   const [wheelValue, setWheelValue] = useState(new Date());
   const [rangeStart, setRangeStart] = useState<Date>();
   const [rangeEnd, setRangeEnd] = useState<Date>();
   const [showDisabled, setShowDisabled] = useState(false);
+
+  const customLabel = customValue.toLocaleDateString(undefined, {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+  });
 
   return (
     <ScreenScrollView>
@@ -46,7 +55,10 @@ export default function NativeDateSelectScreen() {
               onValueChange={setDateValue}
               value={dateValue}
             >
-              <NativeDateSelectInput placeholder="Pick a date" />
+              <NativeDateSelectTrigger asChild>
+                <NativeDateSelectInput placeholder="Pick a date" />
+              </NativeDateSelectTrigger>
+              <NativeDateSelectContent />
             </NativeDateSelect>
           </Stack>
 
@@ -58,7 +70,10 @@ export default function NativeDateSelectScreen() {
               onValueChange={setTimeValue}
               value={timeValue}
             >
-              <NativeDateSelectInput placeholder="Pick a time" />
+              <NativeDateSelectTrigger asChild>
+                <NativeDateSelectInput placeholder="Pick a time" />
+              </NativeDateSelectTrigger>
+              <NativeDateSelectContent />
             </NativeDateSelect>
           </Stack>
 
@@ -72,7 +87,10 @@ export default function NativeDateSelectScreen() {
               onValueChange={setDateTimeValue}
               value={dateTimeValue}
             >
-              <NativeDateSelectInput placeholder="Pick date & time" />
+              <NativeDateSelectTrigger asChild>
+                <NativeDateSelectInput placeholder="Pick date & time" />
+              </NativeDateSelectTrigger>
+              <NativeDateSelectContent />
             </NativeDateSelect>
           </Stack>
 
@@ -95,6 +113,7 @@ export default function NativeDateSelectScreen() {
                     <Label>Date</Label>
                   </InputAddon>
                 </NativeDateSelectInput>
+                <NativeDateSelectContent />
               </NativeDateSelect>
             </Stack>
           ) : null}
@@ -110,16 +129,38 @@ export default function NativeDateSelectScreen() {
                 onValueChange={setConfirmValue}
                 value={confirmValue}
               >
-                <NativeDateSelectInput placeholder="Pick with confirm...">
+                <NativeDateSelectTrigger asChild>
+                  <NativeDateSelectInput placeholder="Pick with confirm..." />
+                </NativeDateSelectTrigger>
+                <NativeDateSelectContent>
                   <NativeDateSelectSheetFooter>
                     <NativeDateSelectSheetConfirm asChild>
                       <Button>Confirm</Button>
                     </NativeDateSelectSheetConfirm>
                   </NativeDateSelectSheetFooter>
-                </NativeDateSelectInput>
+                </NativeDateSelectContent>
               </NativeDateSelect>
             </Stack>
           ) : null}
+
+          <Stack gap="xs">
+            <Text className="text-muted-foreground text-sm">
+              Custom trigger
+            </Text>
+            <NativeDateSelect
+              disabled={showDisabled}
+              mode="date"
+              onValueChange={setCustomValue}
+              value={customValue}
+            >
+              <NativeDateSelectTrigger asChild>
+                <Button className="w-fit" size="sm" variant="secondary">
+                  <ButtonText>{customLabel}</ButtonText>
+                </Button>
+              </NativeDateSelectTrigger>
+              <NativeDateSelectContent />
+            </NativeDateSelect>
+          </Stack>
         </Stack>
 
         <ComponentBehaviourSheet trigger={<ScreenActionsButton />}>
@@ -196,7 +237,10 @@ export default function NativeDateSelectScreen() {
               onValueChange={setRangeStart}
               value={rangeStart}
             >
-              <NativeDateSelectInput placeholder="Start date" />
+              <NativeDateSelectTrigger asChild>
+                <NativeDateSelectInput placeholder="Start date" />
+              </NativeDateSelectTrigger>
+              <NativeDateSelectContent />
             </NativeDateSelect>
             <NativeDateSelect
               disabled={showDisabled}
@@ -205,7 +249,10 @@ export default function NativeDateSelectScreen() {
               onValueChange={setRangeEnd}
               value={rangeEnd}
             >
-              <NativeDateSelectInput placeholder="End date" />
+              <NativeDateSelectTrigger asChild>
+                <NativeDateSelectInput placeholder="End date" />
+              </NativeDateSelectTrigger>
+              <NativeDateSelectContent />
             </NativeDateSelect>
           </Stack>
         </Stack>

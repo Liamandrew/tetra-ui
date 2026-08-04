@@ -3,7 +3,7 @@ title: Native Date Select
 description: A native date and time selection input built on Expo UI DatePicker and DateTimePicker, with optional input chrome and platform-aware presentation.
 ---
 
-Native Date Select wraps Expo UI's [SwiftUI DatePicker](https://docs.expo.dev/versions/latest/sdk/ui/swift-ui/datepicker/) on iOS and [Jetpack Compose DateTimePicker](https://docs.expo.dev/versions/latest/sdk/ui/jetpack-compose/datetimepicker/) on Android. Without `NativeDateSelectInput`, it renders the native picker inline. With `NativeDateSelectInput`, iOS defaults to a wheel bottom sheet (`display="compact"` embeds the native compact picker in the input chrome); Android mounts a Material date/time dialog.
+Native Date Select wraps Expo UI's [SwiftUI DatePicker](https://docs.expo.dev/versions/latest/sdk/ui/swift-ui/datepicker/) on iOS and [Jetpack Compose DateTimePicker](https://docs.expo.dev/versions/latest/sdk/ui/jetpack-compose/datetimepicker/) on Android. Without Trigger/Input/Content, it renders the native picker inline. With the composed API, iOS defaults to a wheel bottom sheet (`display="compact"` embeds the native compact picker in input chrome); Android mounts a Material date/time dialog.
 
 <ComponentPreview name="native-date-select" type="gif" />
 
@@ -53,7 +53,6 @@ Set `mode` on the root to choose what the picker selects: `date` (default), `tim
 ```tsx
 import {
   NativeDateSelect,
-  NativeDateSelectInput,
 } from "@/components/ui/native-date-select";
 ```
 
@@ -67,43 +66,51 @@ const [date, setDate] = useState(new Date());
 <NativeDateSelect mode="datetime" value={date} onValueChange={setDate} />
 ```
 
-Omit `NativeDateSelectInput` to render the picker directly. On iOS, set `display` to `compact`, `graphical`, or `wheel` (maps to SwiftUI [`datePickerStyle`](https://docs.expo.dev/versions/latest/sdk/ui/swift-ui/datepicker/#styling-with-modifiers)). On Android, inline has no combined datetime UI — use `NativeDateSelectInput` for `mode="datetime"` (sequential date then time dialogs).
+Omit Trigger/Input/Content to render the picker directly. On iOS, set `display` to `compact`, `graphical`, or `wheel` (maps to SwiftUI [`datePickerStyle`](https://docs.expo.dev/versions/latest/sdk/ui/swift-ui/datepicker/#styling-with-modifiers)). On Android, inline has no combined datetime UI — use the composed Input API for `mode="datetime"` (sequential date then time dialogs).
 
-### NativeDateSelectInput
+### Composed date select
 
-Renders form-styled input chrome. Set `display` on the input (or root) to choose the iOS presentation:
+Compose `NativeDateSelectTrigger`, `NativeDateSelectInput`, and `NativeDateSelectContent` like Select. The Trigger opens the picker; Input is display-only chrome; Content owns the sheet/dialog.
 
-- **`wheel` / default (iOS)** — ActionInput that opens a bottom sheet with a wheel DatePicker
-- **`compact` (iOS)** — non-pressable input chrome; only the native compact DatePicker is interactive
-- **Android** — ActionInput that mounts a Material dialog (`DatePickerDialog` / `TimePickerDialog`). For `datetime`, date then time dialogs run sequentially. `display` maps to picker/input variant on the dialog.
+Set `display` on the input (or root) to choose the iOS presentation:
 
-Pass `InputAddon` children for adornments. On iOS wheel, optionally compose `NativeDateSelectSheetFooter` and `NativeDateSelectSheetConfirm` to require an explicit confirm before committing (dismiss cancels).
+- **`wheel` / default (iOS)** — Trigger opens a bottom sheet with a wheel DatePicker
+- **`compact` (iOS)** — non-pressable input chrome; only the native compact DatePicker is interactive (Trigger optional)
+- **Android** — Trigger mounts a Material dialog (`DatePickerDialog` / `TimePickerDialog`). For `datetime`, date then time dialogs run sequentially. `display` maps to picker/input variant on the dialog.
+
+Pass `InputAddon` children to Input for adornments. On iOS wheel, optionally compose `NativeDateSelectSheetFooter` and `NativeDateSelectSheetConfirm` inside Content to require an explicit confirm before committing (dismiss cancels).
 
 ```tsx
 import { Button } from "@/components/ui/button";
 import {
   NativeDateSelect,
+  NativeDateSelectContent,
   NativeDateSelectInput,
   NativeDateSelectSheetConfirm,
   NativeDateSelectSheetFooter,
+  NativeDateSelectTrigger,
 } from "@/components/ui/native-date-select";
 ```
 
 ```tsx
 <NativeDateSelect mode="date" value={date} onValueChange={setDate}>
-  <NativeDateSelectInput placeholder="Pick a date">
+  <NativeDateSelectTrigger asChild>
+    <NativeDateSelectInput placeholder="Pick a date" />
+  </NativeDateSelectTrigger>
+  <NativeDateSelectContent>
     <NativeDateSelectSheetFooter>
       <NativeDateSelectSheetConfirm asChild>
         <Button>Confirm</Button>
       </NativeDateSelectSheetConfirm>
     </NativeDateSelectSheetFooter>
-  </NativeDateSelectInput>
+  </NativeDateSelectContent>
 </NativeDateSelect>
 ```
 
 ```tsx
 <NativeDateSelect mode="date" value={date} onValueChange={setDate}>
   <NativeDateSelectInput display="compact" placeholder="Pick a date" />
+  <NativeDateSelectContent />
 </NativeDateSelect>
 ```
 
@@ -118,6 +125,30 @@ Use `formatValue` to customize the displayed label (defaults to `Intl.DateTimeFo
 />
 ```
 
+### Custom trigger
+
+Use any pressable as the Trigger child via `asChild`:
+
+```tsx
+import { Button, ButtonText } from "@/components/ui/button";
+import {
+  NativeDateSelect,
+  NativeDateSelectContent,
+  NativeDateSelectTrigger,
+} from "@/components/ui/native-date-select";
+```
+
+```tsx
+<NativeDateSelect mode="date" value={date} onValueChange={setDate}>
+  <NativeDateSelectTrigger asChild>
+    <Button size="sm" variant="secondary">
+      <ButtonText>{label ?? "Pick a date"}</ButtonText>
+    </Button>
+  </NativeDateSelectTrigger>
+  <NativeDateSelectContent />
+</NativeDateSelect>
+```
+
 ## Bounds
 
 Constrain selectable dates with `minimumDate` and `maximumDate`. On iOS these map to SwiftUI DatePicker [`range`](https://docs.expo.dev/versions/latest/sdk/ui/swift-ui/datepicker/#with-date-range); on Android they map to Compose `selectableDates`. This limits which dates can be chosen — it is not a dual start/end *value*.
@@ -130,7 +161,10 @@ Constrain selectable dates with `minimumDate` and `maximumDate`. On iOS these ma
   minimumDate={new Date(2024, 0, 1)}
   maximumDate={new Date(2024, 11, 31)}
 >
-  <NativeDateSelectInput placeholder="Pick a date" />
+  <NativeDateSelectTrigger asChild>
+    <NativeDateSelectInput placeholder="Pick a date" />
+  </NativeDateSelectTrigger>
+  <NativeDateSelectContent />
 </NativeDateSelect>
 ```
 
@@ -148,7 +182,10 @@ const [end, setEnd] = useState<Date>();
   onValueChange={setStart}
   maximumDate={end}
 >
-  <NativeDateSelectInput placeholder="Start date" />
+  <NativeDateSelectTrigger asChild>
+    <NativeDateSelectInput placeholder="Start date" />
+  </NativeDateSelectTrigger>
+  <NativeDateSelectContent />
 </NativeDateSelect>
 
 <NativeDateSelect
@@ -157,7 +194,10 @@ const [end, setEnd] = useState<Date>();
   onValueChange={setEnd}
   minimumDate={start}
 >
-  <NativeDateSelectInput placeholder="End date" />
+  <NativeDateSelectTrigger asChild>
+    <NativeDateSelectInput placeholder="End date" />
+  </NativeDateSelectTrigger>
+  <NativeDateSelectContent />
 </NativeDateSelect>
 ```
 
@@ -175,7 +215,10 @@ const [open, setOpen] = useState(false);
   open={open}
   onOpenChange={setOpen}
 >
-  <NativeDateSelectInput placeholder="Pick a date" />
+  <NativeDateSelectTrigger asChild>
+    <NativeDateSelectInput placeholder="Pick a date" />
+  </NativeDateSelectTrigger>
+  <NativeDateSelectContent />
 </NativeDateSelect>
 ```
 
@@ -183,13 +226,16 @@ const [open, setOpen] = useState(false);
 
 ```tsx
 <NativeDateSelect disabled value={date} onValueChange={setDate}>
-  <NativeDateSelectInput placeholder="Pick a date" />
+  <NativeDateSelectTrigger asChild>
+    <NativeDateSelectInput placeholder="Pick a date" />
+  </NativeDateSelectTrigger>
+  <NativeDateSelectContent />
 </NativeDateSelect>
 ```
 
 ## API Reference
 
-Built on [Expo UI](https://docs.expo.dev/versions/latest/sdk/ui/) DatePicker (iOS) / DateTimePicker and Material dialogs (Android). Without `NativeDateSelectInput`, renders an inline picker; with it, uses form chrome and sheet/dialog.
+Built on [Expo UI](https://docs.expo.dev/versions/latest/sdk/ui/) DatePicker (iOS) / DateTimePicker and Material dialogs (Android). Without Trigger/Input/Content, renders an inline picker; with them, uses form chrome and sheet/dialog.
 
 ### NativeDateSelect
 
@@ -240,15 +286,28 @@ Root value/open state for the date/time picker.
       type: "boolean",
     },
     className: {
-      description: "Classes on the inline picker host when rendering without `NativeDateSelectInput`.",
+      description: "Classes on the inline picker host when rendering without the composed API.",
       type: "string",
+    },
+  }}
+/>
+
+### NativeDateSelectTrigger
+
+Opens the sheet/dialog. Extends [React Native Pressable](https://reactnative.dev/docs/pressable#props) props. Must be used within `NativeDateSelect`.
+
+<TypeTable
+  type={{
+    asChild: {
+      description: "Merges props onto the child via `Slot.Pressable` instead of rendering a Pressable.",
+      type: "boolean",
     },
   }}
 />
 
 ### NativeDateSelectInput
 
-Form-styled chrome. iOS `compact` uses non-pressable chrome with only the native compact DatePicker interactive; other iOS displays open a [`BottomSheet`](/docs/components/bottom-sheet); Android opens a Material dialog.
+Display-only form chrome. Compose inside `NativeDateSelectTrigger` for wheel/Android. iOS `compact` embeds the native compact DatePicker and does not need a Trigger.
 
 <TypeTable
   type={{
@@ -257,7 +316,7 @@ Form-styled chrome. iOS `compact` uses non-pressable chrome with only the native
       type: '"default" | "wheel" | "compact" | "graphical"',
     },
     placeholder: {
-      description: "Placeholder / sheet title text.",
+      description: "Placeholder / default sheet title text.",
       type: "string",
       default: '"Pick a date"',
     },
@@ -267,6 +326,19 @@ Form-styled chrome. iOS `compact` uses non-pressable chrome with only the native
     },
     className: {
       description: "Additional Tailwind classes on the input chrome.",
+      type: "string",
+    },
+  }}
+/>
+
+### NativeDateSelectContent
+
+Owns presentation: iOS wheel bottom sheet, or Android Material dialog. Hosts optional sheet footer.
+
+<TypeTable
+  type={{
+    title: {
+      description: "Sheet title. Falls back to Input placeholder when omitted.",
       type: "string",
     },
   }}
@@ -288,3 +360,9 @@ Extends [React Native Pressable](https://reactnative.dev/docs/pressable#props) p
     },
   }}
 />
+
+## Changelog
+
+### 2026-08-04 - Trigger and Content composition
+
+Add `NativeDateSelectTrigger` and `NativeDateSelectContent`. `NativeDateSelectInput` is display-only chrome; open the picker via Trigger (or use any pressable with `asChild`). Sheet footer moves into Content.
