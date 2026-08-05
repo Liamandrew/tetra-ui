@@ -1,0 +1,187 @@
+---
+title: Segmented Control
+description: A native single-select control for choosing between a small set of options.
+---
+
+Segmented Control wraps Expo UI's [SwiftUI segmented Picker](https://docs.expo.dev/versions/latest/sdk/ui/swift-ui/picker/) on iOS and [Jetpack Compose SegmentedButton](https://docs.expo.dev/versions/latest/sdk/ui/jetpack-compose/segmentedbutton/) on Android.
+
+<ComponentPreview name="segmented-control" type="gif" />
+
+## Installation
+
+<Tabs defaultValue="cli">
+
+<TabsList>
+  <TabsTrigger value="cli">CLI</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+
+<TabsContent value="cli">
+
+```package-install
+npx shadcn@latest add @tetra-ui/segmented-control
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps>
+
+<Step>Install the following dependencies:</Step>
+
+```package-install
+npm install @expo/ui
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource name="segmented-control" />
+
+</Steps>
+
+</TabsContent>
+
+</Tabs>
+
+## Usage
+
+Compose segments from `SegmentedControl`, `SegmentedControlItem`, and `SegmentedControlItemLabel`.
+
+```tsx
+import {
+  SegmentedControl,
+  SegmentedControlItem,
+  SegmentedControlItemLabel,
+} from "@/components/ui/segmented-control";
+```
+
+```tsx
+const [value, setValue] = useState("day");
+
+<SegmentedControl value={value} onValueChange={setValue}>
+  <SegmentedControlItem value="day">
+    <SegmentedControlItemLabel>Day</SegmentedControlItemLabel>
+  </SegmentedControlItem>
+  <SegmentedControlItem value="week">
+    <SegmentedControlItemLabel>Week</SegmentedControlItemLabel>
+  </SegmentedControlItem>
+  <SegmentedControlItem value="month">
+    <SegmentedControlItemLabel>Month</SegmentedControlItemLabel>
+  </SegmentedControlItem>
+</SegmentedControl>
+```
+
+## Controlled
+
+Pass `value` and `onValueChange` for controlled state:
+
+```tsx
+const [value, setValue] = useState("day");
+
+<SegmentedControl value={value} onValueChange={setValue}>
+  <SegmentedControlItem value="day">
+    <SegmentedControlItemLabel>Day</SegmentedControlItemLabel>
+  </SegmentedControlItem>
+  <SegmentedControlItem value="week">
+    <SegmentedControlItemLabel>Week</SegmentedControlItemLabel>
+  </SegmentedControlItem>
+  <SegmentedControlItem value="month">
+    <SegmentedControlItemLabel>Month</SegmentedControlItemLabel>
+  </SegmentedControlItem>
+</SegmentedControl>
+```
+
+## Uncontrolled
+
+Use `defaultValue` when you do not need to control the selection:
+
+```tsx
+<SegmentedControl defaultValue="week" onValueChange={setValue}>
+  <SegmentedControlItem value="day">
+    <SegmentedControlItemLabel>Day</SegmentedControlItemLabel>
+  </SegmentedControlItem>
+  <SegmentedControlItem value="week">
+    <SegmentedControlItemLabel>Week</SegmentedControlItemLabel>
+  </SegmentedControlItem>
+  <SegmentedControlItem value="month">
+    <SegmentedControlItemLabel>Month</SegmentedControlItemLabel>
+  </SegmentedControlItem>
+</SegmentedControl>
+```
+
+## Disabled
+
+```tsx
+<SegmentedControl disabled value="day" onValueChange={() => {}}>
+  <SegmentedControlItem value="day">
+    <SegmentedControlItemLabel>Day</SegmentedControlItemLabel>
+  </SegmentedControlItem>
+  <SegmentedControlItem value="week">
+    <SegmentedControlItemLabel>Week</SegmentedControlItemLabel>
+  </SegmentedControlItem>
+  <SegmentedControlItem value="month">
+    <SegmentedControlItemLabel>Month</SegmentedControlItemLabel>
+  </SegmentedControlItem>
+</SegmentedControl>
+```
+
+## API Reference
+
+### SegmentedControl
+
+Built on Expo UI platform primitives. Theme tint uses `--color-primary` (iOS `tint`, Android active segment colors).
+
+<TypeTable
+  type={{
+    value: {
+      description: "The selected segment value (controlled).",
+      type: "string",
+    },
+    defaultValue: {
+      description: "The initial selected value when uncontrolled.",
+      type: "string",
+    },
+    onValueChange: {
+      description: "Called when the selected segment changes.",
+      type: "(value: string) => void",
+    },
+    disabled: {
+      description: "When true, prevents interaction.",
+      type: "boolean",
+      default: "false",
+    },
+    className: {
+      description: "Tailwind classes applied to the host wrapper.",
+      type: "string",
+    },
+  }}
+/>
+
+### SegmentedControlItem
+
+Requires a `SegmentedControlItemLabel` child for the segment text.
+
+<TypeTable
+  type={{
+    value: {
+      description: "Unique value for the segment.",
+      type: "string",
+    },
+    children: {
+      description: "SegmentedControlItemLabel (required).",
+      type: "React.ReactElement | React.ReactElement[]",
+    },
+  }}
+/>
+
+### SegmentedControlItemLabel
+
+<TypeTable
+  type={{
+    children: {
+      description: "The segment label text.",
+      type: "string",
+    },
+  }}
+/>

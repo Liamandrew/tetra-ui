@@ -496,6 +496,40 @@
       ]
     },
     {
+      "name": "segmented-control",
+      "type": "registry:ui",
+      "title": "Segmented Control",
+      "description": "A native single-select control for choosing between a small set of options.",
+      "dependencies": ["@expo/ui"],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "../../packages/tetra-ui/src/components/segmented-control/index.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "../../packages/tetra-ui/src/components/segmented-control/segmented-control.types.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "../../packages/tetra-ui/src/components/segmented-control/segmented-control-utils.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "../../packages/tetra-ui/src/components/segmented-control/segmented-control.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "../../packages/tetra-ui/src/components/segmented-control/segmented-control.ios.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "../../packages/tetra-ui/src/components/segmented-control/segmented-control.android.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "select",
       "type": "registry:ui",
       "title": "Select",

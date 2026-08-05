@@ -23,6 +23,7 @@ export * from "./popover";
 export * from "./progress";
 export * from "./radio";
 export * from "./search-input";
+export * from "./segmented-control";
 export * from "./select";
 export * from "./separator";
 export * from "./skeleton";

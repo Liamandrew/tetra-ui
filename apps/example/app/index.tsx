@@ -57,6 +57,7 @@ const COMPONENTS: Array<{ title: string; href: Href }> = [
   { href: "/components/progress", title: "Progress" },
   { href: "/components/radio", title: "Radio" },
   { href: "/components/search-input", title: "Search Input" },
+  { href: "/components/segmented-control", title: "Segmented Control" },
   { href: "/components/select", title: "Select" },
   { href: "/components/separator", title: "Separator" },
   { href: "/components/skeleton", title: "Skeleton" },
