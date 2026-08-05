@@ -34,6 +34,8 @@ export default async function Page(props: PageProps<"/docs/[[...slug]]">) {
   );
 }
 
+export const dynamicParams = false;
+
 export function generateStaticParams() {
   return source.generateParams();
 }

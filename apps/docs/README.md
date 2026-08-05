@@ -26,7 +26,7 @@ In the project, you can see:
 | ------------------------- | ------------------------------------------------------ |
 | `app/(home)`              | The route group for your landing page and other pages. |
 | `app/docs`                | The documentation layout and pages.                    |
-| `app/api/search/route.ts` | The Route Handler for search.                          |
+| `app/api/search/route.ts` | Static search index (Orama) for client-side search.    |
 
 ### Fumadocs MDX
 
