@@ -94,7 +94,7 @@ export default function AccordionScreen() {
         <AccordionPreview />
       </ScreenHero>
 
-      <ScreenHero className="items-stretch bg-background">
+      <ScreenHero className="items-stretch">
         <Accordion defaultValue={["notifications", "privacy"]} type="multiple">
           {SETTINGS_ITEMS.map((item) => (
             <AccordionItem key={item.value} value={item.value}>

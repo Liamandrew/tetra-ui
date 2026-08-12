@@ -219,20 +219,23 @@ AlertAction.displayName = "AlertAction";
 AlertAction.slot = "action" as const;
 
 // Styles
-const alertVariants = cva("relative w-full rounded-2xl bg-muted px-4 py-3", {
-  defaultVariants: {
-    variant: "default",
-  },
-  variants: {
-    variant: {
-      default: "",
-      destructive: "",
-      info: "",
-      success: "",
-      warning: "",
+const alertVariants = cva(
+  "relative w-full rounded-2xl bg-card px-4 py-3 dark:bg-muted",
+  {
+    defaultVariants: {
+      variant: "default",
     },
-  },
-});
+    variants: {
+      variant: {
+        default: "",
+        destructive: "",
+        info: "",
+        success: "",
+        warning: "",
+      },
+    },
+  }
+);
 
 const alertIconVariants = cva("size-4", {
   variants: {

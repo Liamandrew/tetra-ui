@@ -1,3 +1,30 @@
 @import "tailwindcss";
 @import "fumadocs-ui/css/neutral.css";
 @import "fumadocs-ui/css/preset.css";
+
+:root {
+  --muted-foreground: oklch(0.48 0 0);
+}
+
+@theme inline {
+  --animate-phone-float: phone-float 5.5s ease-in-out infinite;
+}
+
+@keyframes phone-float {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+
+  50% {
+    translate: 0 -0.6rem;
+  }
+}
+
+@utility scrollbar-none {
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}

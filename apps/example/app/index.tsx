@@ -4,6 +4,7 @@ import {
   InlineListItem,
   InlineListItemAddon,
   InlineListItemAddonIcon,
+  InlineListItemDescription,
   InlineListItemTitle,
 } from "@repo/tetra-ui/components/inline-list";
 import { type Href, router } from "expo-router";
@@ -12,7 +13,25 @@ import { ScreenScrollView } from "@/components/screen";
 export default function Index() {
   return (
     <ScreenScrollView contentContainerClassName="p-4">
-      <InlineList>
+      <InlineList title="Experiences">
+        {EXPERIENCES.map((experience) => (
+          <InlineListItem
+            key={experience.title}
+            onPress={() => router.push(experience.href)}
+          >
+            <InlineListItemTitle>{experience.title}</InlineListItemTitle>
+            <InlineListItemDescription>
+              {experience.description}
+            </InlineListItemDescription>
+            <InlineListItemAddon align="inline-end">
+              <InlineListItemAddonIcon>
+                <ChevronRightIcon />
+              </InlineListItemAddonIcon>
+            </InlineListItemAddon>
+          </InlineListItem>
+        ))}
+      </InlineList>
+      <InlineList title="Components">
         {COMPONENTS.map((component) => (
           <InlineListItem
             key={component.title}
@@ -30,6 +49,34 @@ export default function Index() {
     </ScreenScrollView>
   );
 }
+
+const EXPERIENCES: Array<{ title: string; description: string; href: Href }> = [
+  {
+    description: "Email, password, then OTP verification",
+    href: "/experiences/sign-in" as Href,
+    title: "Sign in",
+  },
+  {
+    description: "Search, filters, and swipe actions",
+    href: "/experiences/inbox" as Href,
+    title: "Inbox",
+  },
+  {
+    description: "Preferences, toggles, and appearance",
+    href: "/experiences/settings" as Href,
+    title: "Settings",
+  },
+  {
+    description: "Multi-step profile and plan picker",
+    href: "/experiences/onboarding" as Href,
+    title: "Onboarding",
+  },
+  {
+    description: "Date, time, party size, and confirm",
+    href: "/experiences/booking" as Href,
+    title: "Booking",
+  },
+];
 
 const COMPONENTS: Array<{ title: string; href: Href }> = [
   { href: "/components/accordion", title: "Accordion" },

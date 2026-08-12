@@ -6,7 +6,10 @@ import { Geist } from "next/font/google";
 import { Provider } from "@/app/provider";
 import { siteConfig } from "@/lib/config";
 
-const geist = Geist();
+const geist = Geist({
+  display: "swap",
+  subsets: ["latin"],
+});
 
 export const metadata: Metadata = {
   authors: [
