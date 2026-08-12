@@ -228,19 +228,19 @@ Extends [React Native View](https://reactnative.dev/docs/view#props) props. Stic
 
 ## Changelog
 
-### 2026-05-25 - Initial release
-
-- Compound API: `BottomSheet`, `BottomSheetContent`, and layout primitives
-- Snap points, pan-down-to-close, dynamic sizing
-- `BottomSheetScrollView`, sticky `BottomSheetFooter`
-
-### 2026-06-22 - Keyboard Controller integration
-
-- Added `react-native-keyboard-controller` as a dependency for footer keyboard avoidance on iOS.
-
 ### 2026-07-08 - Expo UI rewrite
 
 - Rebuilt on [@expo/ui](https://docs.expo.dev/versions/latest/sdk/ui/) native bottom sheets (SwiftUI on iOS, Jetpack Compose on Android)
 - Removed `BottomSheetPortal`, `BottomSheetOverlay`, `useBottomSheet`, `useBottomSheetAnimation`, and `useBottomSheetInputHandlers`
 - Snap points now use Expo UI `SnapPoint` format (`"half"`, `"full"`, `{ fraction }`, `{ height }`)
 - No portal or overlay required — the native sheet is the modal
+
+### 2026-06-22 - Keyboard Controller integration
+
+- Added `react-native-keyboard-controller` as a dependency for footer keyboard avoidance on iOS.
+
+### 2026-05-25 - Initial release
+
+- Compound API: `BottomSheet`, `BottomSheetContent`, and layout primitives
+- Snap points, pan-down-to-close, dynamic sizing
+- `BottomSheetScrollView`, sticky `BottomSheetFooter`

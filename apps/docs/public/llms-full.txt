@@ -427,6 +427,50 @@ A control that allows users to toggle between checked and unchecked states.
 Docs: https://tetra-ui.com/docs/components/switch
 Deps: @expo/ui
 
+### swipeable
+Swipe leading and trailing actions onto row content. Compositional wrapper around ReanimatedSwipeable.
+Docs: https://tetra-ui.com/docs/components/swipeable
+Deps: react-native-gesture-handler, react-native-reanimated
+Exports: SwipeableList, useSwipeableList, Swipeable, SwipeableContent, SwipeableActionGroup, SwipeableAction, SwipeableActionText, SwipeableActionIcon
+
+Requires `GestureHandlerRootView` (included in tetra-ui ThemeProvider).
+
+Usage:
+```tsx
+import {
+  Swipeable,
+  SwipeableAction,
+  SwipeableActionGroup,
+  SwipeableContent,
+  SwipeableList,
+} from "@/components/ui/swipeable";
+import {
+  InlineList,
+  InlineListItem,
+  InlineListItemTitle,
+} from "@/components/ui/inline-list";
+
+<SwipeableList>
+  <InlineList title="Inbox">
+    <Swipeable>
+      <SwipeableContent>
+        <InlineListItem>
+          <InlineListItemTitle>Message from Expo</InlineListItemTitle>
+        </InlineListItem>
+      </SwipeableContent>
+      <SwipeableActionGroup edge="leading" allowsFullSwipe={false}>
+        <SwipeableAction onPress={() => {}}>Pin</SwipeableAction>
+      </SwipeableActionGroup>
+      <SwipeableActionGroup edge="trailing">
+        <SwipeableAction variant="destructive" onPress={() => {}}>
+          Delete
+        </SwipeableAction>
+      </SwipeableActionGroup>
+    </Swipeable>
+  </InlineList>
+</SwipeableList>
+```
+
 ### text
 A lightweight wrapper around the React Native Text component to provide default styles.
 Docs: https://tetra-ui.com/docs/components/text
@@ -476,6 +520,8 @@ Use Form + FormField + TextInput + PasswordInput + Button with react-hook-form a
 
 ### Settings screen
 Install: `npx shadcn@latest add @tetra-ui/inline-list @tetra-ui/switch @tetra-ui/radio @tetra-ui/icons @tetra-ui/stack`
+
+Use InlineList + InlineListItem with Switch/Radio in addons for settings rows. For swipe actions on rows, also add `@tetra-ui/swipeable`.
 
 Use InlineList for grouped settings rows (automatic separators, optional section titles). Stack multiple InlineList sections. Use Switch in static rows, Radio in pressable selection rows, and InlineListItemAddon for leading icons or trailing chevrons.
 

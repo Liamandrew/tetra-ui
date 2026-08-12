@@ -1,6 +1,7 @@
 export type { LucideIcon } from "lucide-react-native";
 
 import {
+  Archive,
   BadgeCheck,
   Bell,
   BookOpen,
@@ -17,10 +18,12 @@ import {
   Info,
   Mail,
   Moon,
+  Pin,
   Search,
   Shield,
   ShoppingCart,
   Sun,
+  Trash2,
   TriangleAlert,
   X,
 } from "lucide-react-native";
@@ -28,6 +31,7 @@ import { createStyledIcon } from "./styled-icon";
 
 export * from "./styled-icon";
 
+export const ArchiveIcon = createStyledIcon(Archive);
 export const BadgeCheckIcon = createStyledIcon(BadgeCheck);
 export const BellIcon = createStyledIcon(Bell);
 export const BookOpenIcon = createStyledIcon(BookOpen);
@@ -44,9 +48,11 @@ export const EyeOffIcon = createStyledIcon(EyeOff);
 export const InfoIcon = createStyledIcon(Info);
 export const MailIcon = createStyledIcon(Mail);
 export const MoonIcon = createStyledIcon(Moon);
+export const PinIcon = createStyledIcon(Pin);
 export const SearchIcon = createStyledIcon(Search);
 export const ShieldIcon = createStyledIcon(Shield);
 export const ShoppingCartIcon = createStyledIcon(ShoppingCart);
 export const SunIcon = createStyledIcon(Sun);
+export const TrashIcon = createStyledIcon(Trash2);
 export const TriangleAlertIcon = createStyledIcon(TriangleAlert);
 export const XIcon = createStyledIcon(X);

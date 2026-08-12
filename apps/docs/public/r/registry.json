@@ -633,6 +633,23 @@
       ]
     },
     {
+      "name": "swipeable",
+      "type": "registry:ui",
+      "title": "Swipeable",
+      "description": "Swipe leading and trailing actions onto row content.",
+      "dependencies": [
+        "react-native-gesture-handler",
+        "react-native-reanimated"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "../../packages/tetra-ui/src/components/swipeable.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "text",
       "type": "registry:ui",
       "title": "Text",

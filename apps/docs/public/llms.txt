@@ -63,6 +63,7 @@ Install any component with `npx shadcn@latest add @tetra-ui/{name}`.
 - [slot](https://tetra-ui.com/docs/components/slot): Merge props onto an optional child component
 - [stack](https://tetra-ui.com/docs/components/stack): Horizontal or vertical layout with consistent spacing
 - [switch](https://tetra-ui.com/docs/components/switch): Toggle between on and off states
+- [swipeable](https://tetra-ui.com/docs/components/swipeable): Swipe leading and trailing actions onto row content
 - [text](https://tetra-ui.com/docs/components/text): Styled wrapper around React Native Text
 - [text-input](https://tetra-ui.com/docs/components/text-input): Text entry field
 - [textarea-input](https://tetra-ui.com/docs/components/textarea-input): Multi-line text entry

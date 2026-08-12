@@ -64,6 +64,34 @@ import {
 
 Separators between items are inserted automatically with a left inset. You do not need to add `Separator` components manually.
 
+## With Swipeable
+
+Wrap rows in [`Swipeable`](/docs/components/swipeable) (or any other wrapper) around `InlineListItem`. Separators still apply automatically because `InlineList` provides separator context to nested items:
+
+```tsx
+import {
+  Swipeable,
+  SwipeableAction,
+  SwipeableActionGroup,
+  SwipeableContent,
+} from "@/components/ui/swipeable";
+
+<InlineList title="Inbox">
+  <Swipeable>
+    <SwipeableContent>
+      <InlineListItem>
+        <InlineListItemTitle>Message from Expo</InlineListItemTitle>
+      </InlineListItem>
+    </SwipeableContent>
+    <SwipeableActionGroup edge="trailing">
+      <SwipeableAction variant="destructive" onPress={() => {}}>
+        Delete
+      </SwipeableAction>
+    </SwipeableActionGroup>
+  </Swipeable>
+</InlineList>
+```
+
 ## String children
 
 Pass a string as `InlineListItem` children for a simple title-only row:
@@ -190,7 +218,7 @@ Pass `showSeparator={false}` on a specific item to hide the divider below it:
 
 ### InlineList
 
-Extends [React Native View](https://reactnative.dev/docs/view#props) props. Auto-sets `showSeparator` on child `InlineListItem`s (all but the last).
+Extends [React Native View](https://reactnative.dev/docs/view#props) props. Provides separator context to nested `InlineListItem`s (all but the last direct child).
 
 <TypeTable
   type={{
@@ -213,7 +241,7 @@ Extends [React Native Pressable](https://reactnative.dev/docs/pressable#props) p
 <TypeTable
   type={{
     showSeparator: {
-      description: "Shows a hairline divider below the item. Inside `InlineList`, defaults to true for all but the last item.",
+      description: "Shows a hairline divider below the item. Inside `InlineList`, defaults to true for all but the last direct child via context (works through wrappers).",
       type: "boolean",
       default: "false",
     },
@@ -266,6 +294,10 @@ Clones a single child icon with size and color from item/addon context.
 />
 
 ## Changelog
+
+### 2026-08-12
+
+- Added `Swipeable` support to `InlineList` rows.
 
 ### 2026-06-29
 

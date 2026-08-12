@@ -52,6 +52,13 @@ type InlineListItemAddonAlign = NonNullable<
 >;
 
 // Context
+type InlineListSeparatorContextValue = {
+  showSeparator: boolean;
+};
+
+const InlineListSeparatorContext =
+  createContext<InlineListSeparatorContextValue | null>(null);
+
 const InlineListItemContext = createContext<InlineListItemVariant>("default");
 
 const useInlineListItemContext = () => useContext(InlineListItemContext);
@@ -92,26 +99,19 @@ export const useInlineListItemAddons = (children?: React.ReactNode) => {
 
 const renderItemsWithSeparators = (children: React.ReactNode) => {
   const childArray = Children.toArray(children);
-  const itemIndices: number[] = [];
-
-  for (const [index, child] of childArray.entries()) {
-    if (isValidElement(child) && child.type === InlineListItem) {
-      itemIndices.push(index);
-    }
-  }
-
-  const lastItemIndex = itemIndices.at(-1);
+  const lastIndex = childArray.length - 1;
 
   return childArray.map((child, index) => {
-    if (!isValidElement(child) || child.type !== InlineListItem) {
-      return child;
-    }
+    const key = isValidElement(child) && child.key !== null ? child.key : index;
 
-    const itemChild = child as React.ReactElement<InlineListItemProps>;
-    const showSeparator =
-      itemChild.props.showSeparator ?? index !== lastItemIndex;
-
-    return cloneElement(itemChild, { showSeparator });
+    return (
+      <InlineListSeparatorContext.Provider
+        key={key}
+        value={{ showSeparator: index !== lastIndex }}
+      >
+        {child}
+      </InlineListSeparatorContext.Provider>
+    );
   });
 };
 
@@ -181,12 +181,15 @@ export const InlineList = ({
 export const InlineListItem = ({
   children,
   className,
-  showSeparator = false,
+  showSeparator: showSeparatorProp,
   onPress,
   disabled,
   variant = "default",
   ...props
 }: InlineListItemProps) => {
+  const separatorContext = useContext(InlineListSeparatorContext);
+  const showSeparator =
+    showSeparatorProp ?? separatorContext?.showSeparator ?? false;
   const { startAddons, endAddons } = useInlineListItemAddons(children);
   const content = useMemo(
     () => parseInlineListItemContent(children),

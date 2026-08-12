@@ -1,0 +1,354 @@
+---
+title: Swipeable
+description: Swipe leading and trailing actions onto row content.
+---
+
+<ComponentPreview name="swipeable" type="gif" />
+
+## Installation
+
+<Tabs defaultValue="cli">
+
+<TabsList>
+  <TabsTrigger value="cli">CLI</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+
+<TabsContent value="cli">
+
+```package-install
+npx shadcn@latest add @tetra-ui/swipeable
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps>
+
+<Step>Install the following dependencies:</Step>
+
+```package-install
+npx expo install react-native-gesture-handler react-native-reanimated
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource name="swipeable" title="components/ui/swipeable.tsx" />
+
+</Steps>
+
+</TabsContent>
+
+</Tabs>
+
+## Setup
+
+Wrap your app in `GestureHandlerRootView` (or use the tetra-ui `ThemeProvider`, which already includes it):
+
+```tsx
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+
+export default function RootLayout({ children }) {
+  return (
+    <GestureHandlerRootView style={{ flex: 1 }}>{children}</GestureHandlerRootView>
+  );
+}
+```
+
+## Usage
+
+```tsx
+import {
+  Swipeable,
+  SwipeableAction,
+  SwipeableActionGroup,
+  SwipeableContent,
+  SwipeableList,
+} from "@/components/ui/swipeable";
+```
+
+```tsx
+<SwipeableList>
+  <Swipeable>
+    <SwipeableContent onPress={() => {}}>
+      <Text>Message from Expo</Text>
+    </SwipeableContent>
+
+    <SwipeableActionGroup edge="leading" allowsFullSwipe={false}>
+      <SwipeableAction onPress={() => {}}>Pin</SwipeableAction>
+    </SwipeableActionGroup>
+
+    <SwipeableActionGroup edge="trailing">
+      <SwipeableAction variant="destructive" onPress={() => {}}>
+        Delete
+      </SwipeableAction>
+    </SwipeableActionGroup>
+  </Swipeable>
+</SwipeableList>
+```
+
+## Press vs swipe
+
+Row presses must participate in the gesture-handler system so a swipe does not also fire `onPress`. Put `onPress` on `SwipeableContent` (gesture-handler `Pressable`). Do not nest React Native’s `Pressable` — including `InlineListItem`’s `onPress` — inside a swipeable row; keep `InlineListItem` presentational and press via `SwipeableContent`.
+
+## Exclusive open
+
+Wrap sibling rows in `SwipeableList` so opening one closes the others (Mail-style). Rows register through context, so nesting inside `InlineList` or a `map` still works. Use `useSwipeableList().closeAll()` to shut every row (for example when the list scrolls or navigates away). Pass `exclusive={false}` to keep `closeAll` without auto-closing siblings.
+
+## Composition
+
+```
+SwipeableList
+└── Swipeable
+    ├── SwipeableContent
+    ├── SwipeableActionGroup
+    │   └── SwipeableAction
+    │       ├── SwipeableActionIcon
+    │       └── SwipeableActionText
+    └── SwipeableActionGroup
+```
+
+## With Inline List
+
+Wrap each row in `Swipeable`, and wrap the list in `SwipeableList` for exclusive open. Separators still apply automatically — `InlineList` provides separator context through any wrapper to nested `InlineListItem`s:
+
+```tsx
+import {
+  InlineList,
+  InlineListItem,
+  InlineListItemTitle,
+} from "@/components/ui/inline-list";
+import {
+  Swipeable,
+  SwipeableAction,
+  SwipeableActionGroup,
+  SwipeableContent,
+  SwipeableList,
+} from "@/components/ui/swipeable";
+
+<SwipeableList>
+  <InlineList title="Inbox">
+    <Swipeable>
+      <SwipeableContent onPress={() => {}}>
+        <InlineListItem>
+          <InlineListItemTitle>Message from Expo</InlineListItemTitle>
+        </InlineListItem>
+      </SwipeableContent>
+      <SwipeableActionGroup edge="trailing">
+        <SwipeableAction variant="destructive" onPress={() => {}}>
+          Delete
+        </SwipeableAction>
+      </SwipeableActionGroup>
+    </Swipeable>
+    <Swipeable>
+      <SwipeableContent>
+        <InlineListItem>
+          <InlineListItemTitle>Welcome to tetra-ui</InlineListItemTitle>
+        </InlineListItem>
+      </SwipeableContent>
+      <SwipeableActionGroup edge="trailing">
+        <SwipeableAction variant="secondary" onPress={() => {}}>
+          Archive
+        </SwipeableAction>
+        <SwipeableAction variant="destructive" onPress={() => {}}>
+          Delete
+        </SwipeableAction>
+      </SwipeableActionGroup>
+    </Swipeable>
+  </InlineList>
+</SwipeableList>
+```
+
+## Full swipe
+
+Set `allowsFullSwipe` on `SwipeableActionGroup` (defaults to `true`):
+
+- Overshoot bleeds the **outermost** action’s color (trailing → last child, leading → first child)
+- Dragging past about **halfway across the screen** arms that action (sibling labels/icons fade)
+- Pull back before release to disarm — the action only runs **on gesture release** while still armed
+- Works for both leading and trailing groups (`allowsFullSwipe` defaults to `true`)
+- Set `allowsFullSwipe={false}` to keep rubber-band overshoot without arming or auto-performing
+
+## Icons
+
+Use `SwipeableActionIcon` for icon-only or icon + label actions. Labels stack under the icon and stay centered. Add an `accessibilityLabel` when there is no visible text:
+
+```tsx
+import { ArchiveIcon, TrashIcon } from "@/components/ui/icons";
+import {
+  Swipeable,
+  SwipeableAction,
+  SwipeableActionGroup,
+  SwipeableActionIcon,
+  SwipeableContent,
+} from "@/components/ui/swipeable";
+
+{/* Icon only */}
+<SwipeableAction accessibilityLabel="Delete" variant="destructive" onPress={() => {}}>
+  <SwipeableActionIcon>
+    <TrashIcon />
+  </SwipeableActionIcon>
+</SwipeableAction>
+
+{/* Icon + text */}
+<SwipeableAction variant="secondary" onPress={() => {}}>
+  <SwipeableActionIcon>
+    <ArchiveIcon />
+  </SwipeableActionIcon>
+  Archive
+</SwipeableAction>
+```
+
+## API
+
+### SwipeableList
+
+Wraps sibling `Swipeable` rows so opening one can close the others. Registration is context-based, so rows may be nested in `InlineList`, fragments, or mapped children.
+
+<TypeTable
+  type={{
+    children: {
+      description: "One or more Swipeable rows (and any wrappers around them).",
+      type: "React.ReactNode",
+      required: true,
+    },
+    exclusive: {
+      description:
+        "When true, opening a row closes every other registered row.",
+      type: "boolean",
+      default: "true",
+    },
+  }}
+/>
+
+`useSwipeableList()` returns `{ closeAll }` for the nearest list (no-op outside one).
+
+### Swipeable
+
+Built on [ReanimatedSwipeable](https://docs.swmansion.com/react-native-gesture-handler/docs/components/reanimated_swipeable/). Forwards friction, thresholds, open/close callbacks, `enabled`, and a ref with `close` / `openLeft` / `openRight` / `reset`.
+
+<TypeTable
+  type={{
+    children: {
+      description: "SwipeableContent and SwipeableActionGroup slots.",
+      type: "React.ReactNode",
+      required: true,
+    },
+    friction: {
+      description: "How much the visual interaction lags the gesture.",
+      type: "number",
+      default: "1",
+    },
+    overshootFriction: {
+      description:
+        "Friction applied while overshooting open actions. Defaults to 2 for single-action full swipe, otherwise 1.25, so half-screen remains reachable without feeling too loose.",
+      type: "number",
+      default: "1.25 | 2",
+    },
+    animationOptions: {
+      description:
+        "Spring options for open/close. Defaults allow a small bounce when snapping open.",
+      type: "Record<string, unknown>",
+    },
+    enabled: {
+      description: "Whether swipe gestures are enabled.",
+      type: "boolean",
+      default: "true",
+    },
+  }}
+/>
+
+### SwipeableContent
+
+Required slot for the row content revealed by default. The content surface uses `bg-card` so actions slide out from behind an opaque row. When `onPress` is set, the surface uses gesture-handler `Pressable` so taps do not fire during a swipe.
+
+<TypeTable
+  type={{
+    children: {
+      description: "Row content (for example an InlineListItem).",
+      type: "React.ReactNode",
+      required: true,
+    },
+    className: {
+      description: "Additional Tailwind classes on the opaque content surface.",
+      type: "string",
+    },
+    onPress: {
+      description:
+        "Row press handler. Prefer this over nesting React Native Pressable.",
+      type: "(event) => void",
+    },
+    disabled: {
+      description: "Disables the content press handler.",
+      type: "boolean",
+    },
+  }}
+/>
+### SwipeableActionGroup
+
+Action group revealed when swiping from an edge.
+
+<TypeTable
+  type={{
+    edge: {
+      description: "Which edge reveals this action group.",
+      type: '"leading" | "trailing"',
+      required: true,
+    },
+    allowsFullSwipe: {
+      description:
+        "When true, dragging the content edge past about halfway across the screen arms the outermost action (sibling labels/icons fade). Releasing while armed performs it; pulling back disarms. When false, overshoot still rubber-bands and bleeds color, but does not arm or auto-perform.",
+      type: "boolean",
+      default: "true",
+    },
+    children: {
+      description: "One or more SwipeableAction buttons.",
+      type: "React.ReactNode",
+    },
+    className: {
+      description: "Additional Tailwind classes for the action row.",
+      type: "string",
+    },
+  }}
+/>
+
+### SwipeableAction
+
+Pressable action button. String children become `SwipeableActionText`.
+
+<TypeTable
+  type={{
+    variant: {
+      description: "Visual style of the action.",
+      type: '"default" | "destructive" | "secondary"',
+      default: '"default"',
+    },
+    children: {
+      description: "Label, icon, or both.",
+      type: "React.ReactNode",
+    },
+  }}
+/>
+
+### SwipeableActionText
+
+Label text styled from the parent `SwipeableAction` context.
+
+### SwipeableActionIcon
+
+Clones a single child icon with size and color from the parent `SwipeableAction` context.
+
+<TypeTable
+  type={{
+    children: {
+      description: "A single icon element.",
+      type: "React.ReactNode",
+      required: true,
+    },
+    className: {
+      description: "Additional Tailwind classes applied to the icon.",
+      type: "string",
+    },
+  }}
+/>

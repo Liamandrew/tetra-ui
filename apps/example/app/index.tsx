@@ -62,6 +62,7 @@ const COMPONENTS: Array<{ title: string; href: Href }> = [
   { href: "/components/separator", title: "Separator" },
   { href: "/components/skeleton", title: "Skeleton" },
   { href: "/components/slider", title: "Slider" },
+  { href: "/components/swipeable" as Href, title: "Swipeable" },
   { href: "/components/switch", title: "Switch" },
   { href: "/components/text-input", title: "Text Input" },
   { href: "/components/textarea-input", title: "Textarea Input" },

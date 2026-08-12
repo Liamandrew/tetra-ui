@@ -28,6 +28,7 @@ export * from "./select";
 export * from "./separator";
 export * from "./skeleton";
 export * from "./slider";
+export * from "./swipeable";
 export * from "./switch";
 export * from "./text-input";
 export * from "./textarea-input";
