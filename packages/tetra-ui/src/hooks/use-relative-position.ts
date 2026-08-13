@@ -1,9 +1,5 @@
 import { useMemo } from "react";
-import {
-  Dimensions,
-  type LayoutRectangle,
-  type ScaledSize,
-} from "react-native";
+import { type LayoutRectangle, useWindowDimensions } from "react-native";
 import type { EdgeInsets } from "react-native-safe-area-context";
 
 type LayoutPosition = {
@@ -11,6 +7,11 @@ type LayoutPosition = {
   pageY: number;
   width: number;
   height: number;
+};
+
+type WindowSize = {
+  height: number;
+  width: number;
 };
 
 type UseRelativePositionArgs = {
@@ -40,7 +41,7 @@ type SidePositionParams = {
   sideOffset: number;
   insets?: EdgeInsets;
   avoidCollisions: boolean;
-  dimensions: ScaledSize;
+  dimensions: WindowSize;
 };
 
 function getVerticalSidePosition({
@@ -60,7 +61,7 @@ function getVerticalSidePosition({
   insetTop: number;
   insetBottom: number;
   avoidCollisions: boolean;
-  dimensions: ScaledSize;
+  dimensions: WindowSize;
 }): { top?: number } {
   const positionTop = triggerPosition.pageY - sideOffset - contentLayout.height;
   const positionBottom =
@@ -107,7 +108,7 @@ function getHorizontalSidePosition({
   insetLeft: number;
   insetRight: number;
   avoidCollisions: boolean;
-  dimensions: ScaledSize;
+  dimensions: WindowSize;
 }): { left?: number } {
   const maxContentWidth = dimensions.width - insetLeft - insetRight;
   const contentWidth = Math.min(contentLayout.width, maxContentWidth);
@@ -185,7 +186,7 @@ type HorizontalAlignParams = {
   alignOffset: number;
   insetLeft: number;
   insetRight: number;
-  dimensions: ScaledSize;
+  dimensions: WindowSize;
 };
 
 function getHorizontalAlignPosition({
@@ -222,7 +223,7 @@ type VerticalAlignParams = {
   alignOffset: number;
   insetTop: number;
   insetBottom: number;
-  dimensions: ScaledSize;
+  dimensions: WindowSize;
 };
 
 function getVerticalAlignPosition({
@@ -259,7 +260,7 @@ type AlignPositionParams = {
   alignOffset: number;
   insets?: EdgeInsets;
   side: "top" | "bottom" | "left" | "right";
-  dimensions: ScaledSize;
+  dimensions: WindowSize;
 };
 
 function adjustHorizontalCollision({
@@ -273,7 +274,7 @@ function adjustHorizontalCollision({
   contentWidth: number;
   insetLeft: number;
   insetRight: number;
-  dimensions: ScaledSize;
+  dimensions: WindowSize;
 }): number {
   const spaceLeft = left - insetLeft;
   const spaceRight = dimensions.width - insetRight - (left + contentWidth);
@@ -307,7 +308,7 @@ function getHorizontalAlignWithCollision({
   insetLeft: number;
   insetRight: number;
   avoidCollisions: boolean;
-  dimensions: ScaledSize;
+  dimensions: WindowSize;
 }): number {
   let left = getHorizontalAlignPosition({
     align,
@@ -348,7 +349,7 @@ function adjustVerticalCollision({
   contentHeight: number;
   insetTop: number;
   insetBottom: number;
-  dimensions: ScaledSize;
+  dimensions: WindowSize;
 }): number {
   const spaceTop = idealTop - insetTop;
   const spaceBottom =
@@ -383,7 +384,7 @@ function getVerticalAlignWithCollision({
   insetTop: number;
   insetBottom: number;
   avoidCollisions: boolean;
-  dimensions: ScaledSize;
+  dimensions: WindowSize;
 }): number {
   let top = getVerticalAlignPosition({
     align: verticalAlign,
@@ -487,66 +488,6 @@ function getAlignPosition({
   return { maxHeight: maxContentHeight, maxWidth: maxContentWidth, top };
 }
 
-function getEstimatedPosition({
-  align,
-  triggerPosition,
-  side,
-  sideOffset,
-  alignOffset,
-}: {
-  align: "start" | "center" | "end";
-  triggerPosition: LayoutPosition;
-  side: "top" | "bottom" | "left" | "right";
-  sideOffset: number;
-  alignOffset: number;
-}): { top: number; left: number } {
-  // Position near trigger but invisible until layout is measured
-  // Use a rough estimate for positioning
-  const estimatedHeight = 100; // Rough estimate, will be corrected after layout
-  const estimatedWidth = 200;
-
-  let top = 0;
-  let left = 0;
-
-  if (side === "top" || side === "bottom") {
-    top =
-      side === "top"
-        ? triggerPosition.pageY - sideOffset - estimatedHeight
-        : triggerPosition.pageY + triggerPosition.height + sideOffset;
-
-    // Calculate horizontal alignment
-    if (align === "start") {
-      left = triggerPosition.pageX;
-    } else if (align === "center") {
-      left =
-        triggerPosition.pageX + triggerPosition.width / 2 - estimatedWidth / 2;
-    } else {
-      left = triggerPosition.pageX + triggerPosition.width - estimatedWidth;
-    }
-    left += alignOffset;
-  } else {
-    left =
-      side === "left"
-        ? triggerPosition.pageX - sideOffset - estimatedWidth
-        : triggerPosition.pageX + triggerPosition.width + sideOffset;
-
-    // Calculate vertical alignment
-    if (align === "start") {
-      top = triggerPosition.pageY;
-    } else if (align === "center") {
-      top =
-        triggerPosition.pageY +
-        triggerPosition.height / 2 -
-        estimatedHeight / 2;
-    } else {
-      top = triggerPosition.pageY + triggerPosition.height - estimatedHeight;
-    }
-    top += alignOffset;
-  }
-
-  return { left, top };
-}
-
 export function useRelativePosition({
   align = "start",
   avoidCollisions = true,
@@ -557,9 +498,10 @@ export function useRelativePosition({
   side = "bottom",
   sideOffset = 0,
 }: UseRelativePositionArgs): PositionStyle {
-  return useMemo(() => {
-    const dimensions = Dimensions.get("screen");
+  const { height: windowHeight, width: windowWidth } = useWindowDimensions();
 
+  return useMemo(() => {
+    const dimensions = { height: windowHeight, width: windowWidth };
     if (!triggerPosition) {
       return {
         left: -9999,
@@ -571,14 +513,10 @@ export function useRelativePosition({
 
     if (!contentLayout) {
       return {
+        left: triggerPosition.pageX,
+        opacity: 0,
         position: "absolute",
-        ...getEstimatedPosition({
-          align,
-          alignOffset,
-          side,
-          sideOffset,
-          triggerPosition,
-        }),
+        top: triggerPosition.pageY,
       };
     }
 
@@ -617,5 +555,7 @@ export function useRelativePosition({
     triggerPosition,
     contentLayout,
     sideOffset,
+    windowHeight,
+    windowWidth,
   ]);
 }

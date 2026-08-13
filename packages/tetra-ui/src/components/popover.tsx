@@ -8,11 +8,13 @@ import {
   useState,
 } from "react";
 import {
+  BackHandler,
   type DimensionValue,
   type GestureResponderEvent,
   type LayoutChangeEvent,
   type LayoutRectangle,
   Pressable,
+  useWindowDimensions,
   type View,
   type ViewStyle,
 } from "react-native";
@@ -26,15 +28,18 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { Uniwind } from "uniwind";
+import { useUniwind } from "uniwind";
 import { useRelativePosition } from "@/hooks/use-relative-position";
 import { cn, mergeRefs } from "@/lib/utils";
 import { Portal, PortalOverlay } from "./portal";
 import { Slot } from "./slot";
 
 // Constants
-const ANIMATION_DURATION = 280;
+const ANIMATION_DURATION = 200;
 const ANIMATION_EASING = Easing.out(Easing.cubic);
+const SCREEN_MARGIN = 12;
+const FIT_MAX_WIDTH = 280;
+const OVERLAY_OPACITY = { dark: 0.32, light: 0.12 } as const;
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
 // Types
@@ -44,6 +49,9 @@ type LayoutPosition = {
   width: number;
   height: number;
 };
+
+type PopoverSide = "top" | "bottom" | "left" | "right";
+type PopoverAlign = "start" | "center" | "end";
 
 type PopoverContextProps = {
   open: boolean;
@@ -68,12 +76,11 @@ type PopoverOverlayProps = {
 
 type PopoverContentProps = React.ComponentProps<typeof View> & {
   avoidCollisions?: boolean;
-  side?: "top" | "bottom" | "left" | "right";
+  side?: PopoverSide;
   sideOffset?: number;
-  align?: "start" | "center" | "end";
+  align?: PopoverAlign;
   alignOffset?: number;
   width?: "full" | "fit" | "auto" | "trigger" | number | `${number}%`;
-  disablePositioningStyle?: boolean;
 };
 
 type PopoverTriggerProps = React.ComponentPropsWithRef<typeof Pressable> & {
@@ -125,6 +132,24 @@ export const Popover = ({
     });
   }, [open, visibilityProgress]);
 
+  useEffect(() => {
+    if (!open) {
+      return;
+    }
+
+    const subscription = BackHandler.addEventListener(
+      "hardwareBackPress",
+      () => {
+        onOpenChange(false);
+        return true;
+      }
+    );
+
+    return () => {
+      subscription.remove();
+    };
+  }, [open, onOpenChange]);
+
   const ctx = useMemo(
     () => ({
       contentLayout,
@@ -145,12 +170,11 @@ export const Popover = ({
 
 export const PopoverTrigger = ({
   asChild,
-  onLayout: onLayoutProp,
   ref: refProp,
   onPress: onPressProp,
   ...props
 }: PopoverTriggerProps) => {
-  const { onOpenChange, setTriggerPosition } = usePopover();
+  const { open, onOpenChange, setTriggerPosition } = usePopover();
   const ref = useRef<React.ComponentRef<typeof Pressable>>(null);
 
   const mergedRefs = mergeRefs(ref, refProp);
@@ -158,6 +182,11 @@ export const PopoverTrigger = ({
   const handlePress = useCallback(
     (e: GestureResponderEvent) => {
       onPressProp?.(e);
+
+      if (open) {
+        onOpenChange(false);
+        return;
+      }
 
       ref.current?.measure((_x, _y, width, height, pageX, pageY) => {
         setTriggerPosition({
@@ -170,16 +199,23 @@ export const PopoverTrigger = ({
         onOpenChange(true);
       });
     },
-    [onOpenChange, onPressProp, setTriggerPosition]
+    [open, onOpenChange, onPressProp, setTriggerPosition]
   );
 
   const Comp = asChild ? Slot.Pressable : Pressable;
 
-  return <Comp {...props} onPress={handlePress} ref={mergedRefs} />;
+  return (
+    <Comp
+      {...props}
+      collapsable={false}
+      onPress={handlePress}
+      ref={mergedRefs}
+    />
+  );
 };
 
 export const PopoverClose = ({ asChild, ...props }: PopoverCloseProps) => {
-  const { onOpenChange, setTriggerPosition } = usePopover();
+  const { onOpenChange } = usePopover();
 
   const Comp = asChild ? Slot.Pressable : Pressable;
 
@@ -188,7 +224,6 @@ export const PopoverClose = ({ asChild, ...props }: PopoverCloseProps) => {
       {...props}
       onPress={() => {
         onOpenChange(false);
-        setTriggerPosition(undefined);
       }}
     />
   );
@@ -200,8 +235,24 @@ export const PopoverPortal = ({
   ...portalProps
 }: PopoverPortalProps) => {
   const ctx = usePopover();
+  const [mounted, setMounted] = useState(ctx.open);
 
-  if (!ctx.open) {
+  useEffect(() => {
+    if (ctx.open) {
+      setMounted(true);
+      return;
+    }
+
+    const timeout = setTimeout(() => {
+      setMounted(false);
+    }, ANIMATION_DURATION);
+
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, [ctx.open]);
+
+  if (!mounted) {
     return null;
   }
 
@@ -219,19 +270,18 @@ export const PopoverOverlay = ({
   className,
 }: PopoverOverlayProps) => {
   const { onOpenChange, visibilityProgress } = usePopover();
-
-  const isDark = Uniwind.currentTheme === "dark";
+  const { theme } = useUniwind();
+  const overlayOpacity =
+    theme === "dark" ? OVERLAY_OPACITY.dark : OVERLAY_OPACITY.light;
 
   const animatedStyle = useAnimatedStyle(() => {
-    const opacity = interpolate(
-      visibilityProgress.value,
-      [0, 1],
-      [0, isDark ? 0.75 : 0.5],
-      Extrapolation.CLAMP
-    );
-
     return {
-      opacity,
+      opacity: interpolate(
+        visibilityProgress.value,
+        [0, 1],
+        [0, overlayOpacity],
+        Extrapolation.CLAMP
+      ),
     };
   });
 
@@ -254,19 +304,28 @@ export const PopoverContent = ({
   avoidCollisions = true,
   side = "bottom",
   sideOffset = 8,
-  align = "start",
+  align = "center",
   alignOffset = 0,
   ...props
 }: PopoverContentProps) => {
   const {
-    open,
     visibilityProgress,
     triggerPosition,
     setContentLayout,
     contentLayout,
   } = usePopover();
-
   const insets = useSafeAreaInsets();
+  const dimensions = useWindowDimensions();
+
+  const positionInsets = useMemo(
+    () => ({
+      bottom: insets.bottom + SCREEN_MARGIN,
+      left: insets.left + SCREEN_MARGIN,
+      right: insets.right + SCREEN_MARGIN,
+      top: insets.top + SCREEN_MARGIN,
+    }),
+    [insets]
+  );
 
   const onLayout = useCallback(
     (event: LayoutChangeEvent) => {
@@ -276,24 +335,24 @@ export const PopoverContent = ({
     [setContentLayout, onLayoutProp]
   );
 
-  const animatedStyle = useAnimatedStyle(() => {
-    const opacity = interpolate(
-      visibilityProgress.value,
-      [0, 1],
-      [0, 1],
-      Extrapolation.CLAMP
-    );
+  const transformOrigin = getContentTransformOrigin(side, align);
+  const translateXSign = getTranslateSign(side, "x");
+  const translateYSign = getTranslateSign(side, "y");
 
-    const scale = interpolate(
-      visibilityProgress.value,
-      [0, 1],
-      [0.95, 1],
-      Extrapolation.CLAMP
-    );
+  const animatedStyle = useAnimatedStyle(() => {
+    const progress = visibilityProgress.value;
+    const opacity = interpolate(progress, [0, 1], [0, 1], Extrapolation.CLAMP);
+    const scale = interpolate(progress, [0, 1], [0.92, 1], Extrapolation.CLAMP);
+    const offset = interpolate(progress, [0, 1], [6, 0], Extrapolation.CLAMP);
 
     return {
       opacity,
-      transform: [{ scale }],
+      transform: [
+        { translateX: offset * translateXSign },
+        { translateY: offset * translateYSign },
+        { scale },
+      ],
+      transformOrigin,
     };
   });
 
@@ -302,29 +361,20 @@ export const PopoverContent = ({
     alignOffset,
     avoidCollisions,
     contentLayout: contentLayout ?? null,
-    insets,
+    insets: positionInsets,
     side,
     sideOffset,
     triggerPosition: triggerPosition ?? null,
   });
 
-  const widthStyle = useMemo(() => {
-    const _widthStyle: ViewStyle = {};
-    if (width === "full") {
-      _widthStyle.width = "100%";
-    }
-    if (typeof width === "number" || width === "auto" || width.endsWith("%")) {
-      _widthStyle.width = width as DimensionValue;
-    }
-    if (width === "trigger") {
-      _widthStyle.width = triggerPosition?.width as DimensionValue;
-    }
-    return _widthStyle;
-  }, [width, triggerPosition]);
-
-  if (!open) {
-    return null;
-  }
+  const widthStyle = getContentWidthStyle(
+    width,
+    triggerPosition?.width,
+    Math.min(
+      FIT_MAX_WIDTH,
+      dimensions.width - positionInsets.left - positionInsets.right
+    )
+  );
 
   if (!triggerPosition) {
     return null;
@@ -333,11 +383,100 @@ export const PopoverContent = ({
   return (
     <Animated.View
       {...props}
-      className={cn("z-50 rounded-lg bg-background p-4 shadow-lg", className)}
+      className={cn(
+        "z-50 rounded-xl border border-border bg-popover p-3 shadow-lg",
+        className
+      )}
+      collapsable={false}
       onLayout={onLayout}
-      style={[positionStyle, widthStyle, animatedStyle, style]}
+      pointerEvents={contentLayout ? "auto" : "none"}
+      style={[
+        positionStyle,
+        widthStyle,
+        animatedStyle,
+        contentLayout ? null : { opacity: 0 },
+        style,
+      ]}
     >
       {children}
     </Animated.View>
   );
 };
+
+// Utils
+function getContentWidthStyle(
+  width: NonNullable<PopoverContentProps["width"]>,
+  triggerWidth: number | undefined,
+  maxFitWidth: number
+): ViewStyle {
+  if (width === "full") {
+    return { width: "100%" };
+  }
+
+  if (width === "trigger") {
+    return { width: triggerWidth };
+  }
+
+  if (width === "auto") {
+    return { width: "auto" };
+  }
+
+  if (typeof width === "number") {
+    return { width };
+  }
+
+  if (width.endsWith("%")) {
+    return { width: width as DimensionValue };
+  }
+
+  return {
+    alignSelf: "flex-start",
+    maxWidth: maxFitWidth,
+  };
+}
+
+function getContentTransformOrigin(side: PopoverSide, align: PopoverAlign) {
+  let x = "center";
+  if (side === "left") {
+    x = "right";
+  } else if (side === "right") {
+    x = "left";
+  } else if (align === "start") {
+    x = "left";
+  } else if (align === "end") {
+    x = "right";
+  }
+
+  let y = "center";
+  if (side === "top") {
+    y = "bottom";
+  } else if (side === "bottom") {
+    y = "top";
+  } else if (align === "start") {
+    y = "top";
+  } else if (align === "end") {
+    y = "bottom";
+  }
+
+  return `${x} ${y}`;
+}
+
+function getTranslateSign(side: PopoverSide, axis: "x" | "y") {
+  if (axis === "x") {
+    if (side === "left") {
+      return 1;
+    }
+    if (side === "right") {
+      return -1;
+    }
+    return 0;
+  }
+
+  if (side === "top") {
+    return 1;
+  }
+  if (side === "bottom") {
+    return -1;
+  }
+  return 0;
+}

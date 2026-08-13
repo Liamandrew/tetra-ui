@@ -93,9 +93,9 @@ Control placement with `side` and `align` on `PopoverContent`:
 Supported values:
 
 - `side`: `"top"` | `"bottom"` | `"left"` | `"right"`
-- `align`: `"start"` | `"center"` | `"end"`
+- `align`: `"start"` | `"center"` | `"end"` (defaults to `"center"`)
 
-Use `sideOffset` and `alignOffset` to fine-tune distance from the trigger. Set `width="trigger"` to match the trigger width, or pass a percentage or pixel value.
+Use `sideOffset` and `alignOffset` to fine-tune distance from the trigger. By default `width="fit"` sizes to the content and wraps long text at 280px so the popover stays compact. Set `width="trigger"` to match the trigger width, or pass a percentage or pixel value.
 
 ## Without overlay
 
@@ -238,7 +238,7 @@ Extends [React Native View](https://reactnative.dev/docs/view#props) props. Posi
     align: {
       description: "Alignment along the cross axis.",
       type: '"start" | "center" | "end"',
-      default: '"start"',
+      default: '"center"',
     },
     alignOffset: {
       description: "Pixel offset along the alignment axis.",
@@ -251,7 +251,7 @@ Extends [React Native View](https://reactnative.dev/docs/view#props) props. Posi
       default: "true",
     },
     width: {
-      description: "Content width. `trigger` matches trigger width; `fit` sizes to content.",
+      description: "Content width. `fit` shrinks to content and wraps at 280px; `trigger` matches trigger width.",
       type: '"full" | "fit" | "auto" | "trigger" | number | `${number}%`',
       default: '"fit"',
     },
