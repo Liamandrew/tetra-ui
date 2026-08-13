@@ -8,11 +8,16 @@
       "type": "registry:ui",
       "title": "Accordion",
       "description": "A vertically stacked set of interactive headings that reveal associated content sections.",
-      "dependencies": ["react-native-reanimated"],
-      "registryDependencies": ["@tetra-ui/icons", "@tetra-ui/slot"],
+      "dependencies": [
+        "react-native-reanimated"
+      ],
+      "registryDependencies": [
+        "@tetra-ui/icons",
+        "@tetra-ui/slot"
+      ],
       "files": [
         {
-          "path": "../../packages/tetra-ui/src/components/accordion.tsx",
+          "path": "ui/accordion.tsx",
           "type": "registry:ui"
         }
       ]
@@ -22,10 +27,13 @@
       "type": "registry:ui",
       "title": "Action Input",
       "description": "A component that allows a user to trigger an action and displays a value attached to the action.",
-      "registryDependencies": ["@tetra-ui/icons", "@tetra-ui/input"],
+      "registryDependencies": [
+        "@tetra-ui/icons",
+        "@tetra-ui/input"
+      ],
       "files": [
         {
-          "path": "../../packages/tetra-ui/src/components/action-input.tsx",
+          "path": "ui/action-input.tsx",
           "type": "registry:ui"
         }
       ]
@@ -38,7 +46,7 @@
       "registryDependencies": [],
       "files": [
         {
-          "path": "../../packages/tetra-ui/src/components/alert.tsx",
+          "path": "ui/alert.tsx",
           "type": "registry:ui"
         }
       ]
@@ -51,7 +59,7 @@
       "registryDependencies": [],
       "files": [
         {
-          "path": "../../packages/tetra-ui/src/components/avatar.tsx",
+          "path": "ui/avatar.tsx",
           "type": "registry:ui"
         }
       ]
@@ -64,7 +72,7 @@
       "registryDependencies": [],
       "files": [
         {
-          "path": "../../packages/tetra-ui/src/components/badge.tsx",
+          "path": "ui/badge.tsx",
           "type": "registry:ui"
         }
       ]
@@ -77,7 +85,7 @@
       "registryDependencies": [],
       "files": [
         {
-          "path": "../../packages/tetra-ui/src/components/button.tsx",
+          "path": "ui/button.tsx",
           "type": "registry:ui"
         }
       ]
@@ -90,7 +98,7 @@
       "registryDependencies": [],
       "files": [
         {
-          "path": "../../packages/tetra-ui/src/components/card.tsx",
+          "path": "ui/card.tsx",
           "type": "registry:ui"
         }
       ]
@@ -100,11 +108,16 @@
       "type": "registry:ui",
       "title": "Checkbox",
       "description": "A control that allows users to toggle between checked and unchecked states.",
-      "dependencies": ["react-native-reanimated"],
-      "registryDependencies": ["@tetra-ui/icons", "@tetra-ui/input"],
+      "dependencies": [
+        "react-native-reanimated"
+      ],
+      "registryDependencies": [
+        "@tetra-ui/icons",
+        "@tetra-ui/input"
+      ],
       "files": [
         {
-          "path": "../../packages/tetra-ui/src/components/checkbox.tsx",
+          "path": "ui/checkbox.tsx",
           "type": "registry:ui"
         }
       ]
@@ -122,7 +135,7 @@
       ],
       "files": [
         {
-          "path": "../../packages/tetra-ui/src/components/choicebox.tsx",
+          "path": "ui/choicebox.tsx",
           "type": "registry:ui"
         }
       ]
@@ -135,7 +148,7 @@
       "registryDependencies": [],
       "files": [
         {
-          "path": "../../packages/tetra-ui/src/components/chip.tsx",
+          "path": "ui/chip.tsx",
           "type": "registry:ui"
         }
       ]
@@ -145,10 +158,12 @@
       "type": "registry:ui",
       "title": "Empty",
       "description": "Displays an empty state.",
-      "registryDependencies": ["@tetra-ui/text"],
+      "registryDependencies": [
+        "@tetra-ui/text"
+      ],
       "files": [
         {
-          "path": "../../packages/tetra-ui/src/components/empty.tsx",
+          "path": "ui/empty.tsx",
           "type": "registry:ui"
         }
       ]
@@ -158,12 +173,16 @@
       "type": "registry:ui",
       "title": "Form",
       "description": "Components and utilities that help you compose forms with react-hook-form.",
-      "registryDependencies": ["@tetra-ui/label"],
-      "dependencies": ["react-hook-form"],
+      "registryDependencies": [
+        "@tetra-ui/label"
+      ],
+      "dependencies": [
+        "react-hook-form"
+      ],
       "devDependencies": [],
       "files": [
         {
-          "path": "../../packages/tetra-ui/src/components/form.tsx",
+          "path": "ui/form.tsx",
           "type": "registry:ui"
         }
       ]
@@ -176,7 +195,7 @@
       "registryDependencies": [],
       "files": [
         {
-          "path": "../../packages/tetra-ui/src/components/heading.tsx",
+          "path": "ui/heading.tsx",
           "type": "registry:ui"
         }
       ]
@@ -186,16 +205,18 @@
       "type": "registry:ui",
       "title": "Icons",
       "description": "Icon components styled with Tailwind classes for React Native.",
-      "dependencies": ["react-native-svg"],
+      "dependencies": [
+        "react-native-svg"
+      ],
       "registryDependencies": [],
       "files": [
         {
-          "path": "../../packages/tetra-ui/src/components/icons/index.ts",
-          "type": "registry:component"
+          "path": "ui/icons/index.ts",
+          "type": "registry:ui"
         },
         {
-          "path": "../../packages/tetra-ui/src/components/icons/styled-icon.tsx",
-          "type": "registry:component"
+          "path": "ui/icons/styled-icon.tsx",
+          "type": "registry:ui"
         }
       ]
     },
@@ -207,7 +228,7 @@
       "registryDependencies": [],
       "files": [
         {
-          "path": "../../packages/tetra-ui/src/components/inline-list.tsx",
+          "path": "ui/inline-list.tsx",
           "type": "registry:ui"
         }
       ]
@@ -217,11 +238,15 @@
       "type": "registry:ui",
       "title": "Input",
       "description": "A core component that allows users to enter text.",
-      "dependencies": ["react-native-reanimated"],
-      "registryDependencies": ["@tetra-ui/button"],
+      "dependencies": [
+        "react-native-reanimated"
+      ],
+      "registryDependencies": [
+        "@tetra-ui/button"
+      ],
       "files": [
         {
-          "path": "../../packages/tetra-ui/src/components/input.tsx",
+          "path": "ui/input.tsx",
           "type": "registry:ui"
         }
       ]
@@ -234,7 +259,7 @@
       "registryDependencies": [],
       "files": [
         {
-          "path": "../../packages/tetra-ui/src/components/label.tsx",
+          "path": "ui/label.tsx",
           "type": "registry:ui"
         }
       ]
@@ -244,27 +269,30 @@
       "type": "registry:ui",
       "title": "Menu",
       "description": "A composable native menu built on Expo UI, with support for groups, separators, and nested submenus.",
-      "dependencies": ["@expo/ui", "@expo/material-symbols"],
+      "dependencies": [
+        "@expo/ui",
+        "@expo/material-symbols"
+      ],
       "registryDependencies": [],
       "files": [
         {
-          "path": "../../packages/tetra-ui/src/components/menu/index.ts",
+          "path": "ui/menu/index.ts",
           "type": "registry:ui"
         },
         {
-          "path": "../../packages/tetra-ui/src/components/menu/menu.types.ts",
+          "path": "ui/menu/menu.types.ts",
           "type": "registry:ui"
         },
         {
-          "path": "../../packages/tetra-ui/src/components/menu/menu.tsx",
+          "path": "ui/menu/menu.tsx",
           "type": "registry:ui"
         },
         {
-          "path": "../../packages/tetra-ui/src/components/menu/menu.ios.tsx",
+          "path": "ui/menu/menu.ios.tsx",
           "type": "registry:ui"
         },
         {
-          "path": "../../packages/tetra-ui/src/components/menu/menu.android.tsx",
+          "path": "ui/menu/menu.android.tsx",
           "type": "registry:ui"
         }
       ]
@@ -287,31 +315,31 @@
       ],
       "files": [
         {
-          "path": "../../packages/tetra-ui/src/components/bottom-sheet/index.ts",
+          "path": "ui/bottom-sheet/index.ts",
           "type": "registry:ui"
         },
         {
-          "path": "../../packages/tetra-ui/src/components/bottom-sheet/types.ts",
+          "path": "ui/bottom-sheet/types.ts",
           "type": "registry:ui"
         },
         {
-          "path": "../../packages/tetra-ui/src/components/bottom-sheet/bottom-sheet-context.ts",
+          "path": "ui/bottom-sheet/bottom-sheet-context.ts",
           "type": "registry:ui"
         },
         {
-          "path": "../../packages/tetra-ui/src/components/bottom-sheet/bottom-sheet-common.tsx",
+          "path": "ui/bottom-sheet/bottom-sheet-common.tsx",
           "type": "registry:ui"
         },
         {
-          "path": "../../packages/tetra-ui/src/components/bottom-sheet/bottom-sheet.tsx",
+          "path": "ui/bottom-sheet/bottom-sheet.tsx",
           "type": "registry:ui"
         },
         {
-          "path": "../../packages/tetra-ui/src/components/bottom-sheet/bottom-sheet.ios.tsx",
+          "path": "ui/bottom-sheet/bottom-sheet.ios.tsx",
           "type": "registry:ui"
         },
         {
-          "path": "../../packages/tetra-ui/src/components/bottom-sheet/bottom-sheet.android.tsx",
+          "path": "ui/bottom-sheet/bottom-sheet.android.tsx",
           "type": "registry:ui"
         }
       ]
@@ -321,7 +349,10 @@
       "type": "registry:ui",
       "title": "Native Date Select",
       "description": "A native date/time selection input built on Expo UI DatePicker (iOS) and DateTimePicker (Android). Always compose with Content; optionally add Trigger and Input for a form-styled field or custom trigger. Content opens a wheel bottom sheet on iOS and Material dialogs on Android.",
-      "dependencies": ["@expo/ui", "react-native-reanimated"],
+      "dependencies": [
+        "@expo/ui",
+        "react-native-reanimated"
+      ],
       "registryDependencies": [
         "@tetra-ui/action-input",
         "@tetra-ui/bottom-sheet",
@@ -331,19 +362,19 @@
       ],
       "files": [
         {
-          "path": "../../packages/tetra-ui/src/components/native-date-select/index.ts",
+          "path": "ui/native-date-select/index.ts",
           "type": "registry:ui"
         },
         {
-          "path": "../../packages/tetra-ui/src/components/native-date-select/native-date-select.tsx",
+          "path": "ui/native-date-select/native-date-select.tsx",
           "type": "registry:ui"
         },
         {
-          "path": "../../packages/tetra-ui/src/components/native-date-select/native-date-select-picker.tsx",
+          "path": "ui/native-date-select/native-date-select-picker.tsx",
           "type": "registry:ui"
         },
         {
-          "path": "../../packages/tetra-ui/src/components/native-date-select/native-date-select-picker.ios.tsx",
+          "path": "ui/native-date-select/native-date-select-picker.ios.tsx",
           "type": "registry:ui"
         }
       ]
@@ -353,7 +384,10 @@
       "type": "registry:ui",
       "title": "Native Select",
       "description": "A native single-selection input built on Expo UI Picker. Always compose with Content; optionally add Trigger and Input for a form-styled field or custom trigger. Content opens a wheel bottom sheet on iOS and ExposedDropdownMenuBox on Android.",
-      "dependencies": ["@expo/ui", "react-native-reanimated"],
+      "dependencies": [
+        "@expo/ui",
+        "react-native-reanimated"
+      ],
       "registryDependencies": [
         "@tetra-ui/action-input",
         "@tetra-ui/bottom-sheet",
@@ -363,27 +397,27 @@
       ],
       "files": [
         {
-          "path": "../../packages/tetra-ui/src/components/native-select/index.ts",
+          "path": "ui/native-select/index.ts",
           "type": "registry:ui"
         },
         {
-          "path": "../../packages/tetra-ui/src/components/native-select/native-select.tsx",
+          "path": "ui/native-select/native-select.tsx",
           "type": "registry:ui"
         },
         {
-          "path": "../../packages/tetra-ui/src/components/native-select/native-select-input.tsx",
+          "path": "ui/native-select/native-select-input.tsx",
           "type": "registry:ui"
         },
         {
-          "path": "../../packages/tetra-ui/src/components/native-select/native-select-input.android.tsx",
+          "path": "ui/native-select/native-select-input.android.tsx",
           "type": "registry:ui"
         },
         {
-          "path": "../../packages/tetra-ui/src/components/native-select/native-select-picker.tsx",
+          "path": "ui/native-select/native-select-picker.tsx",
           "type": "registry:ui"
         },
         {
-          "path": "../../packages/tetra-ui/src/components/native-select/native-select-picker.ios.tsx",
+          "path": "ui/native-select/native-select-picker.ios.tsx",
           "type": "registry:ui"
         }
       ]
@@ -393,11 +427,16 @@
       "type": "registry:ui",
       "title": "OTP Input",
       "description": "A component for entering one-time passwords with individual character slots.",
-      "dependencies": ["react-native-reanimated"],
-      "registryDependencies": ["@tetra-ui/input", "@tetra-ui/text"],
+      "dependencies": [
+        "react-native-reanimated"
+      ],
+      "registryDependencies": [
+        "@tetra-ui/input",
+        "@tetra-ui/text"
+      ],
       "files": [
         {
-          "path": "../../packages/tetra-ui/src/components/otp-input.tsx",
+          "path": "ui/otp-input.tsx",
           "type": "registry:ui"
         }
       ]
@@ -414,7 +453,7 @@
       ],
       "files": [
         {
-          "path": "../../packages/tetra-ui/src/components/password-input.tsx",
+          "path": "ui/password-input.tsx",
           "type": "registry:ui"
         }
       ]
@@ -428,14 +467,17 @@
         "react-native-reanimated",
         "react-native-safe-area-context"
       ],
-      "registryDependencies": ["@tetra-ui/portal", "@tetra-ui/slot"],
+      "registryDependencies": [
+        "@tetra-ui/portal",
+        "@tetra-ui/slot"
+      ],
       "files": [
         {
-          "path": "../../packages/tetra-ui/src/components/popover.tsx",
+          "path": "ui/popover.tsx",
           "type": "registry:ui"
         },
         {
-          "path": "../../packages/tetra-ui/src/hooks/use-relative-position.ts",
+          "path": "hooks/use-relative-position.ts",
           "type": "registry:hook"
         }
       ]
@@ -445,11 +487,15 @@
       "type": "registry:ui",
       "title": "Progress",
       "description": "Displays an indicator showing the completion progress of a task.",
-      "dependencies": ["react-native-reanimated"],
-      "registryDependencies": ["@tetra-ui/text"],
+      "dependencies": [
+        "react-native-reanimated"
+      ],
+      "registryDependencies": [
+        "@tetra-ui/text"
+      ],
       "files": [
         {
-          "path": "../../packages/tetra-ui/src/components/progress.tsx",
+          "path": "ui/progress.tsx",
           "type": "registry:ui"
         }
       ]
@@ -459,11 +505,13 @@
       "type": "registry:ui",
       "title": "Radio",
       "description": "A control that indicates a selected option within a group.",
-      "dependencies": ["react-native-reanimated"],
+      "dependencies": [
+        "react-native-reanimated"
+      ],
       "registryDependencies": [],
       "files": [
         {
-          "path": "../../packages/tetra-ui/src/components/radio.tsx",
+          "path": "ui/radio.tsx",
           "type": "registry:ui"
         }
       ]
@@ -473,11 +521,13 @@
       "type": "registry:ui",
       "title": "Portal",
       "description": "Renders children into a different part of the app.",
-      "dependencies": ["react-native-screens"],
+      "dependencies": [
+        "react-native-screens"
+      ],
       "registryDependencies": [],
       "files": [
         {
-          "path": "../../packages/tetra-ui/src/components/portal.tsx",
+          "path": "ui/portal.tsx",
           "type": "registry:ui"
         }
       ]
@@ -487,10 +537,13 @@
       "type": "registry:ui",
       "title": "Search Input",
       "description": "An input component that allows users to search for content.",
-      "registryDependencies": ["@tetra-ui/icons", "@tetra-ui/input"],
+      "registryDependencies": [
+        "@tetra-ui/icons",
+        "@tetra-ui/input"
+      ],
       "files": [
         {
-          "path": "../../packages/tetra-ui/src/components/search-input.tsx",
+          "path": "ui/search-input.tsx",
           "type": "registry:ui"
         }
       ]
@@ -500,31 +553,33 @@
       "type": "registry:ui",
       "title": "Segmented Control",
       "description": "A native single-select control for choosing between a small set of options.",
-      "dependencies": ["@expo/ui"],
+      "dependencies": [
+        "@expo/ui"
+      ],
       "registryDependencies": [],
       "files": [
         {
-          "path": "../../packages/tetra-ui/src/components/segmented-control/index.ts",
+          "path": "ui/segmented-control/index.ts",
           "type": "registry:ui"
         },
         {
-          "path": "../../packages/tetra-ui/src/components/segmented-control/segmented-control.types.ts",
+          "path": "ui/segmented-control/segmented-control.types.ts",
           "type": "registry:ui"
         },
         {
-          "path": "../../packages/tetra-ui/src/components/segmented-control/segmented-control-utils.ts",
+          "path": "ui/segmented-control/segmented-control-utils.ts",
           "type": "registry:ui"
         },
         {
-          "path": "../../packages/tetra-ui/src/components/segmented-control/segmented-control.tsx",
+          "path": "ui/segmented-control/segmented-control.tsx",
           "type": "registry:ui"
         },
         {
-          "path": "../../packages/tetra-ui/src/components/segmented-control/segmented-control.ios.tsx",
+          "path": "ui/segmented-control/segmented-control.ios.tsx",
           "type": "registry:ui"
         },
         {
-          "path": "../../packages/tetra-ui/src/components/segmented-control/segmented-control.android.tsx",
+          "path": "ui/segmented-control/segmented-control.android.tsx",
           "type": "registry:ui"
         }
       ]
@@ -534,7 +589,9 @@
       "type": "registry:ui",
       "title": "Select",
       "description": "A component that allows users to select a value from a list of options.",
-      "dependencies": ["react-native-reanimated"],
+      "dependencies": [
+        "react-native-reanimated"
+      ],
       "registryDependencies": [
         "@tetra-ui/action-input",
         "@tetra-ui/bottom-sheet",
@@ -546,7 +603,7 @@
       ],
       "files": [
         {
-          "path": "../../packages/tetra-ui/src/components/select.tsx",
+          "path": "ui/select.tsx",
           "type": "registry:ui"
         }
       ]
@@ -559,7 +616,7 @@
       "registryDependencies": [],
       "files": [
         {
-          "path": "../../packages/tetra-ui/src/components/separator.tsx",
+          "path": "ui/separator.tsx",
           "type": "registry:ui"
         }
       ]
@@ -569,11 +626,13 @@
       "type": "registry:ui",
       "title": "Skeleton",
       "description": "A component to display placeholder content while in a loading state.",
-      "dependencies": ["react-native-reanimated"],
+      "dependencies": [
+        "react-native-reanimated"
+      ],
       "registryDependencies": [],
       "files": [
         {
-          "path": "../../packages/tetra-ui/src/components/skeleton.tsx",
+          "path": "ui/skeleton.tsx",
           "type": "registry:ui"
         }
       ]
@@ -583,11 +642,13 @@
       "type": "registry:ui",
       "title": "Slider",
       "description": "A control for selecting a value from a continuous or stepped range.",
-      "dependencies": ["@expo/ui"],
+      "dependencies": [
+        "@expo/ui"
+      ],
       "registryDependencies": [],
       "files": [
         {
-          "path": "../../packages/tetra-ui/src/components/slider.tsx",
+          "path": "ui/slider.tsx",
           "type": "registry:ui"
         }
       ]
@@ -600,7 +661,7 @@
       "registryDependencies": [],
       "files": [
         {
-          "path": "../../packages/tetra-ui/src/components/slot.tsx",
+          "path": "ui/slot.tsx",
           "type": "registry:ui"
         }
       ]
@@ -613,7 +674,7 @@
       "registryDependencies": [],
       "files": [
         {
-          "path": "../../packages/tetra-ui/src/components/stack.tsx",
+          "path": "ui/stack.tsx",
           "type": "registry:ui"
         }
       ]
@@ -623,11 +684,13 @@
       "type": "registry:ui",
       "title": "Switch",
       "description": "A control that allows users to toggle between checked and unchecked states.",
-      "dependencies": ["@expo/ui"],
+      "dependencies": [
+        "@expo/ui"
+      ],
       "registryDependencies": [],
       "files": [
         {
-          "path": "../../packages/tetra-ui/src/components/switch.tsx",
+          "path": "ui/switch.tsx",
           "type": "registry:ui"
         }
       ]
@@ -644,7 +707,7 @@
       "registryDependencies": [],
       "files": [
         {
-          "path": "../../packages/tetra-ui/src/components/swipeable.tsx",
+          "path": "ui/swipeable.tsx",
           "type": "registry:ui"
         }
       ]
@@ -657,7 +720,7 @@
       "registryDependencies": [],
       "files": [
         {
-          "path": "../../packages/tetra-ui/src/components/text.tsx",
+          "path": "ui/text.tsx",
           "type": "registry:ui"
         }
       ]
@@ -667,10 +730,12 @@
       "type": "registry:ui",
       "title": "TextInput",
       "description": "A component that allows users to enter text.",
-      "registryDependencies": ["@tetra-ui/input"],
+      "registryDependencies": [
+        "@tetra-ui/input"
+      ],
       "files": [
         {
-          "path": "../../packages/tetra-ui/src/components/text-input.tsx",
+          "path": "ui/text-input.tsx",
           "type": "registry:ui"
         }
       ]
@@ -683,7 +748,7 @@
       "registryDependencies": [],
       "files": [
         {
-          "path": "../../packages/tetra-ui/src/components/textarea-input.tsx",
+          "path": "ui/textarea-input.tsx",
           "type": "registry:ui"
         }
       ]
@@ -702,10 +767,13 @@
         "react-native-svg",
         "react-native-worklets"
       ],
-      "registryDependencies": ["@tetra-ui/icons", "@tetra-ui/text"],
+      "registryDependencies": [
+        "@tetra-ui/icons",
+        "@tetra-ui/text"
+      ],
       "files": [
         {
-          "path": "../../packages/tetra-ui/src/components/toast.tsx",
+          "path": "ui/toast.tsx",
           "type": "registry:ui"
         }
       ]

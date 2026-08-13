@@ -7,7 +7,7 @@
     "check:types": "fumadocs-mdx && next typegen && tsc --noEmit",
     "dev": "next dev --turbo",
     "postinstall": "fumadocs-mdx",
-    "registry:build": "shadcn build ./registry/registry.json",
+    "registry:build": "shadcn build ./registry/registry.json && node ./scripts/rewrite-registry-paths.mjs",
     "start": "next start"
   },
   "dependencies": {

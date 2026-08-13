@@ -9,14 +9,14 @@
   "registryDependencies": [],
   "files": [
     {
-      "path": "../../packages/tetra-ui/src/components/icons/index.ts",
+      "path": "ui/icons/index.ts",
       "content": "export type { LucideIcon } from \"lucide-react-native\";\n\nimport {\n  Archive,\n  BadgeCheck,\n  Bell,\n  BookOpen,\n  CalendarPlus,\n  Check,\n  ChevronDown,\n  ChevronLeft,\n  ChevronRight,\n  CircleAlert,\n  CircleCheck,\n  EllipsisVertical,\n  Eye,\n  EyeOff,\n  Info,\n  Mail,\n  Moon,\n  Pin,\n  Search,\n  Shield,\n  ShoppingCart,\n  Sun,\n  Trash2,\n  TriangleAlert,\n  X,\n} from \"lucide-react-native\";\nimport { createStyledIcon } from \"./styled-icon\";\n\nexport * from \"./styled-icon\";\n\nexport const ArchiveIcon = createStyledIcon(Archive);\nexport const BadgeCheckIcon = createStyledIcon(BadgeCheck);\nexport const BellIcon = createStyledIcon(Bell);\nexport const BookOpenIcon = createStyledIcon(BookOpen);\nexport const CalendarPlusIcon = createStyledIcon(CalendarPlus);\nexport const CheckIcon = createStyledIcon(Check);\nexport const CircleAlertIcon = createStyledIcon(CircleAlert);\nexport const CircleCheckIcon = createStyledIcon(CircleCheck);\nexport const ChevronDownIcon = createStyledIcon(ChevronDown);\nexport const ChevronLeftIcon = createStyledIcon(ChevronLeft);\nexport const ChevronRightIcon = createStyledIcon(ChevronRight);\nexport const EllipsisVerticalIcon = createStyledIcon(EllipsisVertical);\nexport const EyeIcon = createStyledIcon(Eye);\nexport const EyeOffIcon = createStyledIcon(EyeOff);\nexport const InfoIcon = createStyledIcon(Info);\nexport const MailIcon = createStyledIcon(Mail);\nexport const MoonIcon = createStyledIcon(Moon);\nexport const PinIcon = createStyledIcon(Pin);\nexport const SearchIcon = createStyledIcon(Search);\nexport const ShieldIcon = createStyledIcon(Shield);\nexport const ShoppingCartIcon = createStyledIcon(ShoppingCart);\nexport const SunIcon = createStyledIcon(Sun);\nexport const TrashIcon = createStyledIcon(Trash2);\nexport const TriangleAlertIcon = createStyledIcon(TriangleAlert);\nexport const XIcon = createStyledIcon(X);\n",
-      "type": "registry:component"
+      "type": "registry:ui"
     },
     {
-      "path": "../../packages/tetra-ui/src/components/icons/styled-icon.tsx",
+      "path": "ui/icons/styled-icon.tsx",
       "content": "import type { LucideIcon } from \"lucide-react-native\";\nimport Svg from \"react-native-svg\";\nimport { withUniwind } from \"uniwind\";\nimport { cn } from \"@/lib/utils\";\n\nconst styledSvgOptionMapping = {\n  height: {\n    fromClassName: \"className\",\n    styleProperty: \"height\",\n  },\n  style: {\n    fromClassName: \"className\",\n  },\n  width: {\n    fromClassName: \"className\",\n    styleProperty: \"width\",\n  },\n} as const;\n\nexport const StyledSvg = withUniwind(Svg, styledSvgOptionMapping);\n\nexport const createStyledIcon = (Icon: LucideIcon): LucideIcon => {\n  const UniwindIcon = withUniwind(Icon, styledSvgOptionMapping);\n\n  const StyledIcon = ({\n    className,\n    ...props\n  }: React.ComponentProps<typeof UniwindIcon>) => {\n    return (\n      <UniwindIcon\n        className={cn(\"size-6 text-foreground\", className)}\n        {...props}\n      />\n    );\n  };\n\n  return StyledIcon as LucideIcon;\n};\n",
-      "type": "registry:component"
+      "type": "registry:ui"
     }
   ],
   "type": "registry:ui"

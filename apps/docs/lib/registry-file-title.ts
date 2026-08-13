@@ -5,6 +5,14 @@ const COMPONENTS_PATH_REGEX = /\/components\/(.+)$/;
 export function getRegistryFileTitle(filePath: string): string {
   const normalized = filePath.replace(BACKSLASH_REGEX, "/");
 
+  if (normalized.startsWith("ui/")) {
+    return `components/${normalized}`;
+  }
+
+  if (normalized.startsWith("hooks/")) {
+    return normalized;
+  }
+
   const hooksMatch = normalized.match(HOOKS_PATH_REGEX);
   if (hooksMatch) {
     return `hooks/${hooksMatch[1]}`;

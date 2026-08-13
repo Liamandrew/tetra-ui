@@ -191,11 +191,11 @@
       "files": [
         {
           "path": "../../packages/tetra-ui/src/components/icons/index.ts",
-          "type": "registry:component"
+          "type": "registry:ui"
         },
         {
           "path": "../../packages/tetra-ui/src/components/icons/styled-icon.tsx",
-          "type": "registry:component"
+          "type": "registry:ui"
         }
       ]
     },
