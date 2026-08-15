@@ -15,9 +15,9 @@
   "devDependencies": {
     "@biomejs/biome": "2.5.8",
     "husky": "^9.1.7",
-    "turbo": "^2.10.9",
+    "turbo": "^2.10.10",
     "typescript": "~6.0.3",
-    "ultracite": "7.10.2"
+    "ultracite": "7.10.4"
   },
   "packageManager": "pnpm@10.27.0",
   "engines": {
