@@ -14,7 +14,6 @@ import {
 import {
   type BlurEvent,
   type FocusEvent,
-  Platform,
   Pressable,
   TextInput as RNTextInput,
   View,
@@ -148,15 +147,6 @@ export const InputPressable = ({
       [0, 1, 2],
       [inputColor, ringColor, destructiveColor]
     );
-
-    // Android outline ignores borderRadius and shows in the corners.
-    if (Platform.OS === "android") {
-      return {
-        borderColor: color,
-        borderWidth: outlineWidth.value,
-      };
-    }
-
     return {
       outlineColor: color,
       outlineWidth: outlineWidth.value,
@@ -168,7 +158,7 @@ export const InputPressable = ({
       {...props}
       accessibilityState={{ disabled }}
       className={cn(
-        "flex min-h-12 w-full flex-row items-center gap-2 rounded-lg bg-background px-3 py-2 active:bg-accent/90 disabled:opacity-50 dark:active:bg-accent/50",
+        "flex min-h-12 w-full flex-row items-center gap-2 rounded-lg bg-card px-3 py-2 active:bg-accent/90 disabled:opacity-50 dark:active:bg-accent/50",
         className
       )}
       disabled={disabled}

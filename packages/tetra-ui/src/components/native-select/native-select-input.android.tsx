@@ -7,8 +7,13 @@ import {
   RNHostView,
   Text as TextPrimitive,
 } from "@expo/ui/jetpack-compose";
-import { clip, menuAnchor, Shapes } from "@expo/ui/jetpack-compose/modifiers";
+import { menuAnchor } from "@expo/ui/jetpack-compose/modifiers";
+import { View } from "react-native";
 import { useCSSVariable } from "uniwind";
+
+// Must match InputPressable's focused/invalid outlineWidth. Outline paints
+// outside layout; RNHostView/AndroidView clips to the hosted child's bounds.
+const INPUT_OUTLINE_MAX_WIDTH = 2;
 
 type NativeSelectAndroidHostProps = {
   open: boolean;
@@ -29,7 +34,14 @@ export const NativeSelectAndroidHost = ({
   children,
 }: NativeSelectAndroidHostProps) => {
   return (
-    <Host matchContents style={{ alignSelf: "stretch", width: "100%" }}>
+    <Host
+      matchContents
+      style={{
+        alignSelf: "stretch",
+        margin: -INPUT_OUTLINE_MAX_WIDTH,
+        width: "100%",
+      }}
+    >
       <ExposedDropdownMenuBox
         expanded={open}
         onExpandedChange={disabled ? undefined : onOpenChange}
@@ -53,13 +65,10 @@ export const NativeSelectTriggerAnchor = ({
   return (
     <RNHostView
       matchContents
-      modifiers={[
-        menuAnchor("primaryNotEditable", !disabled),
-        clip(Shapes.RoundedCorner(8)),
-      ]}
+      modifiers={[menuAnchor("primaryNotEditable", !disabled)]}
       style={{ alignSelf: "stretch", width: "100%" }}
     >
-      {children}
+      <View style={{ padding: INPUT_OUTLINE_MAX_WIDTH }}>{children}</View>
     </RNHostView>
   );
 };
