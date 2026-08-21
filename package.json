@@ -13,11 +13,11 @@
     "registry:build": "turbo run registry:build --filter=docs"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.5.8",
+    "@biomejs/biome": "2.5.9",
     "husky": "^9.1.7",
-    "turbo": "^2.10.10",
+    "turbo": "^2.10.11",
     "typescript": "~6.0.3",
-    "ultracite": "7.10.4"
+    "ultracite": "7.10.6"
   },
   "packageManager": "pnpm@10.27.0",
   "engines": {
