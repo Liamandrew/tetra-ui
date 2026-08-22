@@ -24,8 +24,12 @@ tetra-ui is not an npm package you import. Components are copied into your proje
 - [Installation](https://tetra-ui.com/docs/installation): Full setup guide
 - [Components](https://tetra-ui.com/docs/components): Browse all components
 - [Registry index](https://tetra-ui.com/r/registry.json): Machine-readable component list
+- [OpenAPI specification](https://tetra-ui.com/openapi.json): tetra-ui Registry API
 - [Full LLM context](https://tetra-ui.com/llms-full.txt): Extended reference for AI agents
+- [Sitemap](https://tetra-ui.com/sitemap.xml): Indexable HTML URLs
 - [GitHub](https://github.com/Liamandrew/tetra-ui): Source code and example app
+
+Send `Accept: text/markdown` on HTML pages to receive the same URL as markdown. API errors return JSON with `error.code`, `error.message`, and `error.hint`. Official CLI: `npx shadcn@latest add @tetra-ui/{component}`.
 
 ## Components
 

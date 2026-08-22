@@ -7,7 +7,10 @@ const config = {
   images: {
     unoptimized: true,
   },
-  output: "export",
+  outputFileTracingIncludes: {
+    "/api/markdown/**": ["./content/docs/**/*"],
+    "/r/**": ["./public/r/**/*"],
+  },
   reactStrictMode: true,
 };
 

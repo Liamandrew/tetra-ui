@@ -4,6 +4,7 @@ import { Analytics } from "@vercel/analytics/next";
 import type { Metadata } from "next";
 import { Geist } from "next/font/google";
 import { Provider } from "@/app/provider";
+import { JsonLd } from "@/components/json-ld";
 import { siteConfig } from "@/lib/config";
 
 const geist = Geist({
@@ -12,6 +13,9 @@ const geist = Geist({
 });
 
 export const metadata: Metadata = {
+  alternates: {
+    canonical: "/",
+  },
   authors: [
     {
       name: "Liam Andrew",
@@ -40,7 +44,7 @@ export const metadata: Metadata = {
     images: [
       {
         alt: siteConfig.name,
-        url: `${process.env.NEXT_PUBLIC_APP_URL}/opengraph-image.png`,
+        url: `${siteConfig.url}/opengraph-image.png`,
       },
     ],
     locale: "en_US",
@@ -68,6 +72,7 @@ export default function Layout({ children }: React.PropsWithChildren) {
       <body className="flex min-h-screen flex-col">
         <Provider>
           {children}
+          <JsonLd />
           <Analytics />
         </Provider>
       </body>

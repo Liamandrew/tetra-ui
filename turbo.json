@@ -27,6 +27,9 @@
     "registry:build": {
       "cache": false,
       "dependsOn": ["fix:lint"]
+    },
+    "test": {
+      "dependsOn": ["^test"]
     }
   }
 }

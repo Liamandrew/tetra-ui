@@ -592,5 +592,10 @@ import {
 - Installation: https://tetra-ui.com/docs/installation
 - Components: https://tetra-ui.com/docs/components
 - Changelog: https://tetra-ui.com/docs/changelog
+- OpenAPI: https://tetra-ui.com/openapi.json
+- API catalog: https://tetra-ui.com/.well-known/api-catalog
+- Registry index: https://tetra-ui.com/r/registry.json
+- Sitemap: https://tetra-ui.com/sitemap.xml
 - llms.txt: https://tetra-ui.com/llms.txt
 - AGENTS.md: https://github.com/Liamandrew/tetra-ui/blob/main/AGENTS.md
+- Official CLI: npx shadcn@latest add @tetra-ui/{component}

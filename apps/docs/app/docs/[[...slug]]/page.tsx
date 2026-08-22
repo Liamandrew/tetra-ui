@@ -48,6 +48,9 @@ export async function generateMetadata(props: PageProps<"/docs/[[...slug]]">) {
   }
 
   return {
+    alternates: {
+      canonical: page.url,
+    },
     description: page.data.description,
     title: page.data.title,
   };
