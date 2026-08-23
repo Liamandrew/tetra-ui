@@ -76,6 +76,11 @@ const EXPERIENCES: Array<{ title: string; description: string; href: Href }> = [
     href: "/experiences/booking" as Href,
     title: "Booking",
   },
+  {
+    description: "Hero pages and an inline title rail",
+    href: "/experiences/discover" as Href,
+    title: "Discover",
+  },
 ];
 
 const COMPONENTS: Array<{ title: string; href: Href }> = [
@@ -87,6 +92,7 @@ const COMPONENTS: Array<{ title: string; href: Href }> = [
   { href: "/components/bottom-sheet", title: "Bottom Sheet" },
   { href: "/components/button", title: "Button" },
   { href: "/components/card", title: "Card" },
+  { href: "/components/carousel", title: "Carousel" },
   { href: "/components/checkbox", title: "Checkbox" },
   { href: "/components/choicebox", title: "Choicebox" },
   { href: "/components/chip", title: "Chip" },

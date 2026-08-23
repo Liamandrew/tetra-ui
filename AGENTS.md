@@ -77,6 +77,7 @@ Some components pull in registry dependencies automatically via the CLI. Complex
 | menu | @expo/ui, @expo/material-symbols |
 | switch, slider | @expo/ui |
 | form | react-hook-form |
+| carousel | gesture-handler, reanimated, button, icons |
 | otp-input | input, text, reanimated |
 | toast | sonner-native, gesture-handler, reanimated, safe-area, screens, svg |
 

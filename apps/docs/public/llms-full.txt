@@ -192,6 +192,53 @@ Displays a card with a header, content, and footer.
 Docs: https://tetra-ui.com/docs/components/card
 Exports: Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter
 
+### carousel
+Swipeable pages or an inline item rail. Built with Gesture Handler and Reanimated — not Expo PageView.
+Docs: https://tetra-ui.com/docs/components/carousel
+Deps: react-native-gesture-handler, react-native-reanimated
+Registry deps: button, icons
+Exports: Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext, CarouselDots, useCarousel, CarouselRef
+
+Requires `GestureHandlerRootView` (included in tetra-ui ThemeProvider). Set an explicit height on `Carousel`.
+
+```
+Carousel
+├── CarouselContent
+│   └── CarouselItem…
+├── CarouselPrevious
+├── CarouselDots
+└── CarouselNext
+```
+
+Usage:
+```tsx
+import {
+  Carousel,
+  CarouselContent,
+  CarouselDots,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+import { Stack } from "@/components/ui/stack";
+
+<Carousel className="h-64" variant="page">
+  <CarouselContent>
+    <CarouselItem>...</CarouselItem>
+    <CarouselItem>...</CarouselItem>
+  </CarouselContent>
+  <Stack className="items-center justify-between" direction="row">
+    <CarouselPrevious />
+    <CarouselDots />
+    <CarouselNext />
+  </Stack>
+</Carousel>
+```
+
+- `variant`: `"page"` (full-width, default) or `"inline"` (`perView` default 1.2). `gap` (default 12) spaces items in both variants. `inset` pads the settled item without clipping neighbors — use instead of horizontal padding on the carousel.
+- `loop`, `autoplay`, `autoplayInterval` (4000), `index` / `defaultIndex` / `onIndexChange`
+- Horizontal, LTR only. Controls are in-flow under the track.
+
 ### checkbox
 A control that allows users to toggle between checked and unchecked states.
 Docs: https://tetra-ui.com/docs/components/checkbox

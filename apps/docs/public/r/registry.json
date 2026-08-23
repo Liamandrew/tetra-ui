@@ -104,6 +104,26 @@
       ]
     },
     {
+      "name": "carousel",
+      "type": "registry:ui",
+      "title": "Carousel",
+      "description": "A swipeable set of pages or inline items with optional looping, autoplay, and composed controls.",
+      "dependencies": [
+        "react-native-gesture-handler",
+        "react-native-reanimated"
+      ],
+      "registryDependencies": [
+        "@tetra-ui/button",
+        "@tetra-ui/icons"
+      ],
+      "files": [
+        {
+          "path": "ui/carousel.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "checkbox",
       "type": "registry:ui",
       "title": "Checkbox",
