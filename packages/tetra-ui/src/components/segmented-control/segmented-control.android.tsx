@@ -4,6 +4,7 @@ import {
   SingleChoiceSegmentedButtonRow,
   Text,
 } from "@expo/ui/jetpack-compose";
+import { height } from "@expo/ui/jetpack-compose/modifiers";
 import { useState } from "react";
 import { useCSSVariable, withUniwind } from "uniwind";
 import { cn } from "@/lib/utils";
@@ -64,7 +65,7 @@ export const SegmentedControl = ({
   };
 
   return (
-    <StyledHost className={cn("w-full", className)} matchContents>
+    <StyledHost className={cn("h-8 w-full", className)}>
       <SingleChoiceSegmentedButtonRow>
         {items.map((item) => (
           <SegmentedButton
@@ -78,6 +79,7 @@ export const SegmentedControl = ({
             }}
             enabled={!disabled}
             key={item.value}
+            modifiers={[height(32)]}
             onClick={() => {
               handleValueChange(item.value);
             }}

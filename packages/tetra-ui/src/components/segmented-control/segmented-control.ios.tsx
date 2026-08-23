@@ -7,7 +7,7 @@ import {
   tag,
   tint,
 } from "@expo/ui/swift-ui/modifiers";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useCSSVariable, withUniwind } from "uniwind";
 import { cn } from "@/lib/utils";
 import type {
@@ -58,17 +58,21 @@ export const SegmentedControl = ({
     onValueChange?.(nextValue);
   };
 
-  const modifiers: ModifierConfig[] = [
-    pickerStyle("segmented"),
-    tint(primaryColor),
-  ];
+  const modifiers = useMemo(() => {
+    const next: ModifierConfig[] = [
+      pickerStyle("segmented"),
+      tint(primaryColor),
+    ];
 
-  if (disabled) {
-    modifiers.push(disabledModifier(true));
-  }
+    if (disabled) {
+      next.push(disabledModifier(true));
+    }
+
+    return next;
+  }, [disabled, primaryColor]);
 
   return (
-    <StyledHost className={cn("w-full", className)} matchContents>
+    <StyledHost className={cn("h-7.5 w-full", className)}>
       <Picker
         modifiers={modifiers}
         onSelectionChange={(selection) => {
