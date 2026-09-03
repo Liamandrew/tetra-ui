@@ -66,9 +66,16 @@ export const NativeSelectTriggerAnchor = ({
     <RNHostView
       matchContents
       modifiers={[menuAnchor("primaryNotEditable", !disabled)]}
-      style={{ alignSelf: "stretch", width: "100%" }}
     >
-      <View style={{ padding: INPUT_OUTLINE_MAX_WIDTH }}>{children}</View>
+      <View
+        style={{
+          alignSelf: "stretch",
+          padding: INPUT_OUTLINE_MAX_WIDTH,
+          width: "100%",
+        }}
+      >
+        {children}
+      </View>
     </RNHostView>
   );
 };
