@@ -89,20 +89,20 @@ describe("rewriteFiles", () => {
   it("rewrites internal registry imports in file content", () => {
     const files = rewriteFiles([
       {
-        path: "../../packages/tetra-ui/src/components/button.tsx",
-        type: "registry:ui",
         content:
           'import { cn } from "@/registry/lib/utils";\nimport { Slot } from "@/registry/ui/slot";\n',
+        path: "../../packages/tetra-ui/src/components/button.tsx",
+        type: "registry:ui",
       },
     ]);
 
     assert.deepEqual(files, [
       {
+        content:
+          'import { cn } from "@/lib/utils";\nimport { Slot } from "@/components/ui/slot";\n',
         path: "ui/button.tsx",
         target: "@ui/button.tsx",
         type: "registry:ui",
-        content:
-          'import { cn } from "@/lib/utils";\nimport { Slot } from "@/components/ui/slot";\n',
       },
     ]);
   });

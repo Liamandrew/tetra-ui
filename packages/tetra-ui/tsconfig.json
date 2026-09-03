@@ -7,7 +7,7 @@
     "paths": {
       "@/registry/ui/*": ["./src/components/*"],
       "@/registry/lib/*": ["./src/lib/*"],
-      "@/registry/hooks/*": ["./src/hooks/*"],
+      "@/registry/hooks/*": ["./src/hooks/*"]
     }
   },
   "include": [".", "uniwind-types.d.ts"],

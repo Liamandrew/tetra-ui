@@ -1,3 +1,4 @@
+import { cn } from "@/registry/lib/utils";
 import {
   Input,
   InputAddon,
@@ -8,7 +9,6 @@ import {
   useInputAddons,
   useInputFocusState,
 } from "@/registry/ui/input";
-import { cn } from "@/registry/lib/utils";
 import { SearchIcon } from "./icons";
 
 // Types

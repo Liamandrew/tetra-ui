@@ -9,7 +9,7 @@
       "@/registry/hooks/*": ["../../packages/tetra-ui/src/hooks/*"],
       "@/registry/lib/*": ["../../packages/tetra-ui/src/lib/*"],
       "@/registry/ui/*": ["../../packages/tetra-ui/src/components/*"],
-      "@repo/tetra-ui/*": ["../../packages/tetra-ui/src/*"],
+      "@repo/tetra-ui/*": ["../../packages/tetra-ui/src/*"]
     }
   },
   "include": ["**/*.ts", "**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts"]

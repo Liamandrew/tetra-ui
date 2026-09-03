@@ -25,13 +25,13 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated";
 import { useCSSVariable } from "uniwind";
+import { cn } from "@/registry/lib/utils";
 import {
   Button,
   ButtonIcon,
   type ButtonProps,
   ButtonText,
 } from "@/registry/ui/button";
-import { cn } from "@/registry/lib/utils";
 
 // Constants
 const ANIMATION_DURATION = 120;

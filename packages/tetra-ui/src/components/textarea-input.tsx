@@ -1,10 +1,10 @@
+import { cn } from "@/registry/lib/utils";
 import {
   Input,
   InputPressable,
   type InputProps,
   useInputFocusState,
 } from "@/registry/ui/input";
-import { cn } from "@/registry/lib/utils";
 
 // Types
 export type TextareaInputProps = InputProps & {

@@ -26,9 +26,9 @@ import Animated, {
   withRepeat,
   withTiming,
 } from "react-native-reanimated";
+import { cn } from "@/registry/lib/utils";
 import { Input } from "@/registry/ui/input";
 import { Text } from "@/registry/ui/text";
-import { cn } from "@/registry/lib/utils";
 
 // Constants
 const CARET_ANIMATION_DURATION = 500;

@@ -7,8 +7,8 @@ import Animated, {
   useSharedValue,
   withTiming,
 } from "react-native-reanimated";
-import { Text } from "@/registry/ui/text";
 import { cn } from "@/registry/lib/utils";
+import { Text } from "@/registry/ui/text";
 
 // Constants
 const ANIMATION_DURATION = 320;

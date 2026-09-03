@@ -8,8 +8,8 @@ import {
 import type { FieldErrors, FieldPath } from "react-hook-form";
 import { get } from "react-hook-form";
 import { Text, type TextProps, View } from "react-native";
-import { Label, type LabelProps } from "@/registry/ui/label";
 import { cn } from "@/registry/lib/utils";
+import { Label, type LabelProps } from "@/registry/ui/label";
 
 // Types
 type FieldStateProps = {
