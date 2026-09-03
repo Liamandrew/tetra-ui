@@ -29,6 +29,7 @@ export default function NativeDateSelectScreen() {
   const [dateTimeValue, setDateTimeValue] = useState(new Date());
   const [confirmValue, setConfirmValue] = useState(new Date());
   const [compactInputValue, setCompactInputValue] = useState(new Date());
+  const [graphicalInputValue, setGraphicalInputValue] = useState(new Date());
   const [customValue, setCustomValue] = useState(new Date());
   const [compactValue, setCompactValue] = useState(new Date());
   const [graphicalValue, setGraphicalValue] = useState(new Date());
@@ -113,6 +114,28 @@ export default function NativeDateSelectScreen() {
                     <Label>Date</Label>
                   </InputAddon>
                 </NativeDateSelectInput>
+                <NativeDateSelectContent />
+              </NativeDateSelect>
+            </Stack>
+          ) : null}
+
+          {Platform.OS === "ios" ? (
+            <Stack gap="xs">
+              <Text className="text-muted-foreground text-sm">
+                Input — graphical
+              </Text>
+              <NativeDateSelect
+                disabled={showDisabled}
+                mode="date"
+                onValueChange={setGraphicalInputValue}
+                value={graphicalInputValue}
+              >
+                <NativeDateSelectTrigger asChild>
+                  <NativeDateSelectInput
+                    placeholder="Pick a date"
+                    variant="graphical"
+                  />
+                </NativeDateSelectTrigger>
                 <NativeDateSelectContent />
               </NativeDateSelect>
             </Stack>

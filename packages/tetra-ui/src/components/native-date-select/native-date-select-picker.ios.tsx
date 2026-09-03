@@ -18,8 +18,6 @@ export type NativeDateSelectVariant =
   | "wheel"
   | "compact"
   | "graphical";
-/** @deprecated Use NativeDateSelectVariant */
-export type NativeDateSelectDisplay = NativeDateSelectVariant;
 export type NativeDateSelectPresentation = "inline" | "dialog";
 
 export type NativeDateSelectPickerProps = {

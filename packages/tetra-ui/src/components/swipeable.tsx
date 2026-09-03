@@ -9,9 +9,14 @@ import {
   useEffect,
   useMemo,
   useRef,
+  useState,
 } from "react";
 import { Text, useWindowDimensions, View } from "react-native";
-import { Pressable as GestureHandlerPressable } from "react-native-gesture-handler";
+import {
+  Gesture,
+  GestureDetector,
+  Pressable as GestureHandlerPressable,
+} from "react-native-gesture-handler";
 import ReanimatedSwipeable, {
   type SwipeableProps as ReanimatedSwipeableProps,
   type SwipeableMethods,
@@ -49,8 +54,11 @@ export type SwipeableListProps = {
 export type SwipeableContentProps = {
   children: React.ReactNode;
   className?: string;
-  /** Prefer this over a nested RN Pressable — RNGH press cancels on swipe. */
-  onPress?: React.ComponentProps<typeof Pressable>["onPress"];
+  /**
+   * Tap handler for the row. Implemented with Gesture.Tap so it can succeed
+   * alongside a parent scroll/swipe pan — RNGH Pressable cancels too easily.
+   */
+  onPress?: () => void;
   disabled?: boolean;
 };
 
@@ -120,6 +128,10 @@ const DEFAULT_ANIMATION_OPTIONS = {
 const DEFAULT_OVERSHOOT_FRICTION = 1.25;
 /** Single-action overshoot — still reaches half-screen, feels less loose. */
 const SINGLE_ACTION_OVERSHOOT_FRICTION = 2;
+/** Pan must move this far before a swipe wins over a row tap. */
+const DEFAULT_DRAG_OFFSET = 24;
+/** Max finger travel that still counts as a tap. Keep below DEFAULT_DRAG_OFFSET. */
+const TAP_MAX_DISTANCE = 16;
 
 // Context
 const SwipeableActionContext =
@@ -141,6 +153,60 @@ const useSwipeableActionContext = () => {
     );
   }
   return context;
+};
+
+const SwipeablePressable = ({
+  children,
+  className,
+  disabled,
+  onPress,
+}: {
+  children: React.ReactNode;
+  className?: string;
+  disabled?: boolean;
+  onPress: () => void;
+}) => {
+  const [pressed, setPressed] = useState(false);
+
+  const handlePress = useCallback(() => {
+    if (disabled) {
+      return;
+    }
+    onPress();
+  }, [disabled, onPress]);
+
+  const tapGesture = useMemo(
+    () =>
+      Gesture.Tap()
+        .enabled(!disabled)
+        .maxDistance(TAP_MAX_DISTANCE)
+        .runOnJS(true)
+        .shouldCancelWhenOutside(false)
+        .onBegin(() => {
+          setPressed(true);
+        })
+        .onFinalize(() => {
+          setPressed(false);
+        })
+        .onEnd(() => {
+          handlePress();
+        }),
+    [disabled, handlePress]
+  );
+
+  return (
+    <GestureDetector gesture={tapGesture}>
+      <View
+        accessibilityRole="button"
+        className={cn("w-full bg-card", className)}
+        collapsable={false}
+        data-pressed={pressed || undefined}
+        data-slot="swipeable"
+      >
+        {children}
+      </View>
+    </GestureDetector>
+  );
 };
 
 // Utils
@@ -446,6 +512,8 @@ export const Swipeable = ({
   onSwipeableCloseStartDrag,
   onSwipeableWillOpen,
   onSwipeableWillClose,
+  dragOffsetFromLeftEdge = DEFAULT_DRAG_OFFSET,
+  dragOffsetFromRightEdge = DEFAULT_DRAG_OFFSET,
   ref,
   ...props
 }: SwipeableProps) => {
@@ -654,6 +722,8 @@ export const Swipeable = ({
   return (
     <ReanimatedSwipeable
       animationOptions={resolvedAnimationOptions}
+      dragOffsetFromLeftEdge={dragOffsetFromLeftEdge}
+      dragOffsetFromRightEdge={dragOffsetFromRightEdge}
       friction={friction}
       onSwipeableCloseStartDrag={handleCloseStartDrag}
       onSwipeableOpenStartDrag={handleOpenStartDrag}
@@ -668,15 +738,13 @@ export const Swipeable = ({
       {...props}
     >
       {contentOnPress ? (
-        <Pressable
-          accessibilityRole="button"
-          className={cn("w-full bg-card", contentClassName)}
-          data-slot="swipeable"
+        <SwipeablePressable
+          className={contentClassName}
           disabled={contentDisabled}
           onPress={contentOnPress}
         >
           {content}
-        </Pressable>
+        </SwipeablePressable>
       ) : (
         <View
           className={cn("w-full bg-card", contentClassName)}

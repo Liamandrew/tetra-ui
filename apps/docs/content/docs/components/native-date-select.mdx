@@ -82,10 +82,11 @@ Compose `NativeDateSelectTrigger`, `NativeDateSelectInput`, and `NativeDateSelec
 Set `variant` on the input (or root) to choose the iOS presentation:
 
 - **`wheel` / default (iOS)** — Trigger opens a bottom sheet with a wheel DatePicker
+- **`graphical` (iOS)** — Trigger opens a bottom sheet with a calendar DatePicker. Selecting a date commits and closes unless a confirm footer is present
 - **`compact` (iOS)** — non-pressable input; only the native compact DatePicker is interactive (Trigger optional)
 - **Android** — Trigger mounts a Material dialog (`DatePickerDialog` / `TimePickerDialog`). For `datetime`, date then time dialogs run sequentially. `variant` maps to picker/input style on the dialog.
 
-Pass `InputAddon` children to Input for adornments. On iOS wheel, optionally compose `NativeDateSelectSheetFooter` and `NativeDateSelectSheetConfirm` inside Content to require an explicit confirm before committing (dismiss cancels).
+Pass `InputAddon` children to Input for adornments. On iOS wheel and graphical, optionally compose `NativeDateSelectSheetFooter` and `NativeDateSelectSheetConfirm` inside Content to require an explicit confirm before committing (dismiss cancels).
 
 ```tsx
 import { Button } from "@/components/ui/button";
@@ -121,7 +122,16 @@ import {
 </NativeDateSelect>
 ```
 
-Without a sheet footer, iOS wheel commits the value as it changes.
+```tsx
+<NativeDateSelect mode="date" value={date} onValueChange={setDate}>
+  <NativeDateSelectTrigger asChild>
+    <NativeDateSelectInput variant="graphical" placeholder="Pick a date" />
+  </NativeDateSelectTrigger>
+  <NativeDateSelectContent />
+</NativeDateSelect>
+```
+
+Without a sheet footer, iOS wheel commits as the value changes. Graphical commits and closes the sheet when a date is selected.
 
 Use `formatValue` to customize the displayed label (defaults to `Intl.DateTimeFormat` by mode):
 
@@ -314,7 +324,7 @@ Opens the sheet/dialog. Extends [React Native Pressable](https://reactnative.dev
 
 ### NativeDateSelectInput
 
-Display-only form-styled input. Compose inside `NativeDateSelectTrigger` for wheel/Android. iOS `compact` embeds the native compact DatePicker and does not need a Trigger.
+Display-only form-styled input. Compose inside `NativeDateSelectTrigger` for wheel, graphical, and Android. iOS `compact` embeds the native compact DatePicker and does not need a Trigger.
 
 <TypeTable
   type={{
@@ -340,7 +350,7 @@ Display-only form-styled input. Compose inside `NativeDateSelectTrigger` for whe
 
 ### NativeDateSelectContent
 
-Always required. Owns presentation: inline picker, iOS wheel bottom sheet, or Android Material dialog. Hosts optional sheet footer. No props — sheet title follows the Input placeholder.
+Always required. Owns presentation: inline picker, iOS wheel or graphical bottom sheet, or Android Material dialog. Hosts optional sheet footer. No props — sheet title follows the Input placeholder.
 
 ### NativeDateSelectSheetFooter
 
@@ -368,3 +378,7 @@ Add `NativeDateSelectTrigger` and `NativeDateSelectContent`. `NativeDateSelectIn
 ### 2026-08-05 - Mandatory Content and variant
 
 `NativeDateSelectContent` is required for all usage. Renamed `display` to `variant`. Content takes no props (sheet title follows Input placeholder).
+
+### 2026-09-03 - Graphical sheet variant
+
+iOS form-styled `variant="graphical"` opens a bottom sheet with a calendar DatePicker. Selecting a date commits and closes unless a confirm footer is present.

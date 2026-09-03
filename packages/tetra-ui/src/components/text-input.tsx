@@ -46,6 +46,9 @@ export const TextInput = ({
         {...props}
         className={cn("h-12 shrink", props.className)}
         disabled={disabled}
+        lineBreakModeIOS="tail"
+        multiline={false}
+        numberOfLines={1}
         onBlur={handleBlur}
         onFocus={handleFocus}
         pointerEvents={isFocused ? undefined : "none"}

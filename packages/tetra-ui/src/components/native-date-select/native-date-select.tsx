@@ -56,6 +56,7 @@ const NATIVE_DATE_SELECT_TRIGGER_NAME = "NativeDateSelectTrigger";
 const NATIVE_DATE_SELECT_CONTENT_NAME = "NativeDateSelectContent";
 const NATIVE_DATE_SELECT_SHEET_FOOTER_NAME = "NativeDateSelectSheetFooter";
 const WHEEL_PICKER_HEIGHT = 216;
+const GRAPHICAL_PICKER_HEIGHT = 360;
 const DEFAULT_PLACEHOLDER = "Pick a date";
 
 // Types
@@ -393,7 +394,7 @@ NativeDateSelectTrigger.displayName = NATIVE_DATE_SELECT_TRIGGER_NAME;
 
 /**
  * Form-styled native date select input.
- * - Default / wheel: display-only ActionInput (open via NativeDateSelectTrigger)
+ * - Default / wheel / graphical: display-only ActionInput (open via NativeDateSelectTrigger)
  * - iOS `compact`: non-pressable input shell; only the native compact DatePicker is interactive
  */
 export const NativeDateSelectInput = ({
@@ -540,6 +541,7 @@ NativeDateSelectInput.displayName = NATIVE_DATE_SELECT_INPUT_NAME;
  * Presentation surface for the native date select. Always required.
  * - Content-only: inline native picker (variant from root)
  * - iOS wheel/default + form UI: bottom sheet with wheel DatePicker
+ * - iOS graphical + form UI: bottom sheet with graphical DatePicker
  * - iOS compact + Input: no sheet (picker lives in NativeDateSelectInput)
  * - Android + form UI: Material date/time dialog when open
  */
@@ -616,6 +618,8 @@ export const NativeDateSelectContent = ({
   }
 
   if (Platform.OS === "ios") {
+    const sheetVariant = variant === "graphical" ? "graphical" : "wheel";
+
     return (
       <BottomSheet
         onOpenChange={requiresConfirm ? onCancel : onOpenChange}
@@ -633,11 +637,23 @@ export const NativeDateSelectContent = ({
               maximumDate={maximumDate}
               minimumDate={minimumDate}
               mode={mode}
-              onValueChange={handlePickerValueChange}
-              style={{ height: WHEEL_PICKER_HEIGHT, width: "100%" }}
+              onValueChange={(nextValue) => {
+                handlePickerValueChange(nextValue);
+
+                if (sheetVariant === "graphical" && !requiresConfirm) {
+                  onOpenChange(false);
+                }
+              }}
+              style={{
+                height:
+                  sheetVariant === "graphical"
+                    ? GRAPHICAL_PICKER_HEIGHT
+                    : WHEEL_PICKER_HEIGHT,
+                width: "100%",
+              }}
               testID={testID}
               value={pickerValue}
-              variant="wheel"
+              variant={sheetVariant}
             />
           </BottomSheetBody>
           {sheetFooter}
