@@ -8,7 +8,7 @@ import {
   useMemo,
 } from "react";
 import { Text, View } from "react-native";
-import { cn } from "@/lib/utils";
+import { cn } from "@/registry/lib/utils";
 
 // Types
 type AlertVariant = VariantProps<typeof alertVariants>["variant"];

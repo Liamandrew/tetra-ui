@@ -7,7 +7,7 @@ import {
   useMemo,
 } from "react";
 import { ActivityIndicator, Pressable, Text } from "react-native";
-import { cn } from "@/lib/utils";
+import { cn } from "@/registry/lib/utils";
 
 // Types
 type InternalButtonContextType = VariantProps<typeof buttonVariants> & {

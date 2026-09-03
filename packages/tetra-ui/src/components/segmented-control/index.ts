@@ -3,4 +3,4 @@ export type {
   SegmentedControlItemLabelProps,
   SegmentedControlItemProps,
   SegmentedControlProps,
-} from "./segmented-control.types";
+} from "./segmented-control-types";

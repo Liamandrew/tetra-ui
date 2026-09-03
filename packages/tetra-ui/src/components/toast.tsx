@@ -2,14 +2,14 @@ import { cva } from "class-variance-authority";
 import { ActivityIndicator, View } from "react-native";
 import * as ToastPrimitive from "sonner-native";
 import { useUniwind } from "uniwind";
-import { cn } from "@/lib/utils";
 import {
   CircleAlertIcon,
   CircleCheckIcon,
   InfoIcon,
   TriangleAlertIcon,
-} from "./icons";
-import { Text } from "./text";
+} from "@/registry/ui/icons";
+import { Text } from "@/registry/ui/text";
+import { cn } from "@/registry/lib/utils";
 
 // Types
 type ToastVariant =

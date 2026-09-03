@@ -1,5 +1,5 @@
 import { Text as RNText } from "react-native";
-import { cn } from "../lib/utils";
+import { cn } from "@/registry/lib/utils";
 
 // Components
 export const Text = ({

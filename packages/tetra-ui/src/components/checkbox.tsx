@@ -7,9 +7,9 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated";
 import { useCSSVariable } from "uniwind";
-import { cn } from "../lib/utils";
-import { CheckIcon } from "./icons";
-import { InputPressable } from "./input";
+import { CheckIcon } from "@/registry/ui/icons";
+import { InputPressable } from "@/registry/ui/input";
+import { cn } from "@/registry/lib/utils";
 
 // Constants
 const ANIMATION_DURATION = 180;

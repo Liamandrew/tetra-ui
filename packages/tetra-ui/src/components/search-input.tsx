@@ -1,5 +1,3 @@
-import { cn } from "@/lib/utils";
-import { SearchIcon } from "./icons";
 import {
   Input,
   InputAddon,
@@ -9,7 +7,9 @@ import {
   type InputProps,
   useInputAddons,
   useInputFocusState,
-} from "./input";
+} from "@/registry/ui/input";
+import { cn } from "@/registry/lib/utils";
+import { SearchIcon } from "./icons";
 
 // Types
 export type SearchInputProps = InputProps & {

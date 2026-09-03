@@ -8,8 +8,8 @@ import {
   useMemo,
 } from "react";
 import { Pressable, View } from "react-native";
-import { cn } from "@/lib/utils";
-import { Text } from "./text";
+import { Text } from "@/registry/ui/text";
+import { cn } from "@/registry/lib/utils";
 
 // Types
 export type InlineListProps = React.ComponentProps<typeof View> & {

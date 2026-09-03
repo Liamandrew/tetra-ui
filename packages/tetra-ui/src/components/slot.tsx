@@ -1,6 +1,6 @@
 import { Children, cloneElement, isValidElement } from "react";
 import type { Pressable as RNPressable, View as RNView } from "react-native";
-import { mergeRefs } from "@/lib/utils";
+import { mergeRefs } from "@/registry/lib/utils";
 
 // Constants
 const HANDLER_REGEX = /^on[A-Z]/;

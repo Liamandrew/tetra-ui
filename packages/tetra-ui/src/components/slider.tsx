@@ -5,7 +5,7 @@ import {
 } from "@expo/ui";
 import { tint } from "@expo/ui/swift-ui/modifiers";
 import { useCSSVariable, withUniwind } from "uniwind";
-import { cn } from "@/lib/utils";
+import { cn } from "@/registry/lib/utils";
 
 // Types
 type SliderProps = Omit<SliderPrimitiveProps, "modifiers"> & {

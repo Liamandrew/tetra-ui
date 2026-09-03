@@ -7,12 +7,12 @@ import {
 import { height } from "@expo/ui/jetpack-compose/modifiers";
 import { useState } from "react";
 import { useCSSVariable, withUniwind } from "uniwind";
-import { cn } from "@/lib/utils";
+import { cn } from "@/registry/lib/utils";
 import type {
   SegmentedControlItemLabelProps,
   SegmentedControlItemProps,
   SegmentedControlProps,
-} from "./segmented-control.types";
+} from "./segmented-control-types";
 import { extractSegmentedControlItems } from "./segmented-control-utils";
 
 const StyledHost = withUniwind(HostPrimitive);

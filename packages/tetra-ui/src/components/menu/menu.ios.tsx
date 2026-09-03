@@ -26,7 +26,7 @@ import type {
   MenuItemProps,
   MenuProps,
   MenuTriggerProps,
-} from "./menu.types";
+} from "./menu-types";
 
 // Types
 type MenuItemToggleProps = {

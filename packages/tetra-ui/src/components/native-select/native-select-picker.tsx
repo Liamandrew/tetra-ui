@@ -5,7 +5,7 @@ import {
   Picker as PickerPrimitive,
 } from "@expo/ui";
 import { withUniwind } from "uniwind";
-import { cn } from "@/lib/utils";
+import { cn } from "@/registry/lib/utils";
 
 const StyledHost = withUniwind(HostPrimitive);
 

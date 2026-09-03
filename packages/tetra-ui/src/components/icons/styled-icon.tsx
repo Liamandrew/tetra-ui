@@ -1,7 +1,7 @@
 import type { LucideIcon } from "lucide-react-native";
 import Svg from "react-native-svg";
 import { withUniwind } from "uniwind";
-import { cn } from "@/lib/utils";
+import { cn } from "@/registry/lib/utils";
 
 const styledSvgOptionMapping = {
   height: {

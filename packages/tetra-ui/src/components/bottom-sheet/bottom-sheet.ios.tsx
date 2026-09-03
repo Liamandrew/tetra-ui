@@ -21,7 +21,7 @@ import Animated, {
 } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useCSSVariable } from "uniwind";
-import { cn } from "@/lib/utils";
+import { cn } from "@/registry/lib/utils";
 import { useBottomSheetContext } from "./bottom-sheet-context";
 import type { BottomSheetContentProps, BottomSheetFooterProps } from "./types";
 

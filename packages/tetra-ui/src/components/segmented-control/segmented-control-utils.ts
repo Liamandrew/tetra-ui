@@ -3,7 +3,7 @@ import type {
   SegmentedControlItemData,
   SegmentedControlItemLabelProps,
   SegmentedControlItemProps,
-} from "./segmented-control.types";
+} from "./segmented-control-types";
 
 const getChildDisplayName = (child: React.ReactNode) => {
   if (!isValidElement(child)) {

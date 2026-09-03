@@ -29,10 +29,10 @@ import Animated, {
 } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useUniwind } from "uniwind";
-import { useRelativePosition } from "@/hooks/use-relative-position";
-import { cn, mergeRefs } from "@/lib/utils";
-import { Portal, PortalOverlay } from "./portal";
-import { Slot } from "./slot";
+import { Portal, PortalOverlay } from "@/registry/ui/portal";
+import { Slot } from "@/registry/ui/slot";
+import { useRelativePosition } from "@/registry/hooks/use-relative-position";
+import { cn, mergeRefs } from "@/registry/lib/utils";
 
 // Constants
 const ANIMATION_DURATION = 200;

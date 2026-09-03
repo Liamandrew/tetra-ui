@@ -7,8 +7,9 @@
   "files": [
     {
       "path": "ui/stack.tsx",
-      "content": "import { cva, type VariantProps } from \"class-variance-authority\";\nimport { View } from \"react-native\";\nimport { cn } from \"../lib/utils\";\n\n// Types\nexport type StackProps = React.ComponentProps<typeof View> &\n  VariantProps<typeof stackVariants>;\n\n// Components\nexport const Stack = ({\n  children,\n  className,\n  gap,\n  direction,\n  ...props\n}: StackProps) => {\n  return (\n    <View\n      className={cn(stackVariants({ className, direction, gap }))}\n      {...props}\n    >\n      {children}\n    </View>\n  );\n};\n\n// Styles\nconst stackVariants = cva(\"flex\", {\n  variants: {\n    direction: {\n      column: \"flex-col\",\n      \"column-reverse\": \"flex-col-reverse\",\n      row: \"flex-row\",\n      \"row-reverse\": \"flex-row-reverse\",\n    },\n    gap: {\n      \"2xl\": \"gap-6\",\n      lg: \"gap-4\",\n      md: \"gap-3\",\n      none: \"gap-0\",\n      sm: \"gap-2\",\n      xl: \"gap-5\",\n      xs: \"gap-1\",\n    },\n  },\n});\n",
-      "type": "registry:ui"
+      "content": "import { cva, type VariantProps } from \"class-variance-authority\";\nimport { View } from \"react-native\";\nimport { cn } from \"@/lib/utils\";\n\n// Types\nexport type StackProps = React.ComponentProps<typeof View> &\n  VariantProps<typeof stackVariants>;\n\n// Components\nexport const Stack = ({\n  children,\n  className,\n  gap,\n  direction,\n  ...props\n}: StackProps) => {\n  return (\n    <View\n      className={cn(stackVariants({ className, direction, gap }))}\n      {...props}\n    >\n      {children}\n    </View>\n  );\n};\n\n// Styles\nconst stackVariants = cva(\"flex\", {\n  variants: {\n    direction: {\n      column: \"flex-col\",\n      \"column-reverse\": \"flex-col-reverse\",\n      row: \"flex-row\",\n      \"row-reverse\": \"flex-row-reverse\",\n    },\n    gap: {\n      \"2xl\": \"gap-6\",\n      lg: \"gap-4\",\n      md: \"gap-3\",\n      none: \"gap-0\",\n      sm: \"gap-2\",\n      xl: \"gap-5\",\n      xs: \"gap-1\",\n    },\n  },\n});\n",
+      "type": "registry:ui",
+      "target": "@ui/stack.tsx"
     }
   ],
   "type": "registry:ui"

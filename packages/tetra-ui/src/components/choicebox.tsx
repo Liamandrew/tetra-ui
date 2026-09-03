@@ -14,11 +14,11 @@ import {
   Text,
   View,
 } from "react-native";
-import { cn } from "../lib/utils";
-import { Checkbox } from "./checkbox";
-import { InputPressable } from "./input";
-import { Radio } from "./radio";
-import { Stack, type StackProps } from "./stack";
+import { Checkbox } from "@/registry/ui/checkbox";
+import { InputPressable } from "@/registry/ui/input";
+import { Radio } from "@/registry/ui/radio";
+import { Stack, type StackProps } from "@/registry/ui/stack";
+import { cn } from "@/registry/lib/utils";
 
 // Types
 type ChoiceboxType = "single" | "multiple";

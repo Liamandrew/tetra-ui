@@ -36,7 +36,7 @@ import type {
   MenuItemVariant,
   MenuProps,
   MenuTriggerProps,
-} from "./menu.types";
+} from "./menu-types";
 
 const HORIZONTAL_MENU_ITEM_WIDTH = 48;
 const MENU_GROUP_LABEL_MODIFIERS = [padding(12, 8, 12, 4)];

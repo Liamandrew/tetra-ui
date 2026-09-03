@@ -8,7 +8,8 @@
     {
       "path": "ui/separator.tsx",
       "content": "import { cva, type VariantProps } from \"class-variance-authority\";\nimport { View } from \"react-native\";\n\n// Components\nexport const Separator = ({\n  className,\n  orientation,\n  thickness,\n  ...props\n}: React.ComponentProps<typeof View> &\n  VariantProps<typeof separatorVariants>) => {\n  return (\n    <View\n      className={separatorVariants({ className, orientation, thickness })}\n      data-slot=\"separator\"\n      {...props}\n    />\n  );\n};\n\n// Styles\nconst separatorVariants = cva(\"h-10 bg-border\", {\n  compoundVariants: [\n    {\n      class: \"h-hairline\",\n      orientation: \"horizontal\",\n      thickness: \"thin\",\n    },\n    {\n      class: \"h-1\",\n      orientation: \"horizontal\",\n      thickness: \"thick\",\n    },\n    {\n      class: \"w-hairline\",\n      orientation: \"vertical\",\n      thickness: \"thin\",\n    },\n    {\n      class: \"w-1\",\n      orientation: \"vertical\",\n      thickness: \"thick\",\n    },\n  ],\n  defaultVariants: {\n    orientation: \"horizontal\",\n    thickness: \"thin\",\n  },\n  variants: {\n    orientation: {\n      horizontal: \"w-full\",\n      vertical: \"h-full\",\n    },\n    thickness: {\n      thick: \"\",\n      thin: \"\",\n    },\n  },\n});\n",
-      "type": "registry:ui"
+      "type": "registry:ui",
+      "target": "@ui/separator.tsx"
     }
   ],
   "type": "registry:ui"

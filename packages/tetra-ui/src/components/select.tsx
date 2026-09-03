@@ -19,8 +19,7 @@ import Animated, {
   useSharedValue,
   withTiming,
 } from "react-native-reanimated";
-import { cn, mergeRefs } from "@/lib/utils";
-import { ActionInput } from "./action-input";
+import { ActionInput } from "@/registry/ui/action-input";
 import {
   BottomSheet,
   BottomSheetBody,
@@ -28,18 +27,23 @@ import {
   BottomSheetFooter,
   BottomSheetHeader,
   BottomSheetTitle,
-} from "./bottom-sheet";
-import { CheckIcon, ChevronDownIcon } from "./icons";
-import { InputAddon, type InputAddonChild, InputAddonIcon } from "./input";
+} from "@/registry/ui/bottom-sheet";
+import { CheckIcon, ChevronDownIcon } from "@/registry/ui/icons";
+import {
+  InputAddon,
+  type InputAddonChild,
+  InputAddonIcon,
+} from "@/registry/ui/input";
 import {
   Popover,
   PopoverContent,
   PopoverOverlay,
   PopoverPortal,
   usePopover,
-} from "./popover";
-import { Slot } from "./slot";
-import { Text } from "./text";
+} from "@/registry/ui/popover";
+import { Slot } from "@/registry/ui/slot";
+import { Text } from "@/registry/ui/text";
+import { cn, mergeRefs } from "@/registry/lib/utils";
 
 // Constants
 const ANIMATION_DURATION = 280;

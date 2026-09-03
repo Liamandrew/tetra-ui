@@ -30,7 +30,7 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated";
 import { withUniwind } from "uniwind";
-import { cn } from "@/lib/utils";
+import { cn } from "@/registry/lib/utils";
 
 export type { SwipeableMethods } from "react-native-gesture-handler/ReanimatedSwipeable";
 

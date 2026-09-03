@@ -32,9 +32,9 @@ import Animated, {
   withSpring,
   withTiming,
 } from "react-native-reanimated";
-import { cn } from "@/lib/utils";
-import { Button, ButtonIcon } from "./button";
-import { ChevronLeftIcon, ChevronRightIcon } from "./icons";
+import { Button, ButtonIcon } from "@/registry/ui/button";
+import { ChevronLeftIcon, ChevronRightIcon } from "@/registry/ui/icons";
+import { cn } from "@/registry/lib/utils";
 
 // Constants
 const DEFAULT_PER_VIEW = 1.2;

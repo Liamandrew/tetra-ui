@@ -1,9 +1,9 @@
 import { useCallback, useMemo, useState } from "react";
 import { Pressable, ScrollView, Text, View } from "react-native";
-import { cn } from "@/lib/utils";
-import { Button, ButtonIcon } from "../button";
-import { XIcon } from "../icons";
-import { Slot } from "../slot";
+import { cn } from "@/registry/lib/utils";
+import { Button, ButtonIcon } from "@/registry/ui/button";
+import { XIcon } from "@/registry/ui/icons";
+import { Slot } from "@/registry/ui/slot";
 import {
   BottomSheetContext,
   useBottomSheetContext,

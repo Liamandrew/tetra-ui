@@ -7,7 +7,7 @@ import {
   useMemo,
 } from "react";
 import { Pressable, Text } from "react-native";
-import { cn } from "../lib/utils";
+import { cn } from "@/registry/lib/utils";
 
 // Types
 type InternalChipContextType = VariantProps<typeof chipVariants> & {

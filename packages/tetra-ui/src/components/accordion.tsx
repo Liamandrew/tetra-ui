@@ -25,9 +25,9 @@ import Animated, {
   useSharedValue,
   withSpring,
 } from "react-native-reanimated";
-import { cn, mergeRefs } from "@/lib/utils";
-import { ChevronDownIcon } from "./icons";
-import { Slot } from "./slot";
+import { ChevronDownIcon } from "@/registry/ui/icons";
+import { Slot } from "@/registry/ui/slot";
+import { cn, mergeRefs } from "@/registry/lib/utils";
 
 // Constants
 const CONTENT_ENTER = FadeInDown.springify()

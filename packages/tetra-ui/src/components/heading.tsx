@@ -1,6 +1,6 @@
 import { cva, type VariantProps } from "class-variance-authority";
 import { Text } from "react-native";
-import { cn } from "../lib/utils";
+import { cn } from "@/registry/lib/utils";
 
 // Types
 export type HeadingProps = React.ComponentProps<typeof Text> &

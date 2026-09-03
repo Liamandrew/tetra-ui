@@ -1,7 +1,11 @@
 import { useState } from "react";
-import { EyeIcon, EyeOffIcon } from "./icons";
-import { InputAddon, InputAddonButton, InputAddonButtonIcon } from "./input";
-import { TextInput, type TextInputProps } from "./text-input";
+import { EyeIcon, EyeOffIcon } from "@/registry/ui/icons";
+import {
+  InputAddon,
+  InputAddonButton,
+  InputAddonButtonIcon,
+} from "@/registry/ui/input";
+import { TextInput, type TextInputProps } from "@/registry/ui/text-input";
 
 // Types
 export type PasswordInputProps = Omit<

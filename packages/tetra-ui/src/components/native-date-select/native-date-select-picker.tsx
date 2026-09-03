@@ -7,7 +7,7 @@ import {
 import { useState } from "react";
 import type { StyleProp, ViewStyle } from "react-native";
 import { useCSSVariable, withUniwind } from "uniwind";
-import { cn } from "@/lib/utils";
+import { cn } from "@/registry/lib/utils";
 
 const StyledHost = withUniwind(HostPrimitive);
 

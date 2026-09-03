@@ -2,7 +2,7 @@ import type {
   SegmentedControlItemLabelProps,
   SegmentedControlItemProps,
   SegmentedControlProps,
-} from "./segmented-control.types";
+} from "./segmented-control-types";
 
 export const SegmentedControlItemLabel = (
   _: SegmentedControlItemLabelProps

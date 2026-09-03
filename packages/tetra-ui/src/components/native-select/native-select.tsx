@@ -28,8 +28,7 @@ import Animated, {
   useSharedValue,
   withTiming,
 } from "react-native-reanimated";
-import { cn } from "@/lib/utils";
-import { ActionInput } from "../action-input";
+import { ActionInput } from "@/registry/ui/action-input";
 import {
   BottomSheet,
   BottomSheetBody,
@@ -37,16 +36,17 @@ import {
   BottomSheetFooter,
   BottomSheetHeader,
   BottomSheetTitle,
-} from "../bottom-sheet";
-import { ChevronDownIcon } from "../icons";
+} from "@/registry/ui/bottom-sheet";
+import { ChevronDownIcon } from "@/registry/ui/icons";
 import {
   InputAddon,
   type InputAddonChild,
   type InputAddonChildren,
   InputAddonIcon,
   useInputAddons,
-} from "../input";
-import { Slot } from "../slot";
+} from "@/registry/ui/input";
+import { Slot } from "@/registry/ui/slot";
+import { cn } from "@/registry/lib/utils";
 import {
   NativeSelectAndroidHost,
   NativeSelectContentMenu,

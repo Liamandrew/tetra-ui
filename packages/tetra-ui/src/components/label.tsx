@@ -1,5 +1,5 @@
 import { Text } from "react-native";
-import { cn } from "../lib/utils";
+import { cn } from "@/registry/lib/utils";
 
 // Types
 export type LabelProps = React.ComponentProps<typeof Text>;

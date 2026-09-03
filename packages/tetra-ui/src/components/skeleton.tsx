@@ -6,7 +6,7 @@ import Animated, {
   withRepeat,
   withTiming,
 } from "react-native-reanimated";
-import { cn } from "@/lib/utils";
+import { cn } from "@/registry/lib/utils";
 
 // Constants
 const ANIMATION_DURATION = 1000;

@@ -3,9 +3,11 @@
   "compilerOptions": {
     "outDir": "dist",
     "rootDir": ".",
-    "moduleSuffixes": [".ios", ".android", ".types", ""],
+    "moduleSuffixes": [".ios", ".android", ""],
     "paths": {
-      "@/*": ["./src/*"]
+      "@/registry/ui/*": ["./src/components/*"],
+      "@/registry/lib/*": ["./src/lib/*"],
+      "@/registry/hooks/*": ["./src/hooks/*"],
     }
   },
   "include": [".", "uniwind-types.d.ts"],

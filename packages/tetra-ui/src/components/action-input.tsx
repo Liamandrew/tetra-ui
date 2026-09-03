@@ -1,6 +1,5 @@
 import { Text, View } from "react-native";
-import { cn } from "@/lib/utils";
-import { ChevronRightIcon } from "./icons";
+import { ChevronRightIcon } from "@/registry/ui/icons";
 import {
   InputAddon,
   type InputAddonChildren,
@@ -8,7 +7,8 @@ import {
   InputPressable,
   type InputPressableProps,
   useInputAddons,
-} from "./input";
+} from "@/registry/ui/input";
+import { cn } from "@/registry/lib/utils";
 
 // Types
 export type ActionInputProps = InputPressableProps & {

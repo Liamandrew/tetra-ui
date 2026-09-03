@@ -1,4 +1,3 @@
-import { cn } from "@/lib/utils";
 import {
   Input,
   type InputAddonChildren,
@@ -6,7 +5,8 @@ import {
   type InputProps,
   useInputAddons,
   useInputFocusState,
-} from "./input";
+} from "@/registry/ui/input";
+import { cn } from "@/registry/lib/utils";
 
 // Types
 export type TextInputProps = InputProps & {

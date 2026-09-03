@@ -1,8 +1,8 @@
 import { cva, type VariantProps } from "class-variance-authority";
 import { Children, cloneElement } from "react";
 import { View } from "react-native";
-import { cn } from "@/lib/utils";
-import { Text } from "./text";
+import { Text } from "@/registry/ui/text";
+import { cn } from "@/registry/lib/utils";
 
 // Types
 type EmptyMediaProps = React.ComponentProps<typeof View> &

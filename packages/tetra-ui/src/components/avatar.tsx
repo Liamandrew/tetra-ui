@@ -11,7 +11,7 @@ import {
 } from "react";
 import { Image, type ImageProps, Text, View } from "react-native";
 import { withUniwind } from "uniwind";
-import { cn } from "@/lib/utils";
+import { cn } from "@/registry/lib/utils";
 
 // Types
 type AvatarSize = NonNullable<VariantProps<typeof avatarVariants>["size"]>;

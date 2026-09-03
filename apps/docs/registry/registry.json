@@ -269,7 +269,7 @@
           "type": "registry:ui"
         },
         {
-          "path": "../../packages/tetra-ui/src/components/menu/menu.types.ts",
+          "path": "../../packages/tetra-ui/src/components/menu/menu-types.ts",
           "type": "registry:ui"
         },
         {
@@ -525,7 +525,7 @@
           "type": "registry:ui"
         },
         {
-          "path": "../../packages/tetra-ui/src/components/segmented-control/segmented-control.types.ts",
+          "path": "../../packages/tetra-ui/src/components/segmented-control/segmented-control-types.ts",
           "type": "registry:ui"
         },
         {

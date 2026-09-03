@@ -6,7 +6,7 @@ import type {
   MenuItemProps,
   MenuProps,
   MenuTriggerProps,
-} from "./menu.types";
+} from "./menu-types";
 
 // Components
 export const MenuItem = (_: MenuItemProps) => {

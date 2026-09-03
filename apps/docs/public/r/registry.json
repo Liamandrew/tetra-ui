@@ -18,7 +18,8 @@
       "files": [
         {
           "path": "ui/accordion.tsx",
-          "type": "registry:ui"
+          "type": "registry:ui",
+          "target": "@ui/accordion.tsx"
         }
       ]
     },
@@ -34,7 +35,8 @@
       "files": [
         {
           "path": "ui/action-input.tsx",
-          "type": "registry:ui"
+          "type": "registry:ui",
+          "target": "@ui/action-input.tsx"
         }
       ]
     },
@@ -47,7 +49,8 @@
       "files": [
         {
           "path": "ui/alert.tsx",
-          "type": "registry:ui"
+          "type": "registry:ui",
+          "target": "@ui/alert.tsx"
         }
       ]
     },
@@ -60,7 +63,8 @@
       "files": [
         {
           "path": "ui/avatar.tsx",
-          "type": "registry:ui"
+          "type": "registry:ui",
+          "target": "@ui/avatar.tsx"
         }
       ]
     },
@@ -73,7 +77,8 @@
       "files": [
         {
           "path": "ui/badge.tsx",
-          "type": "registry:ui"
+          "type": "registry:ui",
+          "target": "@ui/badge.tsx"
         }
       ]
     },
@@ -86,7 +91,8 @@
       "files": [
         {
           "path": "ui/button.tsx",
-          "type": "registry:ui"
+          "type": "registry:ui",
+          "target": "@ui/button.tsx"
         }
       ]
     },
@@ -99,7 +105,8 @@
       "files": [
         {
           "path": "ui/card.tsx",
-          "type": "registry:ui"
+          "type": "registry:ui",
+          "target": "@ui/card.tsx"
         }
       ]
     },
@@ -119,7 +126,8 @@
       "files": [
         {
           "path": "ui/carousel.tsx",
-          "type": "registry:ui"
+          "type": "registry:ui",
+          "target": "@ui/carousel.tsx"
         }
       ]
     },
@@ -138,7 +146,8 @@
       "files": [
         {
           "path": "ui/checkbox.tsx",
-          "type": "registry:ui"
+          "type": "registry:ui",
+          "target": "@ui/checkbox.tsx"
         }
       ]
     },
@@ -156,7 +165,8 @@
       "files": [
         {
           "path": "ui/choicebox.tsx",
-          "type": "registry:ui"
+          "type": "registry:ui",
+          "target": "@ui/choicebox.tsx"
         }
       ]
     },
@@ -169,7 +179,8 @@
       "files": [
         {
           "path": "ui/chip.tsx",
-          "type": "registry:ui"
+          "type": "registry:ui",
+          "target": "@ui/chip.tsx"
         }
       ]
     },
@@ -184,7 +195,8 @@
       "files": [
         {
           "path": "ui/empty.tsx",
-          "type": "registry:ui"
+          "type": "registry:ui",
+          "target": "@ui/empty.tsx"
         }
       ]
     },
@@ -203,7 +215,8 @@
       "files": [
         {
           "path": "ui/form.tsx",
-          "type": "registry:ui"
+          "type": "registry:ui",
+          "target": "@ui/form.tsx"
         }
       ]
     },
@@ -216,7 +229,8 @@
       "files": [
         {
           "path": "ui/heading.tsx",
-          "type": "registry:ui"
+          "type": "registry:ui",
+          "target": "@ui/heading.tsx"
         }
       ]
     },
@@ -232,11 +246,13 @@
       "files": [
         {
           "path": "ui/icons/index.ts",
-          "type": "registry:ui"
+          "type": "registry:ui",
+          "target": "@ui/icons/index.ts"
         },
         {
           "path": "ui/icons/styled-icon.tsx",
-          "type": "registry:ui"
+          "type": "registry:ui",
+          "target": "@ui/icons/styled-icon.tsx"
         }
       ]
     },
@@ -249,7 +265,8 @@
       "files": [
         {
           "path": "ui/inline-list.tsx",
-          "type": "registry:ui"
+          "type": "registry:ui",
+          "target": "@ui/inline-list.tsx"
         }
       ]
     },
@@ -267,7 +284,8 @@
       "files": [
         {
           "path": "ui/input.tsx",
-          "type": "registry:ui"
+          "type": "registry:ui",
+          "target": "@ui/input.tsx"
         }
       ]
     },
@@ -280,7 +298,8 @@
       "files": [
         {
           "path": "ui/label.tsx",
-          "type": "registry:ui"
+          "type": "registry:ui",
+          "target": "@ui/label.tsx"
         }
       ]
     },
@@ -297,23 +316,28 @@
       "files": [
         {
           "path": "ui/menu/index.ts",
-          "type": "registry:ui"
+          "type": "registry:ui",
+          "target": "@ui/menu/index.ts"
         },
         {
-          "path": "ui/menu/menu.types.ts",
-          "type": "registry:ui"
+          "path": "ui/menu/menu-types.ts",
+          "type": "registry:ui",
+          "target": "@ui/menu/menu-types.ts"
         },
         {
           "path": "ui/menu/menu.tsx",
-          "type": "registry:ui"
+          "type": "registry:ui",
+          "target": "@ui/menu/menu.tsx"
         },
         {
           "path": "ui/menu/menu.ios.tsx",
-          "type": "registry:ui"
+          "type": "registry:ui",
+          "target": "@ui/menu/menu.ios.tsx"
         },
         {
           "path": "ui/menu/menu.android.tsx",
-          "type": "registry:ui"
+          "type": "registry:ui",
+          "target": "@ui/menu/menu.android.tsx"
         }
       ]
     },
@@ -336,31 +360,38 @@
       "files": [
         {
           "path": "ui/bottom-sheet/index.ts",
-          "type": "registry:ui"
+          "type": "registry:ui",
+          "target": "@ui/bottom-sheet/index.ts"
         },
         {
           "path": "ui/bottom-sheet/types.ts",
-          "type": "registry:ui"
+          "type": "registry:ui",
+          "target": "@ui/bottom-sheet/types.ts"
         },
         {
           "path": "ui/bottom-sheet/bottom-sheet-context.ts",
-          "type": "registry:ui"
+          "type": "registry:ui",
+          "target": "@ui/bottom-sheet/bottom-sheet-context.ts"
         },
         {
           "path": "ui/bottom-sheet/bottom-sheet-common.tsx",
-          "type": "registry:ui"
+          "type": "registry:ui",
+          "target": "@ui/bottom-sheet/bottom-sheet-common.tsx"
         },
         {
           "path": "ui/bottom-sheet/bottom-sheet.tsx",
-          "type": "registry:ui"
+          "type": "registry:ui",
+          "target": "@ui/bottom-sheet/bottom-sheet.tsx"
         },
         {
           "path": "ui/bottom-sheet/bottom-sheet.ios.tsx",
-          "type": "registry:ui"
+          "type": "registry:ui",
+          "target": "@ui/bottom-sheet/bottom-sheet.ios.tsx"
         },
         {
           "path": "ui/bottom-sheet/bottom-sheet.android.tsx",
-          "type": "registry:ui"
+          "type": "registry:ui",
+          "target": "@ui/bottom-sheet/bottom-sheet.android.tsx"
         }
       ]
     },
@@ -383,19 +414,23 @@
       "files": [
         {
           "path": "ui/native-date-select/index.ts",
-          "type": "registry:ui"
+          "type": "registry:ui",
+          "target": "@ui/native-date-select/index.ts"
         },
         {
           "path": "ui/native-date-select/native-date-select.tsx",
-          "type": "registry:ui"
+          "type": "registry:ui",
+          "target": "@ui/native-date-select/native-date-select.tsx"
         },
         {
           "path": "ui/native-date-select/native-date-select-picker.tsx",
-          "type": "registry:ui"
+          "type": "registry:ui",
+          "target": "@ui/native-date-select/native-date-select-picker.tsx"
         },
         {
           "path": "ui/native-date-select/native-date-select-picker.ios.tsx",
-          "type": "registry:ui"
+          "type": "registry:ui",
+          "target": "@ui/native-date-select/native-date-select-picker.ios.tsx"
         }
       ]
     },
@@ -418,27 +453,33 @@
       "files": [
         {
           "path": "ui/native-select/index.ts",
-          "type": "registry:ui"
+          "type": "registry:ui",
+          "target": "@ui/native-select/index.ts"
         },
         {
           "path": "ui/native-select/native-select.tsx",
-          "type": "registry:ui"
+          "type": "registry:ui",
+          "target": "@ui/native-select/native-select.tsx"
         },
         {
           "path": "ui/native-select/native-select-input.tsx",
-          "type": "registry:ui"
+          "type": "registry:ui",
+          "target": "@ui/native-select/native-select-input.tsx"
         },
         {
           "path": "ui/native-select/native-select-input.android.tsx",
-          "type": "registry:ui"
+          "type": "registry:ui",
+          "target": "@ui/native-select/native-select-input.android.tsx"
         },
         {
           "path": "ui/native-select/native-select-picker.tsx",
-          "type": "registry:ui"
+          "type": "registry:ui",
+          "target": "@ui/native-select/native-select-picker.tsx"
         },
         {
           "path": "ui/native-select/native-select-picker.ios.tsx",
-          "type": "registry:ui"
+          "type": "registry:ui",
+          "target": "@ui/native-select/native-select-picker.ios.tsx"
         }
       ]
     },
@@ -457,7 +498,8 @@
       "files": [
         {
           "path": "ui/otp-input.tsx",
-          "type": "registry:ui"
+          "type": "registry:ui",
+          "target": "@ui/otp-input.tsx"
         }
       ]
     },
@@ -474,7 +516,8 @@
       "files": [
         {
           "path": "ui/password-input.tsx",
-          "type": "registry:ui"
+          "type": "registry:ui",
+          "target": "@ui/password-input.tsx"
         }
       ]
     },
@@ -494,11 +537,13 @@
       "files": [
         {
           "path": "ui/popover.tsx",
-          "type": "registry:ui"
+          "type": "registry:ui",
+          "target": "@ui/popover.tsx"
         },
         {
           "path": "hooks/use-relative-position.ts",
-          "type": "registry:hook"
+          "type": "registry:hook",
+          "target": "@hooks/use-relative-position.ts"
         }
       ]
     },
@@ -516,7 +561,8 @@
       "files": [
         {
           "path": "ui/progress.tsx",
-          "type": "registry:ui"
+          "type": "registry:ui",
+          "target": "@ui/progress.tsx"
         }
       ]
     },
@@ -532,7 +578,8 @@
       "files": [
         {
           "path": "ui/radio.tsx",
-          "type": "registry:ui"
+          "type": "registry:ui",
+          "target": "@ui/radio.tsx"
         }
       ]
     },
@@ -548,7 +595,8 @@
       "files": [
         {
           "path": "ui/portal.tsx",
-          "type": "registry:ui"
+          "type": "registry:ui",
+          "target": "@ui/portal.tsx"
         }
       ]
     },
@@ -564,7 +612,8 @@
       "files": [
         {
           "path": "ui/search-input.tsx",
-          "type": "registry:ui"
+          "type": "registry:ui",
+          "target": "@ui/search-input.tsx"
         }
       ]
     },
@@ -580,27 +629,33 @@
       "files": [
         {
           "path": "ui/segmented-control/index.ts",
-          "type": "registry:ui"
+          "type": "registry:ui",
+          "target": "@ui/segmented-control/index.ts"
         },
         {
-          "path": "ui/segmented-control/segmented-control.types.ts",
-          "type": "registry:ui"
+          "path": "ui/segmented-control/segmented-control-types.ts",
+          "type": "registry:ui",
+          "target": "@ui/segmented-control/segmented-control-types.ts"
         },
         {
           "path": "ui/segmented-control/segmented-control-utils.ts",
-          "type": "registry:ui"
+          "type": "registry:ui",
+          "target": "@ui/segmented-control/segmented-control-utils.ts"
         },
         {
           "path": "ui/segmented-control/segmented-control.tsx",
-          "type": "registry:ui"
+          "type": "registry:ui",
+          "target": "@ui/segmented-control/segmented-control.tsx"
         },
         {
           "path": "ui/segmented-control/segmented-control.ios.tsx",
-          "type": "registry:ui"
+          "type": "registry:ui",
+          "target": "@ui/segmented-control/segmented-control.ios.tsx"
         },
         {
           "path": "ui/segmented-control/segmented-control.android.tsx",
-          "type": "registry:ui"
+          "type": "registry:ui",
+          "target": "@ui/segmented-control/segmented-control.android.tsx"
         }
       ]
     },
@@ -624,7 +679,8 @@
       "files": [
         {
           "path": "ui/select.tsx",
-          "type": "registry:ui"
+          "type": "registry:ui",
+          "target": "@ui/select.tsx"
         }
       ]
     },
@@ -637,7 +693,8 @@
       "files": [
         {
           "path": "ui/separator.tsx",
-          "type": "registry:ui"
+          "type": "registry:ui",
+          "target": "@ui/separator.tsx"
         }
       ]
     },
@@ -653,7 +710,8 @@
       "files": [
         {
           "path": "ui/skeleton.tsx",
-          "type": "registry:ui"
+          "type": "registry:ui",
+          "target": "@ui/skeleton.tsx"
         }
       ]
     },
@@ -669,7 +727,8 @@
       "files": [
         {
           "path": "ui/slider.tsx",
-          "type": "registry:ui"
+          "type": "registry:ui",
+          "target": "@ui/slider.tsx"
         }
       ]
     },
@@ -682,7 +741,8 @@
       "files": [
         {
           "path": "ui/slot.tsx",
-          "type": "registry:ui"
+          "type": "registry:ui",
+          "target": "@ui/slot.tsx"
         }
       ]
     },
@@ -695,7 +755,8 @@
       "files": [
         {
           "path": "ui/stack.tsx",
-          "type": "registry:ui"
+          "type": "registry:ui",
+          "target": "@ui/stack.tsx"
         }
       ]
     },
@@ -711,7 +772,8 @@
       "files": [
         {
           "path": "ui/switch.tsx",
-          "type": "registry:ui"
+          "type": "registry:ui",
+          "target": "@ui/switch.tsx"
         }
       ]
     },
@@ -728,7 +790,8 @@
       "files": [
         {
           "path": "ui/swipeable.tsx",
-          "type": "registry:ui"
+          "type": "registry:ui",
+          "target": "@ui/swipeable.tsx"
         }
       ]
     },
@@ -741,7 +804,8 @@
       "files": [
         {
           "path": "ui/text.tsx",
-          "type": "registry:ui"
+          "type": "registry:ui",
+          "target": "@ui/text.tsx"
         }
       ]
     },
@@ -756,7 +820,8 @@
       "files": [
         {
           "path": "ui/text-input.tsx",
-          "type": "registry:ui"
+          "type": "registry:ui",
+          "target": "@ui/text-input.tsx"
         }
       ]
     },
@@ -769,7 +834,8 @@
       "files": [
         {
           "path": "ui/textarea-input.tsx",
-          "type": "registry:ui"
+          "type": "registry:ui",
+          "target": "@ui/textarea-input.tsx"
         }
       ]
     },
@@ -794,7 +860,8 @@
       "files": [
         {
           "path": "ui/toast.tsx",
-          "type": "registry:ui"
+          "type": "registry:ui",
+          "target": "@ui/toast.tsx"
         }
       ]
     }
