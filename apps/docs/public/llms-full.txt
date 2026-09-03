@@ -48,7 +48,7 @@ Follow https://docs.uniwind.dev/ to add Uniwind to your React Native/Expo projec
 ### 2. Install utilities
 
 ```bash
-npm install class-variance-authority clsx tailwind-merge
+npm install class-variance-authority cn
 ```
 
 ### 3. TypeScript paths
@@ -73,12 +73,7 @@ Key tokens: `--background`, `--foreground`, `--primary`, `--secondary`, `--muted
 
 ```ts
 // lib/utils.ts
-import { type ClassValue, clsx } from "clsx";
-import { twMerge } from "tailwind-merge";
-
-export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
-}
+export { cn } from "cn";
 
 export function mergeRefs<T>(...refs: (React.Ref<T> | undefined)[]) {
   return (value: T) => {
@@ -92,6 +87,8 @@ export function mergeRefs<T>(...refs: (React.Ref<T> | undefined)[]) {
   };
 }
 ```
+
+Existing projects using `clsx` + `tailwind-merge` can migrate with `npx shadcn@latest migrate cn`.
 
 ### 6. components.json
 

@@ -14,7 +14,7 @@ tetra-ui is not an npm package you import. Components are copied into your proje
 ## Quick Start
 
 1. Install Uniwind: https://docs.uniwind.dev/
-2. Add dependencies: `npm install class-variance-authority clsx tailwind-merge`
+2. Add dependencies: `npm install class-variance-authority cn`
 3. Configure `components.json` with registry `"@tetra-ui": "https://tetra-ui.com/r/{name}.json"`
 4. Add a component: `npx shadcn@latest add @tetra-ui/button`
 

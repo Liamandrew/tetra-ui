@@ -118,8 +118,8 @@ Requires bottom-sheet on mobile. Install with `npx shadcn@latest add @tetra-ui/s
 ## When the user asks to set up tetra-ui
 
 1. Ensure Uniwind is installed (https://docs.uniwind.dev/)
-2. Add `class-variance-authority`, `clsx`, `tailwind-merge`
+2. Add `class-variance-authority` and `cn`
 3. Configure theme tokens in `globals.css` (see https://tetra-ui.com/docs/installation)
-4. Add `cn()` helper at `@/lib/utils`
+4. Add `cn()` helper at `@/lib/utils` (`export { cn } from "cn"`)
 5. Create `components.json` with the `@tetra-ui` registry
 6. Add components via `npx shadcn@latest add @tetra-ui/{component}`

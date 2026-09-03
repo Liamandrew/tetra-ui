@@ -20,7 +20,7 @@ Components are styled with [Uniwind](https://docs.uniwind.dev/) (Tailwind for Re
 ## Quick start
 
 1. **Install Uniwind** — [docs.uniwind.dev](https://docs.uniwind.dev/)
-2. **Add utilities** — `npm install class-variance-authority clsx tailwind-merge`
+2. **Add utilities** — `npm install class-variance-authority cn`
 3. **Add a component:**
 
 ```bash

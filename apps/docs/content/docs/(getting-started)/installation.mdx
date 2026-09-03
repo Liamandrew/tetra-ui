@@ -13,7 +13,7 @@ The components in this library are styled with Uniwind - a performance focused T
 ### Add dependencies
 
 ```package-install
-npm install class-variance-authority clsx tailwind-merge
+npm install class-variance-authority cn
 ```
 
 ### Configure Typescript path aliases
@@ -134,12 +134,7 @@ Add the following to your `globals.css` file that you created when installing Un
 ### Add a cn helper
 
 ```ts title="lib/utils.ts"
-import { type ClassValue, clsx } from "clsx";
-import { twMerge } from "tailwind-merge";
-
-export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
-}
+export { cn } from "cn";
 
 export function mergeRefs<T>(...refs: (React.Ref<T> | undefined)[]) {
   return (value: T) => {
@@ -153,6 +148,10 @@ export function mergeRefs<T>(...refs: (React.Ref<T> | undefined)[]) {
   };
 }
 ```
+
+<Callout title="Existing projects" type="info">
+  If you already have a `cn` helper built with `clsx` and `tailwind-merge`, migrate with `npx shadcn@latest migrate cn`. See the [shadcn CLI migrate cn docs](https://ui.shadcn.com/docs/cli#migrate-cn).
+</Callout>
 
 ### Create a `components.json` file
 

@@ -43,3 +43,7 @@ Stay tuned for more updates and improvements!
 - Added Alert component.
 - Added Segmented Control component.
 - Removed deprecated Native Sheet component in favor of Bottom Sheet.
+
+## September 2026
+
+- Replaced `clsx` and `tailwind-merge` with the [`cn`](https://github.com/shadcn-ui/cn) package. New projects should install `cn` and re-export it from `lib/utils.ts`. Existing projects can run `npx shadcn@latest migrate cn`.
