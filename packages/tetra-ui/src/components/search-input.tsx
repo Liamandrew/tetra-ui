@@ -4,7 +4,7 @@ import {
   InputAddon,
   type InputAddonChildren,
   InputAddonIcon,
-  InputPressable,
+  InputGroup,
   type InputProps,
   useInputAddons,
   useInputFocusState,
@@ -31,17 +31,15 @@ export const SearchInput = ({
   const { isFocused, internalRef, handleFocus, handleBlur, handlePress } =
     useInputFocusState({ onBlur, onFocus });
 
-  const { startAddons, endAddons, pressableClassName } =
-    useInputAddons(children);
+  const { startAddons, endAddons, groupClassName } = useInputAddons(children);
 
   return (
-    <InputPressable
-      className={cn(
-        pressableClassName,
-        "min-h-11 bg-input/40 py-1 pl-0 active:bg-input dark:active:bg-input"
-      )}
+    <InputGroup
+      accessible={false}
+      className={cn(groupClassName, "min-h-11 bg-input/40 py-1 pl-0")}
       disabled={disabled}
       focused={isFocused}
+      inputFocused={isFocused}
       onPress={handlePress}
     >
       <InputAddon align="inline-start">
@@ -63,6 +61,6 @@ export const SearchInput = ({
       />
 
       {endAddons}
-    </InputPressable>
+    </InputGroup>
   );
 };

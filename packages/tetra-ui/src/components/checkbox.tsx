@@ -9,7 +9,7 @@ import Animated, {
 import { useCSSVariable } from "uniwind";
 import { cn } from "@/registry/lib/utils";
 import { CheckIcon } from "@/registry/ui/icons";
-import { InputPressable } from "@/registry/ui/input";
+import { InputGroup, type InputGroupProps } from "@/registry/ui/input";
 
 // Constants
 const ANIMATION_DURATION = 180;
@@ -23,10 +23,7 @@ export type CheckboxProps = Omit<
   invalid?: boolean;
 };
 
-export type CheckboxInputProps = Omit<
-  React.ComponentProps<typeof InputPressable>,
-  "children"
-> & {
+export type CheckboxInputProps = Omit<InputGroupProps, "children"> & {
   checked?: boolean;
   invalid?: boolean;
   children: React.ReactNode;
@@ -85,12 +82,20 @@ export const CheckboxInput = ({
   checked,
   invalid,
   children,
+  disabled,
+  focused,
   ...props
 }: CheckboxInputProps) => {
   return (
-    <InputPressable {...props} className={cn(className)} invalid={invalid}>
+    <InputGroup
+      {...props}
+      className={className}
+      disabled={disabled}
+      focused={focused}
+      invalid={invalid}
+    >
       <Checkbox checked={checked} invalid={invalid} />
       <Text className="text-base text-foreground">{children}</Text>
-    </InputPressable>
+    </InputGroup>
   );
 };

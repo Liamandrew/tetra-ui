@@ -8,15 +8,10 @@ import {
   useMemo,
   useState,
 } from "react";
-import {
-  type GestureResponderEvent,
-  type PressableProps,
-  Text,
-  View,
-} from "react-native";
+import { type GestureResponderEvent, Text, View } from "react-native";
 import { cn } from "@/registry/lib/utils";
 import { Checkbox } from "@/registry/ui/checkbox";
-import { InputPressable } from "@/registry/ui/input";
+import { InputGroup, type InputGroupProps } from "@/registry/ui/input";
 import { Radio } from "@/registry/ui/radio";
 import { Stack, type StackProps } from "@/registry/ui/stack";
 
@@ -51,7 +46,7 @@ export type ChoiceboxProps = {
   children: React.ReactNode;
 };
 
-export type ChoiceboxItemProps = Omit<PressableProps, "children"> & {
+export type ChoiceboxItemProps = Omit<InputGroupProps, "children"> & {
   value: string;
   disabled?: boolean;
   children: React.ReactNode;
@@ -280,12 +275,12 @@ export const ChoiceboxItem = ({
 
   return (
     <ChoiceboxItemContext.Provider value={itemCtx}>
-      <InputPressable
+      <InputGroup
         {...props}
         accessibilityRole={accessibilityRole}
         accessibilityState={{ checked: selected, disabled }}
         className={cn(
-          "items-start py-3",
+          "items-start gap-3 py-3",
           selected && "border-primary",
           className
         )}
@@ -294,13 +289,9 @@ export const ChoiceboxItem = ({
         invalid={invalid}
         onPress={handlePress}
       >
-        <View className="w-full flex-row items-start gap-3">
-          <View className="min-w-0 flex-1">{content}</View>
-          <View className="shrink-0">
-            {indicator ?? <ChoiceboxIndicator />}
-          </View>
-        </View>
-      </InputPressable>
+        <View className="min-w-0 flex-1">{content}</View>
+        <View className="shrink-0">{indicator ?? <ChoiceboxIndicator />}</View>
+      </InputGroup>
     </ChoiceboxItemContext.Provider>
   );
 };

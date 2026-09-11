@@ -3,6 +3,7 @@ import { createContext, useContext } from "react";
 type BottomSheetContextValue = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  fitToContents: boolean;
 };
 
 export const BottomSheetContext = createContext<BottomSheetContextValue | null>(

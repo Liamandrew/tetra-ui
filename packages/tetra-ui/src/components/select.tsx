@@ -334,7 +334,7 @@ export const SelectInput = ({
       {children as InputAddonChild}
 
       <InputAddon align="inline-end">
-        <Animated.View style={animatedStyle}>
+        <Animated.View pointerEvents="box-none" style={animatedStyle}>
           <InputAddonIcon>
             <ChevronDownIcon />
           </InputAddonIcon>

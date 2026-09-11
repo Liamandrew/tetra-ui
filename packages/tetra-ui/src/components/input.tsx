@@ -35,7 +35,6 @@ import {
 
 // Constants
 const ANIMATION_DURATION = 120;
-const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
 // Types
 type InternalInputAddonButtonContextType = VariantProps<
@@ -50,11 +49,27 @@ export type InputProps = Omit<
   disabled?: boolean;
 };
 
-export type InputPressableProps = React.ComponentProps<typeof Pressable> & {
-  disabled?: boolean;
-  invalid?: boolean;
-  focused?: boolean;
-};
+export type InputGroupProps = React.ComponentProps<typeof View> &
+  Pick<
+    React.ComponentProps<typeof Pressable>,
+    | "onPress"
+    | "onPressIn"
+    | "onPressOut"
+    | "onLongPress"
+    | "accessibilityRole"
+    | "accessibilityState"
+    | "accessibilityLabel"
+    | "accessibilityHint"
+    | "accessible"
+    | "hitSlop"
+    | "testID"
+    | "delayLongPress"
+  > & {
+    disabled?: boolean;
+    invalid?: boolean;
+    focused?: boolean;
+    inputFocused?: boolean;
+  };
 
 export type InputAddonProps = React.ComponentProps<typeof View> &
   VariantProps<typeof inputAddonVariants> & {
@@ -109,15 +124,28 @@ export const Input = ({ className, disabled, ...props }: InputProps) => {
   );
 };
 
-export const InputPressable = ({
+export const InputGroup = ({
   children,
   disabled,
   invalid,
   focused,
+  inputFocused = false,
   onPress,
+  onPressIn,
+  onPressOut,
+  onLongPress,
+  accessibilityRole,
+  accessibilityState,
+  accessibilityLabel,
+  accessibilityHint,
+  accessible,
+  hitSlop,
+  testID,
+  delayLongPress,
   className,
+  style,
   ...props
-}: InputPressableProps) => {
+}: InputGroupProps) => {
   const [inputColor, ringColor, destructiveColor] = useCSSVariable([
     "--color-input",
     "--color-ring",
@@ -158,26 +186,51 @@ export const InputPressable = ({
     };
   });
 
+  const isPressable = Boolean(
+    onPress ?? onPressIn ?? onPressOut ?? onLongPress
+  );
+
   return (
-    <AnimatedPressable
+    <Animated.View
       {...props}
-      accessibilityState={{ disabled }}
       className={cn(
-        "flex min-h-12 w-full flex-row items-center gap-2 rounded-lg border-continuous bg-card px-3 py-2 active:bg-accent/90 disabled:opacity-50 dark:active:bg-accent/50",
+        "relative flex min-h-12 w-full flex-row items-center gap-2 rounded-lg border-continuous bg-card px-3 py-2",
+        disabled && "opacity-50",
         className
       )}
-      disabled={disabled}
-      onPress={onPress}
-      style={animatedStyle}
+      style={[animatedStyle, style]}
     >
       {children}
-    </AnimatedPressable>
+      {isPressable ? (
+        <Pressable
+          accessibilityHint={accessibilityHint}
+          accessibilityLabel={accessibilityLabel}
+          accessibilityRole={accessibilityRole}
+          accessibilityState={accessibilityState}
+          accessible={accessible}
+          className="absolute inset-0 z-0 active:bg-accent/90 dark:active:bg-accent/50"
+          delayLongPress={delayLongPress}
+          disabled={disabled}
+          hitSlop={hitSlop}
+          onLongPress={onLongPress}
+          onPress={onPress}
+          onPressIn={onPressIn}
+          onPressOut={onPressOut}
+          pointerEvents={inputFocused ? "none" : "auto"}
+          testID={testID}
+        />
+      ) : null}
+    </Animated.View>
   );
 };
 
 export const InputAddon = ({ align, className, ...props }: InputAddonProps) => {
   return (
-    <View className={cn(inputAddonVariants({ align }), className)} {...props} />
+    <View
+      className={cn(inputAddonVariants({ align }), className)}
+      {...props}
+      pointerEvents="box-none"
+    />
   );
 };
 
@@ -196,10 +249,14 @@ export const InputAddonIcon = ({
     return null;
   }
 
-  return cloneElement(child as React.ReactElement<InputAddonIconProps>, {
-    ...props,
-    className: cn("size-6 text-muted-foreground", props.className),
-  });
+  return cloneElement(
+    child as React.ReactElement<{ className?: string; pointerEvents?: "none" }>,
+    {
+      ...props,
+      className: cn("size-6 text-muted-foreground", props.className),
+      pointerEvents: "none",
+    }
+  );
 };
 
 export const InputAddonButton = ({
@@ -218,6 +275,7 @@ export const InputAddonButton = ({
         busy={busy}
         className={cn(inputAddonButtonVariants({ size }), className)}
         disabled={disabled}
+        focusable={false}
         size={size}
         variant={variant}
       />
@@ -313,7 +371,7 @@ export const useInputAddons = (
 
   return {
     endAddons,
-    pressableClassName: cn(
+    groupClassName: cn(
       startAddons.length && "pl-0",
       endAddons.length && "pr-0"
     ),
@@ -322,19 +380,22 @@ export const useInputAddons = (
 };
 
 // Styles
-const inputAddonVariants = cva("flex items-center justify-center", {
-  defaultVariants: {
-    align: "inline-start",
-  },
-  variants: {
-    align: {
-      "inline-end": "pr-3",
-      "inline-start": "pl-3",
+const inputAddonVariants = cva(
+  "relative z-10 flex items-center justify-center",
+  {
+    defaultVariants: {
+      align: "inline-start",
     },
-  },
-});
+    variants: {
+      align: {
+        "inline-end": "pr-3",
+        "inline-start": "pl-3",
+      },
+    },
+  }
+);
 
-const inputAddonButtonVariants = cva("w-fit gap-1 shadow-none", {
+const inputAddonButtonVariants = cva("z-10 w-fit gap-1 shadow-none", {
   defaultVariants: {
     size: "sm",
   },

@@ -199,7 +199,7 @@ Root selection state. Renders children in a `Stack`.
 
 ### ChoiceboxItem
 
-Extends [`InputPressable`](/docs/components/input) props (Pressable with focus ring and invalid styles). Must be used within `Choicebox`.
+Extends [`InputGroup`](/docs/components/input#inputgroup). Must be used within `Choicebox`.
 
 <TypeTable
   type={{
@@ -230,3 +230,9 @@ Extends [React Native Text](https://reactnative.dev/docs/text#props) props.
 ### ChoiceboxIndicator
 
 Renders a `Radio` or `Checkbox` from root `type` and selection state. No props. Auto-injected when omitted from `ChoiceboxItem`.
+
+## Changelog
+
+### 2026-09-11 - Migrate to InputGroup
+
+- Migrate `InputPressable` to `InputGroup` and change press behavior.

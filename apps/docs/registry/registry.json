@@ -308,7 +308,7 @@
           "type": "registry:ui"
         },
         {
-          "path": "../../packages/tetra-ui/src/components/bottom-sheet/types.ts",
+          "path": "../../packages/tetra-ui/src/components/bottom-sheet/bottom-sheet-types.ts",
           "type": "registry:ui"
         },
         {
@@ -317,6 +317,10 @@
         },
         {
           "path": "../../packages/tetra-ui/src/components/bottom-sheet/bottom-sheet-common.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "../../packages/tetra-ui/src/components/bottom-sheet/bottom-sheet-utils.ts",
           "type": "registry:ui"
         },
         {

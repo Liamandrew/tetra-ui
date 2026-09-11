@@ -1,4 +1,7 @@
-import type { BottomSheetContentProps, BottomSheetFooterProps } from "./types";
+import type {
+  BottomSheetContentProps,
+  BottomSheetFooterProps,
+} from "./bottom-sheet-types";
 
 export const BottomSheetContent = (_: BottomSheetContentProps) => {
   return null;

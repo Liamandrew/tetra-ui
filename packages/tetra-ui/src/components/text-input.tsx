@@ -2,7 +2,7 @@ import { cn } from "@/registry/lib/utils";
 import {
   Input,
   type InputAddonChildren,
-  InputPressable,
+  InputGroup,
   type InputProps,
   useInputAddons,
   useInputFocusState,
@@ -29,14 +29,15 @@ export const TextInput = ({
   const { isFocused, internalRef, handleFocus, handleBlur, handlePress } =
     useInputFocusState({ onBlur, onFocus });
 
-  const { startAddons, endAddons, pressableClassName } =
-    useInputAddons(children);
+  const { startAddons, endAddons, groupClassName } = useInputAddons(children);
 
   return (
-    <InputPressable
-      className={cn("h-12 android:py-0", pressableClassName)}
+    <InputGroup
+      accessible={false}
+      className={cn("h-12 android:py-0", groupClassName)}
       disabled={disabled}
       focused={isFocused}
+      inputFocused={isFocused}
       invalid={invalid}
       onPress={handlePress}
     >
@@ -51,11 +52,10 @@ export const TextInput = ({
         numberOfLines={1}
         onBlur={handleBlur}
         onFocus={handleFocus}
-        pointerEvents={isFocused ? undefined : "none"}
         ref={internalRef}
       />
 
       {endAddons}
-    </InputPressable>
+    </InputGroup>
   );
 };

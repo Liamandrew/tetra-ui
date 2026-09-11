@@ -364,9 +364,9 @@
           "target": "@ui/bottom-sheet/index.ts"
         },
         {
-          "path": "ui/bottom-sheet/types.ts",
+          "path": "ui/bottom-sheet/bottom-sheet-types.ts",
           "type": "registry:ui",
-          "target": "@ui/bottom-sheet/types.ts"
+          "target": "@ui/bottom-sheet/bottom-sheet-types.ts"
         },
         {
           "path": "ui/bottom-sheet/bottom-sheet-context.ts",
@@ -377,6 +377,11 @@
           "path": "ui/bottom-sheet/bottom-sheet-common.tsx",
           "type": "registry:ui",
           "target": "@ui/bottom-sheet/bottom-sheet-common.tsx"
+        },
+        {
+          "path": "ui/bottom-sheet/bottom-sheet-utils.ts",
+          "type": "registry:ui",
+          "target": "@ui/bottom-sheet/bottom-sheet-utils.ts"
         },
         {
           "path": "ui/bottom-sheet/bottom-sheet.tsx",

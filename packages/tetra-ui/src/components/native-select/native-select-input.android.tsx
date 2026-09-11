@@ -11,7 +11,7 @@ import { menuAnchor } from "@expo/ui/jetpack-compose/modifiers";
 import { View } from "react-native";
 import { useCSSVariable } from "uniwind";
 
-// Must match InputPressable's focused/invalid outlineWidth. Outline paints
+// Must match InputGroup's focused/invalid outlineWidth. Outline paints
 // outside layout; RNHostView/AndroidView clips to the hosted child's bounds.
 const INPUT_OUTLINE_MAX_WIDTH = 2;
 

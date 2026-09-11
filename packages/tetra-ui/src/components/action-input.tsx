@@ -5,13 +5,13 @@ import {
   InputAddon,
   type InputAddonChildren,
   InputAddonIcon,
-  InputPressable,
-  type InputPressableProps,
+  InputGroup,
+  type InputGroupProps,
   useInputAddons,
 } from "@/registry/ui/input";
 
 // Types
-export type ActionInputProps = InputPressableProps & {
+export type ActionInputProps = Omit<InputGroupProps, "children"> & {
   value?: string;
   placeholder: string;
   children?: InputAddonChildren;
@@ -23,15 +23,21 @@ export const ActionInput = ({
   placeholder,
   children,
   className,
+  disabled,
+  invalid,
+  focused,
   ...props
 }: ActionInputProps) => {
-  const { startAddons, endAddons, pressableClassName } =
-    useInputAddons(children);
+  const { startAddons, endAddons, groupClassName } = useInputAddons(children);
 
   return (
-    <InputPressable
+    <InputGroup
+      accessibilityRole="button"
       {...props}
-      className={cn(pressableClassName, "pr-0", className)}
+      className={cn(groupClassName, "pr-0", className)}
+      disabled={disabled}
+      focused={focused}
+      invalid={invalid}
     >
       {startAddons}
 
@@ -52,6 +58,6 @@ export const ActionInput = ({
           </InputAddonIcon>
         </InputAddon>
       )}
-    </InputPressable>
+    </InputGroup>
   );
 };

@@ -471,7 +471,7 @@ export const NativeSelectInput = ({
     return addons;
   }, [children]);
 
-  const { startAddons, endAddons, pressableClassName } = useInputAddons(
+  const { startAddons, endAddons, groupClassName } = useInputAddons(
     addonElements as InputAddonChildren
   );
 
@@ -518,7 +518,7 @@ export const NativeSelectInput = ({
         className={cn(
           "flex min-h-12 w-full flex-row items-center gap-2 rounded-lg border border-input bg-background py-2 pr-0 pl-3",
           disabled && "opacity-50",
-          pressableClassName,
+          groupClassName,
           className
         )}
         pointerEvents="box-none"
@@ -547,7 +547,7 @@ export const NativeSelectInput = ({
   const sheetInputAddons = [
     ...startAddons,
     <InputAddon align="inline-end" key="native-select-chevron">
-      <Animated.View style={animatedStyle}>
+      <Animated.View pointerEvents="box-none" style={animatedStyle}>
         <InputAddonIcon>
           <ChevronDownIcon />
         </InputAddonIcon>
@@ -559,7 +559,7 @@ export const NativeSelectInput = ({
   return (
     <ActionInput
       {...props}
-      className={cn(pressableClassName, className)}
+      className={cn(groupClassName, className)}
       disabled={disabled}
       focused={open}
       placeholder={placeholder}

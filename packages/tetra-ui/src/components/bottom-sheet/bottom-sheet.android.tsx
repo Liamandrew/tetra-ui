@@ -13,22 +13,20 @@ import {
   padding,
   weight,
 } from "@expo/ui/jetpack-compose/modifiers";
-import {
-  Children,
-  Fragment,
-  isValidElement,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Keyboard, useWindowDimensions, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useCSSVariable } from "uniwind";
 import { cn } from "@/registry/lib/utils";
-import { useBottomSheetContext } from "./bottom-sheet-context";
-import type { BottomSheetContentProps, BottomSheetFooterProps } from "./types";
+import {
+  BottomSheetContext,
+  useBottomSheetContext,
+} from "./bottom-sheet-context";
+import type {
+  BottomSheetContentProps,
+  BottomSheetFooterProps,
+} from "./bottom-sheet-types";
+import { splitBottomSheetChildren } from "./bottom-sheet-utils";
 
 // Constants
 const BOTTOM_SHEET_PADDING = 16;
@@ -70,6 +68,15 @@ export const BottomSheetContent = ({
 
   const hasSnapPoints = Boolean(snapPoints && snapPoints.length > 0);
   const hasFooter = Boolean(footer);
+  const fitToContents = !hasSnapPoints;
+  const sheetContext = useMemo(
+    () => ({
+      fitToContents,
+      onOpenChange,
+      open,
+    }),
+    [fitToContents, onOpenChange, open]
+  );
 
   useEffect(() => {
     if (open) {
@@ -126,10 +133,7 @@ export const BottomSheetContent = ({
   }
 
   return (
-    <Host
-      pointerEvents="none"
-      style={{ position: "absolute", width: windowWidth }}
-    >
+    <Host pointerEvents="none" style={{ position: "absolute" }}>
       <ModalBottomSheet
         containerColor={backgroundColor}
         onDismissRequest={handleDismiss}
@@ -139,17 +143,26 @@ export const BottomSheetContent = ({
       >
         {showDragIndicator ? <BottomSheetDragHandle /> : null}
 
-        <Column modifiers={contentModifiers}>
-          <Column modifiers={hasSnapPoints ? [weight(1)] : undefined}>
-            <RNHostView matchContents={!hasSnapPoints}>
-              <View {...props}>
-                {header}
-                {body}
-              </View>
-            </RNHostView>
+        <BottomSheetContext.Provider value={sheetContext}>
+          <Column modifiers={contentModifiers}>
+            <Column modifiers={fitToContents ? undefined : [weight(1)]}>
+              <RNHostView matchContents={fitToContents}>
+                <View
+                  {...props}
+                  style={[
+                    fitToContents
+                      ? { width: windowWidth }
+                      : { flexGrow: 1, height: 0 },
+                  ]}
+                >
+                  {header}
+                  {body}
+                </View>
+              </RNHostView>
+            </Column>
+            {footer}
           </Column>
-          {footer}
-        </Column>
+        </BottomSheetContext.Provider>
       </ModalBottomSheet>
     </Host>
   );
@@ -216,58 +229,4 @@ const shouldFillMaxHeight = (snapPoints: SnapPoint[] | undefined): boolean => {
         "fraction" in snapPoint &&
         snapPoint.fraction >= 1)
   );
-};
-
-const getChildDisplayName = (child: React.ReactNode) => {
-  if (!isValidElement(child)) {
-    return;
-  }
-  return (child.type as { displayName?: string }).displayName;
-};
-
-const flattenChildren = (children: React.ReactNode): React.ReactNode[] => {
-  const flattened: React.ReactNode[] = [];
-
-  Children.forEach(children, (child) => {
-    if (child === null || child === undefined || typeof child === "boolean") {
-      return;
-    }
-
-    if (isValidElement(child) && child.type === Fragment) {
-      flattened.push(
-        ...flattenChildren(
-          (child.props as { children?: React.ReactNode }).children
-        )
-      );
-      return;
-    }
-
-    flattened.push(child);
-  });
-
-  return flattened;
-};
-
-const splitBottomSheetChildren = (children: React.ReactNode) => {
-  const body: React.ReactNode[] = [];
-  let footer: React.ReactNode = null;
-  let header: React.ReactNode = null;
-
-  for (const child of flattenChildren(children)) {
-    const displayName = getChildDisplayName(child);
-
-    if (displayName === "BottomSheetFooter") {
-      footer = child;
-      continue;
-    }
-
-    if (displayName === "BottomSheetHeader") {
-      header = child;
-      continue;
-    }
-
-    body.push(child);
-  }
-
-  return { body, footer, header };
 };

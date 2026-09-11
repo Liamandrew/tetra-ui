@@ -1,7 +1,7 @@
 import { cn } from "@/registry/lib/utils";
 import {
   Input,
-  InputPressable,
+  InputGroup,
   type InputProps,
   useInputFocusState,
 } from "@/registry/ui/input";
@@ -27,9 +27,11 @@ export const TextareaInput = ({
     useInputFocusState({ onBlur, onFocus });
 
   return (
-    <InputPressable
+    <InputGroup
+      accessible={false}
       disabled={disabled}
       focused={isFocused}
+      inputFocused={isFocused}
       invalid={invalid}
       onPress={handlePress}
     >
@@ -40,11 +42,10 @@ export const TextareaInput = ({
         multiline
         onBlur={handleBlur}
         onFocus={handleFocus}
-        pointerEvents={isFocused || disabled ? undefined : "none"}
         ref={internalRef}
         scrollEnabled={false}
         textAlignVertical="top"
       />
-    </InputPressable>
+    </InputGroup>
   );
 };

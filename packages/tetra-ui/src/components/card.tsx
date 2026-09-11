@@ -25,7 +25,7 @@ export const CardHeader = ({
 }: React.ComponentProps<typeof View>) => {
   return (
     <View
-      className={cn("flex items-start gap-1 px-4", className)}
+      className={cn("flex flex-1 items-start gap-1 px-4", className)}
       data-slot="card-header"
       {...props}
     />

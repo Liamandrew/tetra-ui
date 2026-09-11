@@ -23,7 +23,8 @@
         "noJsxPropsBind": "off"
       },
       "suspicious": {
-        "noUnknownAtRules": "off"
+        "noUnknownAtRules": "off",
+        "noDuplicateCustomProperties": "off"
       },
       "style": {
         "noMultiAssign": "off",
