@@ -25,7 +25,7 @@ import {
   useMemo,
   useState,
 } from "react";
-import type { PressableProps } from "react-native";
+import { Platform, type PressableProps } from "react-native";
 import { useCSSVariable } from "uniwind";
 import type {
   MenuContentProps,
@@ -105,10 +105,10 @@ export const MenuItem = ({
   const subMenu = useContext(MenuSubAndroidContext);
   const isSubTrigger = useContext(MenuSubTriggerContext);
   const isHorizontalGroup = useContext(MenuGroupHorizontalContext);
-  const destructiveColor = useCSSVariable("--color-destructive") as string;
-  const foregroundColor = useCSSVariable(
-    variant === "destructive" ? "--color-destructive" : "--color-foreground"
-  ) as string;
+  const [foregroundColor, destructiveColor] = useCSSVariable([
+    "--color-foreground",
+    "--color-destructive",
+  ]) as [string, string];
 
   const modifiers = isHorizontalGroup
     ? [
@@ -151,7 +151,13 @@ export const MenuItem = ({
         {children}
         {selected ? (
           <DropdownMenuItemPrimitive.TrailingIcon>
-            <TextPrimitive color={foregroundColor}>✓</TextPrimitive>
+            <TextPrimitive
+              color={
+                variant === "destructive" ? destructiveColor : foregroundColor
+              }
+            >
+              ✓
+            </TextPrimitive>
           </DropdownMenuItemPrimitive.TrailingIcon>
         ) : null}
       </DropdownMenuItemPrimitive>
@@ -161,26 +167,36 @@ export const MenuItem = ({
 
 export const MenuItemLabel = ({ children }: MenuItemLabelProps) => {
   const variant = useMenuItemAndroidContext();
-  const foregroundColor = useCSSVariable(
-    variant === "destructive" ? "--color-destructive" : "--color-foreground"
-  ) as string;
+  const [foregroundColor, destructiveColor] = useCSSVariable([
+    "--color-foreground",
+    "--color-destructive",
+  ]) as [string, string];
 
   return (
     <DropdownMenuItemPrimitive.Text>
-      <TextPrimitive color={foregroundColor}>{children}</TextPrimitive>
+      <TextPrimitive
+        color={variant === "destructive" ? destructiveColor : foregroundColor}
+      >
+        {children}
+      </TextPrimitive>
     </DropdownMenuItemPrimitive.Text>
   );
 };
 
 export const MenuItemIcon = ({ icon }: MenuItemIconProps) => {
   const variant = useMenuItemAndroidContext();
-  const foregroundColor = useCSSVariable(
-    variant === "destructive" ? "--color-destructive" : "--color-foreground"
-  ) as string;
+  const [foregroundColor, destructiveColor] = useCSSVariable([
+    "--color-foreground",
+    "--color-destructive",
+  ]) as [string, string];
 
   return (
     <DropdownMenuItemPrimitive.LeadingIcon>
-      <IconPrimitive color={foregroundColor} name={icon} size={24} />
+      <IconPrimitive
+        color={variant === "destructive" ? destructiveColor : foregroundColor}
+        name={icon}
+        size={24}
+      />
     </DropdownMenuItemPrimitive.LeadingIcon>
   );
 };
@@ -261,7 +277,11 @@ export const MenuTrigger = ({ children, ...props }: MenuTriggerProps) => {
     <DropdownMenuPrimitive.Trigger>
       <RNHostView matchContents {...props}>
         {cloneElement(child as React.ReactElement<PressableProps>, {
-          onPress: () => setExpanded(true),
+          // onPress isn't triggering on Android, so we use onPressIn instead
+          [Platform.select({
+            android: "onPressIn",
+            default: "onPress",
+          })]: () => setExpanded(true),
         })}
       </RNHostView>
     </DropdownMenuPrimitive.Trigger>
