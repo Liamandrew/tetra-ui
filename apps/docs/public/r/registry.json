@@ -45,7 +45,9 @@
       "type": "registry:ui",
       "title": "Alert",
       "description": "Displays a callout for user attention.",
-      "registryDependencies": [],
+      "registryDependencies": [
+        "@tetra-ui/slots"
+      ],
       "files": [
         {
           "path": "ui/alert.tsx",
@@ -160,6 +162,7 @@
         "@tetra-ui/checkbox",
         "@tetra-ui/input",
         "@tetra-ui/radio",
+        "@tetra-ui/slots",
         "@tetra-ui/stack"
       ],
       "files": [
@@ -422,7 +425,8 @@
         "@tetra-ui/bottom-sheet",
         "@tetra-ui/icons",
         "@tetra-ui/input",
-        "@tetra-ui/slot"
+        "@tetra-ui/slot",
+        "@tetra-ui/slots"
       ],
       "files": [
         {
@@ -434,6 +438,11 @@
           "path": "ui/native-date-select/native-date-select.tsx",
           "type": "registry:ui",
           "target": "@ui/native-date-select/native-date-select.tsx"
+        },
+        {
+          "path": "ui/native-date-select/native-date-select-slots.ts",
+          "type": "registry:ui",
+          "target": "@ui/native-date-select/native-date-select-slots.ts"
         },
         {
           "path": "ui/native-date-select/native-date-select-picker.tsx",
@@ -461,7 +470,8 @@
         "@tetra-ui/bottom-sheet",
         "@tetra-ui/icons",
         "@tetra-ui/input",
-        "@tetra-ui/slot"
+        "@tetra-ui/slot",
+        "@tetra-ui/slots"
       ],
       "files": [
         {
@@ -473,6 +483,11 @@
           "path": "ui/native-select/native-select.tsx",
           "type": "registry:ui",
           "target": "@ui/native-select/native-select.tsx"
+        },
+        {
+          "path": "ui/native-select/native-select-slots.ts",
+          "type": "registry:ui",
+          "target": "@ui/native-select/native-select-slots.ts"
         },
         {
           "path": "ui/native-select/native-select-input.tsx",
@@ -813,7 +828,9 @@
         "react-native-gesture-handler",
         "react-native-reanimated"
       ],
-      "registryDependencies": [],
+      "registryDependencies": [
+        "@tetra-ui/slots"
+      ],
       "files": [
         {
           "path": "ui/swipeable.tsx",

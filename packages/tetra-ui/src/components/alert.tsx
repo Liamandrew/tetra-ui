@@ -3,12 +3,16 @@ import {
   Children,
   cloneElement,
   createContext,
-  isValidElement,
   useContext,
   useMemo,
 } from "react";
 import { Text, View } from "react-native";
+import { createSlots } from "@/registry/lib/slots";
 import { cn } from "@/registry/lib/utils";
+
+const alertSlots = createSlots<"action" | "icon">({
+  errorMessage: "Alert parts must be rendered inside Alert",
+});
 
 // Types
 type AlertVariant = VariantProps<typeof alertVariants>["variant"];
@@ -29,13 +33,6 @@ type AlertIconProps = {
 
 type ClassNameElement = React.ReactElement<{ className?: string }>;
 
-type AlertSlot = "icon" | "action";
-
-type AlertSlotComponent = {
-  displayName?: string;
-  slot?: AlertSlot;
-};
-
 // Context
 const AlertContext = createContext<AlertContextValue | null>(null);
 
@@ -47,20 +44,55 @@ const useAlertContext = () => {
   return context;
 };
 
-const getAlertSlot = (type: string | React.JSXElementConstructor<unknown>) => {
-  if (typeof type === "string") {
-    return;
-  }
+const AlertLayout = ({
+  children,
+  className,
+  variant = "default",
+  style,
+  ...props
+}: AlertProps) => {
+  const hasAction = alertSlots.useHasSlot("action");
 
-  return (type as AlertSlotComponent).slot;
+  return (
+    <View
+      accessibilityRole="alert"
+      className={cn(
+        alertVariants({ className, variant }),
+        hasAction && "pr-24"
+      )}
+      data-slot="alert"
+      style={[
+        {
+          alignItems: "flex-start",
+          flexDirection: "row",
+          gap: 8,
+        },
+        style,
+      ]}
+      {...props}
+    >
+      <alertSlots.Outlet name="icon" />
+      <View
+        className="min-w-0 flex-1 gap-0.5"
+        style={{
+          flexDirection: "column",
+          flexGrow: 1,
+          flexShrink: 1,
+          gap: 2,
+          minWidth: 0,
+        }}
+      >
+        {children}
+      </View>
+      <alertSlots.Outlet name="action" />
+    </View>
+  );
 };
 
 // Components
 export const Alert = ({
   children,
-  className,
   variant = "default",
-  style,
   ...props
 }: AlertProps) => {
   const ctx = useMemo(
@@ -70,68 +102,13 @@ export const Alert = ({
     [variant]
   );
 
-  const childArray = Children.toArray(children);
-  const icons: React.ReactNode[] = [];
-  const actions: React.ReactNode[] = [];
-  const content: React.ReactNode[] = [];
-
-  for (const child of childArray) {
-    if (!isValidElement(child)) {
-      content.push(child);
-      continue;
-    }
-
-    const slot = getAlertSlot(child.type);
-
-    if (slot === "icon") {
-      icons.push(child);
-      continue;
-    }
-
-    if (slot === "action") {
-      actions.push(child);
-      continue;
-    }
-
-    content.push(child);
-  }
-
-  const hasAction = actions.length > 0;
-
   return (
     <AlertContext.Provider value={ctx}>
-      <View
-        accessibilityRole="alert"
-        className={cn(
-          alertVariants({ className, variant }),
-          hasAction && "pr-24"
-        )}
-        data-slot="alert"
-        style={[
-          {
-            alignItems: "flex-start",
-            flexDirection: "row",
-            gap: 8,
-          },
-          style,
-        ]}
-        {...props}
-      >
-        {icons}
-        <View
-          className="min-w-0 flex-1 gap-0.5"
-          style={{
-            flexDirection: "column",
-            flexGrow: 1,
-            flexShrink: 1,
-            gap: 2,
-            minWidth: 0,
-          }}
-        >
-          {content}
-        </View>
-        {actions}
-      </View>
+      <alertSlots.Provider>
+        <AlertLayout variant={variant} {...props}>
+          {children}
+        </AlertLayout>
+      </alertSlots.Provider>
     </AlertContext.Provider>
   );
 };
@@ -154,20 +131,21 @@ export const AlertIcon = ({
   const element = child as ClassNameElement;
 
   return (
-    <View className="pt-0.5" data-slot="alert-icon" style={{ flexShrink: 0 }}>
-      {cloneElement(element, {
-        ...props,
-        className: cn(
-          alertIconVariants({ variant }),
-          className,
-          element.props.className
-        ),
-      })}
-    </View>
+    <alertSlots.Fill name="icon">
+      <View className="pt-0.5" data-slot="alert-icon" style={{ flexShrink: 0 }}>
+        {cloneElement(element, {
+          ...props,
+          className: cn(
+            alertIconVariants({ variant }),
+            className,
+            element.props.className
+          ),
+        })}
+      </View>
+    </alertSlots.Fill>
   );
 };
 AlertIcon.displayName = "AlertIcon";
-AlertIcon.slot = "icon" as const;
 
 export const AlertTitle = ({
   className,
@@ -207,16 +185,17 @@ export const AlertAction = ({
   ...props
 }: React.ComponentProps<typeof View>) => {
   return (
-    <View
-      className={className}
-      data-slot="alert-action"
-      style={[{ position: "absolute", right: 8, top: 8 }, style]}
-      {...props}
-    />
+    <alertSlots.Fill name="action">
+      <View
+        className={className}
+        data-slot="alert-action"
+        style={[{ position: "absolute", right: 8, top: 8 }, style]}
+        {...props}
+      />
+    </alertSlots.Fill>
   );
 };
 AlertAction.displayName = "AlertAction";
-AlertAction.slot = "action" as const;
 
 // Styles
 const alertVariants = cva(

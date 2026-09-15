@@ -53,14 +53,11 @@ import {
   NativeSelectTriggerAnchor,
 } from "./native-select-input";
 import { NativeSelectPicker } from "./native-select-picker";
+import { nativeSelectSlots } from "./native-select-slots";
 
 // Constants
 const ANIMATION_DURATION = 280;
 const ANIMATION_EASING = Easing.out(Easing.cubic);
-const NATIVE_SELECT_INPUT_NAME = "NativeSelectInput";
-const NATIVE_SELECT_TRIGGER_NAME = "NativeSelectTrigger";
-const NATIVE_SELECT_CONTENT_NAME = "NativeSelectContent";
-const NATIVE_SELECT_SHEET_FOOTER_NAME = "NativeSelectSheetFooter";
 const WHEEL_PICKER_HEIGHT = 216;
 const DEFAULT_PLACEHOLDER = "Select...";
 
@@ -89,8 +86,7 @@ type NativeSelectContextProps<T extends PickerItemValue> = {
   setPlaceholder: (placeholder: string) => void;
   variant: NativeSelectVariant;
   setVariant: (variant: NativeSelectVariant) => void;
-  hasTrigger: boolean;
-  hasInput: boolean;
+  slotsReady: boolean;
   className?: string;
   testID?: string;
 };
@@ -140,11 +136,20 @@ const useNativeSelect = () => {
 };
 
 // Helpers
-const getDisplayName = (type: React.ReactElement["type"]) => {
-  if (typeof type === "string" || !("displayName" in type)) {
-    return;
+const partitionNativeSelectContent = (children: React.ReactNode) => {
+  const itemElements: React.ReactElement[] = [];
+  const slotChildren: React.ReactNode[] = [];
+
+  for (const child of Children.toArray(children)) {
+    if (isValidElement(child) && child.type === NativeSelectItem) {
+      itemElements.push(child);
+      continue;
+    }
+
+    slotChildren.push(child);
   }
-  return type.displayName;
+
+  return { itemElements, slotChildren };
 };
 
 const extractNativeSelectItems = <T extends PickerItemValue>(
@@ -164,67 +169,6 @@ const extractNativeSelectItems = <T extends PickerItemValue>(
   return items;
 };
 
-const splitNativeSelectContentChildren = (children: React.ReactNode) => {
-  const itemElements: React.ReactElement[] = [];
-  let sheetFooter: React.ReactElement | undefined;
-
-  for (const child of Children.toArray(children)) {
-    if (!isValidElement(child)) {
-      continue;
-    }
-
-    if (child.type === NativeSelectItem) {
-      itemElements.push(child);
-      continue;
-    }
-
-    if (
-      child.type === NativeSelectSheetFooter ||
-      getDisplayName(child.type) === NATIVE_SELECT_SHEET_FOOTER_NAME
-    ) {
-      sheetFooter = child;
-    }
-  }
-
-  return { itemElements, sheetFooter };
-};
-
-const getNativeSelectFormFlags = (children: React.ReactNode) => {
-  let hasTrigger = false;
-  let hasInput = false;
-  let inputVariant: NativeSelectVariant | undefined;
-
-  const visit = (node: React.ReactNode) => {
-    for (const child of Children.toArray(node)) {
-      if (!isValidElement(child)) {
-        continue;
-      }
-
-      const name = getDisplayName(child.type);
-      if (name === NATIVE_SELECT_TRIGGER_NAME) {
-        hasTrigger = true;
-      }
-      if (name === NATIVE_SELECT_INPUT_NAME) {
-        hasInput = true;
-        const props = child.props as { variant?: NativeSelectVariant };
-        inputVariant = props.variant ?? "wheel";
-      }
-
-      if (
-        child.props &&
-        typeof child.props === "object" &&
-        "children" in child.props
-      ) {
-        visit((child.props as { children?: React.ReactNode }).children);
-      }
-    }
-  };
-
-  visit(children);
-
-  return { hasInput, hasTrigger, inputVariant };
-};
-
 // Components
 export const NativeSelectItem = PickerPrimitive.Item;
 
@@ -232,7 +176,17 @@ export const NativeSelectItem = PickerPrimitive.Item;
  * Native single-selection input built on Expo UI Picker.
  * Always compose with NativeSelectContent. Optionally add Trigger and Input.
  */
-export const NativeSelect = <T extends PickerItemValue>({
+export const NativeSelect = <T extends PickerItemValue>(
+  props: NativeSelectProps<T>
+) => {
+  return (
+    <nativeSelectSlots.Provider>
+      <NativeSelectRoot {...props} />
+    </nativeSelectSlots.Provider>
+  );
+};
+
+const NativeSelectRoot = <T extends PickerItemValue>({
   open: openProp,
   onOpenChange: onOpenChangeProp,
   value: valueProp,
@@ -248,16 +202,11 @@ export const NativeSelect = <T extends PickerItemValue>({
   const [selectedValue, setSelectedValue] = useState<T>();
   const [itemElements, setItemElements] = useState<React.ReactElement[]>([]);
   const [placeholder, setPlaceholder] = useState(DEFAULT_PLACEHOLDER);
-  // Seeded from root or Input; Input can still override. Do not re-sync from
-  // root props or an Input override will be overwritten.
-  const { hasTrigger, hasInput, inputVariant } = useMemo(
-    () => getNativeSelectFormFlags(children),
-    [children]
-  );
+  const hasTrigger = nativeSelectSlots.useHasSlot("trigger");
+  const hasInput = nativeSelectSlots.useHasSlot("input");
   const hasFormUi = hasTrigger || hasInput;
-  const [variant, setVariant] = useState<NativeSelectVariant>(
-    () => inputVariant ?? (hasFormUi ? "wheel" : variantProp)
-  );
+  const [inputVariant, setVariant] = useState<NativeSelectVariant>();
+  const [slotsReady, setSlotsReady] = useState(false);
 
   const items = useMemo(
     () => extractNativeSelectItems<T>(itemElements),
@@ -269,6 +218,19 @@ export const NativeSelect = <T extends PickerItemValue>({
 
   const isValueControlled = valueProp !== undefined;
   const value = isValueControlled ? valueProp : internalValue;
+
+  // Input/trigger Fills register after this render. Derive variant from slot
+  // presence so a later root effect cannot overwrite Input's `wheel` with the
+  // root default (`menu`). Trigger-only is always wheel.
+  const variant: NativeSelectVariant = hasInput
+    ? (inputVariant ?? "wheel")
+    : hasTrigger
+      ? "wheel"
+      : variantProp;
+
+  useLayoutEffect(() => {
+    setSlotsReady(true);
+  }, []);
 
   useEffect(() => {
     if (value !== undefined) {
@@ -320,8 +282,6 @@ export const NativeSelect = <T extends PickerItemValue>({
     () => ({
       className,
       disabled,
-      hasInput,
-      hasTrigger,
       itemElements,
       items,
       onCancel,
@@ -335,6 +295,7 @@ export const NativeSelect = <T extends PickerItemValue>({
       setPlaceholder,
       setSelectedValue,
       setVariant,
+      slotsReady,
       testID,
       value,
       variant,
@@ -342,8 +303,6 @@ export const NativeSelect = <T extends PickerItemValue>({
     [
       className,
       disabled,
-      hasInput,
-      hasTrigger,
       itemElements,
       items,
       onCancel,
@@ -353,6 +312,7 @@ export const NativeSelect = <T extends PickerItemValue>({
       open,
       placeholder,
       selectedValue,
+      slotsReady,
       testID,
       value,
       variant,
@@ -429,20 +389,32 @@ export const NativeSelectTrigger = ({
   const Comp = asChild ? Slot.Pressable : Pressable;
 
   return (
-    <NativeSelectTriggerAnchor disabled={disabled}>
-      <Comp {...props} disabled={disabled} onPress={handlePress} />
-    </NativeSelectTriggerAnchor>
+    <nativeSelectSlots.Fill name="trigger" passthrough>
+      <NativeSelectTriggerAnchor disabled={disabled}>
+        <Comp {...props} disabled={disabled} onPress={handlePress} />
+      </NativeSelectTriggerAnchor>
+    </nativeSelectSlots.Fill>
   );
 };
 
-NativeSelectTrigger.displayName = NATIVE_SELECT_TRIGGER_NAME;
+NativeSelectTrigger.displayName = "NativeSelectTrigger";
 
 /**
  * Form-styled native select input.
  * - Default / wheel: display-only ActionInput (open via NativeSelectTrigger)
  * - iOS `menu`: non-pressable input shell; only the native menu picker is interactive
  */
-export const NativeSelectInput = ({
+export const NativeSelectInput = (props: NativeSelectInputProps) => {
+  return (
+    <nativeSelectSlots.Fill name="input" passthrough>
+      <NativeSelectInputView {...props} />
+    </nativeSelectSlots.Fill>
+  );
+};
+
+NativeSelectInput.displayName = "NativeSelectInput";
+
+const NativeSelectInputView = ({
   variant = "wheel",
   placeholder = DEFAULT_PLACEHOLDER,
   className,
@@ -571,8 +543,6 @@ export const NativeSelectInput = ({
   );
 };
 
-NativeSelectInput.displayName = NATIVE_SELECT_INPUT_NAME;
-
 /**
  * Presentation surface for the native select. Always required.
  * - Content-only: inline Expo Picker (variant from root)
@@ -593,16 +563,18 @@ export const NativeSelectContent = ({ children }: NativeSelectContentProps) => {
     variant,
     placeholder,
     setItemElements,
-    hasTrigger,
-    hasInput,
+    slotsReady,
     className,
     testID,
   } = useNativeSelect();
 
+  const hasTrigger = nativeSelectSlots.useHasSlot("trigger");
+  const hasInput = nativeSelectSlots.useHasSlot("input");
+  const hasFooter = nativeSelectSlots.useHasSlot("footer");
   const hasFormUi = hasTrigger || hasInput;
 
-  const { itemElements, sheetFooter } = useMemo(
-    () => splitNativeSelectContentChildren(children),
+  const { itemElements, slotChildren } = useMemo(
+    () => partitionNativeSelectContent(children),
     [children]
   );
   const items = useMemo(
@@ -615,7 +587,7 @@ export const NativeSelectContent = ({ children }: NativeSelectContentProps) => {
   }, [itemElements, setItemElements]);
 
   const requiresConfirm =
-    Platform.OS === "ios" && variant === "wheel" && Boolean(sheetFooter);
+    Platform.OS === "ios" && variant === "wheel" && hasFooter;
   const committedValue = value ?? items.at(0)?.value;
   const draftValue = selectedValue ?? committedValue;
   const pickerValue = requiresConfirm ? draftValue : committedValue;
@@ -631,84 +603,101 @@ export const NativeSelectContent = ({ children }: NativeSelectContentProps) => {
     [onValueChange, requiresConfirm, setSelectedValue]
   );
 
+  if (!slotsReady) {
+    return slotChildren;
+  }
+
   if (!hasFormUi) {
     if (committedValue === undefined) {
-      return null;
+      return slotChildren;
     }
 
     return (
-      <NativeSelectPicker
-        appearance={variant}
-        className={className}
-        enabled={!disabled}
-        onValueChange={onValueChange}
-        selectedValue={committedValue}
-        testID={testID}
-      >
-        {itemElements}
-      </NativeSelectPicker>
+      <>
+        {slotChildren}
+        <NativeSelectPicker
+          appearance={variant}
+          className={className}
+          enabled={!disabled}
+          onValueChange={onValueChange}
+          selectedValue={committedValue}
+          testID={testID}
+        >
+          {itemElements}
+        </NativeSelectPicker>
+      </>
     );
   }
 
   // Menu picker is embedded in Input; Content only registers items.
   if (Platform.OS === "ios" && variant === "menu" && hasInput) {
-    return null;
+    return slotChildren;
   }
 
   if (Platform.OS === "android") {
     return (
-      <NativeSelectContentMenu
-        disabled={disabled}
-        items={items}
-        onOpenChange={onOpenChange}
-        onValueChange={onValueChange}
-        open={open}
-        selectedValue={committedValue}
-      />
+      <>
+        {slotChildren}
+        <NativeSelectContentMenu
+          disabled={disabled}
+          items={items}
+          onOpenChange={onOpenChange}
+          onValueChange={onValueChange}
+          open={open}
+          selectedValue={committedValue}
+        />
+      </>
     );
   }
 
   if (pickerValue === undefined) {
-    return null;
+    return slotChildren;
   }
 
   return (
-    <BottomSheet
-      onOpenChange={requiresConfirm ? onCancel : onOpenChange}
-      open={open}
-    >
-      <BottomSheetContent>
-        <BottomSheetHeader>
-          <BottomSheetTitle>{placeholder}</BottomSheetTitle>
-        </BottomSheetHeader>
-        <BottomSheetBody className={sheetFooter ? undefined : "pb-4"}>
-          <NativeSelectPicker
-            appearance="wheel"
-            enabled={!disabled}
-            matchContents={false}
-            onValueChange={handlePickerValueChange}
-            selectedValue={pickerValue}
-            style={{ height: WHEEL_PICKER_HEIGHT, width: "100%" }}
-            testID={testID}
-          >
-            {itemElements}
-          </NativeSelectPicker>
-        </BottomSheetBody>
-        {sheetFooter}
-      </BottomSheetContent>
-    </BottomSheet>
+    <>
+      {slotChildren}
+      <BottomSheet
+        onOpenChange={requiresConfirm ? onCancel : onOpenChange}
+        open={open}
+      >
+        <BottomSheetContent>
+          <BottomSheetHeader>
+            <BottomSheetTitle>{placeholder}</BottomSheetTitle>
+          </BottomSheetHeader>
+          <BottomSheetBody className={hasFooter ? undefined : "pb-4"}>
+            <NativeSelectPicker
+              appearance="wheel"
+              enabled={!disabled}
+              matchContents={false}
+              onValueChange={handlePickerValueChange}
+              selectedValue={pickerValue}
+              style={{ height: WHEEL_PICKER_HEIGHT, width: "100%" }}
+              testID={testID}
+            >
+              {itemElements}
+            </NativeSelectPicker>
+          </BottomSheetBody>
+          <nativeSelectSlots.Outlet name="footer" />
+        </BottomSheetContent>
+      </BottomSheet>
+    </>
   );
 };
 
-NativeSelectContent.displayName = NATIVE_SELECT_CONTENT_NAME;
+NativeSelectContent.displayName = "NativeSelectContent";
 
 export const NativeSelectSheetFooter = (
   props: React.ComponentProps<typeof BottomSheetFooter>
 ) => {
-  return <BottomSheetFooter {...props} />;
+  return (
+    <nativeSelectSlots.Fill name="footer">
+      <BottomSheetFooter {...props} />
+    </nativeSelectSlots.Fill>
+  );
 };
 
-NativeSelectSheetFooter.displayName = NATIVE_SELECT_SHEET_FOOTER_NAME;
+NativeSelectSheetFooter.displayName = "NativeSelectSheetFooter";
 
 export const NativeSelectSheetConfirm = ({
   asChild,

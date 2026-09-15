@@ -9,11 +9,16 @@ import {
   useState,
 } from "react";
 import { type GestureResponderEvent, Text, View } from "react-native";
+import { createSlots } from "@/registry/lib/slots";
 import { cn } from "@/registry/lib/utils";
 import { Checkbox } from "@/registry/ui/checkbox";
 import { InputGroup, type InputGroupProps } from "@/registry/ui/input";
 import { Radio } from "@/registry/ui/radio";
 import { Stack, type StackProps } from "@/registry/ui/stack";
+
+const choiceboxSlots = createSlots<"indicator">({
+  errorMessage: "Choicebox parts must be rendered inside ChoiceboxItem",
+});
 
 // Types
 type ChoiceboxType = "single" | "multiple";
@@ -237,7 +242,6 @@ export const ChoiceboxItem = ({
   const accessibilityRole = type === "multiple" ? "checkbox" : "radio";
 
   const content: React.ReactNode[] = [];
-  let indicator: React.ReactNode = null;
 
   const getContentKey = (child: React.ReactElement) => {
     if (child.type === ChoiceboxItemHeader) {
@@ -251,11 +255,6 @@ export const ChoiceboxItem = ({
   };
 
   Children.forEach(children, (child) => {
-    if (isValidElement(child) && child.type === ChoiceboxIndicator) {
-      indicator = child;
-      return;
-    }
-
     if (typeof child === "string") {
       content.push(
         <ChoiceboxItemTitle key={`${value}-label`}>{child}</ChoiceboxItemTitle>
@@ -275,24 +274,63 @@ export const ChoiceboxItem = ({
 
   return (
     <ChoiceboxItemContext.Provider value={itemCtx}>
-      <InputGroup
-        {...props}
-        accessibilityRole={accessibilityRole}
-        accessibilityState={{ checked: selected, disabled }}
-        className={cn(
-          "items-start gap-3 py-3",
-          selected && "border-primary",
-          className
-        )}
-        disabled={disabled}
-        focused={selected}
-        invalid={invalid}
-        onPress={handlePress}
-      >
-        <View className="min-w-0 flex-1">{content}</View>
-        <View className="shrink-0">{indicator ?? <ChoiceboxIndicator />}</View>
-      </InputGroup>
+      <choiceboxSlots.Provider>
+        <ChoiceboxItemLayout
+          {...props}
+          accessibilityRole={accessibilityRole}
+          className={className}
+          disabled={disabled}
+          invalid={invalid}
+          onPress={handlePress}
+          selected={selected}
+        >
+          {content}
+        </ChoiceboxItemLayout>
+      </choiceboxSlots.Provider>
     </ChoiceboxItemContext.Provider>
+  );
+};
+
+const ChoiceboxItemLayout = ({
+  accessibilityRole,
+  children,
+  className,
+  disabled,
+  invalid,
+  onPress,
+  selected,
+  ...props
+}: Omit<ChoiceboxItemProps, "value" | "children"> & {
+  accessibilityRole: "checkbox" | "radio";
+  children: React.ReactNode;
+  selected: boolean;
+}) => {
+  const hasIndicator = choiceboxSlots.useHasSlot("indicator");
+
+  return (
+    <InputGroup
+      {...props}
+      accessibilityRole={accessibilityRole}
+      accessibilityState={{ checked: selected, disabled }}
+      className={cn(
+        "items-start gap-3 py-3",
+        selected && "border-primary",
+        className
+      )}
+      disabled={disabled}
+      focused={selected}
+      invalid={invalid}
+      onPress={onPress}
+    >
+      <View className="min-w-0 flex-1">{children}</View>
+      <View className="shrink-0">
+        {hasIndicator ? (
+          <choiceboxSlots.Outlet name="indicator" />
+        ) : (
+          <ChoiceboxIndicatorControl />
+        )}
+      </View>
+    </InputGroup>
   );
 };
 
@@ -330,6 +368,14 @@ export const ChoiceboxItemDescription = ({
 };
 
 export const ChoiceboxIndicator = () => {
+  return (
+    <choiceboxSlots.Fill name="indicator">
+      <ChoiceboxIndicatorControl />
+    </choiceboxSlots.Fill>
+  );
+};
+
+const ChoiceboxIndicatorControl = () => {
   const { type, invalid } = useChoiceboxRoot();
   const { selected } = useChoiceboxItem();
 

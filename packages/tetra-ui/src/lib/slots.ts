@@ -133,7 +133,7 @@ export const createSlots = <Name extends string = string>(options?: {
     return passthrough ? children : null;
   };
 
-  const Outlet = ({ name }: OutletProps<Name>) => {
+  const useSlot = (name: Name) => {
     const registry = useRegistry();
     return useSyncExternalStore(
       (onStoreChange) => registry.subscribe(name, onStoreChange),
@@ -141,6 +141,8 @@ export const createSlots = <Name extends string = string>(options?: {
       () => registry.get(name)
     );
   };
+
+  const Outlet = ({ name }: OutletProps<Name>) => useSlot(name);
 
   const useHasSlot = (name: Name) => {
     const registry = useRegistry();
@@ -161,5 +163,6 @@ export const createSlots = <Name extends string = string>(options?: {
     Provider,
     useHasSlot,
     useRegistry,
+    useSlot,
   };
 };

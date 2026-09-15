@@ -7,6 +7,7 @@ import {
   useCallback,
   useContext,
   useEffect,
+  useLayoutEffect,
   useMemo,
   useRef,
   useState,
@@ -30,18 +31,18 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated";
 import { withUniwind } from "uniwind";
+import { createSlots } from "@/registry/lib/slots";
 import { cn } from "@/registry/lib/utils";
 
 export type { SwipeableMethods } from "react-native-gesture-handler/ReanimatedSwipeable";
 
 const Pressable = withUniwind(GestureHandlerPressable);
 
-// Types
-type SwipeableSlot = "content" | "action-group";
+const swipeableSlots = createSlots<"content" | "leading" | "trailing">({
+  errorMessage: "Swipeable parts must be rendered inside Swipeable",
+});
 
-type SwipeableSlotComponent = {
-  slot?: SwipeableSlot;
-};
+// Types
 
 export type SwipeableEdge = "leading" | "trailing";
 
@@ -98,13 +99,10 @@ type SwipeableListContextValue = {
 
 type ClassNameElement = React.ReactElement<{ className?: string }>;
 
-type ParsedSwipeableSlots = {
-  content?: React.ReactNode;
-  contentClassName?: string;
-  contentDisabled?: boolean;
-  contentOnPress?: SwipeableContentProps["onPress"];
-  leadingActions?: React.ReactElement<SwipeableActionGroupProps>;
-  trailingActions?: React.ReactElement<SwipeableActionGroupProps>;
+type SwipeableActionGroupSlotProps = {
+  allowsFullSwipe: boolean;
+  className?: string;
+  children?: React.ReactNode;
 };
 
 type FullSwipeRole = "outermost" | "secondary";
@@ -210,41 +208,12 @@ const SwipeablePressable = ({
 };
 
 // Utils
-const getSlot = (type: string | React.JSXElementConstructor<unknown>) =>
-  typeof type === "string" ? undefined : (type as SwipeableSlotComponent).slot;
-
-const parseSlots = (children: React.ReactNode): ParsedSwipeableSlots => {
-  const slots: ParsedSwipeableSlots = {};
-
-  for (const child of Children.toArray(children)) {
-    if (!isValidElement(child)) {
-      continue;
-    }
-
-    const slot = getSlot(child.type);
-
-    if (slot === "content") {
-      const props = child.props as SwipeableContentProps;
-      slots.content = props.children;
-      slots.contentClassName = props.className;
-      slots.contentDisabled = props.disabled;
-      slots.contentOnPress = props.onPress;
-      continue;
-    }
-
-    if (slot !== "action-group") {
-      continue;
-    }
-
-    const group = child as React.ReactElement<SwipeableActionGroupProps>;
-    if (group.props.edge === "leading") {
-      slots.leadingActions = group;
-    } else {
-      slots.trailingActions = group;
-    }
+const getActionGroupSlot = (node: React.ReactNode) => {
+  if (!isValidElement(node)) {
+    return;
   }
 
-  return slots;
+  return node.props as SwipeableActionGroupSlotProps;
 };
 
 const getActions = (children?: React.ReactNode) =>
@@ -267,12 +236,11 @@ const invokeOutermostAction = (
   );
 };
 
-const allowsFullSwipe = (
-  group?: React.ReactElement<SwipeableActionGroupProps>
-) => group?.props.allowsFullSwipe ?? true;
+const getAllowsFullSwipe = (group?: SwipeableActionGroupSlotProps) =>
+  group?.allowsFullSwipe ?? true;
 
-const actionCount = (group?: React.ReactElement<SwipeableActionGroupProps>) =>
-  group ? getActions(group.props.children).length : 0;
+const actionCount = (group?: SwipeableActionGroupSlotProps) =>
+  group ? getActions(group.children).length : 0;
 
 /** Lock measured width so overshoot bleed grows outside the tile cluster. */
 const useLockedWidthStyle = () => {
@@ -503,7 +471,16 @@ export type SwipeableProps = Omit<
   children: React.ReactNode;
 };
 
-export const Swipeable = ({
+export const Swipeable = (props: SwipeableProps) => {
+  return (
+    <swipeableSlots.Provider>
+      <SwipeableRow {...props} />
+    </swipeableSlots.Provider>
+  );
+};
+Swipeable.displayName = "Swipeable";
+
+const SwipeableRow = ({
   children,
   friction = 1,
   overshootFriction,
@@ -539,21 +516,25 @@ export const Swipeable = ({
     list?.opened(member);
   }, [list, member]);
 
-  const {
-    content,
-    contentClassName,
-    contentDisabled,
-    contentOnPress,
-    leadingActions,
-    trailingActions,
-  } = useMemo(() => parseSlots(children), [children]);
+  const slots = swipeableSlots.useRegistry();
+  const content = swipeableSlots.useSlot("content");
+  const leadingActions = getActionGroupSlot(swipeableSlots.useSlot("leading"));
+  const trailingActions = getActionGroupSlot(
+    swipeableSlots.useSlot("trailing")
+  );
 
-  if (__DEV__ && content === undefined) {
+  useLayoutEffect(() => {
+    // Fills register in child layout effects, so the useSlot snapshot from
+    // this render is still empty. Read the registry after those effects.
+    if (!__DEV__ || slots.has("content")) {
+      return;
+    }
+
     throw new Error("Swipeable: SwipeableContent is required.");
-  }
+  }, [slots]);
 
-  const leadingFullSwipe = allowsFullSwipe(leadingActions);
-  const trailingFullSwipe = allowsFullSwipe(trailingActions);
+  const leadingFullSwipe = getAllowsFullSwipe(leadingActions);
+  const trailingFullSwipe = getAllowsFullSwipe(trailingActions);
   const resolvedOvershootFriction =
     overshootFriction ??
     ((leadingFullSwipe && actionCount(leadingActions) === 1) ||
@@ -584,13 +565,13 @@ export const Swipeable = ({
     (
       edge: SwipeableEdge,
       armed: SharedValue<boolean>,
-      group?: React.ReactElement<SwipeableActionGroupProps>
+      group?: SwipeableActionGroupSlotProps
     ) => {
-      if (!(allowsFullSwipe(group) && armed.value)) {
+      if (!(getAllowsFullSwipe(group) && armed.value)) {
         return;
       }
       armed.value = false;
-      invokeOutermostAction(edge, group?.props.children);
+      invokeOutermostAction(edge, group?.children);
       methodsRef.current?.close();
     },
     []
@@ -651,7 +632,7 @@ export const Swipeable = ({
   const renderActions = useCallback(
     (
       edge: SwipeableEdge,
-      group: React.ReactElement<SwipeableActionGroupProps> | undefined,
+      group: SwipeableActionGroupSlotProps | undefined,
       armed: SharedValue<boolean>,
       translation: SharedValue<number>,
       methods: SwipeableMethods
@@ -667,19 +648,19 @@ export const Swipeable = ({
           <FullSwipeArmer
             armed={armed}
             cancelDistance={cancelDistance}
-            enabled={allowsFullSwipe(group)}
+            enabled={getAllowsFullSwipe(group)}
             isDragging={isDragging}
             translation={translation}
             triggerDistance={triggerDistance}
           />
           <ActionGroupPanel
-            allowsFullSwipe={allowsFullSwipe(group)}
+            allowsFullSwipe={getAllowsFullSwipe(group)}
             armed={armed}
-            className={group.props.className}
+            className={group.className}
             edge={edge}
             translation={translation}
           >
-            {group.props.children}
+            {group.children}
           </ActionGroupPanel>
         </SwipeableMethodsContext.Provider>
       );
@@ -720,52 +701,81 @@ export const Swipeable = ({
   );
 
   return (
-    <ReanimatedSwipeable
-      animationOptions={resolvedAnimationOptions}
-      dragOffsetFromLeftEdge={dragOffsetFromLeftEdge}
-      dragOffsetFromRightEdge={dragOffsetFromRightEdge}
-      friction={friction}
-      onSwipeableCloseStartDrag={handleCloseStartDrag}
-      onSwipeableOpenStartDrag={handleOpenStartDrag}
-      onSwipeableWillClose={handleWillClose}
-      onSwipeableWillOpen={handleWillOpen}
-      overshootFriction={resolvedOvershootFriction}
-      overshootLeft={Boolean(leadingActions)}
-      overshootRight={Boolean(trailingActions)}
-      ref={setMethodsRef}
-      renderLeftActions={leadingActions ? renderLeftActions : undefined}
-      renderRightActions={trailingActions ? renderRightActions : undefined}
-      {...props}
-    >
-      {contentOnPress ? (
-        <SwipeablePressable
-          className={contentClassName}
-          disabled={contentDisabled}
-          onPress={contentOnPress}
-        >
-          {content}
-        </SwipeablePressable>
-      ) : (
-        <View
-          className={cn("w-full bg-card", contentClassName)}
-          data-slot="swipeable"
-        >
-          {content}
-        </View>
-      )}
-    </ReanimatedSwipeable>
+    <>
+      {children}
+      <ReanimatedSwipeable
+        animationOptions={resolvedAnimationOptions}
+        dragOffsetFromLeftEdge={dragOffsetFromLeftEdge}
+        dragOffsetFromRightEdge={dragOffsetFromRightEdge}
+        friction={friction}
+        onSwipeableCloseStartDrag={handleCloseStartDrag}
+        onSwipeableOpenStartDrag={handleOpenStartDrag}
+        onSwipeableWillClose={handleWillClose}
+        onSwipeableWillOpen={handleWillOpen}
+        overshootFriction={resolvedOvershootFriction}
+        overshootLeft={Boolean(leadingActions)}
+        overshootRight={Boolean(trailingActions)}
+        ref={setMethodsRef}
+        renderLeftActions={leadingActions ? renderLeftActions : undefined}
+        renderRightActions={trailingActions ? renderRightActions : undefined}
+        {...props}
+      >
+        {content}
+      </ReanimatedSwipeable>
+    </>
   );
 };
-Swipeable.displayName = "Swipeable";
 
-// Slots
-export const SwipeableContent = (_props: SwipeableContentProps) => null;
+export const SwipeableContent = ({
+  children,
+  className,
+  onPress,
+  disabled,
+}: SwipeableContentProps) => {
+  return (
+    <swipeableSlots.Fill name="content">
+      {onPress ? (
+        <SwipeablePressable
+          className={className}
+          disabled={disabled}
+          onPress={onPress}
+        >
+          {children}
+        </SwipeablePressable>
+      ) : (
+        <View className={cn("w-full bg-card", className)} data-slot="swipeable">
+          {children}
+        </View>
+      )}
+    </swipeableSlots.Fill>
+  );
+};
 SwipeableContent.displayName = "SwipeableContent";
-SwipeableContent.slot = "content" as const;
 
-export const SwipeableActionGroup = (_props: SwipeableActionGroupProps) => null;
+const SwipeableActionGroupSlot = ({
+  children,
+}: SwipeableActionGroupSlotProps) => {
+  return children;
+};
+
+export const SwipeableActionGroup = ({
+  edge,
+  allowsFullSwipe = true,
+  children,
+  className,
+}: SwipeableActionGroupProps) => {
+  return (
+    <swipeableSlots.Fill name={edge}>
+      <SwipeableActionGroupSlot
+        allowsFullSwipe={allowsFullSwipe}
+        className={className}
+      >
+        {children}
+      </SwipeableActionGroupSlot>
+    </swipeableSlots.Fill>
+  );
+};
 SwipeableActionGroup.displayName = "SwipeableActionGroup";
-SwipeableActionGroup.slot = "action-group" as const;
 
 export const SwipeableAction = ({
   children,
