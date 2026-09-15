@@ -1,5 +1,6 @@
 import type { SnapPoint } from "@expo/ui";
 import {
+  Box,
   Column,
   Host,
   ModalBottomSheet,
@@ -7,11 +8,18 @@ import {
   RNHostView,
 } from "@expo/ui/jetpack-compose";
 import {
+  background,
+  clip,
   fillMaxHeight,
+  fillMaxWidth,
+  height,
   imePadding,
   type ModifierConfig,
+  onSizeChanged,
   padding,
+  Shapes,
   weight,
+  width,
 } from "@expo/ui/jetpack-compose/modifiers";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Keyboard, useWindowDimensions, View } from "react-native";
@@ -22,29 +30,49 @@ import {
   BottomSheetContext,
   useBottomSheetContext,
 } from "./bottom-sheet-context";
+import { bottomSheetSlots } from "./bottom-sheet-slots";
 import type {
   BottomSheetContentProps,
   BottomSheetFooterProps,
 } from "./bottom-sheet-types";
-import { splitBottomSheetChildren } from "./bottom-sheet-utils";
 
 // Constants
 const BOTTOM_SHEET_PADDING = 16;
+const DRAG_HANDLE_WIDTH = 38;
+const DRAG_HANDLE_HEIGHT = 6;
 
 // Components
 const BottomSheetDragHandle = () => {
+  const handleColor = useCSSVariable("--color-muted-foreground") as string;
+
   return (
     <ModalBottomSheet.DragHandle>
-      <RNHostView matchContents>
-        <View className="items-center pt-2.5">
-          <View className="h-1.5 w-[38px] rounded-full bg-muted-foreground" />
-        </View>
-      </RNHostView>
+      <Column
+        horizontalAlignment="center"
+        modifiers={[fillMaxWidth(), padding(0, 10, 0, 0)]}
+      >
+        <Box
+          modifiers={[
+            width(DRAG_HANDLE_WIDTH),
+            height(DRAG_HANDLE_HEIGHT),
+            clip(Shapes.Circle),
+            background(handleColor),
+          ]}
+        />
+      </Column>
     </ModalBottomSheet.DragHandle>
   );
 };
 
-export const BottomSheetContent = ({
+export const BottomSheetContent = (props: BottomSheetContentProps) => {
+  return (
+    <bottomSheetSlots.Provider>
+      <BottomSheetContentView {...props} />
+    </bottomSheetSlots.Provider>
+  );
+};
+
+const BottomSheetContentView = ({
   showDragIndicator = true,
   snapPoints,
   className,
@@ -60,22 +88,26 @@ export const BottomSheetContent = ({
   const backgroundColor = useCSSVariable("--color-background") as string;
 
   const { width: windowWidth } = useWindowDimensions();
-
-  const { body, footer, header } = useMemo(
-    () => splitBottomSheetChildren(children),
-    [children]
-  );
+  const hasFooter = bottomSheetSlots.useHasSlot("footer");
+  const [sheetWidth, setSheetWidth] = useState(0);
 
   const hasSnapPoints = Boolean(snapPoints && snapPoints.length > 0);
-  const hasFooter = Boolean(footer);
   const fitToContents = !hasSnapPoints;
   const sheetContext = useMemo(
     () => ({
       fitToContents,
       onOpenChange,
       open,
+      sheetWidth,
     }),
-    [fitToContents, onOpenChange, open]
+    [fitToContents, onOpenChange, open, sheetWidth]
+  );
+
+  const handleSheetSizeChanged = useCallback(
+    ({ width: nextWidth }: { width: number; height: number }) => {
+      setSheetWidth((current) => (current === nextWidth ? current : nextWidth));
+    },
+    []
   );
 
   useEffect(() => {
@@ -101,7 +133,10 @@ export const BottomSheetContent = ({
   }, [onOpenChange]);
 
   const contentModifiers = useMemo(() => {
-    const modifiers: ModifierConfig[] = [];
+    const modifiers: ModifierConfig[] = [
+      fillMaxWidth(),
+      onSizeChanged(handleSheetSizeChanged),
+    ];
 
     if (shouldFillMaxHeight(snapPoints)) {
       modifiers.push(fillMaxHeight(0.95));
@@ -112,7 +147,7 @@ export const BottomSheetContent = ({
     }
 
     return modifiers;
-  }, [hasFooter, snapPoints]);
+  }, [handleSheetSizeChanged, hasFooter, snapPoints]);
 
   useEffect(() => {
     if (!(open && hasFooter)) {
@@ -133,38 +168,45 @@ export const BottomSheetContent = ({
   }
 
   return (
-    <Host pointerEvents="none" style={{ position: "absolute" }}>
-      <ModalBottomSheet
-        containerColor={backgroundColor}
-        onDismissRequest={handleDismiss}
-        ref={sheetRef}
-        showDragHandle={false}
-        skipPartiallyExpanded={shouldSkipPartiallyExpanded(snapPoints)}
+    <BottomSheetContext.Provider value={sheetContext}>
+      <Host
+        pointerEvents="none"
+        style={{ position: "absolute", width: windowWidth }}
       >
-        {showDragIndicator ? <BottomSheetDragHandle /> : null}
+        <ModalBottomSheet
+          containerColor={backgroundColor}
+          onDismissRequest={handleDismiss}
+          ref={sheetRef}
+          showDragHandle={false}
+          skipPartiallyExpanded={shouldSkipPartiallyExpanded(snapPoints)}
+        >
+          {showDragIndicator ? <BottomSheetDragHandle /> : null}
 
-        <BottomSheetContext.Provider value={sheetContext}>
           <Column modifiers={contentModifiers}>
             <Column modifiers={fitToContents ? undefined : [weight(1)]}>
               <RNHostView matchContents={fitToContents}>
                 <View
+                  className={cn("flex-col", className)}
                   {...props}
                   style={[
                     fitToContents
-                      ? { width: windowWidth }
+                      ? sheetWidth > 0
+                        ? { width: sheetWidth }
+                        : undefined
                       : { flexGrow: 1, height: 0 },
+                    style,
                   ]}
                 >
-                  {header}
-                  {body}
+                  {children}
                 </View>
               </RNHostView>
             </Column>
-            {footer}
+
+            <bottomSheetSlots.Outlet name="footer" />
           </Column>
-        </BottomSheetContext.Provider>
-      </ModalBottomSheet>
-    </Host>
+        </ModalBottomSheet>
+      </Host>
+    </BottomSheetContext.Provider>
   );
 };
 
@@ -175,25 +217,32 @@ export const BottomSheetFooter = ({
   ...props
 }: BottomSheetFooterProps) => {
   const { bottom: safeAreaBottom } = useSafeAreaInsets();
+  const { sheetWidth = 0 } = useBottomSheetContext();
 
   return (
-    <RNHostView
-      matchContents
-      modifiers={[
-        padding(0, 0, 0, Math.max(safeAreaBottom + BOTTOM_SHEET_PADDING)),
-      ]}
-    >
-      <View
-        className={cn(
-          "flex flex-col gap-2 border-border border-t bg-background px-4 pt-4",
-          className
-        )}
-        style={style}
-        {...props}
+    <bottomSheetSlots.Fill name="footer">
+      <RNHostView
+        matchContents
+        modifiers={[padding(0, 0, 0, safeAreaBottom + BOTTOM_SHEET_PADDING)]}
       >
-        {children}
-      </View>
-    </RNHostView>
+        <View
+          className={cn(
+            "flex w-full flex-col gap-2 border-border border-t bg-background px-4 pt-4",
+            className
+          )}
+          style={[
+            {
+              paddingBottom: BOTTOM_SHEET_PADDING,
+              ...(sheetWidth > 0 ? { width: sheetWidth } : null),
+            },
+            style,
+          ]}
+          {...props}
+        >
+          {children}
+        </View>
+      </RNHostView>
+    </bottomSheetSlots.Fill>
   );
 };
 

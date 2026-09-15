@@ -19,7 +19,6 @@ import {
   Children,
   cloneElement,
   createContext,
-  isValidElement,
   useCallback,
   useContext,
   useMemo,
@@ -27,6 +26,7 @@ import {
 } from "react";
 import { Platform, type PressableProps } from "react-native";
 import { useCSSVariable } from "uniwind";
+import { menuSlots, useAssertMenuParts } from "./menu-slots";
 import type {
   MenuContentProps,
   MenuGroupProps,
@@ -274,29 +274,35 @@ export const MenuTrigger = ({ children, ...props }: MenuTriggerProps) => {
   }
 
   return (
-    <DropdownMenuPrimitive.Trigger>
-      <RNHostView matchContents {...props}>
-        {cloneElement(child as React.ReactElement<PressableProps>, {
-          // onPress isn't triggering on Android, so we use onPressIn instead
-          [Platform.select({
-            android: "onPressIn",
-            default: "onPress",
-          })]: () => setExpanded(true),
-        })}
-      </RNHostView>
-    </DropdownMenuPrimitive.Trigger>
+    <menuSlots.Fill name="trigger">
+      <DropdownMenuPrimitive.Trigger>
+        <RNHostView matchContents {...props}>
+          {cloneElement(child as React.ReactElement<PressableProps>, {
+            // onPress isn't triggering on Android, so we use onPressIn instead
+            [Platform.select({
+              android: "onPressIn",
+              default: "onPress",
+            })]: () => setExpanded(true),
+          })}
+        </RNHostView>
+      </DropdownMenuPrimitive.Trigger>
+    </menuSlots.Fill>
   );
 };
 
 MenuTrigger.displayName = "MenuTrigger";
 
 export const MenuContent = ({ children }: MenuContentProps) => {
-  return <DropdownMenuPrimitive.Items>{children}</DropdownMenuPrimitive.Items>;
+  return (
+    <menuSlots.Fill name="content">
+      <DropdownMenuPrimitive.Items>{children}</DropdownMenuPrimitive.Items>
+    </menuSlots.Fill>
+  );
 };
 
 MenuContent.displayName = "MenuContent";
 
-export const Menu = ({ children, ...props }: MenuProps) => {
+export const Menu = (props: MenuProps) => {
   const [expanded, setExpanded] = useState(false);
   const popoverColor = useCSSVariable("--color-popover") as string;
 
@@ -308,32 +314,68 @@ export const Menu = ({ children, ...props }: MenuProps) => {
 
   return (
     <MenuAndroidContext.Provider value={ctx}>
-      <HostPrimitive matchContents>
-        <DropdownMenuPrimitive
-          {...props}
+      <menuSlots.Provider>
+        <MenuView
           color={popoverColor}
           expanded={expanded}
-          onDismissRequest={dismissAll}
+          onDismiss={dismissAll}
         >
-          {children}
+          {props.children}
+        </MenuView>
+      </menuSlots.Provider>
+    </MenuAndroidContext.Provider>
+  );
+};
+
+const MenuView = ({
+  children,
+  color,
+  expanded,
+  onDismiss,
+}: MenuProps & {
+  color: string;
+  expanded: boolean;
+  onDismiss: () => void;
+}) => {
+  useAssertMenuParts();
+
+  return (
+    <>
+      {children}
+      <HostPrimitive matchContents>
+        <DropdownMenuPrimitive
+          color={color}
+          expanded={expanded}
+          onDismissRequest={onDismiss}
+        >
+          <menuSlots.Outlet name="trigger" />
+          <menuSlots.Outlet name="content" />
         </DropdownMenuPrimitive>
       </HostPrimitive>
-    </MenuAndroidContext.Provider>
+    </>
   );
 };
 
 export const MenuSubTrigger = ({ children }: MenuTriggerProps) => {
   return (
-    <MenuSubTriggerContext.Provider value={true}>
-      <DropdownMenuPrimitive.Trigger>{children}</DropdownMenuPrimitive.Trigger>
-    </MenuSubTriggerContext.Provider>
+    <menuSlots.Fill name="trigger">
+      <MenuSubTriggerContext.Provider value={true}>
+        <DropdownMenuPrimitive.Trigger>
+          {children}
+        </DropdownMenuPrimitive.Trigger>
+      </MenuSubTriggerContext.Provider>
+    </menuSlots.Fill>
   );
 };
 
 MenuSubTrigger.displayName = "MenuSubTrigger";
 
 export const MenuSubContent = ({ children }: MenuContentProps) => {
-  return <DropdownMenuPrimitive.Items>{children}</DropdownMenuPrimitive.Items>;
+  return (
+    <menuSlots.Fill name="content">
+      <DropdownMenuPrimitive.Items>{children}</DropdownMenuPrimitive.Items>
+    </menuSlots.Fill>
+  );
 };
 
 MenuSubContent.displayName = "MenuSubContent";
@@ -347,11 +389,6 @@ export const MenuSub = ({ children }: MenuProps) => {
     dismissRootMenu();
   }, [dismissRootMenu]);
 
-  const { trigger, content } = useMemo(
-    () => splitMenuChildren(children, "MenuSubTrigger", "MenuSubContent"),
-    [children]
-  );
-
   const ctx = useMemo(
     () => ({ dismissAll, expanded, setExpanded }),
     [dismissAll, expanded]
@@ -359,54 +396,32 @@ export const MenuSub = ({ children }: MenuProps) => {
 
   return (
     <MenuSubAndroidContext.Provider value={ctx}>
-      <DropdownMenuPrimitive
-        expanded={expanded}
-        onDismissRequest={() => setExpanded(false)}
-      >
-        {trigger}
-        {content}
-      </DropdownMenuPrimitive>
+      <menuSlots.Provider>
+        <MenuSubView expanded={expanded} onDismiss={() => setExpanded(false)}>
+          {children}
+        </MenuSubView>
+      </menuSlots.Provider>
     </MenuSubAndroidContext.Provider>
   );
 };
 
-// Utils
-const getMenuChildDisplayName = (child: React.ReactNode) => {
-  if (!isValidElement(child)) {
-    return;
-  }
+const MenuSubView = ({
+  children,
+  expanded,
+  onDismiss,
+}: MenuProps & {
+  expanded: boolean;
+  onDismiss: () => void;
+}) => {
+  useAssertMenuParts();
 
-  return (child.type as { displayName?: string }).displayName;
-};
-
-const splitMenuChildren = (
-  children: React.ReactNode,
-  triggerName = "MenuTrigger",
-  contentName = "MenuContent"
-) => {
-  let trigger: React.ReactNode = null;
-  let content: React.ReactNode = null;
-
-  Children.forEach(children, (child) => {
-    const displayName = getMenuChildDisplayName(child);
-
-    if (displayName === triggerName) {
-      trigger = child;
-      return;
-    }
-
-    if (displayName === contentName) {
-      content = child;
-    }
-  });
-
-  if (!trigger) {
-    throw new Error("Menu must have a trigger");
-  }
-
-  if (!content) {
-    throw new Error("Menu must have a content");
-  }
-
-  return { content, trigger };
+  return (
+    <>
+      {children}
+      <DropdownMenuPrimitive expanded={expanded} onDismissRequest={onDismiss}>
+        <menuSlots.Outlet name="trigger" />
+        <menuSlots.Outlet name="content" />
+      </DropdownMenuPrimitive>
+    </>
+  );
 };

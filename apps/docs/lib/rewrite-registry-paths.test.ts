@@ -25,6 +25,13 @@ describe("toSafeRegistryPath", () => {
       "hooks/use-relative-position.ts"
     );
   });
+
+  it("rewrites lib paths under the lib prefix", () => {
+    assert.equal(
+      toSafeRegistryPath("../../packages/tetra-ui/src/lib/slots.ts"),
+      "lib/slots.ts"
+    );
+  });
 });
 
 describe("toRegistryTarget", () => {
@@ -37,6 +44,7 @@ describe("toRegistryTarget", () => {
       toRegistryTarget("hooks/use-relative-position.ts"),
       "@hooks/use-relative-position.ts"
     );
+    assert.equal(toRegistryTarget("lib/slots.ts"), "@lib/slots.ts");
   });
 });
 

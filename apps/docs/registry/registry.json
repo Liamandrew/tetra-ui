@@ -262,7 +262,7 @@
       "title": "Menu",
       "description": "A composable native menu built on Expo UI, with support for groups, separators, and nested submenus.",
       "dependencies": ["@expo/ui", "@expo/material-symbols"],
-      "registryDependencies": [],
+      "registryDependencies": ["@tetra-ui/slots"],
       "files": [
         {
           "path": "../../packages/tetra-ui/src/components/menu/index.ts",
@@ -270,6 +270,10 @@
         },
         {
           "path": "../../packages/tetra-ui/src/components/menu/menu-types.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "../../packages/tetra-ui/src/components/menu/menu-slots.ts",
           "type": "registry:ui"
         },
         {
@@ -300,7 +304,8 @@
       "registryDependencies": [
         "@tetra-ui/button",
         "@tetra-ui/icons",
-        "@tetra-ui/slot"
+        "@tetra-ui/slot",
+        "@tetra-ui/slots"
       ],
       "files": [
         {
@@ -312,15 +317,15 @@
           "type": "registry:ui"
         },
         {
+          "path": "../../packages/tetra-ui/src/components/bottom-sheet/bottom-sheet-slots.ts",
+          "type": "registry:ui"
+        },
+        {
           "path": "../../packages/tetra-ui/src/components/bottom-sheet/bottom-sheet-context.ts",
           "type": "registry:ui"
         },
         {
           "path": "../../packages/tetra-ui/src/components/bottom-sheet/bottom-sheet-common.tsx",
-          "type": "registry:ui"
-        },
-        {
-          "path": "../../packages/tetra-ui/src/components/bottom-sheet/bottom-sheet-utils.ts",
           "type": "registry:ui"
         },
         {
@@ -623,6 +628,19 @@
         {
           "path": "../../packages/tetra-ui/src/components/slot.tsx",
           "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "slots",
+      "type": "registry:lib",
+      "title": "Slots",
+      "description": "Named slot fill and outlet helpers for composing compound native components.",
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "../../packages/tetra-ui/src/lib/slots.ts",
+          "type": "registry:lib"
         }
       ]
     },

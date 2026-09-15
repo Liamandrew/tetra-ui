@@ -15,7 +15,6 @@ import {
   presentationDragIndicator,
   presentationSizing,
 } from "@expo/ui/swift-ui/modifiers";
-import { cn } from "@repo/tetra-ui/lib/utils";
 import { useMemo } from "react";
 import { useWindowDimensions, View } from "react-native";
 import { useReanimatedKeyboardAnimation } from "react-native-keyboard-controller";
@@ -29,22 +28,31 @@ import {
   useSafeAreaInsets,
 } from "react-native-safe-area-context";
 import { useCSSVariable } from "uniwind";
+import { cn } from "@/registry/lib/utils";
 import {
   BottomSheetContext,
   useBottomSheetContext,
 } from "./bottom-sheet-context";
+import { bottomSheetSlots } from "./bottom-sheet-slots";
 import type {
   BottomSheetContentProps,
   BottomSheetFooterProps,
 } from "./bottom-sheet-types";
-import { splitBottomSheetChildren } from "./bottom-sheet-utils";
 
 // Constants
 const BOTTOM_SHEET_PADDING = 16;
 const ZERO_INSETS = { bottom: 0, left: 0, right: 0, top: 0 };
 
 // Components
-export const BottomSheetContent = ({
+export const BottomSheetContent = (props: BottomSheetContentProps) => {
+  return (
+    <bottomSheetSlots.Provider>
+      <BottomSheetContentView {...props} />
+    </bottomSheetSlots.Provider>
+  );
+};
+
+const BottomSheetContentView = ({
   showDragIndicator = true,
   snapPoints,
   className,
@@ -55,11 +63,8 @@ export const BottomSheetContent = ({
   const { open, onOpenChange } = useBottomSheetContext();
   const backgroundColor = useCSSVariable("--color-background") as string;
   const hasSnapPoints = Boolean(snapPoints && snapPoints.length > 0);
-  const { body, footer, header, hasScrollView } = useMemo(
-    () => splitBottomSheetChildren(children),
-    [children]
-  );
-  const hasFooter = Boolean(footer);
+  const hasFooter = bottomSheetSlots.useHasSlot("footer");
+  const hasScrollView = bottomSheetSlots.useHasSlot("scroll");
   // Fitted sheets size to the RN view. A ScrollView reports its full content
   // height, which pushes the header off-screen. Bound scrollable sheets instead.
   const fitToContents = !(hasSnapPoints || hasScrollView);
@@ -123,9 +128,7 @@ export const BottomSheetContent = ({
       ]}
       {...props}
     >
-      {header}
-      {body}
-      {footer}
+      {children}
     </View>
   );
 
@@ -178,14 +181,16 @@ export const BottomSheetFooter = ({
   );
 
   return (
-    <Animated.View
-      className={cn(
-        "shrink-0 flex-col gap-2 border-border border-t bg-background px-4 pt-4",
-        className
-      )}
-      style={[animatedStyle, style]}
-      {...props}
-    />
+    <bottomSheetSlots.Fill name="footer" passthrough>
+      <Animated.View
+        className={cn(
+          "shrink-0 flex-col gap-2 border-border border-t bg-background px-4 pt-4",
+          className
+        )}
+        style={[animatedStyle, style]}
+        {...props}
+      />
+    </bottomSheetSlots.Fill>
   );
 };
 

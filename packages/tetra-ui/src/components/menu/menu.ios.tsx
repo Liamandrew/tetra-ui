@@ -17,7 +17,7 @@ import {
   type ModifierConfig,
 } from "@expo/ui/swift-ui/modifiers";
 import { Children, isValidElement, useMemo } from "react";
-
+import { menuSlots, useAssertMenuParts } from "./menu-slots";
 import type {
   MenuContentProps,
   MenuGroupProps,
@@ -117,61 +117,81 @@ export const MenuGroup = ({
 
 export const MenuTrigger = ({ children, ...props }: MenuTriggerProps) => {
   return (
-    <RNHostView matchContents {...props}>
-      {children}
-    </RNHostView>
+    <menuSlots.Fill name="trigger">
+      <RNHostView matchContents {...props}>
+        {children}
+      </RNHostView>
+    </menuSlots.Fill>
   );
 };
 
 MenuTrigger.displayName = "MenuTrigger";
 
 export const MenuContent = ({ children }: MenuContentProps) => {
-  return children;
+  return <menuSlots.Fill name="content">{children}</menuSlots.Fill>;
 };
 
 MenuContent.displayName = "MenuContent";
 
-export const Menu = ({ children, ...props }: MenuProps) => {
-  const { trigger, content } = useMemo(
-    () => splitMenuChildren(children),
-    [children]
+export const Menu = (props: MenuProps) => {
+  return (
+    <menuSlots.Provider>
+      <MenuView {...props} />
+    </menuSlots.Provider>
   );
+};
+
+const MenuView = ({ children, ...props }: MenuProps) => {
+  useAssertMenuParts();
 
   return (
-    <HostPrimitive matchContents>
-      <MenuPrimitive {...props} label={trigger}>
-        {content}
-      </MenuPrimitive>
-    </HostPrimitive>
+    <>
+      {children}
+      <HostPrimitive matchContents>
+        <MenuPrimitive {...props} label={<menuSlots.Outlet name="trigger" />}>
+          <menuSlots.Outlet name="content" />
+        </MenuPrimitive>
+      </HostPrimitive>
+    </>
   );
 };
 
 export const MenuSubTrigger = ({ children, ...props }: MenuTriggerProps) => {
   return (
-    <RNHostView matchContents {...props}>
-      {children}
-    </RNHostView>
+    <menuSlots.Fill name="trigger">
+      <RNHostView matchContents {...props}>
+        {children}
+      </RNHostView>
+    </menuSlots.Fill>
   );
 };
 
 MenuSubTrigger.displayName = "MenuSubTrigger";
 
 export const MenuSubContent = ({ children }: MenuContentProps) => {
-  return children;
+  return <menuSlots.Fill name="content">{children}</menuSlots.Fill>;
 };
 
 MenuSubContent.displayName = "MenuSubContent";
 
-export const MenuSub = ({ children, ...props }: MenuProps) => {
-  const { trigger, content } = useMemo(
-    () => splitMenuChildren(children, "MenuSubTrigger", "MenuSubContent"),
-    [children]
+export const MenuSub = (props: MenuProps) => {
+  return (
+    <menuSlots.Provider>
+      <MenuSubView {...props} />
+    </menuSlots.Provider>
   );
+};
+
+const MenuSubView = ({ children, ...props }: MenuProps) => {
+  useAssertMenuParts();
 
   return (
-    <MenuPrimitive {...props} label={trigger}>
-      {content}
-    </MenuPrimitive>
+    <>
+      {children}
+      <MenuPrimitive {...props} label={<menuSlots.Outlet name="trigger" />}>
+        <menuSlots.Outlet name="content" />
+      </MenuPrimitive>
+    </>
   );
 };
 
@@ -208,36 +228,4 @@ const getMenuChildDisplayName = (child: React.ReactNode) => {
   }
 
   return (child.type as { displayName?: string }).displayName;
-};
-
-const splitMenuChildren = (
-  children: React.ReactNode,
-  triggerName = "MenuTrigger",
-  contentName = "MenuContent"
-) => {
-  let trigger: React.ReactNode = null;
-  let content: React.ReactNode = null;
-
-  Children.forEach(children, (child) => {
-    const displayName = getMenuChildDisplayName(child);
-
-    if (displayName === triggerName) {
-      trigger = child;
-      return;
-    }
-
-    if (displayName === contentName) {
-      content = child;
-    }
-  });
-
-  if (!trigger) {
-    throw new Error("Menu must have a trigger");
-  }
-
-  if (!content) {
-    throw new Error("Menu must have a content");
-  }
-
-  return { content, trigger };
 };

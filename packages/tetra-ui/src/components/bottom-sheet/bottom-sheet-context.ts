@@ -4,6 +4,8 @@ type BottomSheetContextValue = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   fitToContents: boolean;
+  /** Android: measured Compose sheet width in dp. Omitted on other platforms. */
+  sheetWidth?: number;
 };
 
 export const BottomSheetContext = createContext<BottomSheetContextValue | null>(

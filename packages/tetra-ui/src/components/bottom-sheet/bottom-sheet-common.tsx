@@ -8,6 +8,7 @@ import {
   BottomSheetContext,
   useBottomSheetContext,
 } from "./bottom-sheet-context";
+import { bottomSheetSlots } from "./bottom-sheet-slots";
 import type {
   BottomSheetCloseProps,
   BottomSheetProps,
@@ -95,21 +96,23 @@ export const BottomSheetScrollView = ({
   const { fitToContents } = useBottomSheetContext();
 
   return (
-    <ScrollView
-      automaticallyAdjustContentInsets={false}
-      automaticallyAdjustsScrollIndicatorInsets={false}
-      className={cn(
-        fitToContents ? undefined : "min-h-0 ios:flex-1",
-        className
-      )}
-      contentContainerClassName={cn(
-        "grow-0 px-4 pb-4",
-        contentContainerClassName
-      )}
-      contentInsetAdjustmentBehavior="never"
-      nestedScrollEnabled
-      {...props}
-    />
+    <bottomSheetSlots.Fill name="scroll" passthrough>
+      <ScrollView
+        automaticallyAdjustContentInsets={false}
+        automaticallyAdjustsScrollIndicatorInsets={false}
+        className={cn(
+          fitToContents ? undefined : "min-h-0 ios:flex-1",
+          className
+        )}
+        contentContainerClassName={cn(
+          "grow-0 px-4 pb-4",
+          contentContainerClassName
+        )}
+        contentInsetAdjustmentBehavior="never"
+        nestedScrollEnabled
+        {...props}
+      />
+    </bottomSheetSlots.Fill>
   );
 };
 
