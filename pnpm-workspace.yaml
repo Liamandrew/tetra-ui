@@ -17,3 +17,5 @@ minimumReleaseAgeExclude:
   - fumadocs-ui@16.15.5
   - ultracite@7.11.1
   - zod@4.6.1
+  - lucide-react-native@1.47.0
+  - lucide-react@1.47.0
