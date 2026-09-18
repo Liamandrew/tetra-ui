@@ -28,10 +28,10 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { useUniwind } from "uniwind";
 import { useRelativePosition } from "@/registry/hooks/use-relative-position";
 import { cn, mergeRefs } from "@/registry/lib/utils";
-import { Portal, PortalOverlay } from "@/registry/ui/portal";
+import { Portal, PortalWindow } from "@/registry/ui/portal";
+import { Scrim, type ScrimProps } from "@/registry/ui/scrim";
 import { Slot } from "@/registry/ui/slot";
 
 // Constants
@@ -39,8 +39,6 @@ const ANIMATION_DURATION = 200;
 const ANIMATION_EASING = Easing.out(Easing.cubic);
 const SCREEN_MARGIN = 12;
 const FIT_MAX_WIDTH = 280;
-const OVERLAY_OPACITY = { dark: 0.32, light: 0.12 } as const;
-const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
 // Types
 type LayoutPosition = {
@@ -69,10 +67,7 @@ type PopoverProps = Partial<PopoverContextProps> & {
 
 type PopoverPortalProps = Partial<React.ComponentProps<typeof Portal>>;
 
-type PopoverOverlayProps = {
-  closeOnPress?: boolean;
-  className?: string;
-};
+type PopoverScrimProps = Omit<ScrimProps, "open" | "visibilityProgress">;
 
 type PopoverContentProps = React.ComponentProps<typeof View> & {
   avoidCollisions?: boolean;
@@ -259,38 +254,31 @@ export const PopoverPortal = ({
   return (
     <Portal name={name} {...portalProps}>
       <PopoverContext.Provider value={ctx}>
-        <PortalOverlay>{children}</PortalOverlay>
+        <PortalWindow>{children}</PortalWindow>
       </PopoverContext.Provider>
     </Portal>
   );
 };
 
-export const PopoverOverlay = ({
+export const PopoverScrim = ({
   closeOnPress = true,
-  className,
-}: PopoverOverlayProps) => {
-  const { onOpenChange, visibilityProgress } = usePopover();
-  const { theme } = useUniwind();
-  const overlayOpacity =
-    theme === "dark" ? OVERLAY_OPACITY.dark : OVERLAY_OPACITY.light;
-
-  const animatedStyle = useAnimatedStyle(() => {
-    return {
-      opacity: interpolate(
-        visibilityProgress.value,
-        [0, 1],
-        [0, overlayOpacity],
-        Extrapolation.CLAMP
-      ),
-    };
-  });
+  onPress,
+  ...props
+}: PopoverScrimProps) => {
+  const { onOpenChange, open, visibilityProgress } = usePopover();
 
   return (
-    <AnimatedPressable
-      className={cn("absolute inset-0 bg-black", className)}
-      disabled={!closeOnPress}
-      onPress={() => onOpenChange(false)}
-      style={animatedStyle}
+    <Scrim
+      {...props}
+      closeOnPress={closeOnPress}
+      onPress={(event) => {
+        onPress?.(event);
+        if (closeOnPress) {
+          onOpenChange(false);
+        }
+      }}
+      open={open}
+      visibilityProgress={visibilityProgress}
     />
   );
 };

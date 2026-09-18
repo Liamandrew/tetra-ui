@@ -38,17 +38,20 @@ npx shadcn@latest add @tetra-ui/popover
 
 ## Usage
 
-First ensure that you have the `PortalHost` component in your root layout.
+First ensure that you have [`ScrimHost`](/docs/components/scrim) and `PortalHost` in your root layout. `ThemeProvider` already includes both.
 
 ```tsx
 import { PortalHost } from "@/components/ui/portal";
+import { ScrimHost, ScrimTarget } from "@/components/ui/scrim";
 
 export default function RootLayout() {
   return (
-    <>
-      <Stack />
+    <ScrimHost>
+      <ScrimTarget>
+        <Stack />
+      </ScrimTarget>
       <PortalHost />
-    </>
+    </ScrimHost>
   );
 }
 ```
@@ -58,8 +61,8 @@ import { Button, ButtonText } from "@/components/ui/button";
 import {
   Popover,
   PopoverContent,
-  PopoverOverlay,
   PopoverPortal,
+  PopoverScrim,
   PopoverTrigger,
 } from "@/components/ui/popover";
 ```
@@ -72,7 +75,7 @@ import {
     </Button>
   </PopoverTrigger>
   <PopoverPortal>
-    <PopoverOverlay />
+    <PopoverScrim />
     <PopoverContent>
       <Text>Popover Content</Text>
     </PopoverContent>
@@ -97,9 +100,9 @@ Supported values:
 
 Use `sideOffset` and `alignOffset` to fine-tune distance from the trigger. By default `width="fit"` sizes to the content and wraps long text at 280px so the popover stays compact. Set `width="trigger"` to match the trigger width, or pass a percentage or pixel value.
 
-## Without overlay
+## Without scrim
 
-Omit `PopoverOverlay` for lightweight tooltips that don't dim the background:
+Omit `PopoverScrim` for lightweight tooltips that don't dim the background:
 
 ```tsx
 <Popover>
@@ -108,7 +111,7 @@ Omit `PopoverOverlay` for lightweight tooltips that don't dim the background:
   </PopoverTrigger>
   <PopoverPortal>
     <PopoverContent>
-      <Text>No backdrop</Text>
+      <Text>No scrim</Text>
       <PopoverClose asChild>
         <Button size="sm" variant="link">Close</Button>
       </PopoverClose>
@@ -201,20 +204,16 @@ Accepts [`Portal`](/docs/components/portal) props. Renders nothing when closed. 
   }}
 />
 
-### PopoverOverlay
+### PopoverScrim
 
-Dimmed backdrop. Must be used within `Popover` (typically inside `PopoverPortal`).
+[`Scrim`](/docs/components/scrim) wired to popover open state. Must be used within `Popover` (typically inside `PopoverPortal`).
 
 <TypeTable
   type={{
     closeOnPress: {
-      description: "Closes the popover when the overlay is pressed.",
+      description: "Closes the popover when the scrim is pressed.",
       type: "boolean",
       default: "true",
-    },
-    className: {
-      description: "Additional Tailwind classes on the overlay.",
-      type: "string",
     },
   }}
 />

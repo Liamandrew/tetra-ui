@@ -17,11 +17,7 @@ import {
   ComponentBehaviourSheet,
   ComponentBehaviourSwitch,
 } from "@/components/component-behaviour";
-import {
-  ScreenActionsButton,
-  ScreenHero,
-  ScreenScrollView,
-} from "@/components/screen";
+import { ScreenHero, ScreenScrollView } from "@/components/screen";
 
 export default function NativeDateSelectScreen() {
   const [dateValue, setDateValue] = useState(new Date());
@@ -186,7 +182,7 @@ export default function NativeDateSelectScreen() {
           </Stack>
         </Stack>
 
-        <ComponentBehaviourSheet trigger={<ScreenActionsButton />}>
+        <ComponentBehaviourSheet>
           <ComponentBehaviourSwitch
             onValueChange={setShowDisabled}
             value={showDisabled}

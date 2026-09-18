@@ -1,0 +1,252 @@
+---
+title: Floating Action Button
+description: A positioned primary action that can expand into an extended label and open a FAB menu.
+---
+
+<ComponentPreview name="floating-action-button" type="gif" />
+
+## Installation
+
+<Tabs defaultValue="cli">
+
+<TabsList>
+  <TabsTrigger value="cli">CLI</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+
+<TabsContent value="cli">
+
+```package-install
+npx shadcn@latest add @tetra-ui/floating-action-button
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps>
+
+<Step>Install the following dependencies:</Step>
+
+```package-install
+npm install react-native-reanimated react-native-safe-area-context
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource name="floating-action-button" title="components/ui/floating-action-button.tsx" />
+
+</Steps>
+
+</TabsContent>
+
+</Tabs>
+
+## Usage
+
+Wrap the screen in `FabHost` and render `Fab` as a **sibling** of your `ScrollView`, not inside it.
+
+```tsx
+import {
+  Fab,
+  FabHost,
+  FabIcon,
+  FabText,
+} from "@/components/ui/floating-action-button";
+import { PlusIcon } from "@/components/ui/icons";
+```
+
+```tsx
+<FabHost>
+  <Content />
+  <Fab accessibilityLabel="Create">
+    <FabIcon>
+      <PlusIcon />
+    </FabIcon>
+  </Fab>
+</FabHost>
+```
+
+Without `FabHost`, `Fab` is an in-flow button (no absolute positioning, no menu scrim). `FabHost` composes [`Scrim`](/docs/components/scrim) so the menu overlay can be reused elsewhere.
+
+## Extended
+
+Include `FabText` and set `appearance`. `"auto"` uses an extended FAB at a window width of 768 and above.
+
+```tsx
+<Fab accessibilityLabel="Create" appearance="extended">
+  <FabIcon>
+    <PlusIcon />
+  </FabIcon>
+  <FabText>Create</FabText>
+</Fab>
+```
+
+## Menu
+
+`FabMenu` toggles on press. The trigger icon morphs to a close icon. Tap the scrim, press the FAB again, or use Android back to dismiss. Do not combine a menu and a bottom sheet on the same FAB.
+
+```tsx
+<Fab accessibilityLabel="Create">
+  <FabIcon>
+    <PlusIcon />
+  </FabIcon>
+  <FabMenu>
+    <FabMenuItem key="note">
+      <FabMenuItemIcon>
+        <BookOpenIcon />
+      </FabMenuItemIcon>
+      <FabMenuItemLabel>Note</FabMenuItemLabel>
+    </FabMenuItem>
+    <FabMenuItem key="event">
+      <FabMenuItemIcon>
+        <CalendarPlusIcon />
+      </FabMenuItemIcon>
+      <FabMenuItemLabel>Event</FabMenuItemLabel>
+    </FabMenuItem>
+    <FabMenuItem key="delete" variant="destructive">
+      <FabMenuItemIcon>
+        <TrashIcon />
+      </FabMenuItemIcon>
+      <FabMenuItemLabel>Delete</FabMenuItemLabel>
+    </FabMenuItem>
+  </FabMenu>
+</Fab>
+```
+
+## Bottom sheet
+
+Compose with `BottomSheet` for free-form content. Pass the same `open` state into `Fab` so the icon morphs. The sheet owns its overlay.
+
+```tsx
+<BottomSheet open={open} onOpenChange={setOpen}>
+  <BottomSheetTrigger asChild>
+    <Fab accessibilityLabel="New item" open={open}>
+      <FabIcon>
+        <PlusIcon />
+      </FabIcon>
+    </Fab>
+  </BottomSheetTrigger>
+  <BottomSheetContent>
+    {/* anything */}
+  </BottomSheetContent>
+</BottomSheet>
+```
+
+If this FAB sits inside a `FabHost` that already positions another FAB, set `positioned={false}` so it stays in the layout.
+
+## Positioning
+
+`FabHost` is the positioning context. Default edge is `bottom-end`, with 16pt padding plus safe-area insets. Use `bottomInset` for tab bars and `offset` for extra spacing.
+
+```tsx
+<Fab edge="bottom-start" bottomInset={56} />
+```
+
+Keep `Fab` inside `FabHost`. The host slots the button above the menu scrim, so it does not need to be a direct child.
+
+## API Reference
+
+### FabHost
+
+Extends [React Native View](https://reactnative.dev/docs/view#props) props. Provides positioning and the menu scrim.
+
+### Fab
+
+Wraps `Button`. Root is a single `Pressable` so it works with `BottomSheetTrigger asChild`.
+
+<TypeTable
+  type={{
+    size: {
+      description: "FAB size.",
+      type: '"sm" | "default" | "lg"',
+      default: '"default"',
+    },
+    variant: {
+      description: "Color mapping onto existing theme tokens.",
+      type: '"default" | "secondary"',
+      default: '"default"',
+    },
+    appearance: {
+      description: "Icon-only, always extended, or auto (icon below 768pt window width, extended at 768 and above).",
+      type: '"fab" | "extended" | "auto"',
+      default: '"fab"',
+    },
+    edge: {
+      description: "Corner or center placement inside FabHost.",
+      type: '"bottom-end" | "bottom-start" | "bottom-center"',
+      default: '"bottom-end"',
+    },
+    offset: {
+      description: "Extra spacing on top of the 16pt edge padding.",
+      type: "number | { x?: number; y?: number }",
+    },
+    bottomInset: {
+      description: "Additional bottom offset for tab bars or other chrome.",
+      type: "number",
+      default: "0",
+    },
+    positioned: {
+      description: "When false, stays in normal layout even inside a FabHost.",
+      type: "boolean",
+      default: "true",
+    },
+    open: {
+      description: "Controlled expanded state. Shows the close icon when true. Uncontrolled when omitted.",
+      type: "boolean",
+    },
+    defaultOpen: {
+      description: "Initial open state when uncontrolled.",
+      type: "boolean",
+      default: "false",
+    },
+    onOpenChange: {
+      description: "Called when the menu should open or close.",
+      type: "(open: boolean) => void",
+    },
+    accessibilityLabel: {
+      description: "Required for icon-only FABs. Becomes “Close” while open.",
+      type: "string",
+    },
+  }}
+/>
+
+### FabIcon
+
+Resting icon. Morphs to a built-in close icon while `open` is true.
+
+### FabText
+
+Label shown when the visual appearance is extended.
+
+### FabMenu
+
+Registers menu items with `FabHost`. Presence of this part makes press toggle the menu.
+
+### FabMenuItem
+
+A pressable menu row. Not a `Button`. Defaults to `variant="default"`.
+
+<TypeTable
+  type={{
+    variant: {
+      description: "Visual style of the row.",
+      type: '"default" | "destructive"',
+      default: '"default"',
+    },
+    closeOnPress: {
+      description: "Close the menu after press.",
+      type: "boolean",
+      default: "true",
+    },
+  }}
+/>
+
+### FabMenuItemIcon
+
+Icon inside a menu item. Optional.
+
+### FabMenuItemLabel
+
+Label inside a menu item. Required for a usable item.
+

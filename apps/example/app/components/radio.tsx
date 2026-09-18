@@ -5,7 +5,7 @@ import {
   ComponentBehaviourSheet,
   ComponentBehaviourSwitch,
 } from "@/components/component-behaviour";
-import { ScreenActionsButton, ScreenHero } from "@/components/screen";
+import { ScreenHero } from "@/components/screen";
 
 export default function RadioScreen() {
   const [checked, setChecked] = useState(false);
@@ -18,7 +18,7 @@ export default function RadioScreen() {
         <Radio checked={checked} invalid={showInvalid} />
       </Pressable>
 
-      <ComponentBehaviourSheet trigger={<ScreenActionsButton />}>
+      <ComponentBehaviourSheet>
         <ComponentBehaviourSwitch
           onValueChange={setShowInvalid}
           value={showInvalid}

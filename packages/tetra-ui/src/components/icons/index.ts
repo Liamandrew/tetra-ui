@@ -19,6 +19,7 @@ import {
   Mail,
   Moon,
   Pin,
+  Plus,
   Search,
   Shield,
   ShoppingCart,
@@ -49,6 +50,7 @@ export const InfoIcon = createStyledIcon(Info);
 export const MailIcon = createStyledIcon(Mail);
 export const MoonIcon = createStyledIcon(Moon);
 export const PinIcon = createStyledIcon(Pin);
+export const PlusIcon = createStyledIcon(Plus);
 export const SearchIcon = createStyledIcon(Search);
 export const ShieldIcon = createStyledIcon(Shield);
 export const ShoppingCartIcon = createStyledIcon(ShoppingCart);

@@ -80,6 +80,9 @@ Some components pull in registry dependencies automatically via the CLI. Complex
 | carousel | gesture-handler, reanimated, button, icons |
 | otp-input | input, text, reanimated |
 | toast | sonner-native, gesture-handler, reanimated, safe-area, screens, svg |
+| popover | portal, scrim, slot, reanimated, safe-area |
+| scrim | expo-blur, reanimated |
+| floating-action-button | button, icons, scrim, slots, reanimated, safe-area |
 
 When adding a component, let the shadcn CLI resolve `registryDependencies`. If adding manually, check the registry JSON for required peer components.
 

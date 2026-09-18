@@ -10,11 +10,7 @@ import {
   ComponentBehaviourSheet,
   ComponentBehaviourSwitch,
 } from "@/components/component-behaviour";
-import {
-  ScreenActionsButton,
-  ScreenHero,
-  ScreenScrollView,
-} from "@/components/screen";
+import { ScreenHero, ScreenScrollView } from "@/components/screen";
 
 export default function ChoiceboxScreen() {
   const [showInvalid, setShowInvalid] = useState(false);
@@ -63,7 +59,7 @@ export default function ChoiceboxScreen() {
         </ScreenHero>
       </ScreenScrollView>
 
-      <ComponentBehaviourSheet trigger={<ScreenActionsButton />}>
+      <ComponentBehaviourSheet>
         <ComponentBehaviourSwitch
           onValueChange={setShowInvalid}
           value={showInvalid}

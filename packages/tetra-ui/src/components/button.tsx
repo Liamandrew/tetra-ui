@@ -45,6 +45,7 @@ export const Button = ({
   disabled,
   children,
   accessibilityRole = "button",
+  accessibilityState,
   ...props
 }: ButtonProps) => {
   const ctx = useMemo(() => {
@@ -60,7 +61,7 @@ export const Button = ({
     <ButtonContext.Provider value={ctx}>
       <Pressable
         accessibilityRole={accessibilityRole}
-        accessibilityState={{ busy, disabled }}
+        accessibilityState={{ busy, disabled, ...accessibilityState }}
         className={cn(
           buttonVariants({ className, size, variant }),
           disabled && "opacity-50"

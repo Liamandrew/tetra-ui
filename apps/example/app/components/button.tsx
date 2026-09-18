@@ -12,11 +12,7 @@ import {
   ComponentBehaviourSwitch,
 } from "@/components/component-behaviour";
 import { ButtonPreview } from "@/components/previews";
-import {
-  ScreenActionsButton,
-  ScreenHero,
-  ScreenScrollView,
-} from "@/components/screen";
+import { ScreenHero, ScreenScrollView } from "@/components/screen";
 
 const sizes = [
   {
@@ -70,7 +66,7 @@ export default function ButtonScreen() {
         </ScreenHero>
       </ScreenScrollView>
 
-      <ComponentBehaviourSheet trigger={<ScreenActionsButton />}>
+      <ComponentBehaviourSheet>
         <ComponentBehaviourSwitch onValueChange={setDisabled} value={disabled}>
           Set Disabled
         </ComponentBehaviourSwitch>

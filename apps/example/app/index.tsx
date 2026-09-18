@@ -97,6 +97,10 @@ const COMPONENTS: Array<{ title: string; href: Href }> = [
   { href: "/components/choicebox", title: "Choicebox" },
   { href: "/components/chip", title: "Chip" },
   { href: "/components/empty", title: "Empty" },
+  {
+    href: "/components/floating-action-button" as Href,
+    title: "Floating Action Button",
+  },
   { href: "/components/form", title: "Form" },
   { href: "/components/heading", title: "Heading" },
   { href: "/components/inline-list", title: "Inline List" },
@@ -109,6 +113,7 @@ const COMPONENTS: Array<{ title: string; href: Href }> = [
   { href: "/components/popover", title: "Popover" },
   { href: "/components/progress", title: "Progress" },
   { href: "/components/radio", title: "Radio" },
+  { href: "/components/scrim" as Href, title: "Scrim" },
   { href: "/components/search-input", title: "Search Input" },
   { href: "/components/segmented-control", title: "Segmented Control" },
   { href: "/components/select", title: "Select" },

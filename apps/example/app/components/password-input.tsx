@@ -4,7 +4,7 @@ import {
   ComponentBehaviourSheet,
   ComponentBehaviourSwitch,
 } from "@/components/component-behaviour";
-import { ScreenActionsButton, ScreenHero } from "@/components/screen";
+import { ScreenHero } from "@/components/screen";
 
 export default function PasswordInputScreen() {
   const [showInvalid, setShowInvalid] = useState(false);
@@ -18,7 +18,7 @@ export default function PasswordInputScreen() {
         placeholder="Enter your password"
       />
 
-      <ComponentBehaviourSheet trigger={<ScreenActionsButton />}>
+      <ComponentBehaviourSheet>
         <ComponentBehaviourSwitch
           onValueChange={setShowInvalid}
           value={showInvalid}

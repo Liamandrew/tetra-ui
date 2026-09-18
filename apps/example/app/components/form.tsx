@@ -23,11 +23,7 @@ import {
   ComponentBehaviourSheet,
   ComponentBehaviourSwitch,
 } from "@/components/component-behaviour";
-import {
-  ScreenActionsButton,
-  ScreenHero,
-  ScreenScrollView,
-} from "@/components/screen";
+import { ScreenHero, ScreenScrollView } from "@/components/screen";
 import {
   Select,
   SelectContentPopover,
@@ -173,7 +169,7 @@ export default function FormScreen() {
         </ScreenHero>
       </ScreenScrollView>
 
-      <ComponentBehaviourSheet trigger={<ScreenActionsButton />}>
+      <ComponentBehaviourSheet>
         <ComponentBehaviourSwitch
           onValueChange={setShowInvalid}
           value={showInvalid}

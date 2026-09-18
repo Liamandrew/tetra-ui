@@ -38,7 +38,6 @@ import {
 import {
   Popover,
   PopoverContent,
-  PopoverOverlay,
   PopoverPortal,
   usePopover,
 } from "@/registry/ui/popover";
@@ -469,7 +468,6 @@ export const SelectContentPopover = ({
       <PopoverPortal>
         <SelectPopoverContext.Provider value={true}>
           <SelectContext.Provider value={ctx}>
-            <PopoverOverlay className="bg-transparent" />
             <PopoverContent {...props} width={width} />
           </SelectContext.Provider>
         </SelectPopoverContext.Provider>

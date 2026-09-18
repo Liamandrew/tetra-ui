@@ -11,11 +11,7 @@ import {
   ComponentBehaviourSheet,
   ComponentBehaviourSwitch,
 } from "@/components/component-behaviour";
-import {
-  ScreenActionsButton,
-  ScreenHero,
-  ScreenScrollView,
-} from "@/components/screen";
+import { ScreenHero, ScreenScrollView } from "@/components/screen";
 
 export default function OTPInputScreen() {
   const [showInvalid, setShowInvalid] = useState(false);
@@ -63,7 +59,7 @@ export default function OTPInputScreen() {
           </Stack>
         </Stack>
 
-        <ComponentBehaviourSheet trigger={<ScreenActionsButton />}>
+        <ComponentBehaviourSheet>
           <ComponentBehaviourSwitch
             onValueChange={setShowInvalid}
             value={showInvalid}

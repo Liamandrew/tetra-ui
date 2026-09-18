@@ -1,9 +1,12 @@
-import { Button, ButtonIcon } from "@repo/tetra-ui/components/button";
+import {
+  Fab,
+  FabIcon,
+  type FabProps,
+} from "@repo/tetra-ui/components/floating-action-button";
 import { EllipsisVerticalIcon } from "@repo/tetra-ui/components/icons";
 import { useHeaderHeight as useHeaderHeightElements } from "expo-router/react-navigation";
 import { useRef } from "react";
 import { Platform, ScrollView, useWindowDimensions, View } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { cn } from "@/lib/utils";
 
 export const ScreenScrollView = ({
@@ -42,21 +45,16 @@ export const ScreenHero = ({
   );
 };
 
-export const ScreenActionsButton = (
-  props: Omit<React.ComponentProps<typeof Button>, "children">
-) => {
-  const { bottom } = useSafeAreaInsets();
+export const ScreenActionsButton = ({
+  accessibilityLabel = "Behavior",
+  ...props
+}: Omit<FabProps, "children">) => {
   return (
-    <Button
-      className="absolute right-4 mb-4 rounded-full shadow-lg"
-      size="icon"
-      style={{ bottom }}
-      {...props}
-    >
-      <ButtonIcon className="test">
+    <Fab accessibilityLabel={accessibilityLabel} {...props}>
+      <FabIcon>
         <EllipsisVerticalIcon />
-      </ButtonIcon>
-    </Button>
+      </FabIcon>
+    </Fab>
   );
 };
 

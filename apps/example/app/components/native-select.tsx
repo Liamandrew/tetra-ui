@@ -18,11 +18,7 @@ import {
   ComponentBehaviourSheet,
   ComponentBehaviourSwitch,
 } from "@/components/component-behaviour";
-import {
-  ScreenActionsButton,
-  ScreenHero,
-  ScreenScrollView,
-} from "@/components/screen";
+import { ScreenHero, ScreenScrollView } from "@/components/screen";
 
 const OPTIONS = [
   { label: "Option 1", value: "1" },
@@ -155,7 +151,7 @@ export default function NativeSelectScreen() {
           </Stack>
         </Stack>
 
-        <ComponentBehaviourSheet trigger={<ScreenActionsButton />}>
+        <ComponentBehaviourSheet>
           <ComponentBehaviourSwitch
             onValueChange={setShowDisabled}
             value={showDisabled}

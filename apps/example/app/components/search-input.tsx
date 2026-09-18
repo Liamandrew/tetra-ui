@@ -10,7 +10,7 @@ import {
   ComponentBehaviourSheet,
   ComponentBehaviourSwitch,
 } from "@/components/component-behaviour";
-import { ScreenActionsButton, ScreenHero } from "@/components/screen";
+import { ScreenHero } from "@/components/screen";
 
 export default function SearchInputScreen() {
   const [showDisabled, setShowDisabled] = useState(false);
@@ -39,7 +39,7 @@ export default function SearchInputScreen() {
         ) : null}
       </SearchInput>
 
-      <ComponentBehaviourSheet trigger={<ScreenActionsButton />}>
+      <ComponentBehaviourSheet>
         <ComponentBehaviourSwitch
           onValueChange={setShowDisabled}
           value={showDisabled}

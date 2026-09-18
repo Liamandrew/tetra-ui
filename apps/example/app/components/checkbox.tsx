@@ -5,11 +5,7 @@ import {
   ComponentBehaviourSheet,
   ComponentBehaviourSwitch,
 } from "@/components/component-behaviour";
-import {
-  ScreenActionsButton,
-  ScreenHero,
-  ScreenScrollView,
-} from "@/components/screen";
+import { ScreenHero, ScreenScrollView } from "@/components/screen";
 
 export default function CheckboxScreen() {
   const [checked, setChecked] = useState(false);
@@ -37,7 +33,7 @@ export default function CheckboxScreen() {
         </ScreenHero>
       </ScreenScrollView>
 
-      <ComponentBehaviourSheet trigger={<ScreenActionsButton />}>
+      <ComponentBehaviourSheet>
         <ComponentBehaviourSwitch
           onValueChange={setShowInvalid}
           value={showInvalid}

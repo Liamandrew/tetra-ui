@@ -1,0 +1,114 @@
+---
+title: Scrim
+description: A blurred overlay that dims content behind a sheet, menu, or dialog.
+---
+
+<ComponentPreview name="scrim" type="png" />
+
+## Installation
+
+<Tabs defaultValue="cli">
+
+<TabsList>
+  <TabsTrigger value="cli">CLI</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+
+<TabsContent value="cli">
+
+```package-install
+npx shadcn@latest add @tetra-ui/scrim
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps>
+
+<Step>Install the following dependencies:</Step>
+
+```package-install
+npm install expo-blur react-native-reanimated
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource name="scrim" title="components/ui/scrim.tsx" />
+
+</Steps>
+
+</TabsContent>
+
+</Tabs>
+
+## Usage
+
+Wrap the surface that should blur in `ScrimHost` and `ScrimTarget`. Render `Scrim` as a **sibling** of `ScrimTarget`, not inside it — Android blur needs the overlay outside the captured view.
+
+```tsx
+import { Scrim, ScrimHost, ScrimTarget } from "@/components/ui/scrim";
+```
+
+```tsx
+<ScrimHost>
+  <ScrimTarget>
+    <Content />
+  </ScrimTarget>
+  <Scrim onPress={() => setOpen(false)} open={open} />
+</ScrimHost>
+```
+
+[Floating Action Button](/docs/components/floating-action-button) composes this inside `FabHost`. [Popover](/docs/components/popover) uses `PopoverScrim`. `ThemeProvider` wraps the app in `ScrimHost` / `ScrimTarget` so portaled scrims can blur the screen.
+
+## API Reference
+
+### ScrimHost
+
+Provides the blur target ref. Apply layout classes here (`flex-1`, `relative`).
+
+### ScrimTarget
+
+The content that is captured for the blur. Must be a child of `ScrimHost`.
+
+### Scrim
+
+The overlay. With `open`, it enters and leaves via Reanimated `FadeIn` / `FadeOut`. With `visibilityProgress`, blur intensity and dim opacity follow that shared value instead. Reduce Transparency disables the blur layer and keeps the dim.
+
+<TypeTable
+  type={{
+    open: {
+      description: "Whether the scrim is visible.",
+      type: "boolean",
+      default: "false",
+    },
+    closeOnPress: {
+      description: "Allow press to run `onPress`. Disable for a non-dismissible overlay.",
+      type: "boolean",
+      default: "true",
+    },
+    intensity: {
+      description: "Blur intensity passed to `expo-blur`. `0` skips the blur layer.",
+      type: "number",
+      default: "32",
+    },
+    overlayOpacity: {
+      description: "Opacity of the black dim layer. `0` skips the dim. Defaults to `0.25` in light mode and `0.72` in dark mode.",
+      type: "number",
+    },
+    visibilityProgress: {
+      description: "Optional Reanimated shared value from `0` to `1`. When set, blur intensity and dim opacity track this value instead of FadeIn / FadeOut.",
+      type: "SharedValue<number>",
+    },
+  }}
+/>
+
+## Changelog
+
+### 2026-09-18 - Motion and accessibility
+
+Open/close uses `FadeIn` / `FadeOut`. `visibilityProgress` now drives blur intensity. Blur is skipped when Reduce Transparency is enabled.
+
+### 2026-09-18 - Scrim
+
+Added `scrim` as a reusable blurred overlay for menus and similar surfaces.

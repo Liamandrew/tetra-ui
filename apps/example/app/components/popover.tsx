@@ -2,8 +2,8 @@ import { Button } from "@repo/tetra-ui/components/button";
 import {
   Popover,
   PopoverContent,
-  PopoverOverlay,
   PopoverPortal,
+  PopoverScrim,
   PopoverTrigger,
 } from "@repo/tetra-ui/components/popover";
 import { Stack } from "@repo/tetra-ui/components/stack";
@@ -27,7 +27,7 @@ export default function PopoverScreen() {
               </Button>
             </PopoverTrigger>
             <PopoverPortal>
-              <PopoverOverlay />
+              <PopoverScrim />
               <PopoverContent side="top">
                 <Text>Popover on top</Text>
               </PopoverContent>
@@ -41,7 +41,7 @@ export default function PopoverScreen() {
               </Button>
             </PopoverTrigger>
             <PopoverPortal>
-              <PopoverOverlay />
+              <PopoverScrim />
               <PopoverContent side="bottom">
                 <Text>Popover on bottom</Text>
               </PopoverContent>
@@ -55,7 +55,7 @@ export default function PopoverScreen() {
               </Button>
             </PopoverTrigger>
             <PopoverPortal>
-              <PopoverOverlay />
+              <PopoverScrim />
               <PopoverContent side="left">
                 <Text>Popover on left</Text>
               </PopoverContent>
@@ -69,7 +69,7 @@ export default function PopoverScreen() {
               </Button>
             </PopoverTrigger>
             <PopoverPortal>
-              <PopoverOverlay />
+              <PopoverScrim />
               <PopoverContent side="right">
                 <Text>Popover on right</Text>
               </PopoverContent>

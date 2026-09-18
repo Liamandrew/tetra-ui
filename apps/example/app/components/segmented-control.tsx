@@ -8,7 +8,7 @@ import {
   ComponentBehaviourSheet,
   ComponentBehaviourSwitch,
 } from "@/components/component-behaviour";
-import { ScreenActionsButton, ScreenHero } from "@/components/screen";
+import { ScreenHero } from "@/components/screen";
 
 export default function SegmentedControlScreen() {
   const [value, setValue] = useState("day");
@@ -32,7 +32,7 @@ export default function SegmentedControlScreen() {
         </SegmentedControlItem>
       </SegmentedControl>
 
-      <ComponentBehaviourSheet trigger={<ScreenActionsButton />}>
+      <ComponentBehaviourSheet>
         <ComponentBehaviourSwitch
           onValueChange={setShowDisabled}
           value={showDisabled}

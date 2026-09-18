@@ -4,8 +4,8 @@ import {
   Popover,
   PopoverClose,
   PopoverContent,
-  PopoverOverlay,
   PopoverPortal,
+  PopoverScrim,
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Stack } from "@/components/ui/stack";
@@ -19,7 +19,7 @@ export function PopoverPreview() {
           <Button variant="outline">Open</Button>
         </PopoverTrigger>
         <PopoverPortal>
-          <PopoverOverlay />
+          <PopoverScrim />
           <PopoverContent align="center" side="top">
             <Text>This is a simple tooltip message</Text>
           </PopoverContent>
@@ -31,7 +31,7 @@ export function PopoverPreview() {
           <Button variant="outline">Open scrollable popover</Button>
         </PopoverTrigger>
         <PopoverPortal>
-          <PopoverOverlay />
+          <PopoverScrim />
           <PopoverContent className="h-1/2 p-0" width="50%">
             <ScrollView className="p-4">
               <Stack gap="sm">
@@ -77,11 +77,11 @@ export function PopoverPreview() {
 
       <Popover>
         <PopoverTrigger asChild>
-          <Button variant="outline">Open without backdrop</Button>
+          <Button variant="outline">Open without scrim</Button>
         </PopoverTrigger>
         <PopoverPortal>
           <PopoverContent>
-            <Text>This popover has no backdrop overlay</Text>
+            <Text>This popover has no scrim</Text>
             <PopoverClose asChild>
               <Button size="sm" variant="link">
                 Close
@@ -96,7 +96,7 @@ export function PopoverPreview() {
           <Button variant="outline">Open rich content</Button>
         </PopoverTrigger>
         <PopoverPortal>
-          <PopoverOverlay />
+          <PopoverScrim />
           <PopoverContent width="trigger">
             <Text className="mb-2 font-semibold text-lg">Popover Title</Text>
             <Text className="mb-4 text-sm opacity-70">

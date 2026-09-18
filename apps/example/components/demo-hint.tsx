@@ -3,8 +3,8 @@ import { InfoIcon } from "@repo/tetra-ui/components/icons";
 import {
   Popover,
   PopoverContent,
-  PopoverOverlay,
   PopoverPortal,
+  PopoverScrim,
   PopoverTrigger,
 } from "@repo/tetra-ui/components/popover";
 import { Text } from "@repo/tetra-ui/components/text";
@@ -36,7 +36,7 @@ export function DemoHint({
         </Button>
       </PopoverTrigger>
       <PopoverPortal>
-        <PopoverOverlay />
+        <PopoverScrim />
         <PopoverContent align="end" side="bottom">
           <Text className="text-foreground text-sm">{children}</Text>
         </PopoverContent>

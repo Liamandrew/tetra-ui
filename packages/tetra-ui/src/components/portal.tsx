@@ -23,7 +23,7 @@ type PortalHostMap = Map<string, PortalMap>;
 type PortalListener = () => void;
 
 // Components
-export const PortalOverlay =
+export const PortalWindow =
   Platform.OS === "ios" ? FullWindowOverlay : Fragment;
 
 export const PortalHost = ({ name = DEFAULT_PORTAL_HOST }: PortalHostProps) => {

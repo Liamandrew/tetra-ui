@@ -47,3 +47,6 @@ Stay tuned for more updates and improvements!
 ## September 2026
 
 - Replaced `clsx` and `tailwind-merge` with the [`cn`](https://github.com/shadcn-ui/cn) package. New projects should install `cn` and re-export it from `lib/utils.ts`. Existing projects can run `npx shadcn@latest migrate cn`.
+- Added Floating Action Button component.
+- Added Scrim component. Popover overlays are now `PopoverScrim`. `PortalOverlay` is `PortalWindow`.
+- Scrim open/close uses `FadeIn` / `FadeOut`, `visibilityProgress` drives blur intensity, and Reduce Transparency skips blur.

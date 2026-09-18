@@ -17,6 +17,7 @@
     "@expo/ui": "57.0.18",
     "class-variance-authority": "^0.7.1",
     "cn": "^0.3.0",
+    "expo-blur": "~57.0.3",
     "lucide-react-native": "^1.47.0",
     "react": "19.2.3",
     "react-hook-form": "^7.88.0",

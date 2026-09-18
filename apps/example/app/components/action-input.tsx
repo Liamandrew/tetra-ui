@@ -7,7 +7,7 @@ import {
   ComponentBehaviourSheet,
   ComponentBehaviourSwitch,
 } from "@/components/component-behaviour";
-import { ScreenActionsButton, ScreenHero } from "@/components/screen";
+import { ScreenHero } from "@/components/screen";
 
 export default function ActionInputScreen() {
   const [open, setOpen] = useState(false);
@@ -38,11 +38,7 @@ export default function ActionInputScreen() {
         ) : null}
       </ActionInput>
 
-      <ComponentBehaviourSheet
-        onOpenChange={setOpen}
-        open={open}
-        trigger={<ScreenActionsButton />}
-      >
+      <ComponentBehaviourSheet onOpenChange={setOpen} open={open}>
         <ComponentBehaviourSwitch
           onValueChange={setShowValue}
           value={showValue}

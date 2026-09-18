@@ -172,6 +172,28 @@
       ]
     },
     {
+      "name": "floating-action-button",
+      "type": "registry:ui",
+      "title": "Floating Action Button",
+      "description": "A positioned primary action that can expand into an extended label and open a FAB menu.",
+      "dependencies": [
+        "react-native-reanimated",
+        "react-native-safe-area-context"
+      ],
+      "registryDependencies": [
+        "@tetra-ui/button",
+        "@tetra-ui/icons",
+        "@tetra-ui/scrim",
+        "@tetra-ui/slots"
+      ],
+      "files": [
+        {
+          "path": "../../packages/tetra-ui/src/components/floating-action-button.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "form",
       "type": "registry:ui",
       "title": "Form",
@@ -465,7 +487,11 @@
         "react-native-reanimated",
         "react-native-safe-area-context"
       ],
-      "registryDependencies": ["@tetra-ui/portal", "@tetra-ui/slot"],
+      "registryDependencies": [
+        "@tetra-ui/portal",
+        "@tetra-ui/scrim",
+        "@tetra-ui/slot"
+      ],
       "files": [
         {
           "path": "../../packages/tetra-ui/src/components/popover.tsx",
@@ -528,6 +554,20 @@
       "files": [
         {
           "path": "../../packages/tetra-ui/src/components/search-input.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "scrim",
+      "type": "registry:ui",
+      "title": "Scrim",
+      "description": "A blurred overlay that dims content behind a sheet, menu, or dialog.",
+      "dependencies": ["expo-blur", "react-native-reanimated"],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "../../packages/tetra-ui/src/components/scrim.tsx",
           "type": "registry:ui"
         }
       ]

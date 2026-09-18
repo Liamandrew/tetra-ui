@@ -38,22 +38,27 @@ npx shadcn@latest add @tetra-ui/portal
 
 ```tsx
 import { PortalHost } from "@/components/ui/portal";
+import { ScrimHost, ScrimTarget } from "@/components/ui/scrim";
 ```
 
 ```tsx
 export default function RootLayout() {
   return (
-    <>
-      <Stack />
+    <ScrimHost>
+      <ScrimTarget>
+        <Stack />
+      </ScrimTarget>
       <PortalHost />
-    </>
+    </ScrimHost>
   );
 }
 ```
 
+`ThemeProvider` already mounts this structure.
+
 ## When to use
 
-Add `PortalHost` once at the root of your app. Components that render into a portal — such as [Select](/docs/components/select) (popover mode) and [Popover](/docs/components/popover) — require it to display content above the rest of the UI.
+Add `PortalHost` once at the root of your app, as a sibling of `ScrimTarget`. Components that render into a portal — such as [Select](/docs/components/select) (popover mode) and [Popover](/docs/components/popover) — require it to display content above the rest of the UI. [Scrim](/docs/components/scrim) uses the same host so portaled overlays can blur the screen behind them.
 
 Place `PortalHost` as a sibling to your navigation stack, not inside individual screens.
 
@@ -97,7 +102,7 @@ Renders `null` in place. Injects `children` into the matching `PortalHost`.
   }}
 />
 
-### PortalOverlay
+### PortalWindow
 
-Platform wrapper used by overlays: `FullWindowOverlay` on iOS, `Fragment` elsewhere.
+Platform window wrapper used by portaled UI: `FullWindowOverlay` on iOS, `Fragment` elsewhere. Not a dimmer — use [`Scrim`](/docs/components/scrim) for that.
 

@@ -4,7 +4,7 @@ import {
   ComponentBehaviourSheet,
   ComponentBehaviourSwitch,
 } from "@/components/component-behaviour";
-import { ScreenActionsButton, ScreenHero } from "@/components/screen";
+import { ScreenHero } from "@/components/screen";
 
 export default function SwitchScreen() {
   const [value, setValue] = useState(50);
@@ -14,7 +14,7 @@ export default function SwitchScreen() {
     <ScreenHero>
       <Slider disabled={showDisabled} onValueChange={setValue} value={value} />
 
-      <ComponentBehaviourSheet trigger={<ScreenActionsButton />}>
+      <ComponentBehaviourSheet>
         <ComponentBehaviourSwitch
           onValueChange={setShowDisabled}
           value={showDisabled}
