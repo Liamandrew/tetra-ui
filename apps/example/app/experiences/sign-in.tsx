@@ -188,7 +188,7 @@ export default function SignInExperience() {
                 )}
               />
 
-              <Button onPress={onCredentialsSubmit}>
+              <Button onPress={() => onCredentialsSubmit()}>
                 <ButtonText>Continue</ButtonText>
               </Button>
             </Stack>

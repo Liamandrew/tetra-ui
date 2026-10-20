@@ -259,7 +259,7 @@ export default function BookingExperience() {
                 setOccasion(value);
                 setShowMissing(false);
               }}
-              value={occasion ?? "none"}
+              value={occasion || "none"}
             >
               <NativeSelectTrigger asChild>
                 <NativeSelectInput placeholder="Select an occasion" />

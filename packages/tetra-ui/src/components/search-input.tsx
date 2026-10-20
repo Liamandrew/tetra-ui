@@ -1,4 +1,5 @@
-import { cn } from "@/registry/lib/utils";
+import { useMemo } from "react";
+import { cn, mergeRefs } from "@/registry/lib/utils";
 import {
   Input,
   InputAddon,
@@ -21,6 +22,7 @@ export type SearchInputProps = InputProps & {
 
 // Components
 export const SearchInput = ({
+  ref,
   onFocus,
   onBlur,
   disabled,
@@ -32,6 +34,11 @@ export const SearchInput = ({
     useInputFocusState({ onBlur, onFocus });
 
   const { startAddons, endAddons, groupClassName } = useInputAddons(children);
+
+  const mergedRef = useMemo(
+    () => mergeRefs(internalRef, ref),
+    [internalRef, ref]
+  );
 
   return (
     <InputGroup
@@ -57,7 +64,7 @@ export const SearchInput = ({
         disabled={disabled}
         onBlur={handleBlur}
         onFocus={handleFocus}
-        ref={internalRef}
+        ref={mergedRef}
       />
 
       {endAddons}

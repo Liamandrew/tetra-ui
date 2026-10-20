@@ -16,7 +16,7 @@ export const Empty = ({
   return (
     <View
       className={cn(
-        "flex w-full min-w-0 flex-1 flex-col items-center justify-center gap-4 text-balance rounded-xl border-dashed p-6 text-center",
+        "flex w-full min-w-0 flex-1 flex-col items-center justify-center gap-4 rounded-xl border-dashed p-6 text-center",
         className
       )}
       data-slot="empty"
@@ -97,7 +97,7 @@ export const EmptyDescription = ({
   return (
     <Text
       className={cn(
-        "text-center text-muted-foreground text-sm/relaxed [&>a:hover]:text-primary [&>a]:underline [&>a]:underline-offset-4",
+        "text-center text-muted-foreground text-sm/relaxed",
         className
       )}
       data-slot="empty-description"
@@ -113,7 +113,7 @@ export const EmptyContent = ({
   return (
     <View
       className={cn(
-        "flex w-full min-w-0 max-w-sm flex-col items-center gap-2.5 text-balance text-sm",
+        "flex w-full min-w-0 max-w-sm flex-col items-center gap-2.5 text-sm",
         className
       )}
       data-slot="empty-content"

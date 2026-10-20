@@ -54,20 +54,38 @@ export const BottomSheet = ({
 
 export const BottomSheetTrigger = ({
   asChild,
+  onPress,
   ...props
 }: BottomSheetTriggerProps) => {
   const { onOpenChange } = useBottomSheetContext();
   const Comp = asChild ? Slot.Pressable : Pressable;
-  return <Comp {...props} onPress={() => onOpenChange(true)} />;
+  return (
+    <Comp
+      {...props}
+      onPress={(event) => {
+        onPress?.(event);
+        onOpenChange(true);
+      }}
+    />
+  );
 };
 
 export const BottomSheetClose = ({
   asChild,
+  onPress,
   ...props
 }: BottomSheetCloseProps) => {
   const { onOpenChange } = useBottomSheetContext();
   const Comp = asChild ? Slot.Pressable : Pressable;
-  return <Comp {...props} onPress={() => onOpenChange(false)} />;
+  return (
+    <Comp
+      {...props}
+      onPress={(event) => {
+        onPress?.(event);
+        onOpenChange(false);
+      }}
+    />
+  );
 };
 
 export const BottomSheetBody = ({
@@ -133,7 +151,12 @@ export const BottomSheetHeader = ({
     >
       {children}
       <BottomSheetClose asChild>
-        <Button className="ml-auto" size="icon" variant="link">
+        <Button
+          accessibilityLabel="Close"
+          className="ml-auto"
+          size="icon"
+          variant="link"
+        >
           <ButtonIcon className="text-muted-foreground">
             <XIcon />
           </ButtonIcon>

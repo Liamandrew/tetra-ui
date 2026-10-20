@@ -58,7 +58,7 @@ type OTPInputContextValue = {
   invalid?: boolean;
   secureTextEntry?: boolean;
   slots: SlotData[];
-  inputRef: React.RefObject<RNTextInput | null>;
+  inputRef: React.RefObject<React.ComponentRef<typeof RNTextInput> | null>;
   focus: () => void;
   onSlotPress: (index: number) => void;
 };
@@ -177,7 +177,7 @@ export const OTPInput = ({
 }: OTPInputProps) => {
   const [internalValue, setInternalValue] = useState(defaultValue ?? "");
   const [isFocused, setIsFocused] = useState(false);
-  const inputRef = useRef<RNTextInput>(null);
+  const inputRef = useRef<React.ComponentRef<typeof RNTextInput>>(null);
 
   const isControlled = valueProp !== undefined;
   const value = isControlled ? valueProp : internalValue;

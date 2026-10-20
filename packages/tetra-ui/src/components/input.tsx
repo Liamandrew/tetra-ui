@@ -312,10 +312,16 @@ export const InputAddonButtonIcon = (
 export const useInputFocusState = ({
   onFocus,
   onBlur,
-}: UseInputFocusStateProps) => {
+}: UseInputFocusStateProps): {
+  handleBlur: (event: BlurEvent) => void;
+  handleFocus: (event: FocusEvent) => void;
+  handlePress: () => void;
+  internalRef: React.RefObject<React.ComponentRef<typeof RNTextInput> | null>;
+  isFocused: boolean;
+} => {
   const [isFocused, setIsFocused] = useState(false);
 
-  const internalRef = useRef<RNTextInput>(null);
+  const internalRef = useRef<React.ComponentRef<typeof RNTextInput>>(null);
 
   const handleFocus = useCallback(
     (e: FocusEvent) => {

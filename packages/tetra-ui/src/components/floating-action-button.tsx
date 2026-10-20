@@ -220,20 +220,14 @@ const getMenuPositionStyle = ({
   };
 
   if (edge === "bottom-center") {
-    style.alignSelf = "center";
-    style.alignItems = "center";
-    return style;
+    return { ...style, alignItems: "center", alignSelf: "center" };
   }
 
   if (edge === "bottom-start") {
-    style.start = start;
-    style.alignItems = "flex-start";
-    return style;
+    return { ...style, alignItems: "flex-start", start };
   }
 
-  style.end = end;
-  style.alignItems = "flex-end";
-  return style;
+  return { ...style, alignItems: "flex-end", end };
 };
 
 const resolveVisual = ({

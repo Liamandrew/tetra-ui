@@ -12,7 +12,7 @@ export const KeyboardAwareScrollView = ({
   bottomOffset = 62,
   ...props
 }: React.ComponentProps<typeof RNKeyboardAwareScrollView>) => {
-  return <RNKeyboardAwareScrollView {...props} />;
+  return <RNKeyboardAwareScrollView bottomOffset={bottomOffset} {...props} />;
 };
 
 export const KeyboardProvider = RNKeyboardProvider;

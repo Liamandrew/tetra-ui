@@ -185,7 +185,9 @@ const NativeDateSelectRoot = ({
 }: NativeDateSelectProps) => {
   const [internalOpen, setInternalOpen] = useState(openProp ?? false);
   const [internalValue, setInternalValue] = useState<Date>();
-  const [selectedValue, setSelectedValue] = useState<Date>();
+  const [selectedValue, setSelectedValue] = useState<Date | undefined>(
+    undefined
+  );
   const [placeholder, setPlaceholder] = useState(DEFAULT_PLACEHOLDER);
   const hasInput = nativeDateSelectSlots.useHasSlot("input");
   const [variant, setVariant] = useState<NativeDateSelectVariant>(variantProp);

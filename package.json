@@ -10,14 +10,15 @@
     "dev:docs": "turbo run dev --filter=docs",
     "dev:example": "turbo run dev --filter=example",
     "fix:lint": "npx ultracite fix",
-    "registry:build": "turbo run registry:build --filter=docs"
+    "registry:build": "turbo run registry:build --filter=docs",
+    "test": "turbo run test"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.5.12",
+    "@biomejs/biome": "2.5.15",
     "husky": "^9.1.7",
-    "turbo": "^2.10.13",
+    "turbo": "^2.11.10",
     "typescript": "~6.0.3",
-    "ultracite": "7.12.0"
+    "ultracite": "8.0.1"
   },
   "packageManager": "pnpm@12.3.1",
   "engines": {

@@ -4,6 +4,7 @@
   "title": "Icons",
   "description": "Icon components styled with Tailwind classes for React Native.",
   "dependencies": [
+    "lucide-react-native",
     "react-native-svg"
   ],
   "registryDependencies": [],

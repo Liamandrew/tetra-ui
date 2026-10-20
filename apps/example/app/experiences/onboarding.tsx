@@ -166,7 +166,7 @@ export default function OnboardingExperience() {
                 )}
               />
 
-              <Button onPress={goToPreferences}>
+              <Button onPress={() => goToPreferences()}>
                 <ButtonText>Continue</ButtonText>
               </Button>
             </Stack>

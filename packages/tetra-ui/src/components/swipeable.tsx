@@ -14,9 +14,9 @@ import {
 } from "react";
 import { Text, useWindowDimensions, View } from "react-native";
 import {
-  Gesture,
   GestureDetector,
   Pressable as GestureHandlerPressable,
+  useTapGesture,
 } from "react-native-gesture-handler";
 import ReanimatedSwipeable, {
   type SwipeableProps as ReanimatedSwipeableProps,
@@ -32,7 +32,7 @@ import Animated, {
 } from "react-native-reanimated";
 import { withUniwind } from "uniwind";
 import { createSlots } from "@/registry/lib/slots";
-import { cn } from "@/registry/lib/utils";
+import { cn, mergeRefs } from "@/registry/lib/utils";
 
 export type { SwipeableMethods } from "react-native-gesture-handler/ReanimatedSwipeable";
 
@@ -56,7 +56,7 @@ export type SwipeableContentProps = {
   children: React.ReactNode;
   className?: string;
   /**
-   * Tap handler for the row. Implemented with Gesture.Tap so it can succeed
+   * Tap handler for the row. Implemented with a tap gesture so it can succeed
    * alongside a parent scroll/swipe pan — RNGH Pressable cancels too easily.
    */
   onPress?: () => void;
@@ -166,40 +166,30 @@ const SwipeablePressable = ({
 }) => {
   const [pressed, setPressed] = useState(false);
 
-  const handlePress = useCallback(() => {
-    if (disabled) {
-      return;
-    }
-    onPress();
-  }, [disabled, onPress]);
-
-  const tapGesture = useMemo(
-    () =>
-      Gesture.Tap()
-        .enabled(!disabled)
-        .maxDistance(TAP_MAX_DISTANCE)
-        .runOnJS(true)
-        .shouldCancelWhenOutside(false)
-        .onBegin(() => {
-          setPressed(true);
-        })
-        .onFinalize(() => {
-          setPressed(false);
-        })
-        .onEnd(() => {
-          handlePress();
-        }),
-    [disabled, handlePress]
-  );
+  const tapGesture = useTapGesture({
+    enabled: !disabled,
+    maxDistance: TAP_MAX_DISTANCE,
+    onBegin: () => setPressed(true),
+    onDeactivate: (event) => {
+      if (!event.canceled) {
+        onPress();
+      }
+    },
+    onFinalize: () => setPressed(false),
+    runOnJS: true,
+    shouldCancelWhenOutside: false,
+  });
 
   return (
     <GestureDetector gesture={tapGesture}>
       <View
         accessibilityRole="button"
+        accessibilityState={{ disabled }}
         className={cn("w-full bg-card", className)}
         collapsable={false}
         data-pressed={pressed || undefined}
         data-slot="swipeable"
+        onAccessibilityTap={disabled ? undefined : onPress}
       >
         {children}
       </View>
@@ -489,8 +479,8 @@ const SwipeableRow = ({
   onSwipeableCloseStartDrag,
   onSwipeableWillOpen,
   onSwipeableWillClose,
-  dragOffsetFromLeftEdge = DEFAULT_DRAG_OFFSET,
-  dragOffsetFromRightEdge = DEFAULT_DRAG_OFFSET,
+  dragOffsetFromLeft = DEFAULT_DRAG_OFFSET,
+  dragOffsetFromRight = -DEFAULT_DRAG_OFFSET,
   ref,
   ...props
 }: SwipeableProps) => {
@@ -504,10 +494,8 @@ const SwipeableRow = ({
   const isDragging = useSharedValue(false);
 
   const list = useContext(SwipeableListContext);
-  const closeRef = useRef(() => methodsRef.current?.close());
-  closeRef.current = () => methodsRef.current?.close();
   const member = useRef<SwipeableExclusiveMember>({
-    close: () => closeRef.current(),
+    close: () => methodsRef.current?.close(),
   }).current;
 
   useEffect(() => list?.join(member), [list, member]);
@@ -547,19 +535,7 @@ const SwipeableRow = ({
     [animationOptions]
   );
 
-  const setMethodsRef = useCallback(
-    (methods: SwipeableMethods | null) => {
-      methodsRef.current = methods;
-      if (typeof ref === "function") {
-        ref(methods);
-        return;
-      }
-      if (ref) {
-        ref.current = methods;
-      }
-    },
-    [ref]
-  );
+  const setMethodsRef = useMemo(() => mergeRefs(methodsRef, ref), [ref]);
 
   const commitFullSwipe = useCallback(
     (
@@ -705,8 +681,8 @@ const SwipeableRow = ({
       {children}
       <ReanimatedSwipeable
         animationOptions={resolvedAnimationOptions}
-        dragOffsetFromLeftEdge={dragOffsetFromLeftEdge}
-        dragOffsetFromRightEdge={dragOffsetFromRightEdge}
+        dragOffsetFromLeft={dragOffsetFromLeft}
+        dragOffsetFromRight={dragOffsetFromRight}
         friction={friction}
         onSwipeableCloseStartDrag={handleCloseStartDrag}
         onSwipeableOpenStartDrag={handleOpenStartDrag}

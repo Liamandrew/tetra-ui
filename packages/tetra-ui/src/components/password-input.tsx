@@ -34,6 +34,7 @@ export const PasswordInput = ({
     >
       <InputAddon align="inline-end">
         <InputAddonButton
+          accessibilityLabel={isSecureEntry ? "Show password" : "Hide password"}
           disabled={disabled}
           onPress={() => setIsSecureEntry((p) => !p)}
           size="icon"

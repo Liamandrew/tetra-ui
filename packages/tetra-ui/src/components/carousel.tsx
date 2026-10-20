@@ -15,16 +15,15 @@ import {
 import {
   AccessibilityInfo,
   AppState,
-  type AppStateStatus,
   type LayoutChangeEvent,
   Pressable,
   View,
 } from "react-native";
-import { Gesture, GestureDetector } from "react-native-gesture-handler";
+import { GestureDetector, usePanGesture } from "react-native-gesture-handler";
 import Animated, {
+  cancelAnimation,
   Extrapolation,
   interpolate,
-  runOnJS,
   type SharedValue,
   useAnimatedReaction,
   useAnimatedStyle,
@@ -32,6 +31,7 @@ import Animated, {
   withSpring,
   withTiming,
 } from "react-native-reanimated";
+import { scheduleOnRN } from "react-native-worklets";
 import { cn } from "@/registry/lib/utils";
 import { Button, ButtonIcon } from "@/registry/ui/button";
 import { ChevronLeftIcon, ChevronRightIcon } from "@/registry/ui/icons";
@@ -409,9 +409,7 @@ const usePrefersReducedMotion = () => {
 };
 
 const useAppIsActive = () => {
-  const [appState, setAppState] = useState<AppStateStatus>(
-    AppState.currentState
-  );
+  const [appState, setAppState] = useState(AppState.currentState);
 
   useEffect(() => {
     const subscription = AppState.addEventListener("change", setAppState);
@@ -521,12 +519,27 @@ export const Carousel = ({
   const peekInsetSV = useSharedValue(0);
   const reduceMotionSV = useSharedValue(false);
 
-  strideSV.value = stride;
-  countSV.value = count;
-  loopingSV.value = looping;
-  cloneCountSV.value = cloneCount;
-  peekInsetSV.value = peekInset;
-  reduceMotionSV.value = reduceMotion;
+  useLayoutEffect(() => {
+    strideSV.value = stride;
+    countSV.value = count;
+    loopingSV.value = looping;
+    cloneCountSV.value = cloneCount;
+    peekInsetSV.value = peekInset;
+    reduceMotionSV.value = reduceMotion;
+  }, [
+    stride,
+    strideSV,
+    count,
+    countSV,
+    looping,
+    loopingSV,
+    cloneCount,
+    cloneCountSV,
+    peekInset,
+    peekInsetSV,
+    reduceMotion,
+    reduceMotionSV,
+  ]);
 
   const indexRef = useRef(index);
   const countRef = useRef(count);
@@ -616,7 +629,7 @@ export const Carousel = ({
           cloneCountSV.value,
           peekInsetSV.value
         );
-        runOnJS(onComplete)();
+        scheduleOnRN(onComplete);
       };
 
       if (reduceMotionSV.value) {
@@ -888,101 +901,92 @@ export const CarouselContent = ({
 
   const snapEpoch = useSharedValue(0);
 
-  const pan = useMemo(
-    () =>
-      Gesture.Pan()
-        .activeOffsetX([-GESTURE_ACTIVE_OFFSET_X, GESTURE_ACTIVE_OFFSET_X])
-        .failOffsetY([-GESTURE_FAIL_OFFSET_Y, GESTURE_FAIL_OFFSET_Y])
-        .enabled(count > 1)
-        .onStart(() => {
-          snapEpoch.value += 1;
-          dragStartX.value = translateX.value;
-          runOnJS(onPanStart)();
-        })
-        .onUpdate((event) => {
-          const next = rubberBandTranslate(
-            dragStartX.value + event.translationX,
-            strideSV.value,
-            countSV.value,
-            loopingSV.value,
-            peekInsetSV.value
-          );
-          const wrapped = wrapLoopTranslation(
-            next,
-            strideSV.value,
-            countSV.value,
-            cloneCountSV.value,
-            peekInsetSV.value
-          );
-          dragStartX.value += wrapped.shift;
-          translateX.value = wrapped.offset;
-        })
-        .onFinalize((event) => {
-          snapEpoch.value += 1;
-          const epoch = snapEpoch.value;
-          const stride = strideSV.value;
-          const itemCount = countSV.value;
-          const clones = cloneCountSV.value;
-          const peekInset = peekInsetSV.value;
-          const target = getSnapVisual(
-            translateX.value,
-            event.velocityX,
+  const pan = usePanGesture({
+    activeOffsetX: [-GESTURE_ACTIVE_OFFSET_X, GESTURE_ACTIVE_OFFSET_X],
+    enabled: count > 1,
+    failOffsetY: [-GESTURE_FAIL_OFFSET_Y, GESTURE_FAIL_OFFSET_Y],
+    onActivate: () => {
+      "worklet";
+      snapEpoch.value += 1;
+      cancelAnimation(translateX);
+      dragStartX.value = translateX.value;
+      scheduleOnRN(onPanStart);
+    },
+    onDeactivate: (event) => {
+      "worklet";
+      snapEpoch.value += 1;
+      const epoch = snapEpoch.value;
+      const stride = strideSV.value;
+      const itemCount = countSV.value;
+      const clones = cloneCountSV.value;
+      const peekInset = peekInsetSV.value;
+      const target = getSnapVisual(
+        translateX.value,
+        event.canceled ? 0 : event.velocityX,
+        stride,
+        itemCount,
+        clones,
+        peekInset
+      );
+
+      const finish = (finished?: boolean) => {
+        "worklet";
+
+        if (!(finished && snapEpoch.value === epoch)) {
+          return;
+        }
+
+        scheduleOnRN(
+          onSettledFromGesture,
+          wrapSettledTranslation(
+            target,
+            translateX,
             stride,
             itemCount,
             clones,
             peekInset
-          );
+          )
+        );
+      };
 
-          const finish = (finished?: boolean) => {
-            if (!(finished && snapEpoch.value === epoch)) {
-              return;
-            }
+      if (stride === 0) {
+        finish(true);
+        return;
+      }
 
-            runOnJS(onSettledFromGesture)(
-              wrapSettledTranslation(
-                target,
-                translateX,
-                stride,
-                itemCount,
-                clones,
-                peekInset
-              )
-            );
-          };
+      const dest = offsetForVisual(target, stride, peekInset);
 
-          if (stride === 0) {
-            finish(true);
-            return;
-          }
+      if (reduceMotionSV.value) {
+        translateX.value = withTiming(
+          dest,
+          { duration: SNAP_TIMING_MS },
+          finish
+        );
+        return;
+      }
 
-          const dest = offsetForVisual(target, stride, peekInset);
-
-          if (reduceMotionSV.value) {
-            translateX.value = withTiming(
-              dest,
-              { duration: SNAP_TIMING_MS },
-              finish
-            );
-            return;
-          }
-
-          translateX.value = withSpring(dest, SNAP_SPRING, finish);
-        }),
-    [
-      cloneCountSV,
-      count,
-      countSV,
-      dragStartX,
-      loopingSV,
-      onPanStart,
-      onSettledFromGesture,
-      peekInsetSV,
-      reduceMotionSV,
-      snapEpoch,
-      strideSV,
-      translateX,
-    ]
-  );
+      translateX.value = withSpring(dest, SNAP_SPRING, finish);
+    },
+    onUpdate: (event) => {
+      "worklet";
+      const next = rubberBandTranslate(
+        dragStartX.value + event.translationX,
+        strideSV.value,
+        countSV.value,
+        loopingSV.value,
+        peekInsetSV.value
+      );
+      const wrapped = wrapLoopTranslation(
+        next,
+        strideSV.value,
+        countSV.value,
+        cloneCountSV.value,
+        peekInsetSV.value
+      );
+      dragStartX.value += wrapped.shift;
+      translateX.value = wrapped.offset;
+    },
+  });
 
   return (
     <View

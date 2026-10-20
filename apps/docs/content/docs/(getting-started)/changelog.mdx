@@ -3,25 +3,25 @@ title: Changelog
 description: History of updates, changes and announcements
 ---
 
-## November 2025 - Launch
+## October 2026
 
-Launching tetra-ui to the world with a small set of initial components.
+- Upgraded to Expo 58
 
-Stay tuned for more updates and improvements!
+## September 2026
 
-## February 2026
+- Replaced `clsx` and `tailwind-merge` with the [`cn`](https://github.com/shadcn-ui/cn) package. New projects should install `cn` and re-export it from `lib/utils.ts`. Existing projects can run `npx shadcn@latest migrate cn`.
+- Added Floating Action Button component.
+- Added Scrim component. Popover overlays are now `PopoverScrim`. `PortalOverlay` is `PortalWindow`.
+- Scrim open/close uses `FadeIn` / `FadeOut`, `visibilityProgress` drives blur intensity, and Reduce Transparency skips blur.
 
-- Added Lucide icons as the default icon set.
+## August 2026
 
-## April 2026
-
-- Added Chip component.
-- Added Empty component.
-
-## May 2026
-
-- Added Accordion component.
-- Added Bottom Sheet component.
+- Added Carousel component.
+- Added Native Select component.
+- Added Avatar component.
+- Added Alert component.
+- Added Segmented Control component.
+- Removed deprecated Native Sheet component in favor of Bottom Sheet.
 
 ## June 2026
 
@@ -35,18 +35,22 @@ Stay tuned for more updates and improvements!
 - Added OTP Input component.
 - Added Inline List component.
 
-## August 2026
+## May 2026
 
-- Added Carousel component.
-- Added Native Select component.
-- Added Avatar component.
-- Added Alert component.
-- Added Segmented Control component.
-- Removed deprecated Native Sheet component in favor of Bottom Sheet.
+- Added Accordion component.
+- Added Bottom Sheet component.
 
-## September 2026
+## April 2026
 
-- Replaced `clsx` and `tailwind-merge` with the [`cn`](https://github.com/shadcn-ui/cn) package. New projects should install `cn` and re-export it from `lib/utils.ts`. Existing projects can run `npx shadcn@latest migrate cn`.
-- Added Floating Action Button component.
-- Added Scrim component. Popover overlays are now `PopoverScrim`. `PortalOverlay` is `PortalWindow`.
-- Scrim open/close uses `FadeIn` / `FadeOut`, `visibilityProgress` drives blur intensity, and Reduce Transparency skips blur.
+- Added Chip component.
+- Added Empty component.
+
+## February 2026
+
+- Added Lucide icons as the default icon set.
+
+## November 2025 - Launch
+
+Launching tetra-ui to the world with a small set of initial components.
+
+Stay tuned for more updates and improvements!

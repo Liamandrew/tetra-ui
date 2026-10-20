@@ -42,7 +42,7 @@ const extractItems = <T extends PickerItemValue>(children: React.ReactNode) => {
       continue;
     }
 
-    const { label, value } = child.props as PickerItemProps<T>;
+    const { label, value } = child.props as Partial<PickerItemProps<T>>;
     if (typeof label !== "string" || value === undefined) {
       continue;
     }

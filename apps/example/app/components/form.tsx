@@ -237,7 +237,7 @@ const HookForm = () => {
         )}
       />
 
-      <Button onPress={form.handleSubmit(onSubmit)}>Submit</Button>
+      <Button onPress={() => form.handleSubmit(onSubmit)()}>Submit</Button>
     </Stack>
   );
 };

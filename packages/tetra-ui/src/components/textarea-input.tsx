@@ -1,4 +1,5 @@
-import { cn } from "@/registry/lib/utils";
+import { useMemo } from "react";
+import { cn, mergeRefs } from "@/registry/lib/utils";
 import {
   Input,
   InputGroup,
@@ -16,6 +17,7 @@ export type TextareaInputProps = InputProps & {
 
 // Components
 export const TextareaInput = ({
+  ref,
   onFocus,
   onBlur,
   disabled,
@@ -25,6 +27,11 @@ export const TextareaInput = ({
 }: TextareaInputProps) => {
   const { isFocused, internalRef, handleFocus, handleBlur, handlePress } =
     useInputFocusState({ onBlur, onFocus });
+
+  const mergedRef = useMemo(
+    () => mergeRefs(internalRef, ref),
+    [internalRef, ref]
+  );
 
   return (
     <InputGroup
@@ -42,7 +49,7 @@ export const TextareaInput = ({
         multiline
         onBlur={handleBlur}
         onFocus={handleFocus}
-        ref={internalRef}
+        ref={mergedRef}
         scrollEnabled={false}
         textAlignVertical="top"
       />

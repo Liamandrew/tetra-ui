@@ -137,14 +137,26 @@ Add the following to your `globals.css` file that you created when installing Un
 export { cn } from "cn";
 
 export function mergeRefs<T>(...refs: (React.Ref<T> | undefined)[]) {
-  return (value: T) => {
-    for (const ref of refs) {
+  return (value: T | null) => {
+    const cleanups = refs.map((ref) => {
       if (typeof ref === "function") {
-        ref(value);
-      } else if (ref) {
-        ref.current = value;
+        const cleanup = ref(value);
+        return typeof cleanup === "function" ? cleanup : () => ref(null);
       }
-    }
+      if (ref) {
+        ref.current = value;
+        return () => {
+          ref.current = null;
+        };
+      }
+      return null;
+    });
+
+    return () => {
+      for (const cleanup of cleanups) {
+        cleanup?.();
+      }
+    };
   };
 }
 ```

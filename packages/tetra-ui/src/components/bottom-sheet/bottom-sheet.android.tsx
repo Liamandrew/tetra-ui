@@ -82,7 +82,7 @@ const BottomSheetContentView = ({
 }: BottomSheetContentProps) => {
   const { open, onOpenChange } = useBottomSheetContext();
 
-  const sheetRef = useRef<ModalBottomSheetRef>(null);
+  const sheetRef = useRef<ModalBottomSheetRef | null>(null);
   const [visible, setVisible] = useState(open);
 
   const backgroundColor = useCSSVariable("--color-background") as string;

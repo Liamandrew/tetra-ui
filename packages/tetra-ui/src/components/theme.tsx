@@ -6,7 +6,7 @@ import { ScrimHost, ScrimTarget } from "@/registry/ui/scrim";
 export const ThemeProvider = ({ children }: React.PropsWithChildren) => {
   return (
     <GestureHandlerRootView className="flex-1">
-      <KeyboardProvider>
+      <KeyboardProvider preload={false}>
         <ScrimHost>
           <ScrimTarget>{children}</ScrimTarget>
           <PortalHost />

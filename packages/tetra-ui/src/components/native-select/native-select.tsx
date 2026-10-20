@@ -205,7 +205,9 @@ const NativeSelectRoot = <T extends PickerItemValue>({
   const hasTrigger = nativeSelectSlots.useHasSlot("trigger");
   const hasInput = nativeSelectSlots.useHasSlot("input");
   const hasFormUi = hasTrigger || hasInput;
-  const [inputVariant, setVariant] = useState<NativeSelectVariant>();
+  const [inputVariant, setVariant] = useState<NativeSelectVariant | undefined>(
+    undefined
+  );
   const [slotsReady, setSlotsReady] = useState(false);
 
   const items = useMemo(

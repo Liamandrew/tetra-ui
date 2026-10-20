@@ -34,13 +34,13 @@ const AnimatedBlurView = Animated.createAnimatedComponent(BlurView);
 
 // Types
 type ScrimContextValue = {
-  blurTarget: React.RefObject<View | null>;
+  blurTarget: React.RefObject<React.ComponentRef<typeof View> | null>;
 };
 
 type ScrimTint = "dark" | "light";
 
 type ScrimChrome = {
-  blurTarget?: React.RefObject<View | null>;
+  blurTarget?: React.RefObject<React.ComponentRef<typeof View> | null>;
   overlayOpacity: number;
   showBlur: boolean;
   showDim: boolean;
@@ -49,7 +49,7 @@ type ScrimChrome = {
 
 export type ScrimHostProps = React.ComponentProps<typeof View>;
 
-export type ScrimTargetProps = React.ComponentProps<typeof View>;
+export type ScrimTargetProps = React.ComponentPropsWithoutRef<typeof View>;
 
 export type ScrimProps = Omit<
   React.ComponentProps<typeof Pressable>,
@@ -128,7 +128,7 @@ export const ScrimHost = ({
   children,
   ...props
 }: ScrimHostProps) => {
-  const blurTarget = useRef<View>(null);
+  const blurTarget = useRef<React.ComponentRef<typeof View>>(null);
   const ctx = useMemo(() => ({ blurTarget }), []);
 
   return (
@@ -151,8 +151,8 @@ export const ScrimTarget = ({
     <BlurTargetView
       className={cn("relative flex-1", className)}
       collapsable={false}
-      ref={context?.blurTarget}
       {...props}
+      ref={context?.blurTarget}
     >
       {children}
     </BlurTargetView>

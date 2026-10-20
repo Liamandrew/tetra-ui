@@ -3,6 +3,7 @@ import {
   useCallback,
   useContext,
   useEffect,
+  useId,
   useMemo,
   useRef,
   useState,
@@ -61,7 +62,9 @@ type PopoverContextProps = {
   setContentLayout: (position?: LayoutRectangle) => void;
 };
 
-type PopoverProps = Partial<PopoverContextProps> & {
+type PopoverProps = {
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
   children: React.ReactNode;
 };
 
@@ -114,10 +117,12 @@ export const Popover = ({
 
   const onOpenChange = useCallback(
     (nextOpen: boolean) => {
-      setInternalOpen(nextOpen);
+      if (!isControlled) {
+        setInternalOpen(nextOpen);
+      }
       onOpenChangeProp?.(nextOpen);
     },
-    [onOpenChangeProp]
+    [isControlled, onOpenChangeProp]
   );
 
   useEffect(() => {
@@ -209,7 +214,11 @@ export const PopoverTrigger = ({
   );
 };
 
-export const PopoverClose = ({ asChild, ...props }: PopoverCloseProps) => {
+export const PopoverClose = ({
+  asChild,
+  onPress,
+  ...props
+}: PopoverCloseProps) => {
   const { onOpenChange } = usePopover();
 
   const Comp = asChild ? Slot.Pressable : Pressable;
@@ -217,7 +226,8 @@ export const PopoverClose = ({ asChild, ...props }: PopoverCloseProps) => {
   return (
     <Comp
       {...props}
-      onPress={() => {
+      onPress={(event) => {
+        onPress?.(event);
         onOpenChange(false);
       }}
     />
@@ -226,9 +236,10 @@ export const PopoverClose = ({ asChild, ...props }: PopoverCloseProps) => {
 
 export const PopoverPortal = ({
   children,
-  name = "popover-portal",
+  name,
   ...portalProps
 }: PopoverPortalProps) => {
+  const id = useId();
   const ctx = usePopover();
   const [mounted, setMounted] = useState(ctx.open);
 
@@ -252,7 +263,7 @@ export const PopoverPortal = ({
   }
 
   return (
-    <Portal name={name} {...portalProps}>
+    <Portal name={name ?? `popover-${id}`} {...portalProps}>
       <PopoverContext.Provider value={ctx}>
         <PortalWindow>{children}</PortalWindow>
       </PopoverContext.Provider>

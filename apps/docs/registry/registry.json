@@ -102,7 +102,8 @@
       "description": "A swipeable set of pages or inline items with optional looping, autoplay, and composed controls.",
       "dependencies": [
         "react-native-gesture-handler",
-        "react-native-reanimated"
+        "react-native-reanimated",
+        "react-native-worklets"
       ],
       "registryDependencies": ["@tetra-ui/button", "@tetra-ui/icons"],
       "files": [
@@ -226,7 +227,7 @@
       "type": "registry:ui",
       "title": "Icons",
       "description": "Icon components styled with Tailwind classes for React Native.",
-      "dependencies": ["react-native-svg"],
+      "dependencies": ["lucide-react-native", "react-native-svg"],
       "registryDependencies": [],
       "files": [
         {
@@ -244,7 +245,7 @@
       "type": "registry:ui",
       "title": "Inline List",
       "description": "A grouped list section for settings-style rows with flexible leading and trailing addons.",
-      "registryDependencies": [],
+      "registryDependencies": ["@tetra-ui/text"],
       "files": [
         {
           "path": "../../packages/tetra-ui/src/components/inline-list.tsx",
@@ -500,6 +501,10 @@
         {
           "path": "../../packages/tetra-ui/src/hooks/use-relative-position.ts",
           "type": "registry:hook"
+        },
+        {
+          "path": "../../packages/tetra-ui/src/lib/relative-position.ts",
+          "type": "registry:lib"
         }
       ]
     },
@@ -770,7 +775,7 @@
       "type": "registry:ui",
       "title": "Textarea Input",
       "description": "A component that allows users to enter larger text.",
-      "registryDependencies": [],
+      "registryDependencies": ["@tetra-ui/input"],
       "files": [
         {
           "path": "../../packages/tetra-ui/src/components/textarea-input.tsx",

@@ -3,7 +3,9 @@
   "name": "inline-list",
   "title": "Inline List",
   "description": "A grouped list section for settings-style rows with flexible leading and trailing addons.",
-  "registryDependencies": [],
+  "registryDependencies": [
+    "@tetra-ui/text"
+  ],
   "files": [
     {
       "path": "ui/inline-list.tsx",

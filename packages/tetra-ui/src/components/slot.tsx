@@ -1,4 +1,4 @@
-import { Children, cloneElement, isValidElement } from "react";
+import { Children, cloneElement, useMemo } from "react";
 import type { Pressable as RNPressable, View as RNView } from "react-native";
 import { mergeRefs } from "@/registry/lib/utils";
 
@@ -18,15 +18,10 @@ const View = ({
     React.ComponentPropsWithRef<typeof RNView>
   >;
 
-  if (!isValidElement(child)) {
-    console.warn("View expects a single React element as children");
-    return null;
-  }
-
-  const childRef = "ref" in child ? child.ref : undefined;
-  const mergedRef = childRef
-    ? mergeRefs(ref, childRef as React.Ref<RNView>)
-    : ref;
+  const mergedRef = useMemo(
+    () => mergeRefs(ref, child.props.ref),
+    [ref, child.props.ref]
+  );
 
   return cloneElement(child, {
     ...mergeProps(viewProps, child.props as AnyProps),
@@ -40,18 +35,13 @@ const Pressable = ({
   ...pressableProps
 }: React.ComponentPropsWithRef<typeof RNPressable>) => {
   const child = Children.only(children) as React.ReactElement<
-    React.ComponentProps<typeof RNPressable>
+    React.ComponentPropsWithRef<typeof RNPressable>
   >;
 
-  if (!isValidElement(child)) {
-    console.warn("Pressable expects a single React element as children");
-    return null;
-  }
-
-  const childRef = "ref" in child ? child.ref : undefined;
-  const mergedRef = childRef
-    ? mergeRefs(ref, childRef as React.Ref<RNView>)
-    : ref;
+  const mergedRef = useMemo(
+    () => mergeRefs(ref, child.props.ref),
+    [ref, child.props.ref]
+  );
 
   return cloneElement(child, {
     ...mergeProps(pressableProps, child.props as AnyProps),
@@ -91,11 +81,7 @@ function mergeProps(slotProps: AnyProps, childProps: AnyProps) {
   // all child props should override
   const overrideProps = { ...childProps };
 
-  for (const propName in childProps) {
-    if (!Object.hasOwn(childProps, propName)) {
-      continue;
-    }
-
+  for (const propName of Object.keys(childProps)) {
     const slotPropValue = slotProps[propName];
     const childPropValue = childProps[propName];
 

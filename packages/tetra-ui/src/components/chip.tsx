@@ -42,6 +42,7 @@ export const Chip = ({
   className,
   disabled,
   variant,
+  accessibilityState,
   ...props
 }: ChipProps) => {
   const ctx = useMemo(() => {
@@ -55,8 +56,12 @@ export const Chip = ({
     <ChipContext.Provider value={ctx}>
       <Pressable
         accessibilityRole={accessibilityRole}
-        accessibilityState={{ disabled }}
-        className={cn(chipVariants({ className, variant }))}
+        accessibilityState={{ ...accessibilityState, disabled }}
+        className={cn(
+          chipVariants({ className, variant }),
+          disabled && "opacity-50"
+        )}
+        disabled={disabled}
         {...props}
       >
         {Children.map(children, (child) => {
