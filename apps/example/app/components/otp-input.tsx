@@ -22,7 +22,7 @@ export default function OTPInputScreen() {
       <ScreenHero>
         <Stack className="w-full" gap="lg">
           <Stack gap="sm">
-            <Text className="font-medium text-sm">6-digit code</Text>
+            <Text className="text-sm font-medium">6-digit code</Text>
             <OTPInput
               disabled={showDisabled}
               invalid={showInvalid}
@@ -44,7 +44,7 @@ export default function OTPInputScreen() {
           </Stack>
 
           <Stack gap="sm">
-            <Text className="font-medium text-sm">4-digit PIN</Text>
+            <Text className="text-sm font-medium">4-digit PIN</Text>
             <OTPInput
               disabled={showDisabled}
               invalid={showInvalid}

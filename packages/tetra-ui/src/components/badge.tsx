@@ -89,24 +89,24 @@ export const BadgeIcon = ({ children, ...props }: BadgeChildProps) => {
 
 // Styles
 const badgeVariants = cva(
-  "flex w-fit shrink-0 flex-row items-center justify-center gap-1.5 self-start overflow-hidden whitespace-nowrap rounded-md border border-border px-2 py-1 font-medium text-xs",
+  "border-border flex w-fit shrink-0 flex-row items-center justify-center gap-1.5 self-start overflow-hidden rounded-md border px-2 py-1 text-xs font-medium whitespace-nowrap",
   {
     defaultVariants: {
       variant: "default",
     },
     variants: {
       variant: {
-        default: "border-transparent bg-primary",
-        destructive: "border-transparent bg-destructive",
+        default: "bg-primary border-transparent",
+        destructive: "bg-destructive border-transparent",
         outline: "",
-        secondary: "border-transparent bg-secondary",
+        secondary: "bg-secondary border-transparent",
       },
     },
   }
 );
 
 const badgeTextVariants = cva(
-  "whitespace-nowrap font-semibold text-sm leading-tight",
+  "text-sm leading-tight font-semibold whitespace-nowrap",
   {
     defaultVariants: {
       variant: "default",

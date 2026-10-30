@@ -1130,7 +1130,7 @@ const CarouselDot = ({ position }: { position: number }) => {
       }}
     >
       <Animated.View
-        className="h-2 rounded-full bg-foreground"
+        className="bg-foreground h-2 rounded-full"
         style={dotStyle}
       />
     </Pressable>

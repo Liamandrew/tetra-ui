@@ -104,7 +104,7 @@ export const ChipIcon = ({ children, ...props }: ChipChildProps) => {
 
 // Styles
 const chipVariants = cva(
-  "flex w-fit shrink-0 flex-row items-center justify-center gap-1 self-start overflow-hidden whitespace-nowrap rounded-full px-2.5 py-1.5 font-medium text-xs",
+  "flex w-fit shrink-0 flex-row items-center justify-center gap-1 self-start overflow-hidden rounded-full px-2.5 py-1.5 text-xs font-medium whitespace-nowrap",
   {
     defaultVariants: {
       variant: "default",
@@ -115,7 +115,7 @@ const chipVariants = cva(
         destructive:
           "bg-destructive active:bg-destructive/80 dark:bg-destructive/60",
         outline:
-          "border border-border bg-card active:bg-accent/90 dark:border-input dark:bg-input/30 dark:active:bg-input/50",
+          "border-border bg-card active:bg-accent/90 dark:border-input dark:bg-input/30 dark:active:bg-input/50 border",
         secondary: "bg-secondary active:bg-secondary/50",
       },
     },
@@ -123,7 +123,7 @@ const chipVariants = cva(
 );
 
 const chipTextVariants = cva(
-  "whitespace-nowrap font-semibold text-sm leading-tight",
+  "text-sm leading-tight font-semibold whitespace-nowrap",
   {
     defaultVariants: {
       variant: "default",

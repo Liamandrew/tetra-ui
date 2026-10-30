@@ -43,9 +43,9 @@ export const ActionInput = ({
 
       <View className="grow">
         {value ? (
-          <Text className="text-base text-foreground">{value}</Text>
+          <Text className="text-foreground text-base">{value}</Text>
         ) : (
-          <Text className="text-base text-muted-foreground">{placeholder}</Text>
+          <Text className="text-muted-foreground text-base">{placeholder}</Text>
         )}
       </View>
 

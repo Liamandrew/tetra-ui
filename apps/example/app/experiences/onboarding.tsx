@@ -121,7 +121,7 @@ export default function OnboardingExperience() {
                 </Avatar>
                 <Stack className="items-center" gap="xs">
                   <Heading level="2">Create your profile</Heading>
-                  <Text className="text-center text-muted-foreground">
+                  <Text className="text-muted-foreground text-center">
                     Tell us who you are so we can personalize the experience.
                   </Text>
                 </Stack>
@@ -182,7 +182,7 @@ export default function OnboardingExperience() {
               </Stack>
 
               <Stack gap="xs">
-                <Text className="font-medium text-sm">Role</Text>
+                <Text className="text-sm font-medium">Role</Text>
                 <NativeSelect onValueChange={setRole} value={role}>
                   <NativeSelectTrigger asChild>
                     <NativeSelectInput placeholder="Select a role" />
@@ -200,7 +200,7 @@ export default function OnboardingExperience() {
               </Stack>
 
               <Stack gap="xs">
-                <Text className="font-medium text-sm">Birthday</Text>
+                <Text className="text-sm font-medium">Birthday</Text>
                 <NativeDateSelect
                   mode="date"
                   onValueChange={setBirthday}

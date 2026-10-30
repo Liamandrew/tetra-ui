@@ -439,7 +439,7 @@ const NativeDateSelectInputView = ({
     return (
       <View
         className={cn(
-          "flex min-h-12 w-full flex-row items-center gap-2 rounded-lg border border-input bg-background py-2 pr-0 pl-3",
+          "border-input bg-background flex min-h-12 w-full flex-row items-center gap-2 rounded-lg border py-2 pr-0 pl-3",
           disabled && "opacity-50",
           groupClassName,
           className

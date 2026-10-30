@@ -161,7 +161,7 @@ export default function NativeSelectScreen() {
         </ComponentBehaviourSheet>
       </ScreenHero>
 
-      <ScreenHero className="items-stretch bg-background">
+      <ScreenHero className="bg-background items-stretch">
         <Stack className="w-full" gap="md">
           <Stack gap="xs">
             <Text className="text-muted-foreground text-sm">Menu</Text>

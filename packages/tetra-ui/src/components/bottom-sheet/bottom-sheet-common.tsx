@@ -119,7 +119,7 @@ export const BottomSheetScrollView = ({
         automaticallyAdjustContentInsets={false}
         automaticallyAdjustsScrollIndicatorInsets={false}
         className={cn(
-          fitToContents ? undefined : "min-h-0 ios:flex-1",
+          fitToContents ? undefined : "ios:flex-1 min-h-0",
           className
         )}
         contentContainerClassName={cn(
@@ -144,7 +144,7 @@ export const BottomSheetHeader = ({
   return (
     <View
       className={cn(
-        "shrink-0 flex-row items-center gap-1 px-4 ios:pt-8 pt-4.5 pb-4",
+        "ios:pt-8 shrink-0 flex-row items-center gap-1 px-4 pt-4.5 pb-4",
         className
       )}
       {...props}
@@ -174,7 +174,7 @@ export const BottomSheetTitle = ({
 }: React.ComponentProps<typeof Text>) => (
   <Text
     className={cn(
-      "font-semibold text-foreground text-xl leading-none",
+      "text-foreground text-xl leading-none font-semibold",
       className
     )}
     {...props}

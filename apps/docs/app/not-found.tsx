@@ -18,14 +18,14 @@ export default function NotFound() {
       <article className="container mx-auto flex flex-1 flex-col items-center justify-center px-4 py-16 text-center md:py-24">
         <div
           aria-hidden="true"
-          className="mb-6 flex size-14 items-center justify-center rounded-full bg-muted"
+          className="bg-muted mb-6 flex size-14 items-center justify-center rounded-full"
         >
           <Logo />
         </div>
-        <h1 className="max-w-xl text-balance font-bold text-4xl leading-tight tracking-tight md:text-5xl">
+        <h1 className="max-w-xl text-4xl leading-tight font-bold tracking-tight text-balance md:text-5xl">
           {notFoundPage.title}
         </h1>
-        <p className="mt-3 max-w-md text-balance text-lg text-muted-foreground">
+        <p className="text-muted-foreground mt-3 max-w-md text-lg text-balance">
           {notFoundPage.description}
         </p>
         <div className="mt-8 flex items-center justify-center gap-2">

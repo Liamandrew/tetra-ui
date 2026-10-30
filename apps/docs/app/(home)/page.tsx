@@ -16,10 +16,10 @@ export default function HomePage() {
     <div className="flex flex-1 flex-col pt-10 pb-6 md:pt-14">
       <div className="container mx-auto flex flex-col items-center gap-4 px-4 text-center">
         <div className="flex flex-col items-center justify-center gap-2.5">
-          <h1 className="text-balance font-bold text-4xl leading-tight tracking-tight">
+          <h1 className="text-4xl leading-tight font-bold tracking-tight text-balance">
             {homePage.title}
           </h1>
-          <p className="max-w-4xl text-balance text-muted-foreground">
+          <p className="text-muted-foreground max-w-4xl text-balance">
             {homePage.description}
           </p>
         </div>

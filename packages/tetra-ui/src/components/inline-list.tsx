@@ -164,12 +164,12 @@ export const InlineList = ({
   return (
     <View className={cn("flex w-full flex-col gap-1", className)} {...props}>
       {title ? (
-        <Text className="px-4 text-muted-foreground text-xs uppercase tracking-wide">
+        <Text className="text-muted-foreground px-4 text-xs tracking-wide uppercase">
           {title}
         </Text>
       ) : null}
       <View
-        className="w-full overflow-hidden rounded-2xl bg-card"
+        className="bg-card w-full overflow-hidden rounded-2xl"
         data-slot="inline-list"
       >
         {items}
@@ -230,7 +230,7 @@ export const InlineListItem = ({
 
         {showSeparator ? (
           <View
-            className="mx-4 h-hairline bg-border"
+            className="h-hairline bg-border mx-4"
             data-slot="inline-list-item-separator"
           />
         ) : null}
@@ -247,8 +247,8 @@ export const InlineListItemTitle = ({
   return (
     <Text
       className={cn(
-        "font-medium text-base text-foreground",
-        variant === "destructive" && "font-normal text-destructive",
+        "text-foreground text-base font-medium",
+        variant === "destructive" && "text-destructive font-normal",
         className
       )}
       data-slot="inline-list-item-title"

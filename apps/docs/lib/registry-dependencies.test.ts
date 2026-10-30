@@ -7,7 +7,7 @@ import registry from "../registry/registry.json";
 
 const items = new Map(registry.items.map((item) => [item.name, item]));
 type RegistryItem = (typeof registry.items)[number];
-const COMPONENT_IMPORT = /^@\/registry\/ui\/([^/]+)/;
+const COMPONENT_IMPORT = /^@\/registry\/ui\/(?<component>[^/]+)/u;
 
 const collectDependencies = (
   item: RegistryItem,
@@ -64,7 +64,8 @@ describe("registry dependencies", () => {
             continue;
           }
           const specifier = statement.moduleSpecifier.text;
-          const component = specifier.match(COMPONENT_IMPORT)?.[1];
+          const component =
+            specifier.match(COMPONENT_IMPORT)?.groups?.component;
           if (component) {
             assert.ok(
               component === item.name || dependencies.components.has(component),

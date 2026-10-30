@@ -117,14 +117,14 @@ export type OTPInputSlotCaretProps = React.ComponentProps<typeof Animated.View>;
 // Utils
 const defaultPasteTransformer = (maxLength: number) => {
   return (pasted: string): string => {
-    const otpRegex = new RegExp(`(?<!\\d)\\d{${maxLength}}(?!\\d)`);
+    const otpRegex = new RegExp(`(?<!\\d)\\d{${maxLength}}(?!\\d)`, "u");
     const match = pasted.match(otpRegex);
 
     if (match) {
       return match[0];
     }
 
-    return pasted.replace(/\D/g, "").slice(0, maxLength);
+    return pasted.replace(/\D/gu, "").slice(0, maxLength);
   };
 };
 
@@ -198,7 +198,7 @@ export const OTPInput = ({
       return null;
     }
 
-    return new RegExp(pattern);
+    return new RegExp(pattern, "u");
   }, [pattern]);
 
   const pasteTransformFn = useMemo(
@@ -424,7 +424,7 @@ export const OTPInputSlotPlaceholder = ({
 
   return (
     <Text
-      className={cn("font-medium text-lg text-muted-foreground/50", className)}
+      className={cn("text-muted-foreground/50 text-lg font-medium", className)}
       {...props}
     >
       {displayChar}
@@ -452,7 +452,7 @@ export const OTPInputSlotValue = ({
       exiting={FadeOut.duration(SLOT_VALUE_EXIT_DURATION)}
     >
       <AnimatedText
-        className={cn("font-medium text-lg", className)}
+        className={cn("text-lg font-medium", className)}
         entering={FlipInXDown.duration(SLOT_VALUE_ENTER_DURATION)}
         exiting={FlipOutXDown.duration(SLOT_VALUE_ENTER_DURATION)}
         {...props}
@@ -491,7 +491,7 @@ export const OTPInputSlotCaret = ({
   return (
     <Animated.View
       className={cn(
-        "absolute h-4 w-0.5 rounded-full bg-muted-foreground",
+        "bg-muted-foreground absolute h-4 w-0.5 rounded-full",
         className
       )}
       pointerEvents="none"
@@ -509,7 +509,7 @@ export const OTPInputSeparator = ({
 
   return (
     <View
-      className={cn("h-0.5 w-2 rounded-full bg-input", className)}
+      className={cn("bg-input h-0.5 w-2 rounded-full", className)}
       {...props}
     />
   );
@@ -517,7 +517,7 @@ export const OTPInputSeparator = ({
 
 // Styles
 const otpInputSlotVariants = cva(
-  "relative h-12 w-11 items-center justify-center overflow-hidden rounded-lg border bg-background",
+  "bg-background relative h-12 w-11 items-center justify-center overflow-hidden rounded-lg border",
   {
     defaultVariants: {
       disabled: false,
@@ -535,7 +535,7 @@ const otpInputSlotVariants = cva(
       },
       isActive: {
         false: "border-input",
-        true: "border-2 border-ring",
+        true: "border-ring border-2",
       },
     },
   }

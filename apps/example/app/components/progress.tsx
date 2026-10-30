@@ -17,7 +17,7 @@ import { ScreenHero, ScreenScrollView } from "@/components/screen";
 export default function ProgressScreen() {
   return (
     <ScreenScrollView>
-      <ScreenHero className="w-full bg-background">
+      <ScreenHero className="bg-background w-full">
         <UploadingProgressExample />
       </ScreenHero>
 

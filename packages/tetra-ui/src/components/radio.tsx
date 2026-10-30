@@ -78,7 +78,7 @@ export const Radio = ({
       {...props}
       accessibilityState={{ checked }}
       className={cn(
-        "size-6 shrink-0 items-center justify-center rounded-full border border-input shadow-xs dark:bg-input/30",
+        "border-input dark:bg-input/30 size-6 shrink-0 items-center justify-center rounded-full border shadow-xs",
         checked && "border-primary",
         invalid && "border-destructive",
         className

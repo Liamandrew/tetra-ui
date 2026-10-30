@@ -69,7 +69,7 @@ type TetraToastProps = {
 };
 
 const TetraToast = ({ variant, title, description, icon }: TetraToastProps) => (
-  <View className="mx-4 justify-center rounded-2xl border border-border/80 bg-popover p-4 shadow-md">
+  <View className="border-border/80 bg-popover mx-4 justify-center rounded-2xl border p-4 shadow-md">
     <View
       className={cn(
         "flex-row gap-4",
@@ -167,7 +167,7 @@ export const toast = Object.assign(
 );
 
 // Styles
-const titleVariants = cva("font-semibold leading-5", {
+const titleVariants = cva("leading-5 font-semibold", {
   variants: {
     variant: {
       default: "text-popover-foreground",

@@ -10,7 +10,7 @@ export const Card = ({
   return (
     <View
       className={cn(
-        "flex flex-col gap-6 rounded-2xl bg-card py-5 text-card-foreground",
+        "bg-card text-card-foreground flex flex-col gap-6 rounded-2xl py-5",
         className
       )}
       data-slot="card"
@@ -39,7 +39,7 @@ export const CardTitle = ({
   return (
     <Text
       className={cn(
-        "font-semibold text-foreground text-xl leading-none",
+        "text-foreground text-xl leading-none font-semibold",
         className
       )}
       data-slot="card-title"

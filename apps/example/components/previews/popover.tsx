@@ -98,7 +98,7 @@ export function PopoverPreview() {
         <PopoverPortal>
           <PopoverScrim />
           <PopoverContent width="trigger">
-            <Text className="mb-2 font-semibold text-lg">Popover Title</Text>
+            <Text className="mb-2 text-lg font-semibold">Popover Title</Text>
             <Text className="mb-4 text-sm opacity-70">
               This is a description of what the popover contains.
             </Text>

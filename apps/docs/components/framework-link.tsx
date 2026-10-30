@@ -3,7 +3,7 @@
 import NextLink from "next/link";
 import type { ComponentProps } from "react";
 
-const STATIC_FILE_HREF = /\.(?:txt|json|xml|md|csv)(?:[?#]|$)/i;
+const STATIC_FILE_HREF = /\.(?:txt|json|xml|md|csv)(?:[?#]|$)/iu;
 
 export function FrameworkLink({
   href,

@@ -20,7 +20,7 @@ const SKIP_EXACT = new Set([
   "/site.webmanifest",
 ]);
 
-const STATIC_FILE = /\.[a-z0-9]+$/i;
+const STATIC_FILE = /\.[a-z0-9]+$/iu;
 
 const shouldNegotiate = (pathname: string): boolean => {
   if (SKIP_EXACT.has(pathname)) {

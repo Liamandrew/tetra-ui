@@ -63,7 +63,7 @@ export const Checkbox = ({
       {...props}
       accessibilityState={{ checked }}
       className={cn(
-        "size-6 shrink-0 items-center justify-center rounded-lg border border-input shadow-xs dark:bg-input/30",
+        "border-input dark:bg-input/30 size-6 shrink-0 items-center justify-center rounded-lg border shadow-xs",
         checked && "border-primary",
         invalid && "border-destructive",
         className
@@ -71,7 +71,7 @@ export const Checkbox = ({
       style={animatedStyle}
     >
       {checked ? (
-        <CheckIcon className="size-4 text-primary-foreground" />
+        <CheckIcon className="text-primary-foreground size-4" />
       ) : null}
     </Animated.View>
   );
@@ -95,7 +95,7 @@ export const CheckboxInput = ({
       invalid={invalid}
     >
       <Checkbox checked={checked} invalid={invalid} />
-      <Text className="text-base text-foreground">{children}</Text>
+      <Text className="text-foreground text-base">{children}</Text>
     </InputGroup>
   );
 };

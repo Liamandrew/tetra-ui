@@ -1,6 +1,6 @@
-const BACKSLASH_REGEX = /\\/g;
-const HOOKS_PATH_REGEX = /\/hooks\/(.+)$/;
-const COMPONENTS_PATH_REGEX = /\/components\/(.+)$/;
+const BACKSLASH_REGEX = /\\/gu;
+const HOOKS_PATH_REGEX = /\/hooks\/(?<path>.+)$/u;
+const COMPONENTS_PATH_REGEX = /\/components\/(?<path>.+)$/u;
 
 export function getRegistryFileTitle(filePath: string): string {
   const normalized = filePath.replace(BACKSLASH_REGEX, "/");
@@ -13,14 +13,14 @@ export function getRegistryFileTitle(filePath: string): string {
     return normalized;
   }
 
-  const hooksMatch = normalized.match(HOOKS_PATH_REGEX);
-  if (hooksMatch) {
-    return `hooks/${hooksMatch[1]}`;
+  const hooksPath = normalized.match(HOOKS_PATH_REGEX)?.groups?.path;
+  if (hooksPath) {
+    return `hooks/${hooksPath}`;
   }
 
-  const componentsMatch = normalized.match(COMPONENTS_PATH_REGEX);
-  if (componentsMatch) {
-    return `components/ui/${componentsMatch[1]}`;
+  const componentsPath = normalized.match(COMPONENTS_PATH_REGEX)?.groups?.path;
+  if (componentsPath) {
+    return `components/ui/${componentsPath}`;
   }
 
   const basename = normalized.split("/").pop();

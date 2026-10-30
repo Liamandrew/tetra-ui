@@ -164,7 +164,7 @@ export default function DiscoverExperience() {
 const PosterCard = ({ item }: { item: TitleCard }) => {
   return (
     <Stack className={cn("h-full justify-end rounded-2xl p-4", item.className)}>
-      <Text className={cn("font-semibold text-lg", item.titleClassName)}>
+      <Text className={cn("text-lg font-semibold", item.titleClassName)}>
         {item.title}
       </Text>
       <Text className={item.subtitleClassName}>{item.subtitle}</Text>

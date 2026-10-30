@@ -184,7 +184,7 @@ export const BottomSheetFooter = ({
     <bottomSheetSlots.Fill name="footer" passthrough>
       <Animated.View
         className={cn(
-          "shrink-0 flex-col gap-2 border-border border-t bg-background px-4 pt-4",
+          "border-border bg-background shrink-0 flex-col gap-2 border-t px-4 pt-4",
           className
         )}
         style={[animatedStyle, style]}

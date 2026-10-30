@@ -4,26 +4,39 @@ packages:
 allowBuilds:
   esbuild: false
 minimumReleaseAgeExclude:
-  - '@biomejs/biome@2.5.12'
-  - '@biomejs/cli-darwin-arm64@2.5.12'
-  - '@biomejs/cli-darwin-x64@2.5.12'
-  - '@biomejs/cli-linux-arm64-musl@2.5.12'
-  - '@biomejs/cli-linux-arm64@2.5.12'
-  - '@biomejs/cli-linux-x64-musl@2.5.12'
-  - '@biomejs/cli-linux-x64@2.5.12'
-  - '@biomejs/cli-win32-arm64@2.5.12'
-  - '@biomejs/cli-win32-x64@2.5.12'
+  - "@biomejs/biome@2.5.12"
+  - "@biomejs/cli-darwin-arm64@2.5.12"
+  - "@biomejs/cli-darwin-x64@2.5.12"
+  - "@biomejs/cli-linux-arm64-musl@2.5.12"
+  - "@biomejs/cli-linux-arm64@2.5.12"
+  - "@biomejs/cli-linux-x64-musl@2.5.12"
+  - "@biomejs/cli-linux-x64@2.5.12"
+  - "@biomejs/cli-win32-arm64@2.5.12"
+  - "@biomejs/cli-win32-x64@2.5.12"
   - fumadocs-core@16.15.5
   - fumadocs-ui@16.15.5
   - ultracite@7.11.1
   - zod@4.6.1
-  - lucide-react-native@1.47.0 || 1.60.0
-  - lucide-react@1.47.0 || 1.60.0
-  - '@turbo/darwin-64@2.11.10'
-  - '@turbo/darwin-arm64@2.11.10'
-  - '@turbo/linux-64@2.11.10'
-  - '@turbo/linux-arm64@2.11.10'
-  - '@turbo/windows-64@2.11.10'
-  - '@turbo/windows-arm64@2.11.10'
+  - lucide-react-native@1.47.0 || 1.60.0 || 1.65.0
+  - lucide-react@1.47.0 || 1.60.0 || 1.65.0
+  - "@turbo/darwin-64@2.11.10"
+  - "@turbo/darwin-arm64@2.11.10"
+  - "@turbo/linux-64@2.11.10"
+  - "@turbo/linux-arm64@2.11.10"
+  - "@turbo/windows-64@2.11.10"
+  - "@turbo/windows-arm64@2.11.10"
   - fumadocs-mdx@15.4.9
   - turbo@2.11.10
+  - cn@0.5.1
+catalog:
+  "@types/react": 19.3.0
+  "@types/react-dom": 19.3.0
+  cn: 0.5.1
+  react: 19.3.0
+  react-dom: 19.3.0
+  react-hook-form: 7.91.0
+  react-native: 0.88.1
+  tailwindcss: 4.3.3
+  typescript: ~6.0.3
+  uniwind: 1.13.1
+  zod: 4.6.7

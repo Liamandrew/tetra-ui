@@ -199,7 +199,7 @@ AlertAction.displayName = "AlertAction";
 
 // Styles
 const alertVariants = cva(
-  "relative w-full rounded-2xl bg-card px-4 py-3 dark:bg-muted",
+  "bg-card dark:bg-muted relative w-full rounded-2xl px-4 py-3",
   {
     defaultVariants: {
       variant: "default",
@@ -228,7 +228,7 @@ const alertIconVariants = cva("size-4", {
   },
 });
 
-const alertTitleVariants = cva("font-medium text-sm leading-snug", {
+const alertTitleVariants = cva("text-sm leading-snug font-medium", {
   variants: {
     variant: {
       default: "text-foreground",

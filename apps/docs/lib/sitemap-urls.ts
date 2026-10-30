@@ -3,10 +3,10 @@ import path from "node:path";
 import { marketingPages } from "./site-content";
 
 const DOCS_DIR = path.join(process.cwd(), "content/docs");
-const MDX_EXT = /\.mdx$/;
-const PAREN_GROUP = /\([^/]+\)\//g;
-const TRAILING_INDEX = /\/index$/;
-const ONLY_INDEX = /^index$/;
+const MDX_EXT = /\.mdx$/u;
+const PAREN_GROUP = /\([^/]+\)\//gu;
+const TRAILING_INDEX = /\/index$/u;
+const ONLY_INDEX = /^index$/u;
 
 export const mdxFileToDocsUrl = (relativePath: string): string => {
   const withoutExt = relativePath.replace(MDX_EXT, "");

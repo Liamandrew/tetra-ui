@@ -177,7 +177,7 @@ export default function BookingExperience() {
           <Stack gap="sm">
             <Stack className="items-center justify-between" direction="row">
               <Label>Party size</Label>
-              <Text className="font-medium text-sm">
+              <Text className="text-sm font-medium">
                 {Math.round(partySize)}
               </Text>
             </Stack>

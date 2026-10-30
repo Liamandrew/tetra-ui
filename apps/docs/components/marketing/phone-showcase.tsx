@@ -78,7 +78,7 @@ export function PhoneShowcase() {
         {PREVIEWS.map((preview) => (
           <div
             className={cn(
-              "transform-[rotate(var(--r))_translateY(var(--y))_scale(var(--s))] origin-bottom",
+              "origin-bottom transform-[rotate(var(--r))_translateY(var(--y))_scale(var(--s))]",
               "transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]",
               "lg:hover:z-20 lg:hover:[--y:0px]",
               !preview.mobile && "max-lg:hidden",

@@ -5,10 +5,10 @@ import { Text } from "@/components/ui/text";
 
 export function ScrimPreview() {
   return (
-    <View className="h-56 w-full overflow-hidden rounded-xl border border-border">
+    <View className="border-border h-56 w-full overflow-hidden rounded-xl border">
       <ScrimHost>
         <ScrimTarget>
-          <Stack className="flex-1 bg-background p-4" gap="sm">
+          <Stack className="bg-background flex-1 p-4" gap="sm">
             <Text className="font-medium">Inbox</Text>
             <Text className="text-muted-foreground">Design review</Text>
             <Text className="text-muted-foreground">Weekly sync</Text>

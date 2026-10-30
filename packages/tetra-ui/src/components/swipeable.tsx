@@ -185,7 +185,7 @@ const SwipeablePressable = ({
       <View
         accessibilityRole="button"
         accessibilityState={{ disabled }}
-        className={cn("w-full bg-card", className)}
+        className={cn("bg-card w-full", className)}
         collapsable={false}
         data-pressed={pressed || undefined}
         data-slot="swipeable"
@@ -719,7 +719,7 @@ export const SwipeableContent = ({
           {children}
         </SwipeablePressable>
       ) : (
-        <View className={cn("w-full bg-card", className)} data-slot="swipeable">
+        <View className={cn("bg-card w-full", className)} data-slot="swipeable">
           {children}
         </View>
       )}
@@ -908,7 +908,7 @@ const swipeableActionVariants = cva(
 );
 
 const swipeableActionTextVariants = cva(
-  "shrink-0 text-center font-medium text-sm",
+  "shrink-0 text-center text-sm font-medium",
   {
     defaultVariants: { variant: "default" },
     variants: {

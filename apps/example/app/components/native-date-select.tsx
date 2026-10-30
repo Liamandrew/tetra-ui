@@ -193,7 +193,7 @@ export default function NativeDateSelectScreen() {
       </ScreenHero>
 
       {Platform.OS === "ios" ? (
-        <ScreenHero className="items-stretch bg-background">
+        <ScreenHero className="bg-background items-stretch">
           <Stack className="w-full" gap="md">
             <Stack gap="xs">
               <Text className="text-muted-foreground text-sm">Compact</Text>
@@ -236,7 +236,7 @@ export default function NativeDateSelectScreen() {
           </Stack>
         </ScreenHero>
       ) : (
-        <ScreenHero className="items-stretch bg-background">
+        <ScreenHero className="bg-background items-stretch">
           <Stack className="w-full" gap="md">
             <Stack gap="xs">
               <Text className="text-muted-foreground text-sm">Date</Text>
@@ -253,7 +253,7 @@ export default function NativeDateSelectScreen() {
         </ScreenHero>
       )}
 
-      <ScreenHero className="items-stretch bg-background">
+      <ScreenHero className="bg-background items-stretch">
         <Stack className="w-full" gap="md">
           <Stack gap="xs">
             <Text className="text-muted-foreground text-sm">Range</Text>

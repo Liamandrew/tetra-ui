@@ -28,7 +28,7 @@ export const createStyledIcon = (Icon: LucideIcon): LucideIcon => {
   }: React.ComponentProps<typeof UniwindIcon>) => {
     return (
       <UniwindIcon
-        className={cn("size-6 text-foreground", className)}
+        className={cn("text-foreground size-6", className)}
         {...props}
       />
     );

@@ -227,7 +227,7 @@ export const BottomSheetFooter = ({
       >
         <View
           className={cn(
-            "flex w-full flex-col gap-2 border-border border-t bg-background px-4 pt-4",
+            "border-border bg-background flex w-full flex-col gap-2 border-t px-4 pt-4",
             className
           )}
           style={[

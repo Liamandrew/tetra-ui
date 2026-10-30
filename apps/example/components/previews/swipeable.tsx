@@ -10,8 +10,8 @@ export function SwipeablePreview() {
   return (
     <Swipeable>
       <SwipeableContent className="px-4 py-4">
-        <Text className="font-medium text-foreground">Message from Expo</Text>
-        <Text className="mt-1 text-muted-foreground text-sm">
+        <Text className="text-foreground font-medium">Message from Expo</Text>
+        <Text className="text-muted-foreground mt-1 text-sm">
           Swipe for actions
         </Text>
       </SwipeableContent>

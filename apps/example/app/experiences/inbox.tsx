@@ -323,7 +323,7 @@ export default function InboxExperience() {
               {visibleMessages.map((message) => (
                 <Swipeable key={message.id}>
                   <SwipeableContent
-                    className="px-4 py-3 active:bg-muted/60"
+                    className="active:bg-muted/60 px-4 py-3"
                     onPress={() => markRead(message.id)}
                   >
                     <Stack className="items-start" direction="row" gap="sm">
@@ -339,8 +339,8 @@ export default function InboxExperience() {
                           <Text
                             className={
                               message.unread
-                                ? "font-semibold text-foreground"
-                                : "font-medium text-foreground"
+                                ? "text-foreground font-semibold"
+                                : "text-foreground font-medium"
                             }
                           >
                             {message.from}
@@ -383,7 +383,7 @@ export default function InboxExperience() {
                           gap="sm"
                         >
                           <Text
-                            className="flex-1 text-foreground text-sm"
+                            className="text-foreground flex-1 text-sm"
                             numberOfLines={1}
                           >
                             {message.subject}

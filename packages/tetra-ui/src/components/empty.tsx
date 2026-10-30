@@ -83,7 +83,7 @@ export const EmptyTitle = ({
 }: React.ComponentProps<typeof Text>) => {
   return (
     <Text
-      className={cn("font-medium text-base tracking-tight", className)}
+      className={cn("text-base font-medium tracking-tight", className)}
       data-slot="empty-title"
       {...props}
     />
@@ -97,7 +97,7 @@ export const EmptyDescription = ({
   return (
     <Text
       className={cn(
-        "text-center text-muted-foreground text-sm/relaxed",
+        "text-muted-foreground text-center text-sm/relaxed",
         className
       )}
       data-slot="empty-description"
@@ -113,7 +113,7 @@ export const EmptyContent = ({
   return (
     <View
       className={cn(
-        "flex w-full min-w-0 max-w-sm flex-col items-center gap-2.5 text-sm",
+        "flex w-full max-w-sm min-w-0 flex-col items-center gap-2.5 text-sm",
         className
       )}
       data-slot="empty-content"
@@ -132,7 +132,7 @@ const emptyMediaVariants = cva(
     variants: {
       variant: {
         default: "bg-transparent",
-        icon: "flex shrink-0 items-center justify-center rounded-full bg-muted p-2.5",
+        icon: "bg-muted flex shrink-0 items-center justify-center rounded-full p-2.5",
       },
     },
   }

@@ -5,7 +5,7 @@ import {
   useContext,
   useMemo,
 } from "react";
-import type { FieldErrors, FieldPath } from "react-hook-form";
+import type { FieldError, FieldErrors, FieldPath } from "react-hook-form";
 import { get } from "react-hook-form";
 import { Text, type TextProps, View } from "react-native";
 import { cn } from "@/registry/lib/utils";
@@ -125,7 +125,7 @@ export const FieldErrorMessage = ({
     <Text
       {...props}
       accessibilityRole="alert"
-      className={cn("font-medium text-destructive text-sm", className)}
+      className={cn("text-destructive text-sm font-medium", className)}
     >
       {errorMessage}
     </Text>
@@ -141,14 +141,14 @@ export function validateField<TFieldErrors extends FieldErrors<any>>(
   errors: TFieldErrors,
   fieldPath: FieldPath<FieldValuesFromFieldErrors<TFieldErrors>>
 ) {
-  const error = get(errors, fieldPath);
+  const error = get<TFieldErrors, FieldError | undefined>(errors, fieldPath);
 
   if (!error) {
     return {};
   }
 
   return {
-    errorMessage: error.message as string | undefined,
+    errorMessage: error.message,
     invalid: true,
   } as const;
 }

@@ -82,7 +82,7 @@ const AccordionTriggerContent = ({
   title: string;
 }) => (
   <Stack className="flex-1 items-center" direction="row" gap="sm">
-    <Icon className="size-5 text-muted-foreground" />
+    <Icon className="text-muted-foreground size-5" />
     <Text className="flex-1 font-medium">{title}</Text>
   </Stack>
 );

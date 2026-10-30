@@ -767,7 +767,7 @@ const fabMenuItemVariants = cva(
   }
 );
 
-const fabMenuItemLabelVariants = cva("font-medium text-base", {
+const fabMenuItemLabelVariants = cva("text-base font-medium", {
   defaultVariants: {
     variant: "default",
   },

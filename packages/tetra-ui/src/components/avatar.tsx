@@ -160,7 +160,7 @@ export const AvatarFallback = ({
   return (
     <View
       className={cn(
-        "absolute inset-0 flex size-full items-center justify-center rounded-full bg-muted",
+        "bg-muted absolute inset-0 flex size-full items-center justify-center rounded-full",
         className
       )}
       data-slot="avatar-fallback"
@@ -171,7 +171,7 @@ export const AvatarFallback = ({
           return (
             <Text
               className={cn(
-                "font-medium text-muted-foreground",
+                "text-muted-foreground font-medium",
                 size === "sm" ? "text-xs" : "text-sm"
               )}
             >
@@ -240,7 +240,7 @@ export const AvatarGroup = ({
         return cloneElement(element, {
           className: cn(
             overlapClassName,
-            "border-2 border-background",
+            "border-background border-2",
             element.props.className
           ),
         });
@@ -259,7 +259,7 @@ export const AvatarGroupCount = ({
   return (
     <View
       className={cn(
-        "relative flex size-8 shrink-0 items-center justify-center rounded-full bg-muted",
+        "bg-muted relative flex size-8 shrink-0 items-center justify-center rounded-full",
         className
       )}
       data-slot="avatar-group-count"
@@ -268,7 +268,7 @@ export const AvatarGroupCount = ({
       {Children.map(children, (child) => {
         if (typeof child === "string") {
           return (
-            <Text className="font-medium text-muted-foreground text-sm">
+            <Text className="text-muted-foreground text-sm font-medium">
               {child}
             </Text>
           );
@@ -282,7 +282,7 @@ export const AvatarGroupCount = ({
 
 // Styles
 const avatarVariants = cva(
-  "relative flex shrink-0 items-center justify-center rounded-full border border-border",
+  "border-border relative flex shrink-0 items-center justify-center rounded-full border",
   {
     defaultVariants: {
       size: "default",
@@ -298,7 +298,7 @@ const avatarVariants = cva(
 );
 
 const avatarBadgeVariants = cva(
-  "absolute z-10 flex items-center justify-center rounded-full border-2 border-background bg-primary",
+  "border-background bg-primary absolute z-10 flex items-center justify-center rounded-full border-2",
   {
     defaultVariants: {
       size: "default",

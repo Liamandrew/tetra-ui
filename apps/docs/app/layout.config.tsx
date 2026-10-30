@@ -17,7 +17,7 @@ export const baseOptions: BaseLayoutProps = {
     title: (
       <>
         <Logo />
-        <span className="font-bold leading-tight tracking-tight">tetra ui</span>
+        <span className="leading-tight font-bold tracking-tight">tetra ui</span>
       </>
     ),
   },

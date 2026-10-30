@@ -1,5 +1,3 @@
-export type { LucideIcon } from "lucide-react-native";
-
 import {
   Archive,
   BadgeCheck,
@@ -30,6 +28,7 @@ import {
 } from "lucide-react-native";
 import { createStyledIcon } from "./styled-icon";
 
+export type { LucideIcon } from "lucide-react-native";
 export * from "./styled-icon";
 
 export const ArchiveIcon = createStyledIcon(Archive);

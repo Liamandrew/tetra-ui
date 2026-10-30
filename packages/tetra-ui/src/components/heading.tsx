@@ -21,7 +21,7 @@ export const Heading = ({
 };
 
 // Styles
-const headingVariants = cva("font-bold text-foreground tracking-tight", {
+const headingVariants = cva("text-foreground font-bold tracking-tight", {
   defaultVariants: {
     level: "1",
   },

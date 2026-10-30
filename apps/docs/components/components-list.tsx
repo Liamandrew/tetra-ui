@@ -11,7 +11,7 @@ export function ComponentsList() {
 
         return (
           <Link
-            className="inline-flex items-center gap-2 font-medium text-lg underline-offset-4 hover:underline md:text-base"
+            className="inline-flex items-center gap-2 text-lg font-medium underline-offset-4 hover:underline md:text-base"
             href={`components/${item.name}`}
             key={item.name}
           >

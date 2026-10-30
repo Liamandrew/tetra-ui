@@ -3,7 +3,7 @@ import path from "node:path";
 import { markdownFromPage, notFoundPage, pageByPath } from "./site-content";
 
 const DOCS_DIR = path.join(process.cwd(), "content/docs");
-const TRAILING_SLASHES = /\/+$/;
+const TRAILING_SLASHES = /\/+$/u;
 
 export type MarkdownResult = {
   body: string;

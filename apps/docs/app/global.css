@@ -22,7 +22,9 @@
 }
 
 @utility scrollbar-none {
-  scrollbar-width: none;
+  @supports (scrollbar-width: none) {
+    scrollbar-width: none;
+  }
 
   &::-webkit-scrollbar {
     display: none;

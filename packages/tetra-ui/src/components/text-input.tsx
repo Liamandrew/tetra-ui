@@ -41,7 +41,7 @@ export const TextInput = ({
   return (
     <InputGroup
       accessible={false}
-      className={cn("h-12 android:py-0", groupClassName)}
+      className={cn("android:py-0 h-12", groupClassName)}
       disabled={disabled}
       focused={isFocused}
       inputFocused={isFocused}

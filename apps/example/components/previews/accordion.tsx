@@ -52,7 +52,7 @@ export function AccordionPreview() {
           <AccordionItem key={item.value} value={item.value}>
             <AccordionTrigger>
               <Stack className="flex-1 items-center" direction="row" gap="sm">
-                <item.Icon className="size-5 text-muted-foreground" />
+                <item.Icon className="text-muted-foreground size-5" />
                 <Text className="flex-1 font-medium">{item.title}</Text>
               </Stack>
               <AccordionIndicator />

@@ -345,7 +345,7 @@ export const SelectInput = ({
 
 export const SelectItemLabel = (props: React.ComponentProps<typeof Text>) => {
   return (
-    <Text className="flex-1 font-medium text-base text-foreground" {...props} />
+    <Text className="text-foreground flex-1 text-base font-medium" {...props} />
   );
 };
 
@@ -361,7 +361,7 @@ export const SelectItemIndicator = ({
   }
 
   return (
-    <CheckIcon className={cn("size-5 text-primary", className)} {...props} />
+    <CheckIcon className={cn("text-primary size-5", className)} {...props} />
   );
 };
 
@@ -387,7 +387,7 @@ export const SelectItem = <T extends SelectValueType>({
     <SelectItemContext.Provider value={{ value }}>
       <Pressable
         className={cn(
-          "flex flex-row items-center rounded-lg px-2 py-2 active:bg-accent/90 dark:active:bg-accent/50",
+          "active:bg-accent/90 dark:active:bg-accent/50 flex flex-row items-center rounded-lg px-2 py-2",
           className
         )}
         onPress={onPress}

@@ -80,7 +80,7 @@ export const Skeleton = ({ className, ...props }: SkeletonProps) => {
 
   return (
     <Animated.View
-      className={cn("w-full rounded-md bg-accent", className)}
+      className={cn("bg-accent w-full rounded-md", className)}
       data-slot="skeleton"
       style={animatedStyle}
       {...props}

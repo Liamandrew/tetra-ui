@@ -90,7 +90,7 @@ function ProgressTrack({
     <View
       className={cn(
         progressVariants({ variant: "linear" }),
-        "relative w-full overflow-hidden rounded-full bg-muted",
+        "bg-muted relative w-full overflow-hidden rounded-full",
         className
       )}
       data-slot="progress-track"
@@ -121,7 +121,7 @@ function ProgressIndicator({
 
   return (
     <Animated.View
-      className={cn("h-full bg-primary", className)}
+      className={cn("bg-primary h-full", className)}
       data-slot="progress-indicator"
       style={[fillStyle, { borderCurve: "continuous" }]}
       {...props}
@@ -185,12 +185,12 @@ function ProgressStep({ fill }: { fill: number }) {
 
   return (
     <View
-      className="relative h-full flex-1 overflow-hidden rounded-full bg-muted"
+      className="bg-muted relative h-full flex-1 overflow-hidden rounded-full"
       data-slot="progress-step"
       style={{ borderCurve: "continuous" }}
     >
       <Animated.View
-        className="h-full bg-primary"
+        className="bg-primary h-full"
         data-slot="progress-indicator"
         style={[fillStyle, { borderCurve: "continuous" }]}
       />
@@ -204,7 +204,7 @@ export function ProgressLabel({
 }: React.ComponentProps<typeof Text>) {
   return (
     <Text
-      className={cn("font-medium text-sm", className)}
+      className={cn("text-sm font-medium", className)}
       data-slot="progress-label"
       {...props}
     />
@@ -221,7 +221,7 @@ export function ProgressValue({
   return (
     <Text
       className={cn(
-        "ml-auto text-muted-foreground text-sm tabular-nums",
+        "text-muted-foreground ml-auto text-sm tabular-nums",
         className
       )}
       data-slot="progress-value"

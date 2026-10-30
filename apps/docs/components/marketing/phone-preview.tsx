@@ -17,7 +17,7 @@ export function PhonePreview({
   return (
     <Image
       alt={alt}
-      className={cn("select-none object-contain", className)}
+      className={cn("object-contain select-none", className)}
       decoding={eager ? "sync" : "async"}
       fetchPriority={eager ? "high" : "low"}
       fill

@@ -1,4 +1,4 @@
-const REGISTRY_NAME = /^[a-z0-9-]+(?:\.json)?$/;
+const REGISTRY_NAME = /^[a-z0-9-]+(?:\.json)?$/u;
 
 export const parseRegistryName = (raw: string): string | null => {
   if (!REGISTRY_NAME.test(raw)) {

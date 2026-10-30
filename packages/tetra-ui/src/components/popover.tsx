@@ -383,7 +383,7 @@ export const PopoverContent = ({
     <Animated.View
       {...props}
       className={cn(
-        "z-50 rounded-xl border border-border bg-popover p-3 shadow-lg",
+        "border-border bg-popover z-50 rounded-xl border p-3 shadow-lg",
         className
       )}
       collapsable={false}

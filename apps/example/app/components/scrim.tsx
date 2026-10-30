@@ -20,7 +20,7 @@ export default function ScrimScreen() {
         <ScrimHost className="w-full">
           <ScrimTarget>
             <Stack className="flex-1 items-center justify-center p-4" gap="md">
-              <Text className="text-center text-muted-foreground">
+              <Text className="text-muted-foreground text-center">
                 Content behind the overlay stays in place and blurs when the
                 scrim is open.
               </Text>
@@ -31,7 +31,7 @@ export default function ScrimScreen() {
           </ScrimTarget>
           <Scrim onPress={() => setOpen(false)} open={open} />
           {open ? (
-            <View className="absolute inset-x-8 top-1/3 z-50 rounded-2xl bg-card p-4">
+            <View className="bg-card absolute inset-x-8 top-1/3 z-50 rounded-2xl p-4">
               <Stack gap="md">
                 <Text className="font-medium">Behind the menu</Text>
                 <Text className="text-muted-foreground">

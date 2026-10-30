@@ -136,7 +136,7 @@ const ButtonSpinner = () => {
 
 // Styles
 export const buttonVariants = cva(
-  "flex w-full shrink-0 flex-row items-center justify-center gap-2 whitespace-nowrap rounded-lg border-continuous font-medium text-sm",
+  "border-continuous flex w-full shrink-0 flex-row items-center justify-center gap-2 rounded-lg text-sm font-medium whitespace-nowrap",
   {
     defaultVariants: {
       size: "default",
@@ -158,7 +158,7 @@ export const buttonVariants = cva(
         ghost: "bg-background active:bg-accent/90 dark:active:bg-accent/50",
         link: "h-auto w-auto p-0 active:opacity-50",
         outline:
-          "border border-border bg-background active:bg-accent/90 dark:border-input dark:bg-input/30 dark:active:bg-input/50",
+          "border-border bg-background active:bg-accent/90 dark:border-input dark:bg-input/30 dark:active:bg-input/50 border",
         secondary: "bg-secondary active:bg-secondary/50",
       },
     },
@@ -166,7 +166,7 @@ export const buttonVariants = cva(
 );
 
 export const buttonTextVariants = cva(
-  "whitespace-nowrap font-semibold text-sm",
+  "text-sm font-semibold whitespace-nowrap",
   {
     defaultVariants: {
       size: "default",

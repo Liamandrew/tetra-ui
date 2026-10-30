@@ -19,7 +19,7 @@ export const Separator = ({
 };
 
 // Styles
-const separatorVariants = cva("h-10 bg-border", {
+const separatorVariants = cva("bg-border h-10", {
   compoundVariants: [
     {
       class: "h-hairline",

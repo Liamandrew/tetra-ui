@@ -13,7 +13,11 @@
   },
   "linter": {
     "rules": {
+      "a11y": {
+        "noLabelWithoutControl": "off"
+      },
       "correctness": {
+        "noComponentHookFactories": "off",
         "noGlobalDirnameFilename": "off",
         "noUnknownFunction": "off"
       },

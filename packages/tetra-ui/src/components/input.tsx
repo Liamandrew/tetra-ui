@@ -114,7 +114,7 @@ export const Input = ({ className, disabled, ...props }: InputProps) => {
   return (
     <RNTextInput
       className={cn(
-        "grow font-normal text-base text-foreground leading-tight",
+        "text-foreground grow text-base leading-tight font-normal",
         className
       )}
       editable={!disabled}
@@ -194,7 +194,7 @@ export const InputGroup = ({
     <Animated.View
       {...props}
       className={cn(
-        "relative flex min-h-12 w-full flex-row items-center gap-2 rounded-lg border-continuous bg-card px-3 py-2",
+        "border-continuous bg-card relative flex min-h-12 w-full flex-row items-center gap-2 rounded-lg px-3 py-2",
         disabled && "opacity-50",
         className
       )}
@@ -208,7 +208,7 @@ export const InputGroup = ({
           accessibilityRole={accessibilityRole}
           accessibilityState={accessibilityState}
           accessible={accessible}
-          className="absolute inset-0 z-0 rounded-lg active:bg-accent/90 dark:active:bg-accent/50"
+          className="active:bg-accent/90 dark:active:bg-accent/50 absolute inset-0 z-0 rounded-lg"
           delayLongPress={delayLongPress}
           disabled={disabled}
           hitSlop={hitSlop}
@@ -253,7 +253,7 @@ export const InputAddonIcon = ({
     child as React.ReactElement<{ className?: string; pointerEvents?: "none" }>,
     {
       ...props,
-      className: cn("size-6 text-muted-foreground", props.className),
+      className: cn("text-muted-foreground size-6", props.className),
       pointerEvents: "none",
     }
   );

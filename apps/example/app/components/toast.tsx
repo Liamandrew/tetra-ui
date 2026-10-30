@@ -14,7 +14,7 @@ const showCustomToast = () => {
   const id = { current: "" as string | number };
 
   id.current = toast.custom(
-    <View className="mx-4 flex-row items-center gap-3 rounded-xl border border-border bg-popover p-4">
+    <View className="border-border bg-popover mx-4 flex-row items-center gap-3 rounded-xl border p-4">
       <View className="flex-1">
         <Text className="font-medium">Event has been created.</Text>
         <Text className="text-muted-foreground text-sm">

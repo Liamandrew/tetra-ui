@@ -349,7 +349,7 @@ export const ChoiceboxItemTitle = ({
 }: ChoiceboxItemTitleProps) => {
   return (
     <Text
-      className={cn("font-semibold text-base text-foreground", className)}
+      className={cn("text-foreground text-base font-semibold", className)}
       {...props}
     />
   );

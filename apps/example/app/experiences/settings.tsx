@@ -145,7 +145,7 @@ export default function SettingsExperience() {
           </InlineList>
 
           <Stack gap="sm">
-            <Text className="px-1 font-medium text-muted-foreground text-sm">
+            <Text className="text-muted-foreground px-1 text-sm font-medium">
               Appearance
             </Text>
             <SegmentedControl
@@ -165,11 +165,11 @@ export default function SettingsExperience() {
             </SegmentedControl>
             <Stack className="items-center px-1" direction="row" gap="xs">
               {theme === "dark" ? (
-                <MoonIcon className="size-4 text-muted-foreground" />
+                <MoonIcon className="text-muted-foreground size-4" />
               ) : (
-                <SunIcon className="size-4 text-muted-foreground" />
+                <SunIcon className="text-muted-foreground size-4" />
               )}
-              <Text className="flex-1 text-muted-foreground text-sm">
+              <Text className="text-muted-foreground flex-1 text-sm">
                 Applies across the app
               </Text>
               <DemoHint>
@@ -180,14 +180,14 @@ export default function SettingsExperience() {
           </Stack>
 
           <Stack gap="sm">
-            <Text className="px-1 font-medium text-muted-foreground text-sm">
+            <Text className="text-muted-foreground px-1 text-sm font-medium">
               About
             </Text>
             <View className="w-full">
               <Accordion collapsible type="single">
                 <AccordionItem value="privacy">
                   <AccordionTrigger>
-                    <Text className="flex-1 font-medium text-foreground">
+                    <Text className="text-foreground flex-1 font-medium">
                       Privacy
                     </Text>
                     <AccordionIndicator />
@@ -201,7 +201,7 @@ export default function SettingsExperience() {
                 </AccordionItem>
                 <AccordionItem value="version">
                   <AccordionTrigger>
-                    <Text className="flex-1 font-medium text-foreground">
+                    <Text className="text-foreground flex-1 font-medium">
                       Version
                     </Text>
                     <AccordionIndicator />
@@ -214,7 +214,7 @@ export default function SettingsExperience() {
                 </AccordionItem>
                 <AccordionItem value="support">
                   <AccordionTrigger>
-                    <Text className="flex-1 font-medium text-foreground">
+                    <Text className="text-foreground flex-1 font-medium">
                       Support
                     </Text>
                     <AccordionIndicator />

@@ -43,7 +43,7 @@ export const SearchInput = ({
   return (
     <InputGroup
       accessible={false}
-      className={cn(groupClassName, "min-h-11 bg-input/40 py-1 pl-0")}
+      className={cn(groupClassName, "bg-input/40 min-h-11 py-1 pl-0")}
       disabled={disabled}
       focused={isFocused}
       inputFocused={isFocused}

@@ -20,7 +20,7 @@ export default function CardScreen() {
 
       <ScreenHero className="bg-background">
         <Stack direction="row" gap="sm">
-          <Card className="flex-1 bg-muted">
+          <Card className="bg-muted flex-1">
             <CardHeader>
               <CardTitle>Basic</CardTitle>
             </CardHeader>
@@ -35,7 +35,7 @@ export default function CardScreen() {
               </Button>
             </CardFooter>
           </Card>
-          <Card className="flex-1 bg-muted">
+          <Card className="bg-muted flex-1">
             <CardHeader>
               <CardTitle>Pro</CardTitle>
             </CardHeader>

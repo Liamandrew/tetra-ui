@@ -27,7 +27,7 @@ export function CodeCollapsibleWrapper({
       <CollapsibleTrigger asChild>
         <div className="absolute top-1.5 right-9 z-10 flex items-center">
           <Button
-            className="h-7 rounded-md px-2 text-muted-foreground"
+            className="text-muted-foreground h-7 rounded-md px-2"
             size="sm"
             variant="ghost"
           >
@@ -37,12 +37,12 @@ export function CodeCollapsibleWrapper({
         </div>
       </CollapsibleTrigger>
       <CollapsibleContent
-        className="relative mt-6 overflow-hidden data-[state=closed]:max-h-64 [&>figure+figure]:mt-4 [&>figure>div]:max-h-none data-[state=closed]:[&>figure>div]:overflow-hidden [&>figure]:mt-0 [&>figure]:md:mx-0!"
+        className="relative mt-6 overflow-hidden data-[state=closed]:max-h-64 [&>figure]:mt-0 [&>figure]:md:mx-0! [&>figure+figure]:mt-4 [&>figure>div]:max-h-none data-[state=closed]:[&>figure>div]:overflow-hidden"
         forceMount
       >
         {children}
       </CollapsibleContent>
-      <CollapsibleTrigger className="absolute inset-x-0 -bottom-2 flex h-20 items-center justify-center rounded-b-lg bg-linear-to-b from-fd-card/70 to-fd-card text-muted-foreground text-sm group-data-[state=open]/collapsible:hidden">
+      <CollapsibleTrigger className="from-fd-card/70 to-fd-card text-muted-foreground absolute inset-x-0 -bottom-2 flex h-20 items-center justify-center rounded-b-lg bg-linear-to-b text-sm group-data-[state=open]/collapsible:hidden">
         {isOpened ? "Collapse" : "Expand"}
       </CollapsibleTrigger>
     </Collapsible>

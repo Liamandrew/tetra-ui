@@ -14,11 +14,11 @@
     "test": "turbo run test"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.5.15",
+    "@biomejs/biome": "2.6.3",
     "husky": "^9.1.7",
     "turbo": "^2.11.10",
     "typescript": "~6.0.3",
-    "ultracite": "8.0.1"
+    "ultracite": "8.1.0"
   },
   "packageManager": "pnpm@12.3.1",
   "engines": {

@@ -298,7 +298,7 @@ export const AccordionItem = ({
     <AccordionItemContext.Provider value={itemCtx}>
       <AnimatedView
         className={cn(
-          "overflow-hidden bg-card",
+          "bg-card overflow-hidden",
           ACCORDION_ITEM_LAYOUT_CLASSNAME[layout],
           className
         )}
@@ -347,7 +347,7 @@ export const AccordionTrigger = ({
       accessibilityRole="button"
       accessibilityState={{ expanded: item.isOpen }}
       className={cn(
-        "flex flex-row items-center justify-between gap-2 bg-card px-3 py-3 active:opacity-75",
+        "bg-card flex flex-row items-center justify-between gap-2 px-3 py-3 active:opacity-75",
         className
       )}
       nativeID={item.triggerId}
@@ -419,7 +419,7 @@ export const AccordionIndicator = ({
   return (
     <Animated.View style={animatedStyle}>
       <ChevronDownIcon
-        className={cn("size-5 shrink-0 text-muted-foreground", className)}
+        className={cn("text-muted-foreground size-5 shrink-0", className)}
       />
     </Animated.View>
   );
