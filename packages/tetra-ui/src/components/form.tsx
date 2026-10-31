@@ -22,6 +22,7 @@ type InternalFieldContextType = FieldStateProps & {
 };
 
 export type FieldProps = InternalFieldContextType & {
+  className?: string;
   children: React.ReactNode;
 };
 
@@ -46,6 +47,7 @@ export const Field = ({
   invalid,
   disabled,
   children,
+  className,
 }: FieldProps) => {
   const ctx = useMemo(
     () => ({ disabled, errorMessage, invalid }),
@@ -54,7 +56,7 @@ export const Field = ({
 
   return (
     <FieldContext.Provider value={ctx}>
-      <View className="flex flex-col gap-2">{children}</View>
+      <View className={cn("flex flex-col gap-2", className)}>{children}</View>
     </FieldContext.Provider>
   );
 };
