@@ -8,12 +8,15 @@ import {
   Text as TextPrimitive,
 } from "@expo/ui/jetpack-compose";
 import { menuAnchor } from "@expo/ui/jetpack-compose/modifiers";
+import { createContext, useContext } from "react";
 import { View } from "react-native";
 import { useCSSVariable } from "uniwind";
 
 // Must match InputGroup's focused/invalid outlineWidth. Outline paints
 // outside layout; RNHostView/AndroidView clips to the hosted child's bounds.
 const INPUT_OUTLINE_MAX_WIDTH = 2;
+
+const InsideAndroidHostContext = createContext(false);
 
 type NativeSelectAndroidHostProps = {
   open: boolean;
@@ -35,18 +38,19 @@ export const NativeSelectAndroidHost = ({
 }: NativeSelectAndroidHostProps) => {
   return (
     <Host
-      matchContents
+      matchContents={{ vertical: true }}
       style={{
         alignSelf: "stretch",
         margin: -INPUT_OUTLINE_MAX_WIDTH,
-        width: "100%",
       }}
     >
       <ExposedDropdownMenuBox
         expanded={open}
         onExpandedChange={disabled ? undefined : onOpenChange}
       >
-        {children}
+        <InsideAndroidHostContext.Provider value>
+          {children}
+        </InsideAndroidHostContext.Provider>
       </ExposedDropdownMenuBox>
     </Host>
   );
@@ -62,9 +66,17 @@ export const NativeSelectTriggerAnchor = ({
   disabled,
   children,
 }: NativeSelectTriggerAnchorProps) => {
+  const insideAndroidHost = useContext(InsideAndroidHostContext);
+
+  // The Host mounts only after the trigger slot registers, so the first
+  // render has no Compose parent and RNHostView would throw.
+  if (!insideAndroidHost) {
+    return children;
+  }
+
   return (
     <RNHostView
-      matchContents
+      matchContents={{ vertical: true }}
       modifiers={[menuAnchor("primaryNotEditable", !disabled)]}
     >
       <View
