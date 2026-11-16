@@ -156,7 +156,11 @@ export const NativeDateSelectPicker = ({
         displayedComponents={modeToDisplayedComponents(mode)}
         initialDate={value.toISOString()}
         is24Hour={is24Hour}
-        onDateSelected={onValueChange}
+        onDateSelected={(date) => {
+          if (date) {
+            onValueChange(date);
+          }
+        }}
         selectableDates={selectableDates}
         showVariantToggle={false}
         variant={variantToAndroidPickerVariant(variant)}
