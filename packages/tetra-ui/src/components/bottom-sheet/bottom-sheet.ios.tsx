@@ -1,9 +1,9 @@
 import type { SnapPoint } from "@expo/ui";
 import {
   BottomSheet as BottomSheetPrimitive,
-  Group as GroupPrimitive,
   Host as HostPrimitive,
   RNHostView,
+  VStack,
 } from "@expo/ui/swift-ui";
 import {
   frame,
@@ -17,12 +17,6 @@ import {
 } from "@expo/ui/swift-ui/modifiers";
 import { useMemo } from "react";
 import { useWindowDimensions, View } from "react-native";
-import { useReanimatedKeyboardAnimation } from "react-native-keyboard-controller";
-import Animated, {
-  Extrapolation,
-  interpolate,
-  useAnimatedStyle,
-} from "react-native-reanimated";
 import {
   SafeAreaInsetsContext,
   useSafeAreaInsets,
@@ -111,7 +105,11 @@ const BottomSheetContentView = ({
       );
     }
   } else {
-    contentModifiers.push(presentationSizing("fitted"));
+    contentModifiers.push(
+      presentationSizing("form", {
+        fitted: { horizontal: false, vertical: true },
+      })
+    );
   }
 
   const content = (
@@ -119,7 +117,7 @@ const BottomSheetContentView = ({
       className={cn("flex-col", className)}
       style={[
         fitToContents
-          ? { maxHeight: maxFitToContentsHeight, width: windowWidth }
+          ? { maxHeight: maxFitToContentsHeight }
           : {
               flexGrow: 1,
               height: 0,
@@ -143,8 +141,8 @@ const BottomSheetContentView = ({
           isPresented={open}
           onIsPresentedChange={onOpenChange}
         >
-          <GroupPrimitive modifiers={contentModifiers}>
-            <RNHostView matchContents={fitToContents}>
+          <VStack modifiers={contentModifiers} spacing={0}>
+            <RNHostView matchContents={{ vertical: fitToContents }}>
               {extendScrollToBottomEdge ? (
                 <SafeAreaInsetsContext.Provider value={ZERO_INSETS}>
                   {content}
@@ -153,7 +151,8 @@ const BottomSheetContentView = ({
                 content
               )}
             </RNHostView>
-          </GroupPrimitive>
+            <bottomSheetSlots.Outlet name="footer" />
+          </VStack>
         </BottomSheetPrimitive>
       </HostPrimitive>
     </BottomSheetContext.Provider>
@@ -165,31 +164,18 @@ export const BottomSheetFooter = ({
   style,
   ...props
 }: BottomSheetFooterProps) => {
-  const { bottom } = useSafeAreaInsets();
-  const { progress: keyboardProgress } = useReanimatedKeyboardAnimation();
-
-  const animatedStyle = useAnimatedStyle(
-    () => ({
-      paddingBottom: interpolate(
-        keyboardProgress.value,
-        [0, 1],
-        [bottom ? 0 : BOTTOM_SHEET_PADDING, BOTTOM_SHEET_PADDING],
-        Extrapolation.CLAMP
-      ),
-    }),
-    [bottom]
-  );
-
   return (
-    <bottomSheetSlots.Fill name="footer" passthrough>
-      <Animated.View
-        className={cn(
-          "border-border bg-background shrink-0 flex-col gap-2 border-t px-4 pt-4",
-          className
-        )}
-        style={[animatedStyle, style]}
-        {...props}
-      />
+    <bottomSheetSlots.Fill name="footer">
+      <RNHostView matchContents={{ vertical: true }}>
+        <View
+          className={cn(
+            "border-border bg-background shrink-0 flex-col gap-2 border-t px-4 pt-4",
+            className
+          )}
+          style={[{ paddingBottom: BOTTOM_SHEET_PADDING }, style]}
+          {...props}
+        />
+      </RNHostView>
     </bottomSheetSlots.Fill>
   );
 };
