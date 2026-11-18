@@ -127,6 +127,7 @@ export const BottomSheetScrollView = ({
           contentContainerClassName
         )}
         contentInsetAdjustmentBehavior="never"
+        keyboardShouldPersistTaps="handled"
         nestedScrollEnabled
         {...props}
       />
