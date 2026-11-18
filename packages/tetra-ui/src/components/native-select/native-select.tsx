@@ -646,7 +646,7 @@ export const NativeSelectContent = ({ children }: NativeSelectContentProps) => {
           onOpenChange={onOpenChange}
           onValueChange={onValueChange}
           open={open}
-          selectedValue={committedValue}
+          selectedValue={value}
         />
       </>
     );
